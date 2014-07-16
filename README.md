@@ -1,16 +1,19 @@
-= Welcome to Luleka
+# Welcome to Luleka
 
 Luleka is an online community to create trusted connections with professionals (a la Angie’s List but for consultants), such as lawyers, accountants, architects, brokers, engineers.
 
-== Setup MySQL
+## Setup MySQL
 
+```
 mysqladmin -u root -p create luleka_development
 mysqladmin -u root -p create luleka_test
 mysqladmin -u root -p create luleka_production
 mysqladmin -u root -p create luleka_staging
 
 mysql -u root -p
+```
 
+``` SQL
 GRANT ALL ON luleka_production.* TO 'rails'@'localhost' IDENTIFIED BY 'password';
 GRANT FILE ON *.* TO 'rails'@'localhost' IDENTIFIED BY 'password'; 
 FLUSH PRIVILEGES; 
@@ -19,8 +22,9 @@ ALTER DATABASE `luleka_development` DEFAULT CHARACTER SET utf8 COLLATE utf8_unic
 ALTER DATABASE `luleka_test` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 ALTER DATABASE `luleka_production` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 ALTER DATABASE `luleka_staging` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+```
 
-== SQL dumps
+## SQL dumps
 
 mysqldump -u root luleka_development > dump.sql
 
@@ -28,7 +32,7 @@ and importing
 
 mysql -u root luleka_development < dump.sql 
 
-== Setup SSH keys
+## Setup SSH keys
 
 ssh-keygen -t dsa
 
@@ -38,7 +42,7 @@ ssh-agent sh -c 'ssh-add < /dev/null && bash'
 
 ssh production.corp.luleka.net
 
-== Hosts
+## Hosts
 
 For local development and testing add the following to your etc/hosts
 
@@ -47,7 +51,7 @@ us.luleka.local 127.0.0.1
 de.luleka.local 127.0.0.1
 ...
 
-== RSpec
+## RSpec
 
 Install rspec on your system by using
 
@@ -58,62 +62,38 @@ or follow the instructions to install the plugins on
 http://github.com/dchelimsky/rspec-rails/wikis/home
 
 
-==SVN
+## SVN
 
 svn co svn://svn.corp.luleka.net/luleka/source/trunk
 
-# ignore parts of the project
-svn remove log/*
-svn propset svn:ignore "*.log" log/
-svn update log/
-svn commit -m "ignore all log archives in log\/ that match .log"
+## Command Line Fu's
 
-
-svn propset svn:ignore "database.yml" config/
-svn update config/
-svn commit -m "ignore database.yml"
-
-svn propset svn:ignore "*" public/images/application/avatar/
-svn update public/images/application/avatar/
-svn commit -m "ignore public images avatar"
-
-
-== Command Line Fu's
 find . \( -name "*.rb" -or -name "*.rhtml" -or -name "*.erb" \) | xargs grep -l 'luleka_div' | xargs sed -i -e 's/luleka_div/div/g'
 
-== Freeze Rails
-
-Make sure there is no previous version of rails frozen into the project
-
- rake rails:unfreeze
- 
-Rails version currently frozen:
-
- rake rails:freeze:edge TAG=rel_2-0-2
-
-
-== Required Gems
+## Required Gems
 
 sudo gem install money
 sudo gem install backgroundrb
 
-# optionals
+## Optionals
+
 sudo gem install sysloglogger
 sudo gem install rails_analyzer_tools
 
 
-== Capistrano Tasks
+## Capistrano Tasks
 cap deploy
 cap migrations             # deploy with migrations
 cap deprec:nginx:restart   # restart nginx
 
 
-== Magic grep (@gruban)
+## Magic grep (@gruban)
 tail -f production.log | grep 'Completed' | grep -P '[1-9]\.\d\d\d\d\d'
 
 
-== Wildcard subdomains without local DNS server through proxy.pac
+## Wildcard subdomains without local DNS server through proxy.pac
 
+```
 # ~.proxy.pac
 #
 # E.g.
@@ -130,3 +110,4 @@ function FindProxyForURL(url, host) {
   return "DIRECT";
 }
 
+```
