@@ -26,69 +26,66 @@ ALTER DATABASE `luleka_staging` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_
 
 ## SQL dumps
 
-mysqldump -u root luleka_development > dump.sql
+    mysqldump -u root luleka_development > dump.sql
 
 and importing
 
-mysql -u root luleka_development < dump.sql 
+    mysql -u root luleka_development < dump.sql 
 
 ## Setup SSH keys
 
-ssh-keygen -t dsa
+    ssh-keygen -t dsa
 
-authme production.corp.luleka.net
+    authme production.corp.luleka.net
 
-ssh-agent sh -c 'ssh-add < /dev/null && bash'
+    ssh-agent sh -c 'ssh-add < /dev/null && bash'
 
-ssh production.corp.luleka.net
+    ssh production.corp.luleka.net
 
 ## Hosts
 
 For local development and testing add the following to your etc/hosts
 
-luleka.local 127.0.0.1
-us.luleka.local 127.0.0.1
-de.luleka.local 127.0.0.1
-...
+    luleka.local 127.0.0.1
+    us.luleka.local 127.0.0.1
+    de.luleka.local 127.0.0.1
+    ...
 
 ## RSpec
 
 Install rspec on your system by using
 
-sudo gem install rspec
+    sudo gem install rspec
 
 or follow the instructions to install the plugins on 
 
 http://github.com/dchelimsky/rspec-rails/wikis/home
 
 
-## SVN
-
-svn co svn://svn.corp.luleka.net/luleka/source/trunk
-
 ## Command Line Fu's
 
-find . \( -name "*.rb" -or -name "*.rhtml" -or -name "*.erb" \) | xargs grep -l 'luleka_div' | xargs sed -i -e 's/luleka_div/div/g'
+    find . \( -name "*.rb" -or -name "*.rhtml" -or -name "*.erb" \) | xargs grep -l 'luleka_div' | xargs sed -i -e 's/luleka_div/div/g'
 
 ## Required Gems
 
-sudo gem install money
-sudo gem install backgroundrb
+    sudo gem install money
+    sudo gem install backgroundrb
 
 ## Optionals
 
-sudo gem install sysloglogger
-sudo gem install rails_analyzer_tools
-
+    sudo gem install sysloglogger
+    sudo gem install rails_analyzer_tools
 
 ## Capistrano Tasks
-cap deploy
-cap migrations             # deploy with migrations
-cap deprec:nginx:restart   # restart nginx
+
+    cap deploy
+    cap migrations             # deploy with migrations
+    cap deprec:nginx:restart   # restart nginx
 
 
 ## Magic grep (@gruban)
-tail -f production.log | grep 'Completed' | grep -P '[1-9]\.\d\d\d\d\d'
+
+    tail -f production.log | grep 'Completed' | grep -P '[1-9]\.\d\d\d\d\d'
 
 
 ## Wildcard subdomains without local DNS server through proxy.pac
