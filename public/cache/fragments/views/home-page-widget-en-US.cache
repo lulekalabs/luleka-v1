@@ -1,0 +1,1453 @@
+"O�
+  
+  <div class="kvContainer" id="kvContainer">
+    <div class="kvTopContainer">
+      <div class="kvTopLeftContainer">
+      	<!-- turquoise -->
+      	<div class="kvBoxTurquoiseContainer">
+      		<div class="kvBoxTurquoiseIcon">&nbsp;</div>
+      		<h2 class="kvBoxTurquoiseTitle">
+      		  Seek advice?
+      		</h2>
+      		<div class="clearClass"></div>
+      		<div class="kvBoxTurquoiseTop"></div>
+      		<div class="kvBoxTurquoiseMiddle">
+      			<div class="kvBoxTurquoiseGutter">
+      				<div class="kvBoxTurquoiseStep">1</div>
+      			</div>
+      			<div class="kvBoxTurquoiseContent">
+      				<div class="kvBoxTurquoiseDescription">
+      					Luleka is a source for trusted recommendations
+      				</div>
+      				Find fast, reliable advice and solutions.
+      			</div>
+      			<div class="clearClass"></div>
+      		</div>
+      		<div class="kvBoxTurquoiseBottom"></div>
+      	</div>
+      </div>
+    
+      <div class="kvTopRightContainer">
+      	<!-- share concern -->
+      	<div class="kvBoxBlueWideContainer" style="padding-left:0;">
+      	  <div class="kvBoxBlueWideIcon" id="kvAvatar">
+      	    <img alt="Male_large_turquoise" src="http://luleka.local/images/icons/avatars/male_large_turquoise.png?1268752816" />
+      	    <script>
+            //<![CDATA[
+            new Ajax.Updater({success:'kvAvatar'}, '/home_page/widget_avatar', {asynchronous:true, evalScripts:true, method:'put', parameters:'authenticity_token=' + encodeURIComponent('zrPObG8ieO/HFSyA9CxexcY5QKstW66iL+jzccVm4+Q=')})
+            //]]>
+            </script>
+      	  </div>
+      		<h2 class="kvBoxBlueWideTitle">
+      		  Share your concern
+      		  <a href="/concerns/recent">View latest&nbsp;<b>&rsaquo;</b></a>
+      		</h2>
+      		<div class="clearClass"></div>
+      		<div class="kvBoxBlueWideTop"></div>
+      		<div class="kvBoxBlueWideMiddle">
+      			<div class="kvBoxBlueWideGutter">
+      				<div class="kvBoxBlueWideStep">
+      					2
+      				</div>
+      			</div>
+      			<div class="kvBoxBlueWideContent">
+
+              <script type="text/javascript">
+//<![CDATA[
+Event.observe(window, 'dom:loaded', function() { Luleka.Form.reset('kase'); });
+//]]>
+</script><form action="/concerns/new" id="kase_form_565377" method="post" name="kase" onsubmit="$('kase_form_565377').fire('submit:before');$('kase_form_565377').fire('submit:loading');;"><div style="margin:0;padding:0;display:inline"><input name="authenticity_token" type="hidden" value="zrPObG8ieO/HFSyA9CxexcY5QKstW66iL+jzccVm4+Q=" /></div>
+
+                
+
+          	      <dl class="fieldRow" style="position: relative;">
+                    <dd>
+                      <label class="prompted" for="title_kase">Enter your question, idea, problem or praise here</label>
+                      <span class="fieldwrap">
+                      <textarea class="title" cols="80" id="title_kase" label="false" name="title" rows="2"></textarea>
+                      </span>  
+                    </dd><div class="clearClass"></div>
+                  </dl>
+
+          	      <div class="formButtonContainer">
+          	        <a href="#" id="kvExampleTip" class="questionmark"><span>Examples</span></a>
+          	        <input id="_property_key" name="_property" type="hidden" value="" /><div class="blueButtonNormal" id="kase_form_565377_button" style="float:right;"><a href="/concerns/new" onclick="try {
+$('kase_form_565377_button_hidden').simulate('click');
+} catch (e) { alert('RJS error:\n\n' + e.toString()); alert('$(\'kase_form_565377_button_hidden\').simulate(\'click\');'); throw e }; return false;"><div class="blueButtonNormalLeft"></div><div class="blueButtonNormalText">Share</div></a></div><input id="kase_form_565377_button_hidden" name="commit" style="position:absolute;top:-10000px;left:-10000px;" type="submit" value="Share" /><div style="float:right;margin-right:10px;"><span class="spinnerBlue " id="kase_form_565377_spinner" style="display: none;;"></span></div><script type="text/javascript">
+//<![CDATA[
+Event.observe('kase_form_565377', 'submit:loading', function(event) {
+  if ($('kase_form_565377_button')) $('kase_form_565377_button').hide();
+  if ($('kase_form_565377_spinner')) $('kase_form_565377_spinner').show();
+  return true;
+});
+
+//]]>
+</script>
+          	      </div>
+          	      <div id="kvExamples" style="display:none;">
+          	        
+<ul>
+  <li>
+    <span><a href="http://legal.luleka.local/">Business Legal</a></span>&nbsp;Which legal structure suits my small business?
+  </li>
+  <li>
+    <span><a href="http://money.luleka.local/">Real-estate</a></span>&nbsp;How do I determine the fair market value of a rental?
+  </li>
+  <li>
+    <span><a href="http://legal.luleka.local/">IT Legal</a></span>&nbsp;Which license agreements should I use for my Website?
+  </li>
+  <li>
+    <span><a href="http://med.luleka.local/">Health</a></span>&nbsp;What is the limit of healthy weight loss per week?
+  </li>
+  <li>
+    <span><a href="http://travel.luleka.local/">Travel</a></span>&nbsp;Does anyone have any hotel suggestions for a weekend trip to Rhode Island, RI?
+  </li>
+  <li>
+    <span><a href="http://legal.luleka.local/">Employment Law</a></span>&nbsp;How do I prepare a reasonable notice of termination of employment?
+  </li>
+  <li>
+    <span><a href="http://money.luleka.local/">Business and Money</a></span>&nbsp;How can I find out my credit score?
+  </li>
+  <li>
+    <span><a href="http://computer.luleka.local/">Computer Software</a></span>&nbsp;How can I set up my e-mail client to prevent spam and phishing attempts?
+  </li>
+  <li class="last">
+    <span><a href="http://money.luleka.local/">Business</a></span>&nbsp;Which tools can be used to track social media activity?
+  </li>
+</ul>
+
+        	        </div>
+        	        
+        	        
+      	      </form>
+
+      			</div>
+      			<div class="clearClass"></div>
+      		</div>
+      		<div class="kvBoxBlueWideBottom"></div>
+      	</div>
+      </div>
+  	
+    </div>
+  	<div class="clearClass"></div>
+  	<div class="kvBottomContainer">
+	  
+  	  <div class="kvBottomLeftContainer">
+  	    <!-- list -->
+    	  <div class="kvBoxWhiteContainer" style="padding-left:0">
+      		<h2 class="kvBoxWhiteTitle">
+    	      Latest Recommendations
+    	      <a href="/concerns">View all&nbsp;<b>&rsaquo;</b></a>
+      		</h2>
+      		<div class="clearClass"></div>
+      		<div class="kvBoxWhiteTop"></div>
+      		<div class="kvBoxWhiteMiddle" style="height:274px">
+      			<div class="kvBoxWhiteContent full">
+
+              
+<ul class="simpleList clearfix">
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/como-puedo-buscar-alguien-de-confianza-para-cuidado-de-ninos" class="title" title="¿Cómo puedo buscar alguien de confianza para cuidado de niños?">¿Cómo puedo buscar alguien de confian...</a>
+      
+      
+      <span class="description">
+        <p>Necesito una persona para cuidado de niños por 3 a 4 meses. Tendría que se un</p>...
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-953995"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-953995').update(Luleka.DateHelper.distanceOfTimeInWords(1290520523000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/fuenfzehnte-frage" class="title" title="Fünfzehnte frage">Fünfzehnte frage</a>
+      
+      
+      <span class="description">
+        <p>Fünfzehnte frage ... fünfzehnte frage!</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-837222"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-837222').update(Luleka.DateHelper.distanceOfTimeInWords(1290107032000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/vierzehnte-frage" class="title" title="vierzehnte frage">vierzehnte frage</a>
+      
+      
+      <span class="description">
+        <p>vierzehnte frage zigste frage </p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-769160"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-769160').update(Luleka.DateHelper.distanceOfTimeInWords(1290106930000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/dreizehnte-frage" class="title" title="dreizehnte frage">dreizehnte frage</a>
+      
+      
+      <span class="description">
+        <p>dreizehnte frage dreizehnte frage</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-157447"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-157447').update(Luleka.DateHelper.distanceOfTimeInWords(1290106857000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/zwoelfte-frage" class="title" title="zwölfte frage">zwölfte frage</a>
+      
+      
+      <span class="description">
+        <p>zwölfte frage bla bla bla bla</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-77487"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-77487').update(Luleka.DateHelper.distanceOfTimeInWords(1290106738000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/elfte-frage" class="title" title="elfte frage">elfte frage</a>
+      
+      
+      <span class="description">
+        <p>elfte frage elfte frage elfte frage</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-181478"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-181478').update(Luleka.DateHelper.distanceOfTimeInWords(1290106540000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/zehnte-frage" class="title" title="zehnte frage">zehnte frage</a>
+      
+      
+      <span class="description">
+        <p>zehnte frage zehnte frage</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-249684"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-249684').update(Luleka.DateHelper.distanceOfTimeInWords(1290106472000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/neunte-frage" class="title" title="neunte frage">neunte frage</a>
+      
+      
+      <span class="description">
+        <p>neunte frage neunte frage</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-34166"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-34166').update(Luleka.DateHelper.distanceOfTimeInWords(1290106381000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/achte-frage" class="title" title="achte frage">achte frage</a>
+      
+      
+      <span class="description">
+        <p>achte frage achte frage</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-435682"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-435682').update(Luleka.DateHelper.distanceOfTimeInWords(1290106281000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/siebte-frage" class="title" title="siebte frage">siebte frage</a>
+      
+      
+      <span class="description">
+        <p>siebte frage siebte frage</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-346547"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-346547').update(Luleka.DateHelper.distanceOfTimeInWords(1290106079000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/sechste-frage" class="title" title="sechste frage">sechste frage</a>
+      
+      
+      <span class="description">
+        <p>sechste frage sechste frage sechste frage</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-190155"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-190155').update(Luleka.DateHelper.distanceOfTimeInWords(1290105738000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/fuenfte-frage" class="title" title="fünfte frage">fünfte frage</a>
+      
+      
+      <span class="description">
+        <p>fünfte frage fünfte frage fünfte frage</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-904006"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-904006').update(Luleka.DateHelper.distanceOfTimeInWords(1290105694000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/vierte-frage" class="title" title="vierte frage">vierte frage</a>
+      
+      
+      <span class="description">
+        <p>vierte frage vierte frage vierte frage</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-711869"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-711869').update(Luleka.DateHelper.distanceOfTimeInWords(1290105654000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/dritte-frage" class="title" title="dritte frage">dritte frage</a>
+      
+      
+      <span class="description">
+        <p>dritte frage dritte frage dritte frage </p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-979762"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-979762').update(Luleka.DateHelper.distanceOfTimeInWords(1290105607000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/erste-frage" class="title" title="erste frage">erste frage</a>
+      
+      
+      <span class="description">
+        <p>erste frage erste frage erste frage</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-112868"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-112868').update(Luleka.DateHelper.distanceOfTimeInWords(1290105567000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/zweite-frage" class="title" title="Zweite Frage">Zweite Frage</a>
+      
+      
+      <span class="description">
+        <p>Zweite Frage muss lang sein</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-287864"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-287864').update(Luleka.DateHelper.distanceOfTimeInWords(1290105478000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/geldueberweisungen-von-europaeischem-konto-nach-argentinien" class="title" title="Geldüberweisungen von europäischem Konto nach Argentinien">Geldüberweisungen von europäischem Ko...</a>
+      
+      
+      <span class="description">
+        <p>Wie kann ich eine größere Summe Geld von meinem europäischen Konto nach Argen</p>...
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-320100"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-320100').update(Luleka.DateHelper.distanceOfTimeInWords(1289595624000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/questions/i-would-like-to-send-a-package-from-buenos-aires-to-miami" class="title" title="I would like to send a package from Buenos Aires to Miami">I would like to send a package from B...</a>
+      
+      
+      <span class="description">
+        <p>I live in Buenos Aires and would like to send a package to Miami. What is the</p>...
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-560176"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-560176').update(Luleka.DateHelper.distanceOfTimeInWords(1288806276000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/mariana" title="Mariana Saiz"><img alt="mariana" class="pcard" height="35" rel="/people/mariana/pcard" src="http://luleka.local/images/application/people/avatars/2b2ccca944/thumb_mariana.jpg?1278596406" title="mariana" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/mariana" class="name pcard" rel="/people/mariana/pcard">mariana</a>
+      
+      
+      <a href="/ideas/contactos-comunidad" class="title" title="Contactos Comunidad">Contactos Comunidad</a>
+      
+      
+      <span class="description">
+        <p><strong>Puedo</strong> invitar contactos a una comunidad? Quiero invitar mis amigos a un grupo</p>...
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Idea posted <span id="ta-4660"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-4660').update(Luleka.DateHelper.distanceOfTimeInWords(1264037569000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juanamatheu" title="Juana Matheu"><img alt="Juana Matheu" class="pcard" height="35" rel="/people/juanamatheu/pcard" src="http://luleka.local/images/icons/avatars/female_blue.png?1268752816" title="Juana Matheu" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juanamatheu" class="name pcard" rel="/people/juanamatheu/pcard">Juana Matheu</a>
+      
+      
+      <a href="/problems/mal-servicio-tba" class="title" title="Mal servicio TBA">Mal servicio TBA</a>
+      
+      
+      <span class="description">
+        <p><strong>Vivo</strong> lejos de mi trabajo y la opción que tengo es tomarme el tren todas las m</p>...
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Problem posted <span id="ta-215985"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-215985').update(Luleka.DateHelper.distanceOfTimeInWords(1264036025000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/mariana" title="Mariana Saiz"><img alt="mariana" class="pcard" height="35" rel="/people/mariana/pcard" src="http://luleka.local/images/application/people/avatars/2b2ccca944/thumb_mariana.jpg?1278596406" title="mariana" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/mariana" class="name pcard" rel="/people/mariana/pcard">mariana</a>
+      
+      
+      <a href="/questions/entregan-en-el-microcentro" class="title" title="entregan en el microcentro?">entregan en el microcentro?</a>
+      
+      
+      <span class="description">
+        <p>entregan en florida y lavalle?</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-630163"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-630163').update(Luleka.DateHelper.distanceOfTimeInWords(1264006333000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/mariana" title="Mariana Saiz"><img alt="mariana" class="pcard" height="35" rel="/people/mariana/pcard" src="http://luleka.local/images/application/people/avatars/2b2ccca944/thumb_mariana.jpg?1278596406" title="mariana" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/mariana" class="name pcard" rel="/people/mariana/pcard">mariana</a>
+      
+      
+      <a href="/questions/medio-de-pago" class="title" title="medio de pago">medio de pago</a>
+      
+      
+      <span class="description">
+        <p>Medios de pago en caso de pida a través de delivery.</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-403617"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-403617').update(Luleka.DateHelper.distanceOfTimeInWords(1262882803000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/35" title="Mario Pedemonte"><img alt="Mario Pedemonte" class="pcard" height="35" rel="/people/35/pcard" src="http://luleka.local/images/icons/avatars/male_blue.png?1268752816" title="Mario Pedemonte" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/35" class="name pcard" rel="/people/35/pcard">Mario Pedemonte</a>
+      
+      
+      <a href="/problems/condiciones-para-participar-de-buenos-aires-emprende" class="title" title="condiciones para participar de buenos aires emprende">condiciones para participar de buenos...</a>
+      
+      
+      <span class="description">
+        <p>cuales son las condiciones para poder participar de buenos aires emprende?</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Problem posted <span id="ta-638940"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-638940').update(Luleka.DateHelper.distanceOfTimeInWords(1261530484000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/35" title="Mario Pedemonte"><img alt="Mario Pedemonte" class="pcard" height="35" rel="/people/35/pcard" src="http://luleka.local/images/icons/avatars/male_blue.png?1268752816" title="Mario Pedemonte" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/35" class="name pcard" rel="/people/35/pcard">Mario Pedemonte</a>
+      
+      
+      <a href="/questions/tiempo-hasta-acceder-al-prestamos" class="title" title="tiempo hasta acceder al prestamos">tiempo hasta acceder al prestamos</a>
+      
+      
+      <span class="description">
+        <p>tiempo hasta tener el dinero en mi cuenta</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-418670"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-418670').update(Luleka.DateHelper.distanceOfTimeInWords(1261530323000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/35" title="Mario Pedemonte"><img alt="Mario Pedemonte" class="pcard" height="35" rel="/people/35/pcard" src="http://luleka.local/images/icons/avatars/male_blue.png?1268752816" title="Mario Pedemonte" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/35" class="name pcard" rel="/people/35/pcard">Mario Pedemonte</a>
+      
+      
+      <a href="/questions/requisitos-para-prestamo" class="title" title="Requisitos para prestamo">Requisitos para prestamo</a>
+      
+      
+      <span class="description">
+        <p>quisiera saber los requisitos para poder pedir un pr'estamos con cetelem</p>
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Question posted <span id="ta-175507"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-175507').update(Luleka.DateHelper.distanceOfTimeInWords(1261530232000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/ideas/herzlich-willkommen" class="title" title="Herzlich willkommen!">Herzlich willkommen!</a>
+      
+      
+      <span class="description">
+        <p>Dies ist ein Ort für eine offene Unterhaltung und Diskussion zwischen Ihnen u</p>...
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Idea posted <span id="ta-749785"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-749785').update(Luleka.DateHelper.distanceOfTimeInWords(1260991564000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/ideas/herzlich-willkommen--2" class="title" title="Herzlich willkommen!">Herzlich willkommen!</a>
+      
+      
+      <span class="description">
+        <p>Dies ist ein Ort für eine offene Unterhaltung und Diskussion zwischen Ihnen u</p>...
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Idea posted <span id="ta-887564"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-887564').update(Luleka.DateHelper.distanceOfTimeInWords(1260991564000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/ideas/bienvenido" class="title" title="Bienvenido!">Bienvenido!</a>
+      
+      
+      <span class="description">
+        <p>Este es un espacio de diálogo abierto entre usted y otras personas con intere</p>...
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Idea posted <span id="ta-616914"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-616914').update(Luleka.DateHelper.distanceOfTimeInWords(1260991451000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/juergen" title="Jürgen Feßlmeier"><img alt="Jürgen Feßlmeier" class="pcard" height="35" rel="/people/juergen/pcard" src="http://luleka.local/images/application/people/avatars/e73b7e3835/thumb_juergen.jpg?1278596458" title="Jürgen Feßlmeier" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/juergen" class="name pcard" rel="/people/juergen/pcard">Jürgen Feßlmeier</a>
+      
+      
+      <a href="/ideas/bienvenido--2" class="title" title="Bienvenido!">Bienvenido!</a>
+      
+      
+      <span class="description">
+        <p>Este es un espacio de diálogo abierto entre usted y otras personas con intere</p>...
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Idea posted <span id="ta-993534"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-993534').update(Luleka.DateHelper.distanceOfTimeInWords(1260991451000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/mariana" title="Mariana Saiz"><img alt="mariana" class="pcard" height="35" rel="/people/mariana/pcard" src="http://luleka.local/images/application/people/avatars/2b2ccca944/thumb_mariana.jpg?1278596406" title="mariana" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/mariana" class="name pcard" rel="/people/mariana/pcard">mariana</a>
+      
+      
+      <a href="/ideas/bienvenido--3" class="title" title="Bienvenido!">Bienvenido!</a>
+      
+      
+      <span class="description">
+        <p>Este es un espacio de diálogo abierto entre usted y otras personas con intere</p>...
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Idea posted <span id="ta-498213"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-498213').update(Luleka.DateHelper.distanceOfTimeInWords(1260991451000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/mariana" title="Mariana Saiz"><img alt="mariana" class="pcard" height="35" rel="/people/mariana/pcard" src="http://luleka.local/images/application/people/avatars/2b2ccca944/thumb_mariana.jpg?1278596406" title="mariana" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/mariana" class="name pcard" rel="/people/mariana/pcard">mariana</a>
+      
+      
+      <a href="/ideas/bienvenido--4" class="title" title="Bienvenido!">Bienvenido!</a>
+      
+      
+      <span class="description">
+        <p>Este es un espacio de diálogo abierto entre usted y otras personas con intere</p>...
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Idea posted <span id="ta-418455"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-418455').update(Luleka.DateHelper.distanceOfTimeInWords(1260991451000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+  <li>
+    
+    
+    <div class="gutter normal">
+      <div class="image normal">
+        <a href="/people/mariana" title="Mariana Saiz"><img alt="mariana" class="pcard" height="35" rel="/people/mariana/pcard" src="http://luleka.local/images/application/people/avatars/2b2ccca944/thumb_mariana.jpg?1278596406" title="mariana" width="35" /></a>
+      </div>  
+    </div>
+    
+    
+    <div class="content normal">
+      
+      
+        <a href="/people/mariana" class="name pcard" rel="/people/mariana/pcard">mariana</a>
+      
+      
+      <a href="/ideas/bienvenido--5" class="title" title="Bienvenido!">Bienvenido!</a>
+      
+      
+      <span class="description">
+        <p>Este es un espacio de diálogo abierto entre usted y otras personas con intere</p>...
+      </span>
+      
+      
+      
+      <div class="status ">
+        
+        Idea posted <span id="ta-350441"></span><script type="text/javascript">
+//<![CDATA[
+      $('ta-350441').update(Luleka.DateHelper.distanceOfTimeInWords(1260991451000, 1290520677000, false));
+
+//]]>
+</script> ago
+      </div>
+      
+    </div>
+  </li>
+  
+</ul>
+
+
+      			</div>
+      			<div class="kvBoxWhiteFade"></div>
+      		</div>
+      		<div class="kvBoxWhiteBottom"></div>
+      	</div>
+      	<div class="clearClass"></div>
+  	  </div>
+
+  	  <div class="kvBottomRightContainer">
+	    
+      	<!-- green -->
+      	<div class="kvBoxGreenContainer">
+      		<div class="kvBoxGreenIcon">&nbsp;</div>
+      		<h2 class="kvBoxGreenTitle">
+      		  Solutions
+      		  <a href="/concerns/solved">View all&nbsp;<b>&rsaquo;</b></a>
+      		</h2>
+      		<div class="clearClass"></div>
+      		<div class="kvBoxGreenTop"></div>
+      		<div class="kvBoxGreenMiddle">
+      			<div class="kvBoxGreenGutter">
+      				<div class="kvBoxGreenStep">
+      					3
+      				</div>
+      			</div>
+      			<div class="kvBoxGreenContent">
+      				<div class="kvBoxGreenDescription">
+      					Get recommendations from people you trust
+      				</div>
+      				Receive valuable responses from your circle of friends.
+      			</div>
+      			<div class="clearClass"></div>
+      		</div>
+      		<div class="kvBoxGreenBottom"></div>
+      	</div>
+    	
+      	<!-- gray -->
+      	<div class="kvBoxGrayContainer" style="margin-top:0;">
+      		<h2 class="kvBoxGrayTitle">
+      		  Get started
+      		  <a href="/users/signup">Join now&nbsp;<b>&rsaquo;</b></a>
+      		</h2>
+      		<div class="clearClass"></div>
+      		<div class="kvBoxGrayTop"></div>
+      		<div class="kvBoxGrayMiddle">
+      			<div class="kvBoxGrayGutter">
+      				<div class="kvBoxGrayStep">4</div>
+      			</div>
+      			<div class="kvBoxGrayContent">
+      				<div class="kvBoxGrayDescription">
+      					Everyone is an expert of something
+      				</div>
+      				Give advice, earn reputation and money or get new business leads.
+      			</div>
+      			<div class="clearClass"></div>
+      		</div>
+      		<div class="kvBoxGrayBottom"></div>
+      	</div>
+	    
+  	  </div>
+    </div>
+  
+  </div>
+  <script type="text/javascript">
+  //<![CDATA[
+    new Tip('kvExampleTip', $('kvExamples'), {
+      style: "default",
+      showOn: 'click',
+      hideOn: {element: 'tip', event: 'mouseleave'},
+      stem: 'topMiddle',
+      hook: {target: 'bottomMiddle', tip: 'topMiddle'},
+      offset: {x: 0, y: -2},
+      width: 'auto'
+    });
+  
+    document.observe('dom:loaded', function() {
+      Luleka.DefaultFields.clear();
+      Luleka.DefaultFields.initialize();
+    });
+  
+    document.observe('authentication:success', function() {
+      new Ajax.Updater({success:'kvAvatar'}, '/home_page/widget_avatar', {asynchronous:true, evalScripts:true, method:'put', parameters:'authenticity_token=' + encodeURIComponent('zrPObG8ieO/HFSyA9CxexcY5QKstW66iL+jzccVm4+Q=')})
+    });
+  //]]>
+  </script>

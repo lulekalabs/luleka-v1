@@ -1,0 +1,18 @@
+<%
+  form_url ||= collection_path(:tiers)
+%>
+<% div_tag :id => page_dom_id do %>
+  <%= wizard_chevron :new %>
+  <% content_left do %>
+    <% wizard_form_for :tier, @tier, :url => form_url, :remote => true,
+        :html => {:multipart => true} do |f| %>
+      <%= render :partial => 'tiers/form', :locals => {:f => f} %>
+      <% form_button_container do %>
+        <%= form_submit_button "Create %{type}".t % {:type => Tier.human_name}, :position => :right %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% content_right do %>
+    <%= render :partial => "tiers/faqs" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,13 @@
+<%= "Es gibt einen neuen Kommentar über %{commentable} auf \"%{title}\"" % {
+  :commentable => @comment.commentable.class.human_name,
+  :title => h(@comment.kase.title)
+} %>
+---
+<%= "#{h(@comment.message)}" %>
+---
+
+Um jetzt alle Kommentare einzusehen, können sie dem Link folgen oder kopieren sie den Link direkt in ihren Webbrowser:
+
+<%= kase_url(@comment.kase) %>
+
+<%= render :partial => 'notifier/signature' %>

@@ -1,0 +1,76 @@
+<%
+  kase ||= kase_overview_offer || @kase
+%>
+<%= div_tag kase.current_state_t, :style => 'font-size:1.2em;font-weight: bold;' %>
+
+<% if kase.offer_fixed? %>
+	<%= render :partial => 'bid_price', :object => kase, :locals => {:title => "Fixed Price".t} %>
+<% elsif kase.offer_probono? %>
+	<%= "Probono".t -%>
+<% elsif issue.offer_auction? %>
+	<% bid_info_text = "%d bid" / issue.bids_count %>
+	<% if [:auction].include? issue.current_state %>
+	<!-- BEGIN:Auction -->
+		<% if is_it_mine %>
+		<!-- my own case -->
+			<% if 0==issue.bids_count %>
+				<%= render :partial => 'bid_price', :locals => { :headline => "Maximum Offer".t, :price => issue.max_price_s, :infoline => bid_info_text } %>
+			<% else %>
+				<%= render :partial => 'bid_price', :locals => { :headline => "Current Bid".t, :price => issue.current_bid_s, :infoline => bid_info_text, :delimiter => true } %>
+				<%= render :partial => 'issue_overview_profile', :locals => { :person => person, :headline => "Winning Bidder".t, :status => false } -%>
+			<% end %>
+		<% else %>
+		<!-- someone else who wants to bid? -->
+			<% if bid=issue.find_bid_of_bidder(person) %>
+			<!-- this person has bid on this case before -->
+				<% if bid==issue.find_winning_bid # winning bid %>
+				<!-- this person is the current winning bidder -->
+					<%= render :partial => 'bid_price', :locals => { :headline => "Your Winning Bid".t, :price => issue.current_bid_s, :infoline => bid_info_text, :status => :valid } -%>
+				<% else %>
+				<!-- not the winning bidder, has tried before and may try again -->
+					<%= render :partial => 'bid_price', :locals => { :headline => "Outbid on".t, :price => issue.current_bid_s, :infoline => bid_info_text, :status => :invalid, :delimiter => true } -%>
+					<%= render :partial => 'bid_price_form', :locals => { :issue => issue, :person => person, :headline => "Place Bid" , :infoline => bid_info_text } -%>
+				<% end %>
+			<% else %>
+			<!-- did not bid before, but may try now -->
+				<%= render :partial => 'bid_price_form', :locals => { :issue => issue, :person => person, :headline => "Place Bid", :infoline => bid_info_text }	-%>
+			<% end %>
+		<% end %>
+	<!-- END:Auction -->
+	<% else %>
+	<!-- BEGIN:Auctioned, Inprocess, etc. -->
+		<%= render :partial => 'bid_price', :locals => { :headline => "Auction Price".t, :price => issue.current_bid_s, :infoline => bid_info_text } -%>
+	<!-- END:Auctioned, Inprocess, etc. -->
+	<% end %>
+<% end %>
+
+<% if [:auctioned, :offer].include?(kase.current_state) %>
+	<% content_button_container :id => 'accept_button_id' do %>
+		<%= probono_button(
+			:label => "Accept".t,
+			:type => :passive,
+			:position => :right,
+			:function => remote_function(
+				:confirm => "Do you accept this offer?".t,
+				:url => {
+					:method => :post,
+					:action => 'accept',
+					:issue_id => kase.id,
+					:person_id => person.id,
+					:html_response_id => 'response_id',
+					:html_message_id => 'issue_message_id',
+					:html_issue_overview_id => 'issue_overview_id'
+				},
+				:loading => update_page do |page|
+					page['accept_spinner_id'].show
+				end, # show spinner
+				:complete => update_page do |page|
+#					page['accept_spinner_id'].hide  # hide spinner
+				end
+			)
+		) -%>
+		<% div_tag :style => 'float:right' do %>
+			<%= progress_spinner :id => 'accept_spinner_id' %>
+		<% end %>
+	<% end %>
+<% end %>

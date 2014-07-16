@@ -1,0 +1,13 @@
+Usted ha publicado un comentario al siguiente caso:
+
+<%= kase_url(@kase) %>
+
+---
+<%= h(@comment.message)%>
+---
+
+Para publicar su comentario ahora, por favor haga clic en el siguiente enlace o copiar el enlace en todo el campo de la dirección de su navegador:
+
+<%= activate_comment_url(@comment.activation_code) %>
+
+<%= render :partial => "notifier/signature" %>

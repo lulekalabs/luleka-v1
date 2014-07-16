@@ -1,0 +1,21 @@
+<div class="faq">
+  <p class="question">
+    <%= "What will happen to my information when I close my account?".t %>
+  </p>
+  <p class="answer">
+    <%= "Your account, including all information you have posted on #{SERVICE_NAME} will be maintained anonymous.".t %>
+  </p>
+  <p class="question">
+    <%= "If I close my user account, will my information be removed permanently from #{SERVICE_NAME}?".t %>
+  </p>
+  <p class="answer">
+    <%= "If you choose to close your account, we will suspend your account and we will remove your information automatically after %{days} days.".t % {
+      :days => Reward::MAX_EXPIRY_DAYS} %>
+  </p>
+  <p class="question">
+    <%= "What will happen to my funds in my #{SERVICE_PIGGYBANK_NAME} when I close my account?".t %>
+  </p>
+  <p class="answer">
+    <%= ["We recommend you %{transfer_all_your_funds} before closing your account.".t, "Otherwise, your funds will remain with #{SERVICE_NAME}.".t].to_sentences % {:transfer_all_your_funds => link_to("transfer all your funds".t, new_account_bank_transfer_path)} %>
+  </p>
+</div>

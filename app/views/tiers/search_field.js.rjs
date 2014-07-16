@@ -1,0 +1,4 @@
+page.replace dom_class(Tier, :select), :partial => 'tiers/select_field', :object => @tiers,
+  :locals => {:object_name => @object_name, :selected => @selected_tier, 
+    :selected_topics => @selected_topics, :display => true}
+page << "Luleka.Form.Switcher.open('#{dom_class(Tier, :switcher)}', true)" unless @tiers.empty?

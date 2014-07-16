@@ -1,0 +1,46 @@
+= Friendships Plugin
+
+This plugin is based on the work found at http://blog.hasmanythrough.com/articles/2006/04/21/self-referential-through
+After several instances of clients requesting a friendship system for their website, I have produced this 
+plugin to aid in providing a generic basis for a friendship system.
+
+== Installation
+
+1) Install the plugin from http://svn.webwideconsulting.com/svn/friendship_plugin
+
+2) Run the generator...
+
+3) rake migrate
+
+4) add has_friendships to your User model
+
+== Usage
+
+This plugin supports both very basic friendships, and confirmation of requested friendships depending on which
+methods you use.  The User model will provide several new methods which can be easily used to manage friendships.
+
+=== Basic Usage
+
+current_user.is_friends_with? User.find(1)         --> Checks if the user has the other as a confirmed friend
+
+current_user.is_friends_with User.find(1)          --> Creates a 2 way friendship without need for confirmation
+
+current_user.is_not_friends_with User.find(1)      --> Destroys both sides of any existing friendships
+                                                       between the 2 users.
+
+=== Advanced Usage
+
+current_user.request_friendship_of User.find(1)    --> Creates an unaccepted friendship that will not show up in
+                                                       friendships until the other user has confirmed it
+
+current_user.pending_friendships                   --> An array of friendships which have not been accepted
+
+current_user.accept_friendship Friendship.find(1)  --> Sets the friendship as confirmed, and adds the offering
+                                                       user as a friend of the opposite side of the friendship.
+                                                       
+current_user.deny_friendship Friendship.find(1)    --> Simply destroys the friendship in question
+
+=== Other Methods
+Please see the ruby/friendship_plugin.rb for methods provided directly by the self referential system.
+They will come in handy if you need more control over this simplistic system.
+

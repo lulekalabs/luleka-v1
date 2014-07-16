@@ -1,0 +1,9 @@
+en:
+  resources:
+    people: 'people'
+de:
+  resources:
+    people: 'meschen'
+es:
+  resources:
+    people: 'gente'

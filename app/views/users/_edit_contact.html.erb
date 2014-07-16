@@ -1,0 +1,22 @@
+<% bracket_container do %>
+	<%= form_error_messages_for :person, :unique => true, :attr_names => {
+	  :personal_address => "Personal Address".t,
+	  :country => "Country".t,
+	  :country_code => "Country".t,
+	  :state => "State".t,
+	  :city => "City".t,
+	  :zip => "Zip Code".t,
+	  :street => "Street Address".t,
+	  :phone => "Phone".t,
+	  :mobile => "Mobile".t,
+	  :fax => "Fax".t,
+	  :skype => "Skype".t,
+	  :msn => "MSN".t,
+	  :icq => "ICQ".t,
+	  :aim => "AIM".t
+	} %>
+	<% steplet :step => :auto, :title => "Contact Information".t,
+	  :description => "At this point we only require your country of residence to prioritize your focus by region.".t do %>
+		<%= render :partial => 'shared/address', :object => @user.person.personal_address || PersonalAddress.new %>
+	<% end %>
+<% end %>

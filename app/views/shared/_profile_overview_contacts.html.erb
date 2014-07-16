@@ -1,0 +1,9 @@
+<% # Setup
+	if defined?( name_link ).nil? || name_link.nil?
+		name_link = true
+	end	
+%>
+<% unless address.nil? %>
+	<%= address_display(address) -%>
+	<%= content_tag (:br) %>
+<% end %>

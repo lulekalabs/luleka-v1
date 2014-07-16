@@ -1,0 +1,48 @@
+<% bracket_container do %>
+	<%= form_error_messages_for :kase, :unique => true, :attr_names => {:dummy => ''} %>
+	<% steplet( 
+	  :step => :auto,
+    :title => "Details".t, 
+    :description => "This section is important to increase the likelihood of your case getting noticed.".t
+  ) do %>
+
+    <%#--- tags %>
+		<%= f.text_field(:tag_list, :label => {:position => :top, :text => "Tag it with words".t, :help => true},
+		  :style => 'width: 100%;', :id => "tags") %>
+		<%= help_text(:kase, :tag_list, "Add words that describe your case, e.g. _%{example}_".t % {
+		  :example => tag_list_link_to(["rent".t, "land-lord".t, "security deposit".t])
+		}, :display => false, :escape => false) %>
+
+    <%#--- severity / feelings %>
+		<%= render :partial => 'shared/form_select_severity_and_emotion_with_flipper', :object => @kase,
+		  :locals => {:object_name => :kase, :with_select => true, :f => f} %>
+		
+    <%#--- organization/products %>
+	  <%= render :partial => 'kases/select_organization_and_products', 
+	    :locals => {:f => f, :open => @kase.organization?} %>
+    
+    <%#--- select location %>
+    <%= render :partial => 'kases/select_location', 
+      :locals => {:f => f, :open => @kase.location?, :delay => !@kase.location?} %>
+		
+	<% end %>
+<% end %>
+
+<script type="text/javascript">
+//<![CDATA[
+
+  function lookupTags(searchString, suggest) {
+    new Ajax.Request('<%= autocomplete_kases_tags_path %>', {parameters: {name: searchString, rand: (new Date()).getTime(), authenticity_token: '<%= form_authenticity_token %>'},
+      onSuccess: function(response) {
+        suggest(response.responseJSON);
+      }});
+  }
+  var cachedBackendTags = new Autocompleter.Cache(lookupTags, {choices: 10});
+  var cachedLookupTags = cachedBackendTags.lookup.bind(cachedBackendTags);
+
+  var mvListCached = new Autocompleter.MultiValue('tags', cachedLookupTags, 
+    <%= @kase.tag_list_on(:tags, nil, :format => :tags).map {|t| [t.name, t.id]}.to_json %>, 
+    {frequency: 0.1, acceptNewValues: true});
+
+//]]>
+</script>

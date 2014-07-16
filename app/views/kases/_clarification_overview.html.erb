@@ -1,0 +1,28 @@
+<% # Setup
+	if defined?( clarification ).nil? || clarification.nil?
+		clarification = nil
+	end
+%>
+<% div_tag :class => 'primaryContentCommentHeadline' do %>
+	<% if clarification.nil? %>
+	<%= "Compose Clarification".t -%>
+	<% else %>
+		<%
+			link_to_sender = profile_link_to(clarification.sender.name, clarification.sender)
+			posted_at      = distance_of_time_in_words(Time.now.utc, clarification.created_at)
+		%>
+		<!-- # Request for Case Clarification -->
+		<% if clarification.kind==:rfc %>
+			<%= "Request for Case Clarification by {sender} {time} ago".t.gsub(/\{sender\}/, link_to_sender).gsub(/\{time\}/, posted_at) -%>
+		<!-- # Case Clarification Response -->
+		<% elsif clarification.kind==:ccr %>
+			<%= "Clarification of Case by {sender} {time} ago".t.gsub(/\{sender\}/, "Owner").gsub(/\{time\}/, posted_at) -%>
+		<!-- # Request for Response Clarification -->
+		<% elsif clarification.kind==:rfr %>
+			<%= "Request for Response Clarification by {sender} {time} ago".t.gsub(/\{sender\}/, "Owner".t).gsub(/\{time\}/, posted_at) -%>
+		<!-- # Response Clarification Response -->
+		<% elsif clarification.kind==:rcr %>
+			<%= "Clarification of Response by {sender} {time} ago".t.gsub(/\{sender\}/, link_to_sender).gsub(/\{time\}/, posted_at) -%>
+		<% end %>
+	<% end %>
+<%- end -%>

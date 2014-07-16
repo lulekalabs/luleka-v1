@@ -1,0 +1,22 @@
+<%
+  body ||= ''
+  concise ||= false
+%>
+<% message_container :header => header, :type => type, 
+    :spacer => true, :concise => concise, :container => true do %>
+  <% unless sub_header.to_s.empty? %>
+  <p><%= sub_header  %></p>
+  <% end %>
+  <ul>
+    <% errors.each do |value| %>
+      <% if attr_names.empty? %>
+      <li><%= value[0].to_s == 'base' ? "#{value[1]}" : "#{value[0].humanize} #{value[1].first}" %></li>
+      <% else %>
+        <% if attr_names.has_key?(value[0].to_sym) %>
+        <li><%= attr_names[value[0].to_sym] + (defaults ? ' ' + "#{value[1].first}" : '') %></li>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+  <%= body if body %>
+<% end %>

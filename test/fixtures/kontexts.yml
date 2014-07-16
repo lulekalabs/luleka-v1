@@ -1,0 +1,16 @@
+powerplant_leak_powerplant:
+  id: 1
+  kase_id: 1
+  tier_id: 1
+  topic_id:
+  location_id:
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+powerplant_leak_location:
+  id: 2
+  kase_id: 1
+  tier_id:
+  topic_id:
+  location_id: 25 # address
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>

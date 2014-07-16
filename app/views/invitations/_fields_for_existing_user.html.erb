@@ -1,0 +1,12 @@
+<% bracket_container do %>
+  <%= form_error_messages_for :invitation, :unique => true -%>
+  <%= form_flash_messages -%>
+  <% steplet(
+    :step => :auto,
+    :title => "Add %{name} to your contacts".t % { :name => @invitation.invitee.name }, 
+    :description => "Only invite people you know well and who know you.".t
+  ) do %>
+    <%= render :partial => 'message_field', :locals => { :f => f } %>
+    <%= render :partial => 'voucher_field', :locals => { :f => f, :person => @invitation.invitor } %>
+  <% end %>
+<% end %>

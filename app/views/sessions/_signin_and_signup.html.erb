@@ -1,0 +1,15 @@
+<%
+  signin_url ||= session_url_with_ssl
+  message ||= form_flash_messages
+%>
+<% messages_container_without_bracket_if message do %>
+  <%= message %>
+<% end %>
+<% broken_content do %>
+	<% broken_content_left do %>
+	  <%= render :partial => 'sessions/signin', :locals => {:url => signin_url} %>
+	<% end %>
+	<% broken_content_right do %>
+	  <%= render :partial => 'sessions/signup' %>
+	<% end %>
+<% end %>

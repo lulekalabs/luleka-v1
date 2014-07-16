@@ -1,0 +1,101 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+homer:
+  id: 1
+  person_id: 1
+  login: homer
+  salt: a6411b21a2347d3623bdd9b5178c5aa702a8dd36
+  crypted_password: 8d4aaac7e34ee303e38fa1e39627b3d9bdae1fb1
+  created_at: 2007-04-03 16:15:13
+  remember_token: cd65c24bab4513b504bfd777ffb998e0a8f4ac0a2bc39cbc161152b2b480da4c
+  remember_token_expires_at: 2007-04-06 16:15:13
+  activation_code:
+  activated_at: 2007-04-03 16:19:20
+  language: en
+  currency: USD
+  state: active
+  time_zone: Berlin
+barney:
+  id: 2
+  person_id: 2
+  login: barney
+  salt: rK/EtEhw
+  crypted_password: b70c76b7c397429de142c557d8f07833d8103aaeb84f73803600b5810b9b8e14
+  created_at: 2007-04-19 14:19:49
+  remember_token: 29f1a1270bde36a737b55b93f8a77b23f9587e41315bc79453326141b4d534eb
+  remember_token_expires_at: 2007-04-22 14:19:49
+  activation_code:
+  activated_at: 2007-04-19 14:20:39
+  language: en
+  currency: EUR
+  state: active
+  time_zone: Berlin
+bart:
+  id: 3
+  person_id: 3
+  login: bart
+  salt: EGJ1RDnu
+  crypted_password: 90dfdd36b2d9d4c4b87f641cbc52ee22f144eae1193d84fc23e884adf4ec6f18
+  created_at: 2007-06-02 13:45:12
+  remember_token: 7a1a15cf887a0ca929ce5c0e5a552753debde7675b60099951bfc99d1c1ccf64
+  remember_token_expires_at: 2007-07-22 14:19:49
+  activation_code:
+  activated_at: 2007-06-03 14:20:39
+  language: de
+  currency: EUR
+  state: active
+  time_zone: Buenos Aires
+marge:
+  id: 4
+  person_id: 4
+  login: marge
+  salt: G59lSgk8
+  crypted_password: 6717b726806d0023c1f8aaa60d212093ea594fbe7ca91a95789519e5ad4a1df7
+  created_at: 2007-06-02 13:45:12
+  remember_token: 810bcc61730e34cc85f7df132a355af6ae47c4d5b95b5b771896088b1cc193be
+  remember_token_expires_at: 2007-07-22 14:19:49
+  activation_code:
+  activated_at: 2007-06-03 14:20:39
+  language: en
+  currency: USD
+  state: active
+  time_zone: Berlin
+lisa:
+  id: 5
+  person_id: 5
+  login: lisa
+  salt: G59lSgk8
+  crypted_password: 6717b726806d0023c1f8aaa60d212093ea594fbe7ca91a95789519e5ad4a1df7
+  created_at: 2007-06-02 13:45:12
+  remember_token: 810bcc61730e34cc85f7df132a355af6ae47c4d5b95b5b771896088b1cc193be
+  remember_token_expires_at: 2007-07-22 14:19:49
+  activation_code:
+  activated_at: 2007-06-03 14:20:39
+  language: en
+  currency: USD
+  state: active
+  time_zone: San Francisco
+quentin:
+  id: 6
+  person_id: 6
+  login: quentin
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 5.days.ago.to_s :db %>
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b
+  activated_at: <%= 5.days.ago.to_s :db %> 
+  state: active
+  language: en
+  currency: USD
+  time_zone: Berlin
+aaron:
+  id: 7
+  person_id: 7
+  login: aaron
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 1.days.ago.to_s :db %>
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9a 
+  state: pending
+  language: en
+  currency: USD
+  time_zone: Berlin

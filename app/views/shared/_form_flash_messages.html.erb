@@ -1,0 +1,27 @@
+<% # setup
+  bracket ||= false
+  theme ||= nil
+  concise ||= false
+  flash_names ||= [:error, :warning, :notice]
+%>
+<% if bracket %>
+  <% flash_names.each_with_index do |flash_name, index| %>
+    <% if body = flash[flash_name] %>
+      <% bracket_container do %>
+        <% message_container :type => flash_name, :spacer => false, 
+            :theme => theme, :concise => concise, :container => true do %>
+          <%= body %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <% flash_names.each_with_index do |flash_name, index| %>
+    <% if body = flash[flash_name] %>
+      <% message_container :type => flash_name, :spacer => false, 
+          :theme => theme, :concise => concise, :container => true do %>
+        <%= body %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

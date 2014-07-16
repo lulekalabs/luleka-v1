@@ -1,0 +1,42 @@
+<%
+  claiming ||= form || @claiming
+%>
+<% bracket_container do %>
+  <%= form_error_messages_for :claiming, :unique => true -%>
+  <%= form_flash_messages -%>
+  <% steplet(
+    :step => :auto,
+    :title => "Add yourself as an employee of %{name}".t % {:name => truncate(h(claiming.organization.name))},
+    :description => "Start by adding the %{type} email or phone number. Tell us what you do at %{name} and how you can best be reached to verify your status.".t % {:type => claiming.organization.class.human_name, :name => h(claiming.organization.name)}
+  ) do %>
+    <% form_element do %>
+  		<%= form_label(tier_type, :email_name, :position => :top, :auto => false, :req => false,
+  		  :text => "Your email address at %{name}".t % {:name => truncate(h(claiming.organization.name))}, :help => true
+  		) %>
+  		<% form_field_tag(:claiming_email_name) do %>
+  		  <%= table_cells_tag(
+  		    text_field(:claiming, :email_name, :size => 20, :object => claiming),
+  		    span_tag("&nbsp;@#{h(claiming.email_domain)}")
+  		  ) %>
+  		<% end %>
+  		<%= help_text :claiming, :email_name, "We will try to contact you at this address first. Verifying your %{type} employment through your email address will speed things up.".t % {:type => claiming.organization.class.human_name}, :display => true, :type => :warning, :escape => false %>
+  	<% end %>
+  
+  	<%= f.text_field :phone, :label => {:position => :top, :text => "Your work phone at %{name}".t % {:name => truncate(h(claiming.organization.name))}, :help => {:text => ["Alternatively, please provide your work phone number, e.g. _+1 (987) 1234-5678_".t, "We will try to call you in case your employment cannot be confirmed using your email address.".t].to_sentence} }, :size => 35 %>
+  	<%= f.text_field :role, :label => {:position => :top, :auto => false, :req => true, :text => "Your role at %{name}".t % {:name => truncate(h(claiming.organization.name))}, :help => {:text => "What do you do at %{name}? E.g. _Customer Service Rep, Product Manager, CEO etc._".t % {:name => truncate(h(claiming.organization.name))}} }, :size => 35 %>
+    <%= f.text_area :description, :label => {:text => "Additional Info".t, :position => :top, :req => false, :help => {:text => "Anything else we need to know?".t}}, :size => '50x2', :style => 'width: 100%' %>
+  <% end %>
+<% end %>
+<% unless  @topics.blank? %>
+  <% bracket_container do %>
+    <% steplet(:step => :auto,
+      :title => "Products or Services you work on".t,
+      :description => "You can optionally add products and services you work on. These will be added to your list of expertise.".t
+    ) do %>
+      <%= render :partial => 'topics/select_field', :object => @topics,
+        :locals => {:object_name => :claiming, :method_name => :product_ids, :selected => claiming.products,
+          :label => {:position => :top, :req => false, :text => "Select products or services you work on".t}
+        } %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,33 @@
+<% form_table_fields_for :invitation, @invitation do |t| %>
+  <% form_table_row do %>
+    <%= t.text_field :first_name, :label => { :position => :top, :text => "First Name".t, :req => true },
+      :size => 24, :style => "width: 100%;"%>
+    <%= t.text_field :last_name, :label => { :position => :top, :text => "Last Name".t, :req => true },
+      :size => 24, :style => "width: 100%;" %>
+	<% end %>
+  <% form_table_row do %>
+    <%= t.text_field :email, :label => { :position => :top, :text => "Email".t, :req => true },
+    :style => "width: 100%;" %>
+    <%= t.select :language, collect_supported_languages_for_select, {:selected => current_language_code, 
+      :label => {:position => :top, :text => "Select language".t}},
+       {:style => "width: 100%", :id => dom_class(Invitation, :language)} %>
+  <% end %>
+<% end %>
+<%= observe_field(dom_class(Invitation, :language),
+  :url => hash_for_update_message_invitations_path(
+    :escape => false,
+    :invitor_name => @invitation.invitor.name,
+    :invitee_name => @invitation.to_invitee.name
+  ),
+  :with => "'value='+encodeURIComponent(value)",
+  :on => :change,
+  :loading => update_page do |page|
+    page << "$('#{dom_class(Invitation, :language)}').disabled = 'disabled'"
+    page << "$('#{dom_class(Invitation, :text)}').disabled = 'disabled'"
+  end,
+  :complete => update_page do |page|
+    page << "$('#{dom_class(Invitation, :language)}').disabled = ''"
+    page << "$('#{dom_class(Invitation, :text)}').disabled = ''"
+  end 
+) %>
+

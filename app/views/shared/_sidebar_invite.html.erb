@@ -1,0 +1,99 @@
+<%  # setup
+  person ||= sidebar_invite || @person
+  title ||= "Invite a Friend".t
+  expanded ||= false
+  invitation ||= Invitation.new(:invitor => person)
+  @invitation = invitation || @invitation
+  message ||= nil
+%>
+<% div_tag :id => dom_class(Invitation, :sidebar) do %>
+  <% content_container :theme => :sidebar do %>
+    <% div_tag :id => dom_class(Invitation, :message) do %>
+      <% unless message %>
+        <%= form_flash_messages :concise => true %>
+        <%= form_error_messages_for :invitation, :concise => true, :unique => true %>
+      <% else %>
+        <%= message %>
+      <% end %>
+    <% end %>
+    <% headline do %>
+      <%= title %>
+    <% end %>
+    <% div_tag :id => dom_class(Invitation, :form) do %>
+      <% form_fields_for :invitation, @invitation do |f| %>
+        <% primary_content :style => "padding-bottom: 7px;" do %>
+          <%= f.text_field :email, :label => {:position => :top, :text => "Your friend's email".t, :req => true},
+            :style => 'width: 173px;' %>
+
+          <% if person.partner? && person.voucher_quota.to_i > 0 %>
+            <%= f.check_box :with_voucher, :vertical_align => :top, :label => {
+              :style => "font-size: 0.8em",
+              :text => "Include Partner Membership voucher, %{voucher} left.".t % {
+                :voucher => "%d voucher" / person.voucher_quota
+              }
+            } %>
+          <% end %>
+          
+          <% content_button_container do %>
+          
+            <% div_tag :style => 'float:right;height:17px;' do %>
+              <%= progress_spinner :id => dom_class(Invitation, :spinner),
+                :tag => :img, :size => '16x16', :style => "padding-right:12px;", :display => false %>
+            <% end %>
+            
+            <%= probono_button(:label => "Send".t, :type => :active, :position => :right,
+              :id => dom_class(Invitation, :button_send),
+              :function => remote_function(
+                :url => hash_for_invitations_path(
+                  :escape => false
+                ),
+                :method => :post,
+                :loading => update_page do |page|
+                  page[dom_class(Invitation, :button_send)].hide
+                  page[dom_class(Invitation, :spinner)].show
+                end,
+                :submit => dom_class(Invitation, :form)
+              )
+            ) %>
+          <% end %>
+        <% end %>
+        <% secondary_content(:index => 1, :open => expanded, :last => true, :style => "padding-bottom:0px;") do %>
+          <%= f.text_field :first_name, :label => {:position => :top, :text => "First Name".t, :req => false},
+            :style => 'width: 173px;' %>
+          <%= f.text_field :last_name, :label => {:position => :top, :text => "Last Name".t, :req => false},
+            :style => 'width: 173px' %>
+          <%= f.select :language, collect_supported_languages_for_select, {:selected => current_language_code, :label => false}, { :style => "width: 100%;", :id => dom_class(Invitation, :language)} %>
+
+          <%= f.text_area(
+            :message, :label => false, :id => dom_class(Invitation, :text),
+            :value => invitation.default_message(:language => current_language_code),
+            :rows => 6, :style => "width: 173px;", :id => dom_class(Invitation, :text)
+          ) %>
+        <% end %>
+        
+        <%= observe_field(dom_class(Invitation, :language),
+          :url => hash_for_update_message_invitations_path(
+            :escape => false,
+            :invitor_name => invitation.invitor.name,
+            :invitee_name => invitation.to_invitee.name
+          ),
+          :with => "'value='+encodeURIComponent(value)",
+          :on => :change,
+          :loading => update_page do |page|
+            page << "$('#{dom_class(Invitation, :language)}').disabled = 'disabled'"
+            page << "$('#{dom_class(Invitation, :text)}').disabled = 'disabled'"
+          end,
+          :complete => update_page do |page|
+            page << "$('#{dom_class(Invitation, :language)}').disabled = ''"
+            page << "$('#{dom_class(Invitation, :text)}').disabled = ''"
+          end 
+        ) %>
+        
+      <% end %>
+    <% end %>
+    <% slider_control(:index => 1, :last => true, :open => expanded ) do %>
+      <%= content_tag(:div, "Add Note".t, :style => "float:left; padding-right: 5px;font-size: 13px;font-weight:bold;" ) -%>
+    <% end %>
+  <% end %>
+<% end %>
+

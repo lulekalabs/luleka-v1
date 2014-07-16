@@ -1,0 +1,8 @@
+# TODO: form_flash_messages not working
+page.replace_html dom_class(Kase, :message), "<div class=\"messageContainer\"><div class=\"boxYellowTop\"></div><div class=\"boxYellowMiddle\"><div class=\"colouredBoxColumnLeft\">\n      <img alt=\"Icon_warning\" height=\"16\" src=\"http://us.luleka.local:3000/images/css/icon_warning.png?1268752815\" width=\"16\" />    </div>\n    <div class=\"colouredBoxColumnRight\">#{flash[:warning]}</div><div class=\"clearClass\"></div>  </div><div class=\"boxYellowBottom\"></div></div>"
+flash.discard
+if @kase
+  page.replace dom_id(@kase, :star_follow), star_follow_control(@kase)
+  page.replace dom_class(Kase, :action_follow), :partial => 'kases/action_toggle_follow', :object => @kase
+  page.replace sidebar_stats_dom_id, :partial => "kases/sidebar_stats", :object => @kase
+end

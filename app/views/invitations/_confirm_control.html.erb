@@ -1,0 +1,44 @@
+<% # setup
+  invitation = confirm_control
+  button_background = cycle('#ffffff', '#f1f8fa', :name => "button_background")
+%>
+<% content_button_container_if invitation.pending? do %>
+  <%= probono_button(
+    :label => "Accept".t,
+    :type => :active,
+    :position => :right,
+    :background_color => button_background,
+    :function => remote_function(
+      :url => accept_invitation_path(invitation),
+      :loading => update_page do |page|
+        page[dom_id(invitation, :spinner)].show
+      end,
+      :failure => update_page do |page|
+        page[dom_id(invitation, :spinner)].hide
+      end,
+      :update => {:success => dom_id(invitation), :failure => dom_class(Invitation, :message)},
+      :position => :replace
+    )
+  ) -%>
+  <%= probono_button(
+    :label => "Ignore".t,
+    :type => :passive,
+    :position => :right,
+    :background_color => button_background,
+    :function => remote_function(
+      :url => decline_invitation_path(invitation),
+      :loading => update_page do |page|
+        page[dom_id(invitation, :spinner)].show
+      end,
+      :failure => update_page do |page|
+        page[dom_id(invitation, :spinner)].hide
+      end,
+      :confirm => "Are you sure you want to ignore this request?".t,
+      :update => {:success => dom_id(invitation), :failure => dom_class(Invitation, :message)},
+      :position => :replace
+    )
+  ) -%>
+  <% div_tag :style => 'float:right;' do %>
+    <%= progress_spinner :id => dom_id(invitation, :spinner) %>
+  <% end %>
+<% end %>

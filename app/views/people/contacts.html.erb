@@ -1,0 +1,4 @@
+<%= render :partial => 'people/index', :locals => {
+  :title => "Contacts of %{name}".t % {:name => link_to(@person.name, person_path(@person))},
+  :url => hash_for_contacts_person_path(:id => @person)
+} %>

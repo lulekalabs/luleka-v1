@@ -1,0 +1,24 @@
+<div class="errorExplanation">
+  <!-- header -->
+  <% unless header.blank? %>
+  <h2><%= header %></h2>
+  <% end %>
+  
+  <!-- sub-header -->
+  <% unless sub_header.blank? %>
+  <p><%= sub_header %></p>
+  <% end %>
+  
+  <!-- error list -->
+  <ul>
+    <% errors.each do |value| %>
+      <% if attr_names.empty? %>
+      <li><%= value[0].to_s == 'base' ? "#{value[1]}" : "#{value[0].humanize} #{value[1].first}" %></li>
+      <% else %>
+        <% if attr_names.has_key?(value[0].to_sym) %>
+        <li><%= attr_names[value[0].to_sym] + (defaults ? ' ' + "#{value[1].first}" : '') %></li>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

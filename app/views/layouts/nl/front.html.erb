@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%= render :partial => "layouts/nl/head" %>
+  <body class="front-page narrow logged-out" id="landing">
+    <%#= render :partial => "layouts/nl/top" %>
+    <div id="wrapper">
+    	<div id="main">
+        <div id="front-container">
+        
+          <%= yield %>
+
+          <div class="bottompart">
+            <!-- mobile obsolete  -->
+            <div class="mobile-complete">
+              Follow us on
+              <a href="http://facebook.com/luleka">Facebook</a> or <a href="http://twitter.com/luleka">Twitter</a>
+            </div>
+            <!-- locale -->
+            <div class="language inline-list">
+              <%= render :partial => "shared/nl/change_locale" %>
+            </div>
+            <!-- footer  -->
+            <div class="footer inline-list">
+              <%= render :partial => "shared/nl/footer_nav" %>
+            </div>
+          </div>
+          
+        </div><!-- #front-container -->
+    	</div><!-- #main -->
+    </div><!-- #wrapper -->
+  </body>
+</html>

@@ -1,0 +1,14 @@
+<%
+  address ||= address || @address
+%>
+<%= render :partial => 'account/form', :locals => {
+	:url => account_address_path,
+	:title => address.class.human_name,
+	:description => "Edit your %{address} here.".t % {:address => address.class.human_name},
+	:partial => 'shared/address',
+	:object => address,
+	:object_name => :address,
+	:property => address.kind,
+	:faq => true,
+	:cancel_url => :back
+} %>

@@ -1,0 +1,12 @@
+<% div_tag :id => 'payment_display', :display => !!@payment_object do %>
+  <%= render(:partial => 'shared/transaction_methods', :locals => {
+      :name => :payment_method, :mode => :payment, :except => [:discover],
+      :first_name => @person.first_name, :last_name => @person.last_name,
+      :title => {
+        :req => true, :position => :top,
+        :text => "Select the payment method for offering the reward?",
+        :help => true
+      }
+  }) %>
+  <%= help_text_tag :payment_method, "The reward you are offering will not be charged to you until you have accepted the solution for this case.".t, :display => false %>
+<% end %>

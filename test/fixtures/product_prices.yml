@@ -1,0 +1,41 @@
+three_month_expert_membership_usd: 
+  id: 1
+  cents: "2985"
+  percentage: 
+  currency: USD
+one_year_expert_membership_usd: 
+  id: 2
+  cents: "9995"
+  percentage: 
+  currency: USD
+five_purchasing_credit_usd: 
+  id: 3
+  cents: "500"
+  percentage: 
+  currency: USD
+service_fee_usd: 
+  id: 4
+  cents: "0"
+  percentage: "20"
+  currency: USD
+
+three_month_expert_membership_eur:
+  id: 21
+  cents: "2485"
+  percentage: 
+  currency: EUR
+one_year_expert_membership_eur: 
+  id: 22
+  cents: "8995"
+  percentage: 
+  currency: EUR
+five_purchasing_credit_eur: 
+  id: 23
+  cents: "500"
+  percentage: 
+  currency: EUR
+service_fee_eur: 
+  id: 24
+  cents: "0"
+  percentage: "20"
+  currency: EUR

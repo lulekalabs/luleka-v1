@@ -1,0 +1,22 @@
+<% # responses/overview
+  response ||= overview || @response
+	accepted ||= false
+%>
+<% div_tag flag_mouse_over_tag_options(response).merge({:id => dom_id(response, :overview)}) do %>
+	<% if accepted %>
+		<% content_overview_container :theme => :response do %>
+			<%= render :partial => 'responses/overview', :object => response, :locals => {:accepted => false} %>
+		<% end %>
+	<% else %>
+		<div class="subContentPictureGreen">
+  		<%= profile_link_to(image_avatar_tag(response.person), response.person) -%>
+  	</div>
+  	<div class="subContentProfileGreen">
+  	  <%= response_title_in_words(response, :pcard => true) %>
+  	</div>
+  	<div class="subContentSideGreen">
+  	  <%= link_to_flag_for(response) unless response.new_record? %>
+  	</div>
+  	<div class="clearClass"></div>
+	<% end %>
+<% end %>

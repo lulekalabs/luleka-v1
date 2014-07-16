@@ -1,0 +1,29 @@
+<%  # setup
+  people ||= sidebar_profiles || nil
+  title ||= "People".t
+  max_count ||= 5 
+  person_link = true
+  more_url ||= nil
+%>
+<% if people %>
+  <% content_container :theme => :sidebar do %>
+    <% headline do %>
+      <%= title %>
+    <% end %>
+    <% primary_content :style => "padding-top: 0px;padding-bottom: 0px;" do %>
+      <%= render :partial => 'shared/sidebar_profile_list', :locals => {
+        :people => people, :person_link => person_link, :max_count => max_count
+      } %>
+    <% end %>
+    <% if more_url %>
+    <div class="sideBarBoxGrayStatusContent">
+      <div class="sideBarStatusColumn">
+        <%= link_to "more".t, more_url %>
+      </div>
+    </div>
+    <div class="sideBarBoxGrayStatusBottom"></div>
+    <% else %>
+    <div class="sideBarBoxGrayBottom"></div>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,464 @@
+en:
+  # pluralizations
+  "{{count}} error":
+    zero: "no errors"
+    one: "1 error"
+    other: "{{count}} errors"
+  "error":
+    zero: "error"
+    one: "error"
+    other: "errors"
+  #
+  "{{count}} voucher":
+    zero: "no vouchers"
+    one: "1 voucher"
+    other: "{{count}} vouchers"
+  "voucher":
+    zero: "voucher"
+    one: "voucher"
+    other: "vouchers"
+  #
+  "{{count}} case":
+    zero: "no cases"
+    one: "1 case"
+    other: "{{count}} cases"
+  "case":
+    zero: "case"
+    one: "case"
+    other: "cases"
+  #
+  "{{count}} concern":
+    zero: "no concerns"
+    one: "1 concern"
+    other: "{{count}} concerns"
+  "concern":
+    zero: "concern"
+    one: "concern"
+    other: "concerns"
+  #
+  "{{count}} problem":
+    zero: "no problems"
+    one: "1 problem"
+    other: "{{count}} problem"
+  "problem":
+    zero: "problem"
+    one: "problem"
+    other: "problems"
+  #
+  "{{count}} question":
+    zero: "no questions"
+    one: "1 question"
+    other: "{{count}} question"
+  "question":
+    zero: "question"
+    one: "question"
+    other: "questions"
+  #
+  "{{count}} idea":
+    zero: "no ideas"
+    one: "1 idea"
+    other: "{{count}} ideas"
+  "idea":
+    zero: "idea"
+    one: "idea"
+    other: "ideas"
+  #
+  "{{count}} praise":
+    zero: "no praises"
+    one: "1 praise"
+    other: "{{count}} praises"
+  "praise":
+    zero: "praise"
+    one: "praise"
+    other: "praises"
+  #
+  "{{count}} person":
+    zero: "nobody"
+    one: "1 person"
+    other: "{{count}} people"
+  "person":
+    zero: "person"
+    one: "person"
+    other: "people"
+  #
+  "{{count}} employee":
+    zero: "no employees"
+    one: "1 employee"
+    other: "{{count}} employees"
+  "employee":
+    zero: "employee"
+    one: "employee"
+    other: "employees"
+  #
+  "{{count}} visitor":
+    zero: "no visitors"
+    one: "1 visitor"
+    other: "{{count}} visitors"
+  "visitor":
+    zero: "visitor"
+    one: "visitor"
+    other: "visitors"
+  #
+  "{{count}} member":
+    zero: "no members"
+    one: "1 member"
+    other: "{{count}} members"
+  "member":
+    zero: "member"
+    one: "member"
+    other: "members"
+  #
+  "{{count}} product":
+    zero: "no products"
+    one: "1 product"
+    other: "{{count}} products"
+  "product":
+    zero: "product"
+    one: "product"
+    other: "products"
+  #
+  "{{count}} topic":
+    zero: "no topics"
+    one: "1 topic"
+    other: "{{count}} topics"
+  "topic":
+    zero: "topic"
+    one: "topic"
+    other: "topics"
+  #
+  "{{count}} reply":
+    zero: "no replies"
+    one: "1 reply"
+    other: "{{count}} replies"
+  "reply":
+    zero: "reply"
+    one: "reply"
+    other: "replies"
+  #
+  "{{count}} response":
+    zero: "no responses"
+    one: "1 response"
+    other: "{{count}} responses"
+  "response":
+    zero: "response"
+    one: "response"
+    other: "responses"
+  #
+  "{{count}} advice":
+    zero: "no advice"
+    one: "1 advice"
+    other: "{{count}} advice"
+  "advice":
+    zero: "advice"
+    one: "advice"
+    other: "advice"
+  # products
+  "{{count}} piece":
+    zero: "no pieces"
+    one: "1 piece"
+    other: "{{count}} pieces"
+  "piece":
+    zero: "piece"
+    one: "piece"
+    other: "pieces"
+  #
+  "{{count}} month":
+    zero: "no month"
+    one: "1 month"
+    other: "{{count}} months"
+  "month":
+    zero: "month"
+    one: "month"
+    other: "months"
+  # form_error_messages
+  "{{count}} error":
+    zero: "no errors"
+    one: "1 error"
+    other: "{{count}} errors"
+  "error":
+    zero: "error"
+    one: "error"
+    other: "errors"
+  # comments, votes
+  "{{count}} vote":
+    zero: "no votes"
+    one: "1 vote"
+    other: "{{count}} votes"
+  "vote":
+    zero: "vote"
+    one: "vote"
+    other: "votes"
+  #
+  "{{count}} comment":
+    zero: "no comments"
+    one: "1 comment"
+    other: "{{count}} comments"
+  "comment":
+    zero: "comment"
+    one: "comment"
+    other: "comments"
+  # profile
+  "{{count}} visit":
+    zero: "no visits"
+    one: "1 visit"
+    other: "{{count}} visits"
+  "visit":
+    zero: "visit"
+    one: "visit"
+    other: "visits"
+  #
+  "{{count}} contact":
+    zero: "no contacts"
+    one: "1 contact"
+    other: "{{count}} contacts"
+  "contact":
+    zero: "contact"
+    one: "contact"
+    other: "contacts"
+  # orders/invoices
+  "{{count}} order":
+    zero: "no orders"
+    one: "1 order"
+    other: "{{count}} orders"
+  "order":
+    zero: "order"
+    one: "order"
+    other: "orders"
+  #
+  "{{count}} purchase order":
+    zero: "no purchase orders"
+    one: "1 purchase order"
+    other: "{{count}} purchase orders"
+  "purchase order":
+    zero: "purchase order"
+    one: "purchase order"
+    other: "purchase orders"
+  #
+  "{{count}} sales order":
+    zero: "no sales orders"
+    one: "1 sales order"
+    other: "{{count}} sales orders"
+  "sales order":
+    zero: "sales order"
+    one: "sales order"
+    other: "sales orders"
+  #
+  "{{count}} invoice":
+    zero: "no invoices"
+    one: "1 invoice"
+    other: "{{count}} invoice"
+  "invoice":
+    zero: "invoice"
+    one: "invoice"
+    other: "invoices"
+  #
+  "{{count}} purchase invoice":
+    zero: "no purchase invoices"
+    one: "1 purchase invoice"
+    other: "{{count}} purchase invoice"
+  "purchase invoice":
+    zero: "purchase invoice"
+    one: "purchase invoice"
+    other: "purchase invoices"
+  #
+  "{{count}} sales invoice":
+    zero: "no sales invoices"
+    one: "1 sales invoice"
+    other: "{{count}} sales invoice"
+  "sales invoice":
+    zero: "sales invoice"
+    one: "sales invoice"
+    other: "sales invoices"
+  #
+  "{{count}} day":
+    zero: "no days"
+    one: "1 day"
+    other: "{{count}} days"
+  "day":
+    zero: "day"
+    one: "day"
+    other: "days"
+  #
+  "{{count}} week":
+    zero: "no weeks"
+    one: "1 week"
+    other: "{{count}} weeks"
+  "week":
+    zero: "week"
+    one: "week"
+    other: "weeks"
+  #
+  "{{count}} follower":
+    zero: "no followers"
+    one: "1 follower"
+    other: "{{count}} followers"
+  "follower":
+    zero: "follower"
+    one: "follower"
+    other: "followers"
+  #
+  "{{count}} subscriber":
+    zero: "no subscribers"
+    one: "1 subscriber"
+    other: "{{count}} subscribers"
+  "subscriber":
+    zero: "subscriber"
+    one: "subscriber"
+    other: "subscribers"
+  # reward
+  "{{count}} reward":
+    zero: "no rewards"
+    one: "1 reward"
+    other: "{{count}} rewards"
+  "reward":
+    zero: "reward"
+    one: "reward"
+    other: "rewards"
+  # reward offer
+  "{{count}} reward offer":
+    zero: "no reward offers"
+    one: "1 reward offer"
+    other: "{{count}} reward offers"
+  "reward offer":
+    zero: "reward offer"
+    one: "reward offer"
+    other: "reward offers"
+  #
+  "{{count}} recommendation":
+    zero: "no recommendations"
+    one: "1 recommendation"
+    other: "{{count}} recommendations"
+  "recommendation":
+    zero: "recommendation"
+    one: "recommendation"
+    other: "recommendations"
+  #
+  "{{count}} reputation":
+    zero: "no reputation"
+    one: "1 reputation"
+    other: "{{count}} reputation"
+  "reputation":
+    zero: "reputation"
+    one: "reputation"
+    other: "reputation"
+  #
+  "{{count}} total reputation":
+    zero: "no total reputation"
+    one: "1 total reputation"
+    other: "{{count}} total reputation"
+  "total reputation":
+    zero: "total reputation"
+    one: "total reputation"
+    other: "total reputation"
+  #
+  activerecord:
+    models:
+      tier:
+        one: "Community"
+        other: "Communities"
+      organization:
+        one: "Community"
+        other: "Communities"
+      group:
+        one: "Group"
+        other: "Groups"
+      topic: 
+        one: "Topic"
+        other: "Topics"
+      product: 
+        one: "Product"
+        other: "Product"
+      service: 
+        one: "Service"
+        other: "Services"
+      kase: 
+        one: "Concern"
+        other: "Concerns"
+      question: 
+        one: "Question"
+        other: "Questions"
+      problem: 
+        one: "Problem"
+        other: "Problems"
+      idea: 
+        one: "Idea"
+        other: "Ideas"
+      praise: 
+        one: "Praise"
+        other: "Praises"
+      response:
+        one: "Recommendation"
+        other: "Recommendations"
+      comment:  
+        one: "Comment"
+        other: "Comments"
+      clarification:  
+        one: "Clarification"
+        other: "Clarifications"
+      clarification_request:
+        one: "Clarification Request"
+        other: "Clarification Request"
+      clarification_response:
+        one: "Clarification Response"
+        other: "Clarification Response"
+      user:
+        one: "User"
+        other: "Users"
+      person:
+        one: "Person"
+        other: "People"
+      invitation:
+        one: "Invitation"
+        other: "Invitations"
+      order:
+        one: "Order"
+        other: "Orders"
+      purchase_order:
+        one: "Purchase Order"
+        other: "Purchase Orders"
+      sales_order:
+        one: "Sales Order"
+        other: "Sales Orders"
+      invoice:
+        one: "Invoice"
+        other: "Invoices"
+      purchase_invoice:
+        one: Purchase Invoice
+        other: Purchase Invoices
+      sales_invoice:
+        one: "Sales Invoice"
+        other: "Sales Invoices"
+      voucher:
+        one: "Voucher"
+        other: "Vouchers"
+      partner_membership_voucher:
+        one: "Three-month Partner Membership"
+        other: "Three-month Partner Memberships"
+      paypal_deposit_account:
+        one: "Paypal"
+        other: "Paypal"
+      piggy_bank_account:
+        one: "Piggy Bank"
+        other: "Piggy Bank"
+      address:
+        one: "Address"
+        other: "Addresses"
+      personal_address:
+        one: "Personal Address"
+        other: "Personal Addresses"
+      business_address:
+        one: "Business Address"
+        other: "Business Addresses"
+      billing_address:
+        one: "Billing Address"
+        other: "Billing Addresses"
+      membership:
+        one: "Member"
+        other: "Members"
+      employment:
+        one: "Employee"
+        other: "Employees"
+      claiming:
+        one: "Claim"
+        other: "Claims"
+        

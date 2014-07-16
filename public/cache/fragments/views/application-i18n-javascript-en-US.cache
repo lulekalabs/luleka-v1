@@ -1,0 +1,8 @@
+"*
+  
+    <script type="text/javascript">
+    //<![CDATA[
+      Luleka.I18n.translations = $H({"minute":["minute","minutes"],"less_than_x_minutes":["less than a minute","less than %d minutes"],"over":"over","almost_x_years":["almost_x_years","almost_x_years"],"second":["second","seconds"],"month":["month","months"],"hour":["x_hours","x_hours"],"about_x_hours":["about %d hour","about %d hours"],"less_than_x_seconds":["less than %d second","less than %d seconds"],"about_x_year":["about %d year","about %d years"],"about_x_years":["about %d year","about %d years"],"about_x_months":["about %d month","about %d months"],"day":["day","days"],"over_x_years":["over %d year","over %d years"],"about":"about","less_than":"less than","half_a_minute":"half a minute","expired":"expired"});
+    //]]>
+    </script>
+  

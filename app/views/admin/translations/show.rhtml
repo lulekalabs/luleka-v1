@@ -1,0 +1,71 @@
+<style>
+  #languageTable {
+  }
+  #messageBoxYellow {
+    border:1px solid #f09f47;
+    padding:15px;
+    margin: 10px;
+    color: #f09f47;
+    background-color:#ffedaf;
+  }
+  p {
+    padding: 5px 0 5px 0;
+  }
+  
+  ol {
+    padding: 5px 0 5px 0;
+  }
+  
+  ol li {
+    padding: 6px 0px 6px 10px;
+    list-style: square inside;
+  }
+</style>
+<div id="messageBoxYellow">
+  <p>Welcome to the translation administration panel. Before translating any text, please review the following important information:</p>
+  <ol>
+    <li><b>The base site language is English</b>. All text in the website must be translated from English.</li>
+    <li><b>Model translations</b> is text that applies to a specific object on the site, e.g. a category title.</li>
+    <li><b>View translations</b> come from the website itself &mdash; these tend to be words like <em>'next'</em> and <em>'previous'</em>.</li>
+  </ol>
+</div>
+
+<table id="languageTable" cellpadding="0" cellspacing="0" border="0">
+<% (Utility.active_language_codes + Utility.active_locales).map(&:to_s).each do |locale| %>
+  <tr>
+    <td><b>
+      <%= human_locale_name(locale) %>
+    </b>&nbsp;</td>
+    <td width="25%">
+      <%= link_to 'Views', admin_translation_view_translations_path({:code => "#{locale}"}), :class => "button" %>
+      <br/>
+      <br/>
+      <% if I18n.locale_country(locale) %>
+        <%= link_to 'Translated', admin_translation_view_translations_path({:code => "#{locale}", :options => "translated"}),
+          :class => "smallButton" %>
+        <%= link_to 'Untranslated', admin_translation_view_translations_path({:code => "#{locale}", :options => "untranslated"}),
+          :class => "smallButton" %>
+      <% end %>
+      <br />
+    </td>
+    <td>
+      <% if I18n.locale_country(locale).blank? %>
+      <br />
+      <%= link_to 'Models', admin_translation_model_translations_path(:code => "#{locale}"), :class => "button" %>
+      <br/>
+      <br/>
+      <div>
+        <% @models.each do |m| %>
+          &nbsp;
+          <%= link_to m, admin_translation_model_translations_path(:code => locale, :class_name => m), 
+            :class => "smallButton" %>
+          &nbsp;
+        <% end %>
+      </div>
+      <% else %>
+        <br/><br/>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>

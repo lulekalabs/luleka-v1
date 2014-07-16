@@ -1,0 +1,20 @@
+<%  # setup
+  person ||= sidebar_item_content
+  function ||= :link_to
+  url ||= if !defined?(link)
+    person_path(person)
+  elsif link.is_a?(FalseClass)
+    false
+  else
+    person_path(person)
+  end
+%>
+<% div_tag :class => "listBoxPicture" do %>
+  <%= url ? send(function, image_avatar_tag(person), url) : image_avatar_tag(person) %>
+<% end %>
+<% div_tag :class => "listBoxNarrowTextContent" do %>
+  <%= div_tag url ? send(function, h(person.username_or_name), url) : h(person.username_or_name),
+    :class => 'listBoxHeadlineShort' %>
+  <%= div_tag_if_content person_professional_title_at_company_in_words(person) -%>
+  <%= div_tag_if_content person.current_state_t %>
+<% end %>

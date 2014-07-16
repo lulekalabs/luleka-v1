@@ -1,0 +1,13 @@
+<% if current_user && current_user.has_role?(:moderator) %>
+  <% content_for :content_sub_nav do %>
+  <div id="shellSub">
+    <ul class="sub_tabs">
+      <%= admin_tab_list_link_to Organization.human_name(:count => 2), '/admin/organizations' %>
+      <%= admin_tab_list_link_to Group.human_name(:count => 2), '/admin/groups' %>
+    </ul>
+  </div>
+  <div class='clearing'><br clear="both" /></div>
+  <% end %>
+
+  <%= render :active_scaffold => "admin/#{controller.controller_name}" %>	
+<% end %>

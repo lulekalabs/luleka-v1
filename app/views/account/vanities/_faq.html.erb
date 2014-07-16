@@ -1,0 +1,16 @@
+<div class="faq">
+  <p class="question">
+    <%= "What is a profile page?".t %>
+  </p>
+  <p class="answer">
+    <%= "The %{profile_page} is a link to your personal profile on #{SERVICE_NAME}.".t % {
+      :profile_page => link_to("profile page".t, "http://#{Utility.language_code}.wikipedia.org/wiki/url", :popup => true)
+    } %>
+  </p>
+  <p class="question">
+    <%= "Why can I change my profile URL only once?".t %>
+  </p>
+  <p class="answer">
+    <%= "We only allow you to change the URL once, due to reasons of search engine optimization.".t %>
+  </p>
+</div>

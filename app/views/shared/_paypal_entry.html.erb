@@ -1,0 +1,30 @@
+<%	# setup
+	edit ||= true
+	object ||= instance_for(type)
+	help_info_text ||= [
+	  "Enter your Paypal account, or %{signup} for one now" % {
+      :signup => link_to("sign up".t, "http://www.paypal.com/%{country}" % {
+        :country => object ? object.person.default_country.downcase : Utility.country_code.downcase
+      }, :popup => true )
+    },
+    "Your Paypal account appears like a regular email address, e.g. _%{example}_" % {
+      :example => DepositMethod.help_example(:paypal),
+    }
+  ].compact.to_sentences
+
+	help_warning_text ||= [
+	  object && !object.transaction_fee.zero? ? "a *transaction fee* of *%{fee}* applies for any outbound transfers to Paypal".t % {
+      :fee => object.transaction_fee.abs.format
+    } : nil
+  ].compact.to_sentences
+
+%>
+<% wizard_form_fields_for type, object do |d| %>
+  <%= help_text_tag(:paypal_account_info, help_warning_text,
+    :display => true, :escape => false, :type => :warning) unless help_warning_text.empty? %>
+
+  <%= d.text_field(:paypal_account, :edit => edit, :label => {
+    :position => :top, :text => "Paypal Account".t, :req => true, :help => {
+      :text => help_info_text, :escape => false, :display => false
+    }}, :size => 24, :maxlength => 30) %>
+<% end %>

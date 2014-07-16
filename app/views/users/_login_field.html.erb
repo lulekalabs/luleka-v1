@@ -1,0 +1,51 @@
+<%	# /users/form_text_field_username
+  disabled ||= false
+  help ||= {:text => ["Please enter the alias you want others to see.".t, "May only contain a-z, A-Z, 0-9 and _ and must be between %d-%d characters.".t % [User::LOGIN_MIN_CHARACTERS, User::LOGIN_MAX_CHARACTERS]].to_sentences}
+  label ||= {:position => :top, 
+    :text => "Desired Username".t + characters_inclusion(User::LOGIN_MIN_CHARACTERS, User::LOGIN_MAX_CHARACTERS), 
+    :req => true, :lock => false, :help => help}
+%>
+<% f.text_field :login, :size => User::LOGIN_MAX_CHARACTERS, :maxlength => User::LOGIN_MAX_CHARACTERS,
+    :disabled => disabled, :autocomplete => "off", :label => label, :id => dom_class(User, :login) do %>
+
+	<%= div_tag(progress_spinner(:id => dom_class(User, :login_spinner), 
+	  :tag => :img), :style => "display:inline-block;padding-left: 5px;") %>
+
+<% end %>
+
+<% unless disabled %>
+	<%= f.help_text(:login, '', {:id => dom_class(User, :login_validation), :type => :warning}) %>
+
+	<script type="text/javascript">
+  //<![CDATA[
+
+    Event.observe('<%= dom_class(User, :login) %>', "keypress", function(event) {
+      var key;
+      var chr;
+      document.all ? key = event.keyCode : key = event.which;
+      chr = String.fromCharCode(key);
+      if (key >= 28 && key <= 128) {
+        if (/^\s*[a-z0-9_]+$/i.exec(chr) == null) {
+          Event.stop(event);
+        }
+      }
+    });
+
+  //]]>
+  </script>
+  <% url = @tier || params[:tier_id] ?
+      hash_for_collection_path([:tier, :users], :validates_uniqueness, 
+      {:tier_id => @tier || params[:tier_id], :field => 'login',
+        :dom_id => dom_class(User, :login_validation)}) :
+      hash_for_validates_uniqueness_users_path.merge({:field => 'login',
+        :dom_id => dom_class(User, :login_validation)})
+    %>
+	<%= observe_field(dom_class(User, :login), :frequency => 1.0,
+    :loading => "Element.show('#{dom_class(User, :login_spinner)}')",
+    :complete => "Element.hide('#{dom_class(User, :login_spinner)}')", 
+    :url => url,
+    :with => "'value='+encodeURIComponent(value)",
+    :condition => "($('#{dom_class(User, :login)}').value.length >= #{User::LOGIN_MIN_CHARACTERS})",
+    :on => :change
+	) %>
+<% end %>

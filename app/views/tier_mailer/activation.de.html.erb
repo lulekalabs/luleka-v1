@@ -1,0 +1,17 @@
+Die folgende Community wurde aktiviert:
+
+Name der Community: <%= h(@tier.name) %>
+
+Kurzzusammenfassung:
+
+<%= h(@tier.summary) %>
+
+Beschreibung:
+
+<%= h(@tier.description) %>
+
+Zugangslink:
+
+<%= tier_url(@tier) %>
+
+<%= render :partial => "notifier/signature" %>

@@ -1,0 +1,22 @@
+<% content_left do %>
+  <%= render(
+    :partial => 'shared/people_list',
+    :locals => {
+      :title => "Manage Contacts".t,
+      :people => @people,
+      :paginator => @people_pages,
+      :options => {
+        :sort => { :lastname => "Name".t },
+        :url => { :controller => 'contacts', :action => 'manage' },
+        :partial => 'shared/manage_contact_item_content',
+        :locals => {
+          :link_to_person => true
+        }
+      }
+    } 
+  ) -%>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'shared/sidebar_invite', :locals => { :person => @person, :caption => "Invite a Friend".t } %>
+	<%= render :partial => 'shared/tag_cloud', :locals => { :model => 'Person', :controller => 'profiles', :tags => @tags } -%>
+<% end %>

@@ -1,0 +1,27 @@
+
+<% ul_tag({:class => 'participantsTable'}) do %>
+
+  <% i= 0 %>
+  <% participants.each do |p| %>
+	<% options = {} %>
+	<% if i.modulo(3) == 0 %>
+		<% options = {:class => 'first'} %>
+	<% end %>
+	<% li_tag(options) do%>
+	<%= image_avatar_tag(p) %>
+		<ul>
+			<li>
+        		<% span_tag({:class => 'buttonMinus'}) do %>
+			</li>
+
+			<li><%= p.name %></li>
+			<li><%= p.status %></li>
+      		<%= div_tag({:class => 'clearClass'}) %>
+		</ul>
+    <% end %>
+    <% end %>
+  <% i= i +1 %>
+
+<% end %>
+<% end %>
+

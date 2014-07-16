@@ -1,0 +1,13 @@
+Your have posted a comment to the following case:
+
+<%= kase_url(@kase) %>
+
+---
+<%= h(@comment.message)%>
+---
+
+To publish your comment now, please click on the following link or copy the entire link into your browser address field:
+
+<%= activate_comment_url(@comment.activation_code) %>
+
+<%= render :partial => "notifier/signature" %>

@@ -1,0 +1,18 @@
+<% # tiers/select_item
+  tier ||= select_item
+  id ||= "#{tier.id}_#{object_name}_#{method_name}"
+  search ||= :topics
+  value_name ||= :id
+%>
+
+<% div_tag :class => "tierSelectItem", :id => dom_id(tier, :item) do %>
+  <%= radio_button_tag("#{object_name}[#{method_name.to_s}]",
+  "#{tier.send(value_name)}", selected_tier_equal?(selected, tier), 
+    {:id => id, :onclick => "Luleka.Form.Tier.show('#{tier.id}')"}) %>
+  <label for="<%= id %>">
+    <span class="image"><%= tier_image_tag(tier, :title => h(tier.name)) %></span>
+    <em title="<%= h(tier.name) %>" alt="<%= h(tier.name) %>">
+      <%= truncate(h(tier.name), :length => 14) %>
+    <em>
+  </label>
+<% end %>

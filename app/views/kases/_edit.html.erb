@@ -1,0 +1,32 @@
+<% # kases/edit 
+  form_url ||= member_url([@tier, @topic, @kase])
+%>
+<% unless uses_modal? %>
+  <% content_left do %>
+  	<% wizard_form_for :kase, @kase, :url => form_url, :remote => true,
+  			:html => {:method => :put, :multipart => true} do |f| %>
+
+  	  <%= render :partial => 'kases/form', :locals => {:f => f}%>
+
+  	  <% form_button_container do %>
+      	<%= probono_button :label => "Cancel".t, :type => :passive, :action => :back %>
+      	<%= form_submit_button "Update".t, :position => :right %>
+      <% end %>
+
+  	<% end %>
+  <% end %>
+<% else %>
+  <% content_modal do %>
+  	<% wizard_form_for :kase, @kase, :url => member_path([@tier, @topic, @kase]), :remote => true,
+  			:html => {:method => :put, :multipart => true} do |f| %>
+		
+  	  <%= render :partial => 'kases/form', :locals => {:f => f}%>
+	  
+	    <% form_button_container do %>
+	      <%= probono_button :label => "Cancel".t, :position => :left, :type => :passive, 
+	        :function => close_modal_javascript %>
+      	<%= form_submit_button "Update".t, :position => :right %>
+	    <% end %>
+  	<% end %>
+  <% end %>
+<% end %>

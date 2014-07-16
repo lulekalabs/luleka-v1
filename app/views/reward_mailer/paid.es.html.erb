@@ -1,0 +1,11 @@
+Esta recompensa de <%= @reward.price.format %> se pagó a <%= h(@reward.receiver.name) %>.
+
+Para ver el balance de su monedero ahora, por favor haga clic en el siguiente enlace o copiar todo el enlace en tu navegador:
+
+<% account_bank_url %>
+
+Para ver más detalles, por favor haga clic en el siguiente enlace o copiar todo el enlace en tu navegador:
+
+<%= kase_url (@reward.kase)%>
+
+<%= render :partial => 'notifier/signature' %>

@@ -1,0 +1,454 @@
+de:
+  # pluralizations
+  "{{count}} error":
+    zero: "keine Fehler"
+    one: "1 Fehler"
+    other: "{{count}} Fehler"
+  "error":
+    zero: "Fehler"
+    one: "Fehler"
+    other: "Fehler"
+  #
+  "{{count}} voucher":
+    zero: "keine Gutscheine"
+    one: "1 Gutschein"
+    other: "{{count}} Gutscheine"
+  "voucher":
+    zero: "Gutschein"
+    one: "Gutschein"
+    other: "Gutscheine"
+  #
+  "{{count}} case":
+    zero: "keine Fälle"
+    one: "1 Fall"
+    other: "{{count}} Fälle"
+  "case":
+    zero: "Fall"
+    one: "Fall"
+    other: "Fälle"
+  #
+  "{{count}} concern":
+    zero: "keine Anliegen"
+    one: "1 Anliegen"
+    other: "{{count}} Anliegen"
+  "concern":
+    zero: "Anliegen"
+    one: "Anliegen"
+    other: "Anliegen"
+  #
+  "{{count}} problem":
+    zero: "keine Probleme"
+    one: "1 Problem"
+    other: "{{count}} Probleme"
+  "problem":
+    zero: "Problem"
+    one: "Problem"
+    other: "Probleme"
+  #
+  "{{count}} question":
+    zero: "keine Fragen"
+    one: "1 Frage"
+    other: "{{count}} Fragen"
+  "question":
+    zero: "Frage"
+    one: "Frage"
+    other: "Fragen"
+  #
+  "{{count}} idea":
+    zero: "keine Ideen"
+    one: "1 Idee"
+    other: "{{count}} Idee"
+  "idea":
+    zero: "Idee"
+    one: "Idee"
+    other: "Ideen"
+  #
+  "{{count}} praise":
+    zero: "keine Lobe"
+    one: "1 Lob"
+    other: "{{count}} Lob"
+  "praise":
+    zero: "Lob"
+    one: "Lob"
+    other: "Lob"
+  #
+  "{{count}} person":
+    zero: "niemand"
+    one: "1 Person"
+    other: "{{count}} Personen"
+  "person":
+    zero: "niemand"
+    one: "Person"
+    other: "Personen"
+  #
+  "{{count}} Mitarbeiter":
+    zero: "keine Mitarbeiter"
+    one: "1 Mitarbeiter"
+    other: "{{count}} Mitarbeiter"
+  "employee":
+    zero: "Mitarbeiter"
+    one: "Mitarbeiter"
+    other: "Mitarbeiter"
+  #
+  "{{count}} visitor":
+    zero: "keine Besucher"
+    one: "1 Besucher"
+    other: "{{count}} Besucher"
+  "visitor":
+    zero: "Besucher"
+    one: "Besucher"
+    other: "Besucher"
+  #
+  "{{count}} member":
+    zero: "keine Mitglieder"
+    one: "1 Mitglied"
+    other: "{{count}} Mitglieder"
+  "member":
+    zero: "Mitglied"
+    one: "Mitglied"
+    other: "Mitglieder"
+  #
+  "{{count}} product":
+    zero: "keine Produkte"
+    one: "1 Produkt"
+    other: "{{count}} Produkte"
+  "product":
+    zero: "Produkt"
+    one: "Produkt"
+    other: "Produkte"
+  #
+  "{{count}} topic":
+    zero: "keine Themen"
+    one: "1 Thema"
+    other: "{{count}} Themen"
+  "topic":
+    zero: "Thema"
+    one: "Thema"
+    other: "Themen"
+  #
+  "{{count}} reply":
+    zero: "keine Antworten"
+    one: "1 Antwort"
+    other: "{{count}} Antworten"
+  "reply":
+    zero: "Antwort"
+    one: "Antwort"
+    other: "Antworten"
+  #
+  "{{count}} response":
+    zero: "keine Antworten"
+    one: "1 Antwort"
+    other: "{{count}} Antworten"
+  "response":
+    zero: "Antwort"
+    one: "Antwort"
+    other: "Antworten"
+  #
+  "{{count}} advice":
+    zero: "kein Ratschlag"
+    one: "1 Ratschlag"
+    other: "{{count}} Ratschläge"
+  "advice":
+    zero: "Ratschlag"
+    one: "Ratschlag"
+    other: "Ratschläge"
+  # products
+  "{{count}} piece":
+    zero: "keine Einheit"
+    one: "1 Einheit"
+    other: "{{count}} Einheiten"
+  "piece":
+    zero: "Einheit"
+    one: "Einheit"
+    other: "Einheiten"
+  #
+  "{{count}} month":
+    zero: "keine Monate"
+    one: "1 Monat"
+    other: "{{count}} Monate"
+  "month":
+    zero: "Monat"
+    one: "Monat"
+    other: "Monate"
+  # comments, votes
+  "{{count}} vote":
+    zero: "keine Stimmen"
+    one: "1 Stimme"
+    other: "{{count}} Stimmen"
+  "vote":
+    zero: "Stimme"
+    one: "Stimme"
+    other: "Stimmen"
+  #
+  "{{count}} comment":
+    zero: "keine Kommentare"
+    one: "1 Kommentar"
+    other: "{{count}} Kommentare"
+  "comment":
+    zero: "Kommentar"
+    one: "Kommentar"
+    other: "Kommentare"
+  # profile
+  "{{count}} visit":
+    zero: "keine Besucher"
+    one: "1 Besucher"
+    other: "{{count}} Besucher"
+  "visit":
+    zero: "Besucher"
+    one: "Besucher"
+    other: "Besucher"
+  #
+  "{{count}} contact":
+    zero: "keine Kontakte"
+    one: "1 Kontakt"
+    other: "{{count}} Kontakte"
+  "contact":
+    zero: "Kontakt"
+    one: "Kontakt"
+    other: "Kontakte"
+  # orders/invoices
+  "{{count}} order":
+    zero: "keine Bestellungen"
+    one: "1 Bestellung"
+    other: "{{count}} Bestellungen"
+  "order":
+    zero: "Bestellung"
+    one: "Bestellung"
+    other: "Bestellungen"
+  #
+  "{{count}} purchase order":
+    zero: "keine Kaufaufträge"
+    one: "1 Kaufauftrag"
+    other: "{{count}} Kaufaufträge"
+  "purchase order":
+    zero: "Kaufauftrag"
+    one: "Kaufauftrag"
+    other: "Kaufaufträge"
+  #
+  "{{count}} sales order":
+    zero: "keine Kundenaufträge"
+    one: "1 Kundenauftrag"
+    other: "{{count}} Kundenaufträge"
+  "sales order":
+    zero: "Kundenauftrag"
+    one: "Kundenauftrag"
+    other: "Kundenaufträge"
+  #
+  "{{count}} invoice":
+    zero: "keine Rechnungen"
+    one: "1 Rechnung"
+    other: "{{count}} Rechnungen"
+  "invoice":
+    zero: "Rechnung"
+    one: "Rechnung"
+    other: "Rechnungen"
+  #
+  "{{count}} purchase invoice":
+    zero: "keine Eingangsrechnungen"
+    one: "1 Eingangsrechnung"
+    other: "{{count}} Eingangsrechnungen"
+  "purchase invoice":
+    zero: "Eingangsrechnung"
+    one: "Eingangsrechnung"
+    other: "Eingangsrechnungen"
+  #
+  "{{count}} sales invoice":
+    zero: "keine Ausgangsrechnungen"
+    one: "1 Ausgangsrechnung"
+    other: "{{count}} Ausgangsrechnungen"
+  "sales invoice":
+    zero: "Ausgangsrechnung"
+    one: "Ausgangsrechnung"
+    other: "Ausgangsrechnungen"
+  #
+  "{{count}} day":
+    zero: "keine Tage"
+    one: "1 Tag"
+    other: "{{count}} Tage"
+  "day":
+    zero: "Tag"
+    one: "Tag"
+    other: "Tage"
+  #
+  "{{count}} week":
+    zero: "keine Wochen"
+    one: "1 Woche"
+    other: "{{count}} Wochen"
+  "week":
+    zero: "Woche"
+    one: "Woche"
+    other: "Wochen"
+  #
+  "{{count}} follower":
+    zero: "keine Follower"
+    one: "1 Follower"
+    other: "{{count}} Follower"
+  "follower":
+    zero: "Follower"
+    one: "Follower"
+    other: "Follower"
+  #
+  "{{count}} subscriber":
+    zero: "keine Abonnenten"
+    one: "1 Abonnent"
+    other: "{{count}} Abonnenten"
+  "subscriber":
+    zero: "Abonnent"
+    one: "Abonnent"
+    other: "Abonnenten"
+  # reward
+  "{{count}} reward":
+    zero: "keine Belohnungen"
+    one: "1 Belohnung"
+    other: "{{count}} Belohnungen"
+  "reward":
+    zero: "Belohnung"
+    one: "Belohnung"
+    other: "Belohnungen"
+  # reward offer
+  "{{count}} reward offer":
+    zero: "keine Belohnungsgebote"
+    one: "1 Belohnungsgebot"
+    other: "{{count}} Belohnungsgebote"
+  "reward offer":
+    zero: "Belohnungsgebot"
+    one: "Belohnungsgebot"
+    other: "Belohnungsgebote"
+  #
+  "{{count}} recommendation":
+    zero: "keine Empfehlungen"
+    one: "1 Empfehlung"
+    other: "{{count}} Empfehlungen"
+  "recommendation":
+    zero: "Empfehlung"
+    one: "Empfehlung"
+    other: "Empfehlungen"
+  #
+  "{{count}} reputation":
+    zero: "keine Reputation"
+    one: "1 Reputation"
+    other: "{{count}} Reputation"
+  "reputation":
+    zero: "Reputation"
+    one: "Reputation"
+    other: "Reputation"
+  #
+  "{{count}} total reputation":
+    zero: "keine Gesamtreputation"
+    one: "1 Gesamtreputation"
+    other: "{{count}} Gesamtreputation"
+  "total reputation":
+    zero: "Gesamtreputation"
+    one: "Gesamtreputation"
+    other: "Gesamtreputation"
+  #
+  activerecord:
+    models:
+      tier:
+        one: "Gemeinde"
+        other: "Gemeinden"
+      organization:
+        one: "Gemeinde"
+        other: "Gemeinden"
+      group:
+        one: "Gruppe"
+        other: "Gruppen"
+      topic: 
+        one: "Thema"
+        other: "Themen"
+      product: 
+        one: "Produkt"
+        other: "Produkte"
+      service: 
+        one: "Dienst"
+        other: "Dienste"
+      kase: 
+        one: "Anliegen"
+        other: "Anliegen"
+      question: 
+        one: "Frage"
+        other: "Fragen"
+      problem: 
+        one: "Problem"
+        other: "Probleme"
+      idea: 
+        one: "Idee"
+        other: "Ideen"
+      praise: 
+        one: "Lob"
+        other: "Lob"
+      response:
+        one: "Empfehlung"
+        other: "Empfehlungen"
+      comment:  
+        one: "Kommentar"
+        other: "Kommentare"
+      clarification:  
+        one: "Klärung"
+        other: "Klärung"
+      clarification_request:
+        one: "Klärungsanfrage"
+        other: "Klärungsanfragen"
+      clarification_response:
+        one: "Klärungsantwort"
+        other: "Klärungsantworten"
+      user:
+        one: "Benutzer"
+        other: "Benutzer"
+      person:
+        one: "Person"
+        other: "Personen"
+      invitation:
+        one: "Einladung"
+        other: "Einladungen"
+      order:
+        one: "Bestellung"
+        other: "Bestellungen"
+      purchase_order:
+        one: "Kaufauftrag"
+        other: "Kaufaufträge"
+      sales_order:
+        one: "Verkaufsauftrag"
+        other: "Verkaufsaufträge"
+      invoice:
+        one: "Rechnung"
+        other: "Rechnungen"
+      purchase_invoice:
+        one: Eingangsrechnung
+        other: Eingangsrechnungen
+      sales_invoice:
+        one: "Ausgangsrechnung"
+        other: "Ausgangsrechnungen"
+      voucher:
+        one: "Gutschein"
+        other: "Gutscheine"
+      partner_membership_voucher:
+        one: "Dreimonatiger Partner Mitgliedschafts Gutschein"
+        other: "Dreimonatiger Partner Mitgliedschafts Gutscheine"
+      paypal_deposit_account:
+        one: "Paypal"
+        other: "Paypal"
+      piggy_bank_account:
+        one: "Sparschwein"
+        other: "Sparschweine"
+      address:
+        one: "Adresse"
+        other: "Adressen"
+      personal_address:
+        one: "Persönliche Anschrift"
+        other: "Persönliche Adressen"
+      business_address:
+        one: "Geschäftsanschrift"
+        other: "Geschäftsadressen"
+      billing_address:
+        one: "Rechnungsadresse"
+        other: "Rechnungsadressen"
+      membership:
+        one: "Mitglied"
+        other: "Mitglieder"
+      employment:
+        one: "Angestellter"
+        other: "Angestellte"
+      claiming:
+        one: "Anspruch"
+        other: "Anspruch"

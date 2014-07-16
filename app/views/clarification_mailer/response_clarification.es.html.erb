@@ -1,0 +1,13 @@
+<%= "Se ha enviado una aclaración a la respuesta de %{type} \"%{title}\":" % {
+  :type => @clarification.kase.class.human_name,
+  :title => h(@clarification.kase.title)
+} %>
+---
+<%= "#{h(@clarification.message)}" %>
+---
+
+Para ver la información, por favor haga clic en el siguiente enlace o copiar todo el enlace en su navegador:
+
+<%= kase_url(@clarification.kase) %>
+
+<%= render :partial => 'notifier/signature' %>

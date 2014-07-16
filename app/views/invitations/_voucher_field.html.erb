@@ -1,0 +1,13 @@
+<%
+  disabled ||= !(person.voucher_quota.to_i >= 0)
+  checked ||= !disabled
+%>
+<%= f.check_box :with_voucher, :label => {:text => "Add a voucher for my friend?".t}, :help => true, :disabled => disabled, :checked => checked %>
+<%= help_text_tag(
+  :invitation_with_voucher,
+  "Your friend receives a %{voucher} when the invitation is accepted. You have %{quota} left to send.".t % {
+    :voucher => PartnerMembershipVoucher.human_name,
+    :quota => "%d voucher" / person.voucher_quota,
+  },
+  :display => false 
+) %>

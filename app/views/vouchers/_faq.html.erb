@@ -1,0 +1,22 @@
+<div class="faq">
+  <p class="question">
+    <%= "What is a voucher?".t %>
+  </p>
+  <p class="answer">
+    <%= "A voucher contains a promotion code, which allows you to receive #{SERVICE_NAME} services free of charge.".t %>
+  </p>
+  <p class="question">
+    <%= "How can I redeem a voucher?".t %>
+  </p>
+  <p class="answer">
+    <%= "%{enter_your_promotion_code}, select continue and follow the instructions on your screen.".t % {
+      :enter_your_promotion_code => link_to_unless_current("Enter your promotion code".t, voucher_path)
+    } %>
+  </p>
+  <p class="question">
+    <%= "How do I get a voucher?".t %>
+  </p>
+  <p class="answer">
+    <%= "When other #{SERVICE_NAME} #{SERVICE_PARTNERS_NAME} invite you to become a friend, they can include a voucher for you to receive a free Partner Membership.".t %>
+  </p>
+</div>

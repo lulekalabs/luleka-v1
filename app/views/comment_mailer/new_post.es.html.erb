@@ -1,0 +1,13 @@
+<%= "Hay un nuevo comentario sobre %{type} \"%{title}\"" % {
+  :type => @comment.commentable.class.human_name,
+  :title => h(@comment.kase.title)
+} %>
+---
+<%= "#{h(@comment.message)}" %>
+---
+
+Para ver todos los comentarios, por favor haga clic en el siguiente enlace o copiar todo el enlace en tu navegador:
+
+<%= kase_url(@comment.kase) %>
+
+<%= render :partial => 'notifier/signature' %>

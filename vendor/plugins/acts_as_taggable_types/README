@@ -1,0 +1,14 @@
+ActsAsTaggableTypes
+===================
+
+Created by Juergen Fesslmeier
+
+Allows for tags to be added as tag types, similar to acts_as_taggable_on, except, that 
+each tag type is added to the taggable model's tag list.
+
+Contributors
+============
+
+* DHH acts_as_taggable plugin
+* various ideas/code snippets relating to it
+* acts_as_taggable_on

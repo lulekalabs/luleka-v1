@@ -1,0 +1,10 @@
+Danke, dass sie sich bei <%= SERVICE_NAME %> registriert haben.
+
+Um die Registrierung erfolgreich abzuschliessen, müssen sie folgenden
+Link anklicken oder kopieren sie ihn direkt in ihren Webbrowser:
+
+<%= activate_user_url(:id => @user.activation_code) %>
+
+Sie können dann fortfahren, um Ihr kostenloses Benutzerkonto zu aktivieren.
+
+<%= render :partial => 'notifier/signature' %>

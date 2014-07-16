@@ -1,0 +1,40 @@
+<%
+	title ||= @title || "Orders".t
+	message ||= form_flash_messages
+	theme ||= :profile
+	orders = list || @orders
+	display_sales_orders ||= @person.partner?
+%>
+
+<% div_tag :id => dom_class(PurchaseOrder, :container) do %>
+  <% content_container :type => theme do %>
+    <%= div_tag message, :id => dom_class(PurchaseOrder, :message) %>
+    <% headline do %>
+      <%= title %>
+    <% end %>
+    <% primary_content :last => !display_sales_orders do %>
+      <%= render(
+        :partial => 'shared/items_list_content',
+        :locals => {
+          :items => orders,
+          :options => {
+            :partial => 'account/orders/list_item_content',
+            :sort => {'orders.created_at' => "Date".t },
+            :sort_display => true,
+            :url => hash_for_account_orders_path
+          },
+          :theme => :profile
+        }
+      ) %>
+    <% end %>
+    <% if display_sales_orders %>
+    	<% secondary_content(:index => 1, :open => false, :style => "padding-bottom:0px;") do %>
+    	<% end %>
+    	<% slider_control(:index => 1, :last => true, :open => false, :url => controller.controller_name == 'sales_orders' ? hash_for_account_purchase_orders_path : hash_for_account_sales_orders_path) do %>
+    	  <%= slider_control_label(
+					order_title(controller.controller_name)
+				) %>
+    	<% end %>
+    <% end %>
+  <% end %>
+<% end %>

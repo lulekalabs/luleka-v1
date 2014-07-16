@@ -1,0 +1,28 @@
+<%
+  tier ||= sidebar_profile_content || @tier
+  topic ||= @topic
+%>
+<% if tier %>
+  <%= render :partial => 'tiers/sidebar_item_content', :object => tier,
+      :locals => {:topics => true} %>
+  <%= probono_clear_class %>
+<% end %>
+<%= sidebar_action_separator if tier && !tier.new_record? && topic && !topic.new_record? %>
+<%= render :partial => 'topics/sidebar_item_content', :object => topic,
+    :locals => {:kases => true} if topic && !topic.new_record?%>
+
+<% if tier && (!tier.site_url.blank? || !tier.summary.blank?) %>
+  <%= sidebar_action_separator %>
+  
+  <% unless tier.summary.blank? %>
+    <h4><%= "About".t %></h4>
+    <p><%= h(tier.summary) %></p>
+  <% end %>
+
+  <% unless tier.site_url.blank? %>
+	  <% sidebar_actions_elements do %>
+      <%= sidebar_action_link_to("%{tier_name} Site".t % {:tier_name => truncate(h(tier.name), 15)}, tier.site_url) %>
+    <% end %>
+  <% end %>
+  
+<% end %>

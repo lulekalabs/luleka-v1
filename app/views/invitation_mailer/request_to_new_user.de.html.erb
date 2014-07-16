@@ -1,0 +1,27 @@
+<% unless @invitation.message.blank? %>
+---
+<%= h(@invitation.message) %>
+---
+
+<%-end-%>
+
+<% if @invitation.with_voucher? %>
+Ein Geschenkgutschein für eine gratis <%= @invitation.voucher.class.human_name %> liegt bei. Der Gutschein-Kode lautet:
+
+<%= @invitation.voucher.code %>
+
+Der Gutschein kann eingelöst werden indem man die Kontaktanfrage bestätigt oder dem Link folgt:
+
+<%= voucher_url %>
+
+<%-end-%>
+
+Um jetzt die Einladung von <%= @invitation.invitor.casualize_name %> anzunehmen, ist es notwendig dem folgenden Link zu folgen:
+
+<%= confirm_invitation_url(:id => @invitation.uuid) %>
+
+<%= SERVICE_NAME %> ist kostenlos. Es dauert nur eine Minute, um sich anzumelden.
+
+<%= SERVICE_NAME %> dient zum schnellen Finden von qualifizierten Dienstleistern. Treten Sie in Kontakt mit Experten und Gleichgesinnten. Finden Sie schnell Lösungen zu Ihren Fällen.
+
+<%= render :partial => 'notifier/signature' %>

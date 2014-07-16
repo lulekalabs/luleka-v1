@@ -1,0 +1,42 @@
+<% # tiers/list_item_content
+  tier = list_item_content
+  expanded ||= false
+  expandable ||= true
+%>
+<% if tier %>
+  <%= div_tag link_to(tier_image_tag(tier, :name => :profile), tier_root_url(tier), :title => h(tier.name)), 
+    :class => "listBoxPictureWide" %>
+  <% div_tag :class => "listBoxTextContentNarrow" do %>
+    <h3 class="listBoxHeadlineTurquoise">
+      <%= link_to(h(tier.name), tier_root_url(tier), {:title => h(tier.name)}) %>
+    </h3>
+
+    <%= div_tag_if_content kases_powered_by_people_count_in_words(tier) %>
+    
+    <% if expanded %>
+      <%= div_tag_if_content h(tier.summary), :class => "summary" %>
+      <%= div_tag_if_content markdown(tier.description), :class => "description markdown" %>
+    <% end %>
+    
+    <%= tag_list tier, :editable => false, :context => :tags %>
+    
+    <blockquote>
+    <%= render :partial => 'kases/simple_list', :object => [[tier.most_recent_kases].flatten.first].compact,
+      :locals => {:image_size => :small} %>
+    </blockquote>
+
+    <% overview_list do %>
+
+      <%= overview_list_tier_kases_count(tier) %>
+      <%= overview_list_tier_topics_count(tier) %>
+      <%= overview_list_tier_people_count(tier) %>
+      <%= overview_list_tier_members_count(tier, :last => true) %>
+		  
+		<% end %>
+      
+  <% end %>
+  <%= list_item_expander_if(expandable, tier, expanded) %>
+<% else %>
+  <%= "No tiers found.".t -%>
+<% end %>
+<%= probono_clear_class -%>

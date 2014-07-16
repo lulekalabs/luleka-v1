@@ -1,0 +1,49 @@
+<%
+  kase ||= form_description || @kase
+  edit ||= defined?(:edit) && edit.nil? ? true : !!edit
+	label ||= defined?(:label) && label == false ? false : {:position => :top, :req => true, :help => true,
+	  :text => "I am %{action} about".t % {
+	    :action => unless kase.kind
+	      select(:kase, :kind, options_for_kind_select, {}, {:class => "nofontweight"})
+	    else
+	      select_string_for_kind(kase.kind)
+      end
+	  }}
+  flipper_label ||= '<small><bold>%{label}</bold></small>'
+%>
+<% form_fields_for :kase do |f| %>
+  <%= f.hidden_field :kind if kase.kind %>
+
+	<%#--- description %>
+	<% form_element do %>
+	  <%= form_label :kase, :description, label %>
+		<%= probono_clear_class %>
+		<%= help_text(:kase, :description, [
+				"You must select whether you are reporting a problem, asking a question, giving praise or sharing an idea.".t,
+				"Use the space below to describe your case in more detail.".t,
+				"The editor will assist you with some basic text decorations using %{markdown}, some HTML is also allowed.".t % {
+					:markdown => link_to("Markdown", "http://#{Utility.language_code}.wikipedia.org/wiki/Markdown", :popup => true)
+				}
+			].to_sentences, :display => false, :escape => false
+		) if edit %>
+		
+		
+		<br/>
+		<% form_field :kase, :description do %>
+
+			<%= text_area(:kase, :description, :id => dom_id(kase, :description),
+			  :style => "width: 100%", :class => "markdown_editor autogrow", :size => "80x2") %>
+			
+			<% flipper_link_to :kase_description_preview, :display => false,
+					:open_text => "<small>#{ "Preview".t }</small>",
+					:close_text => "<small>#{ "Close Preview".t }</small>" do %>	
+  			<%= div_tag '', :id => 'markdown_editor_preview', :class => 'markdown markdownEditorPreview' %>
+  			<%= probono_clear_class %>
+			<% end %>
+
+		<% end %>
+	<% end %>
+	
+<% end %>
+<%= markdown_editor_javascript_tag :kase, :description, :id => dom_id(kase, :description),
+ 	:preview_id => 'markdown_editor_preview' %>

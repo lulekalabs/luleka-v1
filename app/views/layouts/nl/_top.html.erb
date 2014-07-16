@@ -1,0 +1,99 @@
+<div id="top-stuff">
+  
+  <div id="banners" style="clear:both; display:none;">
+    <div>
+      <div class="welcome-banner-outer banner-outer">
+        <div class="welcome-banner banner">
+          <div class="welcome-banner-inside banner-inside" style="left: 0px; ">
+            <a class="pane-close" href="#">Close&nbsp;<span>×</span></a>
+            <span>
+                Welcome to <a href="#">Luleka</a>! Read up on <a target="_blank" href="/newluleka">what’s new</a>. You can still access <a href="#">old Luleka</a> for a limited time.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="top-bar-outer">
+    <div id="top-bar-bg"></div>
+    <div id="top-bar">
+      <div class="top-bar-inside" style="left: 0px;">
+        <div class="static-links">
+          <div id="logo">
+            <a href="/">Twitter</a>
+          </div>
+          <form id="search-form" action="/search" method="GET">
+            <span class="glass"><i></i></span>
+            <input value="" placeholder="Search" name="q" id="search-query" type="text">
+          </form>
+          <div id="concern-action">
+            <a id="new-concern" title="New Question">
+              <span>New Tweet</span>
+            </a>
+          </div>
+          <div id="global-nav">
+            <ul>
+              <li id="global-nav-home" class="active new"><a href="/#!/">Home</a></li>
+              <li id="global-nav-profile"><a href="/#!/chinshr">Profile</a></li>
+              <li id="global-nav-messages"><a href="/#!/messages">Messages</a></li>
+            </ul>
+          </div>
+          <div id="sections"></div>
+        </div>
+        <div class="active-links">
+          <!--
+          <a id="new-concern" rel="tipsy" title="New Question">
+            <span>New Tweet</span>
+          </a>
+          -->
+          <span class="vr"></span>
+          <span id="session" class="loggedin">
+            <a class="profile-links" href="#">
+              <img src="http://a0.twimg.com/profile_images/1302072255/Photo_32_normal.jpg">
+            </a>
+            <span id="screen-name">
+              chinshr
+            </span>&nbsp;<span id="screen-name-dropdown">&nbsp;</span>
+            <div class="dropdown">
+              <ul class="user-dropdown">
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="#">Sign out</a></li>
+              </ul>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div id="message-drawer"></div>
+    </div>
+  </div>
+</div>
+
+
+<% if false %>
+<!-- stuff from hostucan, probably obsolete -->
+<div id="header">  
+  
+  <!--
+  <div id="site-title">
+    <a href="#">Luleka</a>
+  </div>
+  -->
+  <div id="access">  
+    <div class="menu-header">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Profile</a></li>
+        <li>
+          <a href="#">Communities</a>
+          <ul class="children">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Profile</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>  
+</div>  
+<% end %>

@@ -1,0 +1,24 @@
+<%
+  tax_codes = I18n.t("taxes.#{I18n.locale_country}").map {|k,v| link_to("#{v[:name]}", v[:url] || "#", :popup => true) +
+    (v[:short_name] ? " (#{v[:short_name]})" : "") }
+%>
+<div class="faq">
+  <p class="question">
+    <%= "What is a Tax ID?".t %>
+  </p>
+  <p class="answer">
+    <%= "As Tax ID you may provide either of the following:".t + "&nbsp;" + tax_codes.to_sentence_with_or %>
+  </p>
+  <p class="question">
+    <%= "What if I don't provide my Tax ID?".t %>
+  </p>
+  <p class="answer">
+    <%= ["It is not required to enter your Tax ID.".t, "It is your responsibility to declare taxable revenues in the country you registered.".t].to_sentences %>
+  </p>
+  <p class="question">
+    <%= "Where does #{SERVICE_NAME} publish my Tax ID?".t %>
+  </p>
+  <p class="answer">
+    <%= ["If provided, your Tax ID is printed on invoices to your clients only.".t].to_sentences %>
+  </p>
+</div>

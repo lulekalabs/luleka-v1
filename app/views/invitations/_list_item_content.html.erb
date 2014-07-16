@@ -1,0 +1,27 @@
+<% # setup
+  invitation = list_item_content
+  expanded ||= false
+  expandable ||= true
+  empty_list_partial ||= nil
+%>
+<% if invitation %>
+  <% person = current_user_me?(invitation.invitor) ? invitation.invitee : invitation.invitor %>
+  <%= div_tag link_to(image_avatar_tag(person), person_path(person)), :class => "listBoxPicture" %>
+  <% div_tag :class => "listBoxTextContent" do %>
+    <%= div_tag profile_link_to(person.name, person), :class => 'listBoxHeadlineShort' %>
+    <%= div_tag_if_content person_professional_title_at_company_in_words(person) -%>
+    <%= div_tag_if_content person.current_state_t -%>
+    <%= div_tag_if_content shared_contacts_from_invitation_display(invitation) -%>
+    <%= render :partial => 'invitations/invitation_note', :object => invitation if expanded %>
+    <%= render :partial => 'invitations/confirm_control', :object => invitation if current_user_me?(invitation.invitee) %>
+    <%= render :partial => 'invitations/remind_control', :object => invitation if current_user_me?(invitation.invitor) %>
+  <% end %>
+  <%= list_item_expander_if expandable, invitation, expanded %>
+<% else %>
+  <% if empty_list_partial %>
+    <%= render :partial => empty_list_partial %>
+  <% else %>
+    <%= "No invitations found.".t -%>
+  <% end %>
+<% end %>
+<%= probono_clear_class -%>

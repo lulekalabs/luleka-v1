@@ -1,0 +1,54 @@
+<% # setup
+  title ||= @title || "Pending Invitation Requests".t
+  message ||= form_flash_messages
+  slider_index = 0
+%>
+<% content_left do %>
+  <% div_tag :id => dom_class(Invitation, :content) do %>
+    <% content_container :theme => :profile do %>
+      <% div_tag :id => dom_class(Invitation, :message) do %>
+        <%= message -%>
+      <% end %>
+      <% headline do %>
+        <%= title %>
+      <% end %>
+      <% primary_content :last => false, :style => 'padding-bottom:0px;' do %>
+        <%= render(
+          :partial => 'shared/items_list_content',
+          :locals => {
+            :items => @invitations,
+            :theme => :profile,
+            :options => {
+              :partial => 'invitations/list_item_content',
+              :url => hash_for_invitations_path
+            }
+          }
+        ) %>
+      <% end %>
+      <%# received accepted - "New contacts" %>
+      <% secondary_content(:index => slider_index += 1, :open => false ) do %>
+      <% end %>
+      <% slider_control(
+        :index => slider_index,
+        :last => false,
+        :open => false,
+        :url => hash_for_invitations_path(:kind => :accepted)
+      ) do %>
+        <%= content_tag( :div, "Accepted Invitations".t, :style => "float:left; padding-right: 5px; font-weight:bold; font-size: 13px;" ) -%>
+      <% end %>
+      <%# received declined - "Ignored by" %>
+      <% secondary_content(:index => slider_index += 1, :open => false ) do %>
+      <% end %>
+      <% slider_control(
+        :index => slider_index,
+        :last => true,
+        :open => false,
+        :url => hash_for_invitations_path(:kind => :declined)
+      ) do %>
+        <%= content_tag( :div, "Ignored Invitations".t, :style => "float:left; padding-right: 5px; font-weight:bold; font-size: 13px;" ) -%>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+<% content_right do %>
+<% end %>

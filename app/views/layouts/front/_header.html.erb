@@ -1,0 +1,21 @@
+<div id="topHeader">
+	<div id="topHeaderContent">
+
+    <div id="topHeaderLeftCol">
+    	<div id="topHeaderSlogan" class="fr"><%= I18n.t('service.tagline') %></div>
+    </div>
+    <div id="topHeaderRightCol">
+    	<%= render :partial => 'layouts/front/status_navigation' %>
+    </div>
+
+    <div id="topHeaderNavLeftCol">
+    	<a href="<%= home_page_path %>"><span id="topHeaderLogo"></span></a>
+    </div>
+    <div id="topHeaderNavRightCol">
+      <%= render :partial => 'layouts/front/primary_navigation' %>
+    </div>
+    		
+	</div>
+</div>
+<div id="topHeaderShadow">
+</div>

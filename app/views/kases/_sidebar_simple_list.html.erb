@@ -1,0 +1,11 @@
+<%
+  title_length ||= 140
+%>
+<% ul_tag_unless sidebar_simple_list.blank?, :class => "sidebarSimpleList clearfix" do %>
+  <% sidebar_simple_list.each do |kase| %>
+  <li>
+    <%= link_to(h(truncate(kase.title, :length => title_length)), member_path([@tier, @topic, kase]), 
+      :class => "title", :title => h(kase.title)) %>
+  </li>
+  <% end %>
+<% end %>

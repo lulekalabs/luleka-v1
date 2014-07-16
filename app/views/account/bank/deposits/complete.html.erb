@@ -1,0 +1,17 @@
+<%= wizard_chevron :complete %>
+<% content_left do %>
+  <% bracket_container do %>
+  	<%= form_flash_messages %>
+		<% steplet(:step => :check, :title => "Finished".t, 
+      :description => "Please check your order below.".t
+    ) do %>
+  		<%= render :partial => 'shared/order_invoice', :object => @order %>
+		<% end %>
+  <% end %>
+	<% form_button_container do %>
+		<%= probono_button :label => "Continue".t, :position => :right, :url => new_account_bank_deposit_path %>
+	<% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'faq' %>
+<% end %>

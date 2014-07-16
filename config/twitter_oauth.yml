@@ -1,0 +1,12 @@
+development:
+  consumer_token: zBkcPo8y4B84NvGTUr9Rg
+  consumer_secret: XIwLHvdATIXEEMxQPTBAbCFwVX7oVzZzBKGa4WgwQ
+test:
+  consumer_token: zBkcPo8y4B84NvGTUr9Rg
+  consumer_secret: XIwLHvdATIXEEMxQPTBAbCFwVX7oVzZzBKGa4WgwQ  
+staging:
+  consumer_token: 
+  consumer_secret: 
+production:
+  consumer_token: 
+  consumer_secret: 

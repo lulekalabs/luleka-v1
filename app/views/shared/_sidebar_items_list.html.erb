@@ -1,0 +1,12 @@
+<% # kases/sidebar_items_list
+  items ||= sidebar_items_list || []
+	locals ||= {}
+%>
+<% ul_tag :class => "listBoxNarrowElements" do%>
+  <% items.each_with_index do |item, index| %>
+    <% li_tag :id => dom_id(item, :sidebar_item), :class => "listBoxNarrowElement #{cycle('oddrow', 'evenrow')}" do %>
+      <%= render :partial => partial, :object => item, :locals => locals %>
+      <%= probono_clear_class -%>
+    <% end %>
+  <% end %>
+<% end %>

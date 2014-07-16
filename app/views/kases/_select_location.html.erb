@@ -1,0 +1,134 @@
+<%
+  open ||= false
+  delay ||= false
+%>
+
+<% if open %>
+
+  <%#--- render without flipper -> open == true %>
+  <% if delay %>
+
+    <%#= progress_spinner :display => true %>
+    
+    <%#--- setup delayed gmap loading %>
+    <%= render :partial => 'locations/google_map_load_script' %>
+    
+  <% else %>
+
+    <%#--- search field %>
+    <div class="formSearchContainer">
+      <table cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <td style="padding-right:5px">
+              <%= text_field(:kase, :location, :style => "width: 250px;", :class => "search") %>
+            </td>
+            <td>
+              <%= probono_search_button(:function => "showAddress();") %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <%= help_text_tag :kase_location,
+        "Start by typing the address or set and drag the marker to choose a specific location, e.g. %{city}, %{address}, %{location}".t % {
+          :city => link_to_function('San Francisco', 'setAddress("San Francisco");showAddress();'),
+          :address => link_to_function('Downing St, London, SW1A 2, GB', 'setAddress("Downing St, London, SW1A 2, GB");showAddress();'),
+          :location => link_to_function('geo:lat=-15.769788 geo:lng=-69.684906', 'setAddress("geo:lat=-15.769788 geo:lng=-69.684906"); showAddress();')
+        }, :display => true, :escape => false %>
+    <div>  
+    <script type="text/javascript">
+    //<![CDATA[
+      Luleka.Search.prettify($('kase_location'), true);
+    
+      Event.observe('kase_location', 'keypress', function(event) {
+        if (event.keyCode == Event.KEY_RETURN) {
+          showAddress();
+          Event.stop(event); 
+        }
+      });
+      
+      if ($('kase_location').parentNode.getElementsByClassName("reset")[0]) {
+        $('kase_location').parentNode.getElementsByClassName("reset")[0].observe("click", function() {
+          clearAddress();
+        });
+      }
+    //]]>
+    </script>
+    
+    <%#--- form element %>
+    <% if false %>
+    <% form_element do %>
+      <%= form_label_tag :kase_location, :position => :left, :text => "Location or Address".t, :help => true %>
+      <% form_field_tag :kase_location, :id => "search_location_field" do %>
+        <%= table_cells_with_options_tag({:style => "padding-right: 5px;"},
+          text_field(:kase, :location, :size => 20, :class => "search",
+            :onkeyup => update_page do |page|
+              page << "if ($('kase_location').value.length > 0) {"
+                page.show 'kase_location_reset'
+              page << "} else {"
+                page.hide 'kase_location_reset'
+              page << "}"
+            end
+          ),
+          probono_search_button(
+            :onclick => update_page do |page|
+            end,
+            :function => "showAddress();"
+          ),
+          probono_cancel_button(
+            :id => 'kase_location_reset',
+            :title => "Reset".t,
+            :display => false,
+            :function => "clearAddress();"
+          )
+        ) %>
+      <% end %>
+      <%= help_text_tag :kase_location,
+        "Start by typing the address or set and drag the marker to choose a specific location, e.g. %{city}, %{address}, %{location}".t % {
+          :city => link_to_function('San Francisco', 'setAddress("San Francisco");showAddress();'),
+          :address => link_to_function('Downing St, London, SW1A 2, GB', 'setAddress("Downing St, London, SW1A 2, GB");showAddress();'),
+          :location => link_to_function('geo:lat=-15.769788 geo:lng=-69.684906', 'setAddress("geo:lat=-15.769788 geo:lng=-69.684906"); showAddress();')
+        }, :display => false, :escape => false %>
+    <% end %>
+    <% end %>
+    
+    <% form_element do %>
+      <%= div_tag '', :id => 'themap', :style => 'width: 444px; height: 340px;overflow:hidden;' %>
+    <% end %>
+
+    <%= render :partial => 'kases/google_map_locator', :locals => {
+      :field_id => 'kase_location',
+      :default_address => @kase && @kase.person ? @kase.person.default_country : Utility.country_code,
+      :gmap_key => @gmap_key,
+      :open => open
+    } %>
+    
+  <% end %>
+
+<% else %>
+
+  <%#--- render with flipper -> open == false %>
+  <% switcher_link_to_remote("Does it focus around a specific location?".t, {
+      :url => collection_url([@tier, :kases], :select_location),
+      :method => :get,
+      :loading => update_page do |page|
+        page.insert_html :after, dom_class(Kase, :select_location_action), 
+          progress_spinner(:id => dom_class(Kase, :select_location_spinner), :display => true)
+      end,
+      :complete => update_page do |page|
+        page[dom_class(Kase, :select_location_spinner)].hide
+        page << "window.loadScript();"
+      end,
+      :open => open, :sticky => false
+     }, {
+       :inner_id => dom_class(Kase, :select_location),
+       :action_id => dom_class(Kase, :select_location_action)
+     }) do %>
+  
+    <%= render :partial => 'kases/select_location', :locals => {:open => true, :delay => delay} %>
+    
+  <% end %>
+	<div class="clearClass"></div>
+	
+<% end %>
+

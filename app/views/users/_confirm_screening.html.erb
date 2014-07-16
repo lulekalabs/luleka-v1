@@ -1,0 +1,26 @@
+<% bracket_container do %>
+	<%= form_flash_messages %>
+	<% steplet :title => "Account Requested".t, 
+	    :description => "Thank you for your interest in #{SERVICE_NAME}!".t do %>
+    
+	  <div class="inbracket">
+      
+	    <h3><%= "We are currently in closed beta.".t %></h3>
+
+	    <p>
+  	    <%= "During this time period, only a limited number of people are given access to the full service.".t %><span class="req">*&nbsp;</span>&nbsp;
+  	    <%= "If you do not hear back from us within the next 2-3 business days, you were not accepted into the beta program.".t %>&nbsp;
+  	    <%= "In this case, you will hear back from us, once the service opens publicly.".t %>
+  	  </p>
+
+      <div id="details" class="yellow" style="text-align:left;">
+        <p>
+          <span class="req">*&nbsp;</span>
+          <%= "Pages that do not require user sign-in, can be accessed freely.".t %>
+        </p>
+      </div>
+  
+    </div>
+
+	<% end %>
+<% end %>

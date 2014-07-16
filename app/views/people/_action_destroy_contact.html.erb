@@ -1,0 +1,6 @@
+<%= sidebar_action_link_to_remote("Remove Contact".t, {
+    :url => destroy_contact_person_path(@profile),
+    :method => :put,
+    :confirm => "Are you sure you want to remove %{name} from your contacts?".t % {:name => @profile.casualize_name}
+  }, {:icon => :minus, :id => dom_class(Person, :action_destroy_contact)}
+) if !current_user_me?(@profile) && current_user_friends_with?(@profile) %>

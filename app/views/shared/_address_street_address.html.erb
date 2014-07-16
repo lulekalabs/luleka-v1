@@ -1,0 +1,22 @@
+<%	# setup
+  f ||= nil
+  address ||= f ? f.object : (address_street_address || @address || Address.new)
+  object_name ||= nil
+  method_name ||= nil
+	edit ||= true 
+	lock ||= false
+	req ||= false
+	auto ||= false
+%>
+<% if f %>
+  <%= f.text_area :street, :edit => edit, :class => "autogrow",
+    :label => {:position => :top, :text => "Street Address".t, :lock => lock, :req => req, :auto => auto, 
+      :help => {:text => "Enter multi-line street addresses.<br/>Example:<br/><i>100 Longtail Way<br/>2nd floor</i>".t, :escape => false}},
+    :size => "60x1", :style => "width: 100%" %>
+<% else %>
+  <% wizard_form_fields_for "#{object_name}[#{method_name}]", address do |f| %>
+    <%= render :partial => 'shared/address_street_address',
+      :locals => {:f => f, :edit => edit, :lock => lock, :req => req, :auto => auto,
+        :object_name => object_name, :method_name => method_name} %>
+  <% end %>
+<% end %>

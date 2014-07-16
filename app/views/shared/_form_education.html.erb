@@ -1,0 +1,21 @@
+<%
+  object_name ||= :person
+  object ||= form_education
+	edit ||= begin edit.nil? ? true : edit; rescue; true; end
+%>
+<% form_table_fields_for object_name, object do |f| %>
+	<% form_table_row do %>
+		<%= f.text_field :academic_degree, :edit => edit,
+		  :label => {:position => :top, :text => "Academic Degrees".t, :help => true, :auto => false, :lock => true},
+		  :style => 'width: 100%' %>
+		<%= f.text_field :university, :edit => edit, 
+		  :label => {:position => :top, :text => "Universities".t, :help => true, :auto => false, :lock => true},
+		  :style => 'width: 100%' %>
+	<% end %>
+<% end %>
+<%= help_text object_name, :university,
+  "E.g. _Stanford University, University of Sydney_".t,
+  :display => false, :escape => false %>
+<%= help_text object_name, :academic_degree,
+  "e.g. _M.Sc. Computer Science, MBA_".t,
+  :display => false %>

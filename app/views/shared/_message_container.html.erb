@@ -1,0 +1,47 @@
+<%
+  spacer ||= true
+  header ||= nil
+  concise ||= false
+  container ||= false
+  klasses = { 
+    :warning => {
+      :top_class => "boxYellowTop",
+      :middle_class => "boxYellowMiddle",
+      :bottom_class => "boxYellowBottom",
+      :image => "css/icon_warning.png"
+    },
+    :error => {
+      :top_class => "boxRedTop",
+      :middle_class => "boxRedMiddle",
+      :bottom_class => "boxRedBottom",
+      :image => "css/icon_error.png"
+    },
+    :notice => {
+      :top_class => "boxTurquoisTop",
+      :middle_class => "boxTurquoisMiddle",
+      :bottom_class => "boxTurquoisBottom",
+      :image => "css/icon_notice.png"
+    }
+  }
+  # make sure only defined types are used
+  type = case type.to_sym
+    when :warning then :warning
+    when :error then :error
+    else :notice
+  end
+%>
+<% div_tag :class => "messageContainer#{'Sidebar' if concise}", :update => !container do %>
+  <%= div_tag :class => "#{klasses[type][:top_class]}#{'Sidebar' if concise}" %>
+  <% div_tag :class => "#{klasses[type][:middle_class]}#{'Sidebar' if concise}" do %>
+    <% div_tag :class => "colouredBoxColumnLeft#{'Sidebar' if concise}" do %>
+      <%= image_tag klasses[type][:image], :size => "16x16" -%>
+    <% end %>
+    <% div_tag :class => "colouredBoxColumnRight#{'Sidebar' if concise}" do %>
+      <%= div_tag_if header, :class => "colouredBoxHeadline", :content => header -%>
+      <%= body %>
+    <% end %>
+    <%= probono_clear_class -%>
+  <% end %>
+  <%= div_tag :class => "#{klasses[type][:bottom_class]}#{'Sidebar' if concise}", 
+    :style => spacer ? '' : "padding-bottom: 0px;" -%>
+<% end %>

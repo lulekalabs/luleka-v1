@@ -1,0 +1,80 @@
+<%# users/signup %>
+<h2 id="headline" class="">
+  <%= "Sign up and share your advice".t %>
+  <br/>
+	<strong>
+    <%= "everyone is an expert in something".t %>
+	</strong>
+</h2>
+<table id="sections" cellspacing="20">
+  <tbody>
+    <tr>
+      <td class="subsection left">
+  			<h3 class="turquoise"><%= "Basic Membership".t %></h3>
+  			<p class="subheading turquoise"><%= "everyone can sign up for free".t %></p>
+  			<p class="excerpt">
+  				<%= "Seek advice, share your recommendations and gain reputation.".t %>
+  			</p>
+  			<dl>
+  			  <dt><div class="step1"></div></dt>
+  			  <dd><span><%= "Seek advice and share recommendations.".t %></span> <%= "Post your concern, select from thousands and help whenever it is convenient.".t %></dd>
+  			  
+  			  <dt><div class="step2"></div></dt>
+  			  <dd><span><%= "Reputation and rewards.".t %></span>&nbsp;<%= "Earn reputation, monetary rewards and bonuses by providing valuable recommendations and feedback.".t %></dd>
+	
+  			  <dt><div class="step3"></div></dt>
+  			  <dd><span><%= "Everybody wins.".t %></span>&nbsp;<%= "Meet the most qualified people in organizations and communities that care about you.".t %></dd>
+  			  <div class="clearer"></div>
+  			</dl>
+  		</td>
+  		<td class="subsection right">
+  			<h3 class="green"><%= "Partner Membership".t %></h3>
+  			<p class="subheading green"><%= "only Partners can make real cash".t %></p>
+  			<p class="excerpt">
+  				<%= ["When you invite your friends we return portions of their generated earnings back to you.".t, "You can withdraw your balance to your bank account.".t].to_sentences %>
+  			</p>
+  			<dl>
+  			  <dt><div class="step1"></div></dt>
+  			  <dd><span><%= "Find interesting work.".t %></span>&nbsp;<%= "Select from thousands of topics you qualify for and help whenever it is convenient.".t %></dd>
+
+  			  <dt><div class="step2"></div></dt>
+  			  <dd><span><%= "Market your skills.".t %></span>&nbsp;<%= "Enhance your profile with your track record of quality work giving recommendations.".t %></dd>
+
+  			  <dt><div class="step3"></div></dt>
+  			  <dd><span><%= "Real gains.".t %></span>&nbsp;<%= ["Generate new leads through your contribution.".t, "You are compensated for your quality work.".t].to_sentences %></dd>
+  			  <div class="clearClass"></div>
+  			</dl>
+  		</td>
+		</tr>
+  </tbody>
+</table>
+<div id="signupAction">
+  <% div_tag :id => "signupBasicMembership", :display => !logged_in? do %>
+  	<%= button_start "Sign Up".t, new_user_path(:uses_modal => "1"), {:rel => 'facebox'} %>&nbsp;
+  	<%= "for free or %{link}".t % {:link => link_to("learn more".t, plans_user_partner_path)} %>
+  <% end %>
+  <% div_tag :id => "signupPremiumMembership", :display => logged_in? do %>
+    <%= button_start "Sign Up".t, new_user_partner_path %>&nbsp;
+  	<%= "and become a Luleka Partner or %{link}".t % {:link => link_to("learn more".t, plans_user_partner_path)} %>
+  <% end %>
+</div>
+
+<div id="questions" class="clearfix">
+  <div class="left">
+    <%= render :partial => "users/faq" %>
+  </div>
+  <div class="right">
+    <%= render :partial => "partners/faq"%>
+    <p class="question"><%= link_to("More...".t, 
+      @tier ? tier_faq_url(:tier_id => @tier.to_param) : faq_path) %></p>
+  </div>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+  document.observe('authentication:success', function() {
+    $("signupBasicMembership").hide();
+    $("signupPremiumMembership").show();
+  });
+//]]>
+</script>

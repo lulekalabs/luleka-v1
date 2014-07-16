@@ -1,0 +1,27 @@
+<%
+  object_name ||= :user
+  method_name ||= :verification_code
+  image_route_method_name ||= if respond_to?("verification_code_#{object_name.to_s.pluralize}_path".to_sym)
+    "verification_code_#{object_name.to_s.pluralize}_path".to_sym
+  else
+    "verification_code_#{object_name}_path".to_sym
+  end
+  image_path ||= "#{send(image_route_method_name)}.jpeg##{Time.now.to_i}"
+%>
+<% form_element do %>
+	<%= form_label(object_name, method_name, :position => :top, :req => true,
+	  :text => "Enter the code to confirm you are human".t, :help => true
+	) %>
+	<% form_field(object_name, method_name) do %>
+	  <%= table_cells_tag(
+	    image_tag(image_path, :size => '110x35', :id => 'captcha_image'),
+	    text_field(object_name, method_name, :size => 10, :autocomplete => :off)
+	  ) %>
+	<% end %>
+	<%= help_text object_name, method_name, 
+	  "Enter the characters as suggested in the box. A %{captcha} helps us to restrict robots.".t % {
+	    :captcha => link_to("Captcha", "http://%{code}.wikipedia.org/wiki/Captcha" % {
+	      :code => Utility.language_code
+	    }, :popup => true)
+	  }, :display => false, :type => :notice, :escape => false %>
+<% end %>

@@ -1,0 +1,48 @@
+<%	# setup
+  f ||= nil
+  address ||= f ? f.object : (address_country_and_province || @address)
+  object_name ||= nil
+  method_name ||= nil
+	edit ||= true 
+	locks ||= {}
+	reqs ||= {}
+	auto ||= false
+%>
+<% if f %>
+  <% form_table_row do %>
+    <%= f.select(:country_code, collect_countries_for_select(true, true), {
+      :include_blank => false, :edit => edit,
+      :label => {:position => :top, :text => "Country".t, :lock => locks[:country], :req => reqs[:country]}
+    }, {
+      :style => 'width: 100%',
+      :id => dom_class(Address, "#{address.kind}_country_code"),
+      :disabled => address.kind == :billing
+    }) %>
+    <%= render :partial => 'shared/address_province', :object => address,
+      :locals => {:f => f, :lock => locks[:province], :req => reqs[:province], :edit => edit,
+        :provinces => collect_provinces_for_select(address.country_code) || [],
+        :disabled => address.country_code.to_s.empty?} %>
+  <% end %>
+  
+  <%= observe_field(dom_class(Address, "#{address.kind}_country_code"),
+    :url => hash_for_update_address_province_users_path(
+      :html_id => dom_class(Address, "#{address.kind}_province"), 
+      :object_name => object_name, :method_name => method_name,
+      :lock => locks[:province] ? '1' : nil, :req => reqs[:province] ? '1' : nil),
+    :with => "'value='+encodeURIComponent(value)",
+    :on => :change,
+    :loading => update_page do |page|
+      page << "$('#{dom_class(Address, "#{address.kind}_country_code")}').disabled = 'disabled'"
+      page << "$('#{dom_class(Address, "#{address.kind}_province")}').disabled = 'disabled'"
+    end,
+    :complete => update_page do |page|
+      page << "$('#{dom_class(Address, "#{address.kind}_country_code")}').disabled = ''"
+    end 
+  ) %>
+<% else %>
+  <% form_table_fields_for "#{object_name}[#{method_name}]", address do |f| %>
+    <%= render :partial => 'shared/address_country_and_province',
+      :locals => {:f => f, :edit => edit, :locks => locks, :reqs => reqs,
+        :object_name => object_name, :method_name => method_name} %>
+  <% end %>
+<% end %>

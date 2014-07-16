@@ -1,0 +1,2 @@
+<%= sidebar_action_remote_facebox_link_to("Add as Contact".t, new_person_invitation_path(@profile),
+  {:icon => :plus, :id => dom_class(Person, :add_contact)}) if !current_user_me?(@profile) && !current_user_friends_with?(@profile) %>

@@ -1,0 +1,24 @@
+<% form_element do %>
+	<%= form_label(:person, :permalink, :position => :top, :req => true,
+	  :text => "The URL to your profile on #{SERVICE_NAME} is".t, :help => true
+	) %>
+	<% form_field(:person, :permalink) do %>
+	  <%= table_cells_tag(
+	    span_tag("http://#{SERVICE_DOMAIN}/people/"),
+	    text_field(:person, :custom_id, :size => 25)
+	  ) %>
+	<% end %>
+	<%= help_text :person, :custom_id, "May only contain a-z, A-Z, 0-9 and _ and must be between %d-%d characters.".t % [User::LOGIN_MIN_CHARACTERS, User::LOGIN_MAX_CHARACTERS], 
+	  :display => true, :type => :warning, :escape => false %>
+<% end %>
+<% form_element do %>
+	<%= form_label(:person, :custom_id_confirmation, :position => :top, :req => true,
+	  :text => "Confirm the new URL".t, :help => false
+	) %>
+	<% form_field(:person, :custom_id_confirmation) do %>
+	  <%= table_cells_tag(
+	    span_tag("http://#{SERVICE_DOMAIN}/people/"),
+	    text_field(:person, :custom_id_confirmation, :size => 25)
+	  ) %>
+	<% end %>
+<% end %>

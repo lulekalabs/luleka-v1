@@ -1,0 +1,76 @@
+<%# tiers/plans %>
+<% cache tier_plans_fragment_cache_key do %>
+<h2 id="headline">
+  <strong><%= "Compare Our Community Plans".t %></strong>
+  <br/>
+	<p class="subheading">
+    <%= "choose which one is right for your business".t %>
+	</p>
+</h2>
+<table id="chart">
+  <tbody>
+    <tr>
+      <th class="heading">&nbsp;</th>
+      <th class="table-col-0 product">
+        <h3><%= "Kickstart".t %></h3>
+        <p class="subheading"><%= "free".t.firstcase %></p>
+        <% horizontal_center do %>
+          <%= probono_button :label => "Start".t, :url => new_tier_path %>
+        <% end %>
+      </th>
+      <th class="table-col-2 product">
+        <h3><%= "Manage".t %></h3>
+        <p class="subheading"><%= "%{money} per month".t % {:money => Money.new(1900, Utility.currency_code).format({:force_cents => false})} %></p>
+        <% horizontal_center do %>
+          <%= probono_button :label => "Contact".t, :url => new_user_path %>
+        <% end %>
+      </th>
+      <th class="table-col-4 product">
+        <h3><%= "Custom".t %></h3>
+        <p class="subheading"><%= "%{money} per month".t % {:money => Money.new(29900, Utility.currency_code).format({:force_cents => false})} %></p>
+        <% horizontal_center do %>
+          <%= probono_button :label => "Contact".t, :url => new_user_path %>
+        <% end %>
+      </th>
+    </tr>
+    <% @features.each do |feature| %>
+    <tr class="<%= cycle("even", "odd", :name => "features") %>">
+      <td class="description"><%= feature[0] %></td>
+      <td class="table-col-0"><%= chart_feature(feature[1]) %></td>
+      <td class="table-col-2"><%= chart_feature(feature[2]) %></td>
+      <td class="table-col-4"><%= chart_feature(feature[3]) %></td>
+    </tr>
+    <% end %>
+    <tr class="last">
+      <td class="description">&nbsp;</td>
+      <td class="table-col-0">
+        <% horizontal_center do %>
+        <%= probono_button :label => "Start".t, :url => new_tier_path %>
+        <% end %>
+      </td>
+      <td class="table-col-2">
+        <% horizontal_center do %>
+        <%= probono_button :label => "Contact".t, :url => new_tier_path %>
+        <% end %>
+      </td>
+      <td class="table-col-4">
+        <% horizontal_center do %>
+          <%= probono_button :label => "Contact".t, :url => new_tier_path %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div id="details" class="yellow" style="text-align:center">
+  <span class="req">*&nbsp;</span><%= "Actual monthly Partner Membership fees may vary by the length of your subscription.".t %>
+</div>
+<div id="questions" class="clearfix">
+  <h2><%= "Questions".t %>?</h2>
+  <div class="left">
+    <%= render :partial => "tiers/faqs"%>
+    <p class="question"><%= link_to("More...", luleka_root_path) %></p>
+  </div>
+  <div class="right">
+  </div>
+</div>
+<% end %>

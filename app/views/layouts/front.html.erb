@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale_language.to_s %>" lang="<%= I18n.locale_language.to_s %>">
+	<head>
+	  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta content="<%= I18n.locale.to_s %>" http-equiv="Content-Language" />
+    <meta name="description" content="<%= @page_description || ["Luleka is a source for trusted recommendations".t, "Look for fast, reliable advice and trustworthy solutions.".t].to_sentences %>" />
+    <meta name="keywords" content="<%= @page_keywords || "trusted, recommendations, social search, professional service, luleka, luleka.com" %>" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <%= csrf_meta_tag %>
+		<title><%= @page_title || "#{I18n.t('service.tagline')} - #{I18n.t('service.name')}" %></title>
+		<%#= noscript_warning %>
+		<%= stylesheet_link_merged 'front_styles' %>
+		<!--[if lt IE 7]> 
+    <script src="http://ie7-js.googlecode.com/svn/version/2.0(beta3)/IE7.js" type="text/javascript"></script> 
+    <![endif]-->
+		<%= encryption_required? ? 
+		  javascript_include_merged('front', 'markdown_editor', 'rsa') : 
+		    javascript_include_merged('front', 'markdown_editor') %>
+	  <%= link_to_fav_icon %>
+	  <%= link_to_itouch_icon %>
+	  <%= feedback_javascript_tag({:key => "luleka", :show_tab => true}) %>
+	  <%= ga_async_javascript_tag("UA-9091575-2") %>
+	</head>
+	<body>
+    <%= render :partial => 'shared/application_i18n_javascript' %>
+    <%= render :partial => 'shared/site_alert' %>
+    <%= render :partial => 'layouts/front/header' %>
+		<div id="mainContent">
+			<%= yield %>
+			<div class="clearClass"></div>
+			<div id="bottomContentLanguageBox">
+				<div id="bottomFooterLanguageBoxTop"></div>
+				<div id="bottomFooterLanguageBoxTopSub"><%= "Luleka in your country".t %></div>
+			</div>
+		</div>
+    <%= render :partial => 'layouts/front/footer' %>
+    <%= fb_connect_async_js %>
+	  <%#= fb_connect_javascript_tag :lang => "#{I18n.locale}" %>
+    <%#= init_fb_connect "XFBML" %>
+	</body>
+</html>

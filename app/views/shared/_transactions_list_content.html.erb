@@ -1,0 +1,26 @@
+<% # Setup
+  html_id ||= 'table'
+  theme ||= :info
+  html_message_id ||= 'transactions_message_id'
+  sort ||= true
+  paginate ||= true
+  options ||= {
+    :sort => {:id => "TA#".t, :cents => "Amount".t, :sellable_type => "Usage".t, :created_at => "Date".t},
+    :url => {:controller => 'account/bank', :action => 'transactions'},
+    :partial => 'shared/transactions_list_item_content',
+    :locals => {}
+  }
+%>
+<%= render(
+	:partial => 'shared/items_list_content',
+	:locals => {
+		:paginator => paginator,
+		:items => transactions,
+		:options => options,
+		:theme => theme,
+		:sort => sort,
+		:paginate => paginate,
+		:html_id => html_id,
+		:html_message_id => html_message_id
+	}
+) -%>

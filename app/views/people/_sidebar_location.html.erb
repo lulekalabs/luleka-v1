@@ -1,0 +1,21 @@
+<%  # setup
+  person ||= sidebar_location || @profile
+  title ||= link_to("Location".t, person_locations_path(:person_id => person))
+%>
+<% if person && person.geo_coded? %>
+  <% content_container :theme => :sidebar do %>
+    <% headline do %>
+      <%= title %>
+    <% end %>
+
+    <% primary_content :last => true do %>
+      <%= div_tag '', :id => 'themap', :style => 'width:188px;height:150px;overflow: hidden;margin:0 -5px 0 -5px;' %>
+    <% end %>
+
+  <% end %>
+
+  <%= render :partial => 'locations/google_map_location', :object => [person], :locals => {
+    :gmap_key => @gmap_key,
+    :map_controls => false
+  } %>
+<% end %>

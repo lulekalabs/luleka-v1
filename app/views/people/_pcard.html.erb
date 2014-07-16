@@ -1,0 +1,65 @@
+<% # people/pcard
+  image_size ||= :normal
+  person ||= pcard || @profile
+  latest ||= person.kases.active.find(:first, :order => "created_at DESC")
+  open ||= false
+  show_name ||= false
+  show_piggy_bank ||= false
+  details_dom_id ||= dom_id(person, "pcard-details-#{rand(10000)}")
+  more_link_dom_id ||= dom_id(person, "pcard-more-#{rand(10000)}")
+%>
+<div class="pcardContent">
+  <div class="pcardOverview clearfix">
+    <div class="gutter <%= "#{image_size}" %>">
+      <div class="image <%= "#{image_size}" %>">
+        <%= avatar_link_to(person, :size => image_size == :small ? '20x20' : '35x35',
+          :anonymous => false) %>
+      </div>  
+    </div>
+    <div class="overviewContent <%= image_size %>">
+      <%#--- name and title %>
+      <% div_tag :class => "name" do %>
+        <%= link_to(h(show_name ? person.title_and_full_name : person.username_or_title_and_full_name), 
+          person_path(person)) %>
+        <%= span_tag_if(show_name, "(#{h(person.user.login)})") %>
+        <%= span_tag_if(show_name && !person.show_name?, "", :class => "lock") %>
+      <% end %>
+      <%= div_tag person_member_status_since_in_words(person), :class => "status" %>
+      <ul>
+        <li><%= person_reputation_points_in_words(person) %></li>
+        <% if show_piggy_bank %>
+          <li><%= "·" %></li>
+          <li><%= "#{current_user.person.piggy_bank.balance.format} (%{add_credit})" % {
+              :add_credit => link_to_unless_current("Add?".t, new_account_bank_deposit_path)} %></li>
+        <% end %>
+        <% unless open %>
+          <li><%= more_link_to_function "more".t, 
+              "$('#{details_dom_id}').show();$('#{more_link_dom_id}').hide();", 
+                {:class => "more", :id => more_link_dom_id} %></li>
+        <% end %>
+      </ul>  
+    </div>
+  </div>
+  <% div_tag :class => "pcardDetails", :id => details_dom_id, :display => open do %>
+    <% div_tag_if !person.home_page_url.blank?, :class => "entry" do %>
+      <span class="web"><%= "Web:".t %>&nbsp;</span>
+      <%= link_to(h(person.home_page_url), person.home_page_url) %>
+    <% end %>
+    <% div_tag_if !person.summary.blank?, :class => "entry" do %>
+      <span class="bio"><%= "Bio:".t %>&nbsp;</span><%= h(person.summary) %>
+      <br/>
+    <% end %>
+    <% div_tag_if latest, :class => "entry" do %>
+      <span class="latest"><%= "Latest:".t %>&nbsp;</span><%= link_to(h(latest.title), kase_path(latest)) %>
+      <br />
+    <% end %>
+    <% overview_list do %>
+      <%= overview_list_person_reputation_points(person) %>
+      <%= overview_list_person_kases_count(person) %>
+      <%= overview_list_person_responses_count(person) %>
+      <%= overview_list_person_votes_count(person) %>
+      <%= overview_list_person_followers_count(person) %>
+      <%= overview_list_person_friends_count(person, :last => true) %>
+		<% end %>
+  <% end %>
+</div>

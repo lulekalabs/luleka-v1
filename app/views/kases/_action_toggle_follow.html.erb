@@ -1,0 +1,23 @@
+<% # kases/action_toggle_follow
+%>
+<% if current_user_following?(@kase) %>
+
+	<%#--- stop following link %>
+	<%= sidebar_action_link_to_remote(
+	  "Unfollow %{type}".t % {:type => @kase.class.human_name}, {
+	    :url => member_path([@tier, @kase], :toggle_follow),
+	    :method => :put
+	  }, {:id => dom_class(Kase, :action_follow), :icon => :minus}
+	) %>
+
+<% else %>
+
+	<%#--- follow link %>
+	<%= sidebar_action_link_to_remote(
+	  "Follow %{type}".t % {:type => @kase.class.human_name}, {
+	    :url => member_path([@tier, @kase], :toggle_follow),
+	    :method => :put
+	  }, {:id => dom_class(Kase, :action_follow), :icon => :plus}
+	) %>
+	
+<% end %>

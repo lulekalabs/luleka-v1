@@ -1,0 +1,40 @@
+<% # Setup
+  title ||= @title || "Recently Active at %{name}".t % {:name => @tier.name}
+	message ||= form_flash_messages
+	kases ||= show || @kases
+	theme ||= :issue
+%>
+<% content_left do %>
+  <%= render :partial => 'kases/lookup' %>
+  
+  <% div_tag :id => dom_class(Kase, :content) do %>
+  	<% content_container :theme => theme do %>
+  		<%= div_tag message, dom_class(Kase, :message) %>
+  		<%= div_tag(title, :class => 'listBoxBlueHeader' ) %>
+  		<% primary_content :last => true, :style => 'padding-bottom:0px;' do %>
+  		  <%= render :partial => 'kases/list_content', :object => kases, :locals => {:theme => theme} %>
+  		<% end %>
+  	<% end %>
+  <% end %>
+  
+<% end %>
+<% content_right do %>
+  <% sidebar_context_actions_container(:partial => 'tiers/sidebar_profile_content') do %>
+    <%= render :partial => 'tiers/actions' %>
+  <% end %>
+
+  <%= render :partial => "tiers/sidebar_stats" %>
+
+  <% unless @participants.blank? %>
+    <%= render :partial => 'tiers/sidebar_participants' %>
+  <% end %>
+    
+  <%= render :partial => 'topics/sidebar_topics', :object => @popular_topics,
+    :locals => {:title => "Most Active".t, :kases => true} %>
+    
+  <%#= render :partial => 'topics/sidebar_topics', :object => @recent_topics,
+    :locals => {:title => "Recently Added".t, :kases => true} %>
+    
+  <%= render :partial => 'shared/sidebar_tag_cloud', 
+    :locals => {:route => [@tier, Kase]} %>
+<% end %>

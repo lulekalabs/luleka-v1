@@ -1,0 +1,19 @@
+<%= render :partial => 'shared/form_salutation_and_name', :object => @person,
+  :locals => {:gender => true,
+    :reqs => {:gender => true, :first_name => true, :last_name => true},
+    :locks => {:first_name => true, :middle_name => true, :last_name => true, :academic_title => true}} %>
+
+<% form_fields_for :person do |ff| %>
+	<br/>
+
+	<%= ff.check_box :show_name, :label => {:req => false, :text => "Show my real name to others".t, :help => true} %>
+  <%= ff.help_text :show_name, "Check if you want your full name to be shown, uncheck if you want to display only your username to others.".t, :display => false, :escape => false %>
+
+	<%= ff.check_box :prefers_casual, :label => {:req => false, :text => "System to communicate casually".t, 
+	  :help => true} %>
+  <%= ff.help_text :prefers_casual, 
+    "Do you prefer a more casual etiquette when we communicate with you, e.g. in emails, do you want us to use \"Hi %{casual_name}\" or a more formal style, like \"Dear %{formal_name}\"?".t % {
+      :casual_name => @person.casualize_name(true), :formal_name => @person.salutation_and_name_t
+        }, :display => false, :escape => false %>
+    
+<% end %>

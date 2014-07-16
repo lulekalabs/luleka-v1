@@ -1,0 +1,43 @@
+<%= wizard_chevron :new %>
+<% content_left do %>
+	<% wizard_form_for :person, @person, :url => account_bank_transfer_path, :html => {:method => :post} do |f| %>
+		<% bracket_container do %>
+		  <%= form_flash_messages %>
+			<%= form_error_messages_for :deposit_object, :unique => true, :attr_names => {
+			  :transfer_amount => "Transfer Amount".t
+			} %>
+			<% steplet(:step => :auto, :title => "Transfer Amount".t, 
+        :description => "Select the amount of funds you would like to transfer from your #{SERVICE_PIGGYBANK_NAME} account.".t
+      ) do %>
+        <%= render :partial => 'select_transfer_amount', :object => @deposit_object %>
+			<% end %>
+		<% end %>
+		<% bracket_container do %>
+			<%= form_error_messages_for :deposit_object, :unique => true, :attr_names => {
+			  :paypal_account => "Paypal Account".t
+			} %>
+			<% steplet :step => :auto, :title => "Destination Account".t, :description => "Select your preferred deposit method, which enables us to transfer your funds immediately.".t do %>
+
+  		  <%= render(:partial => 'shared/transaction_methods', :locals => {
+            :name => :deposit_method, :mode => :deposit,
+            :title => {
+              :req => true, :position => :top,
+              :text => "Select from one of the following".t,
+              :help => true
+            }
+        }) %>
+			  <%= help_text_tag :deposit_method,
+			    "The amount will be transfered to the selected deposit account.".t,
+			    :display => false %>
+			
+			<% end %>
+		<% end %>
+		<% form_button_container do %>
+			<%= probono_button :label => "Cancel".t, :type => :passive, :url => :back %>
+			<%= form_submit_button "Continue".t, :position => :right %>
+		<% end %>
+	<% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'faq' %>
+<% end %>

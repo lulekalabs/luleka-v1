@@ -1,0 +1,15 @@
+<% # Setup
+	title ||= @title || "All Cases".t
+	message ||= form_flash_messages
+	kases ||= @kases
+	theme ||= :issue
+%>
+<% div_tag :id => dom_class(Kase, :content) do %>
+	<% content_container :theme => theme do %>
+		<%= div_tag message, dom_class(Kase, :message) %>
+		<%= div_tag(title, :class => 'listBoxBlueHeader' ) %>
+		<% primary_content :last => true do %>
+		  <%= render :partial => 'kases/list_content', :object => kases, :locals => {:theme => theme} %>
+		<% end %>
+	<% end %>
+<% end %>

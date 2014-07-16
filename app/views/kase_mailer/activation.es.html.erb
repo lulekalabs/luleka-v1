@@ -1,0 +1,13 @@
+Usted ha iniciado el siguiente caso:
+
+<%= h(@kase.title) %>
+
+---
+<%= h(@kase.description) %>
+---
+
+Para publicar su caso ahora, por favor haga clic en el siguiente enlace o copiar el enlace en todo el campo de la dirección de su navegador:
+
+<%= activate_kase_url(@kase.activation_code) %>
+
+<%= render :partial => "notifier/signature" %>

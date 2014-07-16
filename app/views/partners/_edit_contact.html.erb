@@ -1,0 +1,21 @@
+<%
+  object ||= edit_contact || @user.person.business_address || BusinessAddress.new
+%>
+<% bracket_container do %>
+	<%= form_error_messages_for :person, :unique => true, :attr_names => {
+	  :business_address => "Business Address".t,
+	  :country => "Country".t,
+	  :country_code => "Country".t,
+	  :state => "State".t,
+	  :city => "City".t,
+	  :zip => "Zip Code".t,
+	  :street => "Street Address".t,
+	  :phone => "Phone".t,
+	  :mobile => "Mobile".t,
+	  :fax => "Fax".t
+	} %>
+	<% steplet :step => :auto, :title => "Business Contact".t,
+	  :description => "Your business information will only be shared with contacts you trust.".t do %>
+		<%= render :partial => 'shared/address', :object => object %>
+	<% end %>
+<% end %>

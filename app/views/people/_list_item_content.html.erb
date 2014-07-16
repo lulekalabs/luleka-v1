@@ -1,0 +1,48 @@
+<%	# people/list_item_content
+  person ||= list_item_content
+  expanded ||= false
+  expandable ||= true
+  empty_list_partial ||= nil
+%>
+<% if person %>
+  <%= div_tag link_to(image_avatar_tag(person), person_path(person)), :class => "listBoxPicture" %>
+	<% div_tag :class => "listBoxTextContent" do %>
+
+    <%#--- name %>
+	  <h3 class="listBoxHeadlineTurquoise">
+      <%= profile_link_to(h(person.username_or_title_and_full_name), person) %>
+    </h3>
+    
+	  <%#--- more info %>
+    <%= div_tag person_member_status_since_in_words(person) %>
+    <%= div_tag_if_content person_employed_at_in_words(person) %>
+    
+	  <%#--- expanded view %>
+    <% if expanded %>
+      <%= div_tag_if_content h(person.summary), :class => "summary" %>
+
+      <%#--- tag list %>
+      <%= tag_list person, :editable => false, :context => :tags %>
+    <% end %>
+
+    <% overview_list do %>
+
+      <%= overview_list_person_kases_count(person) %>
+      <%= overview_list_person_responses_count(person) %>
+      <%= overview_list_person_votes_count(person) %>
+      <%= overview_list_person_followers_count(person) %>
+      <%= overview_list_person_friends_count(person) %>
+      <%= overview_list_person_visits_count(person, :last => true) %>
+		  
+		<% end %>
+    
+	<% end %>
+	<%= list_item_expander_if expandable, person, expanded %>
+<% else %>
+  <% if empty_list_partial %>
+    <%= render :partial => empty_list_partial %>
+  <% else %>
+    <%= "No profile found." -%>
+  <% end %>
+<% end %>
+<%= probono_clear_class -%>

@@ -1,0 +1,135 @@
+homer_account:
+  id: 1
+  owner_id: 1
+  owner_type: Person
+  cents: 0
+  currency: 'USD'
+  authorizations_count: 0
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>
+barney_account:
+  id: 2
+  owner_id: 2
+  owner_type: Person
+  cents: 0
+  currency: 'EUR'
+  authorizations_count: 0
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>
+bart_account:
+  id: 3
+  owner_id: 3
+  owner_type: Person
+  cents: 0
+  currency: 'EUR'
+  authorizations_count: 0
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>
+marge_account:
+  id: 4
+  owner_id: 4
+  owner_type: Person
+  cents: 0
+  currency: 'USD'
+  authorizations_count: 0
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>
+lisa_account:
+  id: 5
+  owner_id: 5
+  owner_type: Person
+  cents: 0
+  currency: 'USD'
+  authorizations_count: 0
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>
+quentin_account:
+  id: 6
+  owner_id: 6
+  owner_type: Person
+  cents: 0
+  currency: 'USD'
+  authorizations_count: 0
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>
+aaron_account:
+  id: 7
+  owner_id: 7
+  owner_type: Person
+  cents: 0
+  currency: 'USD'
+  authorizations_count: 0
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>
+luleka_account:
+  id: 8
+  owner_id: 3
+  owner_type: Tier
+  cents: 0
+  currency: 'USD'
+  authorizations_count: 0
+  created_at: <%= 30.days.ago.to_s :db %>
+  updated_at: <%= 30.days.ago.to_s :db %>
+luleka_de_account:
+  id: 9
+  owner_id: 4
+  owner_type: Tier
+  cents: 0
+  currency: 'USD'
+  authorizations_count: 0
+  created_at: <%= 30.days.ago.to_s :db %>
+  updated_at: <%= 30.days.ago.to_s :db %>
+luleka_us_account:
+  id: 10
+  owner_id: 5
+  owner_type: Tier
+  cents: 0
+  currency: 'USD'
+  authorizations_count: 0
+  created_at: <%= 30.days.ago.to_s :db %>
+  updated_at: <%= 30.days.ago.to_s :db %>
+powerplant_account:
+  id: 11
+  owner_id: 1
+  owner_type: Tier
+  cents: 0
+  currency: 'USD'
+  authorizations_count: 0
+  created_at: <%= 30.days.ago.to_s :db %>
+  updated_at: <%= 30.days.ago.to_s :db %>
+powerplant_de_account:
+  id: 12
+  owner_id: 2
+  owner_type: Tier
+  cents: 0
+  currency: 'USD'
+  authorizations_count: 0
+  created_at: <%= 30.days.ago.to_s :db %>
+  updated_at: <%= 30.days.ago.to_s :db %>
+persil_de_account:
+  id: 13
+  owner_id: 6
+  owner_type: Tier
+  cents: 0
+  currency: 'EUR'
+  authorizations_count: 0
+  created_at: <%= 30.days.ago.to_s :db %>
+  updated_at: <%= 30.days.ago.to_s :db %>
+persil_uk_account:
+  id: 14
+  owner_id: 7
+  owner_type: Tier
+  cents: 0
+  currency: 'EUR'
+  authorizations_count: 0
+  created_at: <%= 30.days.ago.to_s :db %>
+  updated_at: <%= 30.days.ago.to_s :db %>
+persil_us_account:
+  id: 15
+  owner_id: 8
+  owner_type: Tier
+  cents: 0
+  currency: 'USD'
+  authorizations_count: 0
+  created_at: <%= 30.days.ago.to_s :db %>
+  updated_at: <%= 30.days.ago.to_s :db %>

@@ -1,0 +1,37 @@
+<%	# setup
+  f ||= nil
+  address ||= f ? f.object : (address_telecom || @address || Address.new)
+  object_name ||= nil
+  method_name ||= nil
+	edit ||= true 
+	locks ||= {}
+	reqs ||= {}
+	auto ||= false
+%>
+<% if f %>
+  <% form_table_row do %>
+	  <%= f.text_field :phone, :edit => edit, :label => {:position => :top, :text => "Phone".t, :lock => locks[:phone], :req => reqs[:phone], :auto => auto, :help => true}, :style => "width: 100%" %>
+	  <%= f.text_field :mobile, :edit => edit, :label => {:position => :top, :text => "Mobile".t, :lock => locks[:mobile], :req => reqs[:mobile], :auto => auto, :help => true}, :id => "#{object_name}_#{method_name}_mobile", :style => "width: 100%" %>
+	<% end %>
+	<% form_table_row do %>
+	  <%= f.text_field :fax, :edit => edit, :label => {:position => :top, :text => "Fax".t, :lock => locks[:fax], :req => reqs[:fax], :auto => auto, :help => true}, :style => "width: 100%" %>
+	<% end %>
+<% else %>
+  <% form_table_fields_for "#{object_name}[#{method_name}]", address do |f| %>
+      <%= render :partial => 'shared/address_telecom',
+        :locals => {:f => f, :edit => edit, :locks => locks, :reqs => reqs, :auto => auto,
+          :object_name => object_name, :method_name => method_name} %>
+  <% end %>
+  <%= help_text "#{object_name}[#{method_name}]", :phone, 
+    "Your %{number} should include country and area code, like +1 (831) 431-1000".t % {
+      :number => "phone number".t
+    }, :display => false %>
+  <%= help_text "#{object_name}[#{method_name}]", :mobile,
+    "Your %{number} should include country and area code, like +1 (831) 431-1000".t % {
+      :number => "mobile number".t
+    }, :display => false %>
+  <%= help_text "#{object_name}[#{method_name}]", :fax,
+    "Your %{number} should include country and area code, like +1 (831) 431-1000".t % {
+      :number => "fax number".t
+    }, :display => false %>
+<% end %>

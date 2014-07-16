@@ -1,0 +1,11 @@
+<%
+  edit ||= false
+  editable ||= false
+%>
+<%= div_tag '', :id => 'themap', :style => 'height:250px;overflow: hidden;margin:0 -5px 0 -5px;' %>
+<%= render :partial => 'locations/google_map_location', :object => [@kase], :locals => {
+  :gmap_key => @gmap_key,
+  :map_controls => true,
+  :objects => [@person],
+  :open => false
+} %>

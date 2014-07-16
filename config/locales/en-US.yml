@@ -1,0 +1,17 @@
+# http://github.com/svenfuchs/rails-i18n/tree/master/rails/locale
+"en-US":
+  service:
+    paypal_url: "http://www.paypal.com"
+    
+  paper:
+    sizes:
+      standard: "Letter"
+  
+  address:
+    city:
+      format: "%c, %s %z"
+    
+  number:
+    currency:
+      code: "USD"
+      

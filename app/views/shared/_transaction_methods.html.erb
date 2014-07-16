@@ -1,0 +1,48 @@
+<%
+  mode ||= :payment
+  amount ||= defined?(:amount) && amount.nil? ? false : !!amount
+  first_name ||= nil
+  last_name ||= nil
+  except ||= nil
+  only ||= nil
+  title ||= if title.class == String
+    {:text => title}
+  else
+    {:text => "Choose your preferred payment method?".t}
+  end
+  title.merge!({:position => :top, :req => true})
+	klass = mode == :payment ? PaymentMethod : DepositMethod
+%>
+<% form_element do %>
+  <%= form_label_tag(name, title) %>
+	<br/>
+	<div class="radiogroup">
+	<% klass.types(:except => except, :only => only).each do |type| %>
+		<div class="paymentMethod">
+      <%= radio_button_tag(name, "#{type}", flash["selected_#{mode}_method".to_sym] == type, {
+        :id => "#{type}",
+        :onclick => update_page do |page|
+          page.show "#{type}_id"
+          page.select("div.paymentDepositForm").each do |value, index|
+            page << "if (value.id != '#{type}_id') {"
+              page.hide value
+            page << "}"
+          end
+        end
+      }) %>
+	    <%= label_tag "#{type}", form_payment_deposit_tag(mode, type, 
+	      {:image => true, :onclick => "$('#{type}').checked = true;"}) %>
+		</div>
+	<% end %>
+	</div>
+<%- end -%>
+<%= probono_clear_class %>
+<% klass.objects(:except => except, :only => only).each do |object| %>
+	<% div_tag :id => "#{object.type}_id", :class => "paymentDepositForm", :clear => true,
+	  :display => flash["selected_#{mode.to_s}_method".to_sym] == object.type do %>
+			<%= render :partial => object.partial, :locals => {
+			  :mode => mode, :type => object.type, :edit => true, :amount => amount,
+			  :first_name => first_name, :last_name => last_name
+			} if object.partial %>
+	<% end %>
+<% end %>

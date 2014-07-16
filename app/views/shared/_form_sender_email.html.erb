@@ -1,0 +1,4 @@
+<%= f.text_field :sender_email, :label => {:text => "Your email", :position => :top, :req => true, 
+  :help => {:text => ["Since you are not signed in, we will send you an activation link to this email address, so you can publish this post later".t,
+    "%{sign_in} now".t % {:sign_in => link_to_remote_facebox_unless_current("Sign In".t,
+      new_session_path)}].to_sentence_with_or}} %>

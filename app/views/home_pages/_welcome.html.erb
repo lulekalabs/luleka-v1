@@ -1,0 +1,54 @@
+<% cache(welcome_fragment_cache_key) do %>
+<h2 id="headline">
+	<%= "We give businesses and consumers access to an on-demand customer service, and a scalable professional services workforce.".tn(:intro) %>
+</h2>
+<table id="sections" cellspacing="20">
+  <tbody>
+    <tr>
+      <td class="subsection left">
+  			<h3 class="blue"><%= "Businesses".t %></h3>
+  			<p class="subheading blue"><%= "Get real with your clients".t %></p>
+  			<p class="excerpt">
+  				<%= "Customers have great input, are you ready to listen? Embrace your clients and get engaged in the  conversation.".t %>
+  			</p>
+  			<dl>
+  			  <dt><div class="step1"></div></dt>
+  			  <dd><span><%= "Increase Productivity".t %>.</span>&nbsp;<%= "Cut down on repetitive support costs and get everyone in your organization on the same page.".t %></dd>
+
+  			  <dt><div class="step2"></div></dt>
+  			  <dd><span><%= "Professional Service".t %>.</span>&nbsp;<%= "Engage your staff, build loyalty  and trust through the power of community.".t %></dd>
+
+  			  <dt><div class="step3"></div></dt>
+  			  <dd><span><%= "Monitor".t %>.</span>&nbsp;<%= "Gather ideas and feedback from your clients and monitor your brand.".t %></dd>
+  			  <div class="clearer"></div>
+  			</dl>
+  			<div class="action clearClass">
+  				<%= probono_button :label => "Start".t, :url => new_tier_path %>
+  				<%= "for free or %{link}".t % {:link => link_to("learn more".t, plans_tiers_path)} %>
+  			</div>
+  		</td>
+  		<td class="subsection right">
+  		  <h3 class="green"><%= "Consumers".t %></h3>
+  			<p class="subheading green"><%= "Get satisfaction through people who care".t %></p>
+  			<p class="excerpt">
+  				<%= "Ask other customers and employees who care about you instead of dealing with anonymous call center agents.".t %>
+  			</p>
+  			<dl class="benefits clearClass">
+  			  <dt><div class="step1"></div></dt>
+  			  <dd><span><%= "Feedback".t %>.</span>&nbsp;<%= "Ask questions, report problems, share ideas or just give feedback about anything.".t %></dd>
+  			  <dt><div class="step2"></div></dt>
+  			  <dd><span><%= "Let People Find You".t %>.</span>&nbsp;<%= "Meet the most qualified people in the field that care about you.".t %></dd>
+  			  <dt><div class="step3"></div></dt>
+  			  <dd><span><%= "Reward".t %>.</span>&nbsp;<%= "You decide if you want to fund your account, offer rewards, and get faster, more accurate responses.".t %></dd>
+  			  <div class="clearClass"></div>
+  			</dl>
+  			
+  			<div class="action clearClass">
+  				<%= probono_button :label => "Start".t, :url => new_user_path %>
+  				<%= "for free or %{link}".t % {:link => link_to("learn more".t, plans_user_partner_path)} %>
+  			</div>
+  		</td>
+		</tr>
+  </tbody>
+</table>
+<% end %>

@@ -1,0 +1,19 @@
+<%= wizard_chevron :complete %>
+<% content_left do %>
+  	<% bracket_container do %>
+  		<%= form_flash_messages %>
+  		<% steplet(:step => :check, :title => "Finished".t, 
+        :description => "Your transfer is complete. Please review your recent #{SERVICE_PIGGYBANK_NAME} transactions below.".t
+      ) do %>
+        <%= render :partial => 'account/bank/transactions/short_list', :object => @person.piggy_bank, :locals => {
+          :from => @transfer_time
+        } %>
+  		<% end %>
+  	<% end %>
+  	<% form_button_container do %>
+  		<%= form_submit_button "Continue".t, :position => :right, :url => new_account_bank_transfer_path %>
+  	<% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'faq' %>
+<% end %>

@@ -1,0 +1,18 @@
+<%  # setup
+  topics ||= sidebar_topics
+  title ||= "Topics".t
+  time ||= true unless defined?(time)
+  kases ||= false unless defined?(kases)
+%>
+<% content_container_unless topics.blank?, :theme => :sidebar do %>
+  <% headline do %>
+    <%= title %>
+  <% end %>
+  <% primary_content :style => "padding-top: 0px; padding-bottom: 0px;" do %>
+    <% ul_tag :class => "listBoxNarrowElements" do %>
+      <%= render :partial => 'topics/sidebar_list_item', :collection => topics,
+        :locals => {:time => time, :kases => kases} %>
+    <% end %>
+  <% end %>
+  <div class="sideBarBoxGrayBottom"></div>
+<% end %>

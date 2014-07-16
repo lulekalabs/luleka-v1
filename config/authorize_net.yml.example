@@ -1,0 +1,20 @@
+development:
+  login_id: 6Jc5c8QcB
+  transaction_key: 68j46u5S3RL4CCbX
+  mode: test
+
+test:
+  login_id: 6Jc5c8QcB
+  transaction_key: 68j46u5S3RL4CCbX
+  mode: test
+  
+staging:
+  login_id: 6Jc5c8QcB
+  transaction_key: 68j46u5S3RL4CCbX
+  mode: test
+
+production:
+  login_id: 23Z4q9Sew
+  transaction_key: 672Y45449yWBk7k6
+  mode: production
+

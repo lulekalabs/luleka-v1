@@ -1,0 +1,17 @@
+<div class="faq">
+  <p class="question">
+    <%= "How can I report inappropriate content?".t %>
+  </p>
+  <p class="answer">
+    <%= ["On published posts you have an option to flag inappropriate content.".t, "The right to flag content varies between communities, but usually requires a minimum amount of reputation.".t].to_sentences %>
+  </p>
+
+  <p class="question">
+    <%= "What is inappropriate content?".t %>
+  </p>
+  <p class="answer">
+    <%= ["Inappropriate content is material that does not comply with our %{guidelines} and {terms}.".t, "Flagged content will be reviewed and removed immediately if deemed to be inappropriate."].to_sentences % {
+      :terms => link_to("Terms of Service".t, terms_of_service_path), :guidelines => link_to("Guidelines".t, guidelines_path)
+    } %>
+  </p>
+</div>

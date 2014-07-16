@@ -1,0 +1,155 @@
+<%# widgets/feedbacks/show %>
+<% cache(feedback_widget_fragment_cache_key) do %>
+<div id="feedbackContainer" class="feedbackContainer">
+  <!-- tabs -->
+  <div class="actionHeader">
+    <ul class="tabs">
+
+      <li class="separator solid"/>
+      <li class="first active" id="tab-idea">
+        <h2>
+          <a onclick="Luleka.Feedback.Tabs.select('idea'); Luleka.Feedback.cancel(); return false;" href="#">
+            <%= "Idea".t.titlecase %>
+          </a>
+        </h2>
+      </li>
+      <li class="separator solidBlank"/>
+    
+      <li class="" id="tab-question">
+        <h2>
+          <a onclick="Luleka.Feedback.Tabs.select('question'); Luleka.Feedback.cancel(); return false;" href="#">
+            <%= "Question".t.titlecase %>
+          </a>
+        </h2>
+      </li>
+      <li class="separator"/>
+
+      <li id="tab-problem">
+        <h2>
+          <a onclick="Luleka.Feedback.Tabs.select('problem'); Luleka.Feedback.cancel(); return false;" href="#">
+            <%= "Problem".t.titlecase %>
+          </a>
+        </h2>
+      </li>
+      <li class="separator"/>
+    
+      <li id="tab-praise">
+        <h2>
+          <a onclick="Luleka.Feedback.Tabs.select('praise'); Luleka.Feedback.cancel(); return false;" href="#">
+            <%= "Praise".t.titlecase %>
+          </a>
+        </h2>
+      </li>
+      <li class="separator"/>
+    
+    </ul>
+    <% if false %>
+    <ul class="actions">
+      <li id="tab-close" class="close">
+        <a onclick="Luleka.Feedback.close(); return false;" href="<%= member_path([@tier, @topic]) %>">
+          <div class="close"></div>
+        </a>
+      </li>
+    </ul>
+    <% end %>
+  </div>
+
+  <!-- content -->
+  <%= render :partial => "widgets/feedbacks/content" %>
+
+  <!-- footer -->
+  <div class="footer"></div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+  document.observe('dom:loaded', function() {
+    Luleka.Feedback.DefaultFields.clear();
+    Luleka.Feedback.DefaultFields.initialize();
+    Luleka.Feedback.Tabs.select('<%= default_kase_kind %>');
+  });
+
+  Luleka.Feedback.cancel = function() {
+    Luleka.Feedback.DefaultFields.clear();
+    Luleka.Feedback.start();
+    $('feedbackContent').show();
+    $('feedbackComplete').hide();
+  }
+
+  Luleka.Feedback.existing = function(type) {
+    if (!type && $('kase-kind').value && $('kase-kind').value != '') type = $('kase-kind').value;
+    <% kase_kinds.each do |kind| %>
+    if (type == '<%= kind %>') {
+      e = $('<%= existing_kases_list_dom_class(kind) %>');
+      if (e) e.show();
+      p = $('<%= popular_kases_list_dom_class(kind) %>');
+      if (p) p.hide();
+    }
+    <% end %>
+  }
+
+  /* show popular kase list for type */
+  Luleka.Feedback.popular = function(type) {
+    if (!type && $('kase-kind').value && $('kase-kind').value != '') type = $('kase-kind').value;
+    <% kase_kinds.each do |kind| %>
+    if (type == '<%= kind %>') {
+      e = $('<%= existing_kases_list_dom_class(kind) %>');
+      if (e) e.hide();
+      p = $('<%= popular_kases_list_dom_class(kind) %>');
+      if (p) p.show();
+    }
+    <% end %>
+  }
+
+  Luleka.Feedback.enter = function() {
+    $('<%= dom_class(Kase, :continue_row) %>').hide();
+    $('<%= dom_class(Kase, :continue_spinner) %>').hide();
+    $('<%= dom_class(Kase, :continue) %>').show();
+    $('<%= dom_class(Kase, :start) %>').hide();
+    /* blind down accordion */
+    if (!Element.visible($('<%= dom_class(Kase, :accordion) %>'))) {
+      new Effect.BlindDown($('<%= dom_class(Kase, :accordion) %>'), {duration: 0.3});
+    } 
+    /* show popular list again */
+    Luleka.Feedback.popular();
+  
+    /* show content/hide complete */
+    $('feedbackContent').show();
+    $('feedbackComplete').hide();
+  }
+
+  Luleka.Feedback.start = function() {
+    $('messages').hide();
+    $('<%= dom_class(Kase, :start) %>').hide();
+    $('<%= dom_class(Kase, :continue) %>').show();
+    $('<%= dom_class(Kase, :continue_row) %>').show();
+    /* blind up accordion */
+    if (Element.visible($('<%= dom_class(Kase, :accordion) %>'))) {
+      new Effect.BlindUp($('<%= dom_class(Kase, :accordion) %>'), {duration: 0.3});
+    } 
+    /* show popular list again */
+    Luleka.Feedback.popular();
+
+    /* show content/hide complete */
+    $('feedbackContent').show();
+    $('feedbackComplete').hide();
+  }
+
+  Luleka.Feedback.complete = function() {
+    Luleka.Feedback.DefaultFields.clear();
+    /* show complete/hide content */
+    $('<%= dom_class(Kase, :accordion) %>').hide();
+    $('feedbackContent').hide();
+    $('feedbackComplete').show();
+  }
+
+  Luleka.Feedback.reload = function() {
+    Luleka.Feedback.DefaultFields.initialize();
+    $('<%= dom_class(Kase, :send_spinner) %>').hide();
+    $('<%= dom_class(Kase, :send_button) %>').show();
+    $('<%= dom_class(Kase, :continue_spinner) %>').hide();
+  }
+
+//]]>
+</script>
+<% end %>

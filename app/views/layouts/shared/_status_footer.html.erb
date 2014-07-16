@@ -1,0 +1,19 @@
+<div id="bottomOverallFooter" align="center">
+	<div id="bottomOverallFooterContent">
+	  <% if @tier %>
+	    <%= link_to_feedback %>
+	  <% else %>
+	    <%= link_to_feedback_remote %>
+	  <% end %>&nbsp;<%= "·" %>&nbsp;
+		<%= link_to_unless_current "Guidelines".t, guidelines_url %>&nbsp;<%= "·" %>&nbsp;
+		<%= link_to_unless_current "Jobs".t, jobs_url %>&nbsp;<%= "·" %>&nbsp;
+		<%= link_to_unless_current "Terms".t, terms_of_service_url %>&nbsp;<%= "·" %>&nbsp;
+		<%= link_to_unless_current "Privacy".t, privacy_policy_url %>&nbsp;<%= "·" %>&nbsp;
+		<%= link_to_unless_current "About".t, about_url %>&nbsp;&nbsp;
+		<%= link_to image_tag("icons/social/fb16x16.png", {:class => "socialref"}), "http://www.facebook.com/pages/luleka/191923610825", :popup => true %>&nbsp;
+		<%= link_to image_tag("icons/social/tw16x16.png", {:class => "socialref"}), "http://twitter.com/luleka", :popup => true %>&nbsp;
+		
+		&nbsp;&nbsp;
+		<%= ["Copyright %{copysym} 2010 Luleka S.A.".t  % {:copysym => '&copy;'}, "All rights reserved.".t].to_sentences %>
+	</div>
+</div>

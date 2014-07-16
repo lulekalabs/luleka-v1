@@ -1,0 +1,8 @@
+<% content_left do %>
+  <%= render :partial => 'account/orders/list', :object => @orders %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'account/orders/actions' %>
+  <br/>
+  <%= render :partial => 'account/orders/faq' %>
+<% end %>

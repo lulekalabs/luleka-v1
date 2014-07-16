@@ -1,0 +1,20 @@
+ActsAsBiddable
+==============
+
+Created by Jürgen Feßlmeier
+
+Examples:
+
+# biddable class
+class Product << ActiveRecord::Base
+	...
+	acts_as_biddable
+	...
+end
+
+# bidder class
+class Person << ActiveRecord::Base
+	...
+	acts_as_bidder
+	...
+end

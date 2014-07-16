@@ -1,0 +1,49 @@
+<%
+  response ||= response || @response
+	accepted ||= response.nil? ? false : response.accepted?
+	container_dom_class ||= "responseContainer"
+	container_dom_class += accepted ? " acceptedResponseContainer" : " unacceptedResponseContainer"
+	container_dom_class += " newResponseContainer" if response.new_record?
+	separator ||= false
+%>
+<% unless response.nil? %>
+  <% div_tag :id => dom_id(response), :class => container_dom_class do %>
+
+  	<% if accepted %>
+
+      <% switch_theme :type => :response do %>
+    		<%#--- accepted response %>
+    		<% headline_if accepted do %>
+    			<%= "Recommended solution".t %>
+    		<% end %>
+	
+    	  <%= render :partial => 'responses/overview', :object => response, :locals => {:accepted => accepted} %>
+
+    		<% primary_content :last => false, :style => 'border-bottom:0px;' do %>
+    			<%= render :partial => 'responses/body', :object => response %>
+    	  <% end %>
+    		<div class="greenBoxBottom"></div>
+      <% end %>
+      
+  	<% else %>
+  		<% switch_theme :type => :form do %>
+
+  			<%#--- existing or new response? %>
+  			<% if response.new_record? %>
+
+          <%= render :partial => 'responses/new', :object => response, 
+            :locals => {:disabled => false, :omit_authentication_success => true} %>
+
+  			<% else %>
+
+  				<%#--- existing regular (unaccepted) response %>
+  		  	<%= render :partial => 'responses/overview', :object => response, :locals => {:accepted => accepted} %>
+  				<%= render :partial => 'responses/body', :object => response %>
+			
+  			<% end %>
+		
+  		<% end %>
+  	<% end %>
+  <% end %>
+  <%= div_tag_if separator, '', :class => "separator" %>
+<% end %>

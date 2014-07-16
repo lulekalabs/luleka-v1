@@ -1,0 +1,92 @@
+require 'rake'
+require 'rake/testtask'
+require 'rake/rdoctask'
+
+desc 'Default: run unit tests.'
+task :default => :test
+
+desc 'Generate documentation for the acts_as_billable plugin.'
+Rake::RDocTask.new(:rdoc) do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title    = 'Order Manager'
+  rdoc.options << '--line-numbers' << '--inline-source'
+  rdoc.rdoc_files.include('README')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+Rake::TaskManager.class_eval do
+  def remove_task(task_name)
+    @tasks.delete(task_name.to_s)
+  end
+end
+ 
+def remove_task(task_name)
+  Rake.application.remove_task(task_name)
+end
+ 
+namespace :db do
+  namespace :test do
+    # Remove rails default test database preparation
+    remove_task "db:test:prepare"
+
+    desc "Overwritten prepare to include parsing of :migrate schema_format type."
+    task :prepare => :environment do
+    # Rake::Task[{ :sql  => "db:test:clone_structure", :ruby => "db:test:clone" }[ActiveRecord::Base.schema_format]].invoke
+    schema_format = ActiveRecord::Base.schema_format
+    case schema_format
+      when :sql
+        Rake::Task["db:test:clone_structure"].invoke
+      when :ruby
+        Rake::Task["db:test:clone"].invoke
+      when :migrate
+        # Use a migration to ready the test database
+        # Useful when :sql or :ruby are failing which occurs universally when
+        # VIEWS or STORED PROCEDURES are present.
+        Rake::Task["db:test:purge"].invoke
+        ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations['test'])
+        ActiveRecord::Schema.verbose = false
+        RAILS_ENV = 'test'
+        
+        # migrate
+        # ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations['test'])
+        # ActiveRecord::Migrator.migrate("db/migrate/")
+        Rake::Task["db:migrate"].invoke
+      else # This could also default to :ruby... DHH thoughts on this?
+        raise "Task not supported by '#{schema_format}'"
+      end
+    end
+  end
+end
+
+
+# From: http://snippets.dzone.com/posts/show/2031
+=begin
+module Rake
+  module TaskManager
+    def redefine_task(task_class, args, &block)
+      task_name, deps = resolve_args(args)
+      task_name = task_class.scope_name(@scope, task_name)
+      deps = [deps] unless deps.respond_to?(:to_ary)
+      deps = deps.collect {|d| d.to_s }
+      task = @tasks[task_name.to_s] = task_class.new(task_name, self)
+      task.application = self
+      task.add_comment(@last_comment)
+      @last_comment = nil
+      task.enhance(deps, &block)
+      task
+    end
+  end
+  class Task
+    class << self
+      def redefine_task(args, &block)
+        Rake.application.redefine_task(self, args, &block)
+      end
+    end
+  end
+end
+
+def redefine_task(args, &block)
+  Rake::Task.redefine_task(args, &block)
+end
+
+=end

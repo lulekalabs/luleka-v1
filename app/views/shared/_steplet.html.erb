@@ -1,0 +1,19 @@
+<% div_tag :class => "bracketBoxContent", :id => id do %>
+  <% div_tag :class => "formBox" do %>
+		<% div_tag_if step, :class => "formBoxColumnLeft" do %>
+			<div class="<%=step%>"></div>
+		<% end %>
+		<% div_tag :class => current_theme[:type] == 'broken_content' ? "turquoiseBoxHalfActionContent" : "formBoxColumnRight" do %>
+			<% div_tag_if title, :class => "formBoxColumnRightHeadline" do %>
+				<%= title %>
+			<% end %>
+			<% if description && markup %>
+			  <%= description %>
+			<% elsif description %>
+				<p class='description'><%= description %></p>
+			<% end %>
+			<%= body %>
+		<% end %>
+		<%= probono_clear_class -%>
+  <% end %>
+<% end %>

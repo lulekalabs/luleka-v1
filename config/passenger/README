@@ -1,0 +1,83 @@
+= Setup Nginx on Debian/Ubuntu 8.10
+
+== Setup .bashrc environment
+
+export RAILS_ENV='staging'
+export PREFIX=/opt/ruby-enterprise
+export PS1='\[\033[0;35m\]\h\[\033[0;33m\] \w\[\033[00m\]: '
+
+alias free="free -m"
+alias update="sudo aptitude update"
+alias install="sudo aptitude install"
+alias upgrade="sudo aptitude safe-upgrade"
+alias remove="sudo aptitude remove"
+
+alias plog="tail -1000 /var/www/apps/probono/current/log/production.log"
+alias slog="tail -1000 /var/www/apps/probono/current/log/staging.log"
+alias mlog="sudo tail -1000 /var/log/mail.log"
+alias passenger-status="sudo /opt/ruby-enterprise/bin/passenger-status"
+alias nginx-start="sudo /etc/init.d/nginx start"
+alias nginx-restart="sudo /etc/init.d/nginx restart"
+alias nginx-stop="sudo /etc/init.d/nginx stop"
+alias nginx-conf="sudo pico /opt/nginx/conf/nginx.conf"
+alias postfix-start="sudo /etc/init.d/postfix start"
+alias potfix-restart="sudo /etc/init.d/postfix restart"
+alias postfix-stop="sudo /etc/init.d/postfix stop"
+
+== Install Enterprise Ruby
+
+* sudo pico /etc/environment
+
+---
+PREFIX=/opt/ruby-enterprise
+PATH="/opt/ruby-enterprise/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/gam
+es"
+LANG="en_US.UTF-8"
+LANGUAGE="en_US:en"
+
+RUBY_HEAP_MIN_SLOTS=500000
+RUBY_HEAP_SLOTS_INCREMENT=250000
+RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
+RUBY_GC_MALLOC_LIMIT=50000000
+---
+
+For more information, check:
+
+http://www.rubyenterpriseedition.com/documentation.html
+
+
+== Download Nginx Sources
+
+Latest stable version tried:
+
+http://www.nginx.eu/download/sources/nginx-0.6.36.tar.gz
+
+and unpack into, e.g.:
+
+/home/deploy/tmp/nginx-0.6.36/
+
+== Install passenger
+
+sudo gem install passenger
+
+== Install Nginx
+
+sudo /opt/ruby-enterprise/bin/passenger-install-nginx-module 
+
+* select option "2" for manual installation
+
+* select nginx source path e.g. /home/deploy/tmp/nginx-0.6.36/
+
+* add extra compile parameters, e.g.
+
+--with-http_ssl_module --with-openssl=/usr/lib/ssl/ --with-md5=/usr/lib
+
+or 
+
+./configure --prefix=/opt/nginx --with-http_ssl_module --with-openssl=/usr/lib/ssl --with-md5=/usr/lib
+./configure --prefix=/opt/nginx --with-http_ssl_module --with-md5=/usr/lib
+./configure --prefix=/opt/nginx --with-http_ssl_module --with-openssl=~/sources/openssl-0.9.8k --with-md5=/usr/lib
+
+== Edit /opt/nginx/conf/nginx.conf
+
+see config/passenger/production/nginx/nginx.conf

@@ -1,0 +1,21 @@
+company:
+  id: 1
+  kind: company
+  super_type: Organization
+  name: Company
+  name_de: Firma Allgemein
+  name_es: Empresa
+government:
+  id: 2
+  kind: government
+  super_type: Organization
+  name: Government
+  name_de: Regierung
+  name_es: Gobierno
+neighborhood:
+  id: 3
+  kind: neighborhood
+  super_type: Group
+  name: Neighborhood
+  name_de: Nachbarschaft
+  name_es: Barrio

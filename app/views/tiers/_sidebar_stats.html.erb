@@ -1,0 +1,26 @@
+<%# tiers/sidebar_stats %>
+<% if @tier %>
+  <% sidebar_stats do %>
+
+    <%= sidebar_stats_pair(@tier.kases_count,
+     	"%{kases} posted".t % {:kases => pluralize_word(@tier.topics_count, 'concern')}) %>
+
+  	<%= sidebar_stats_pair(@tier.topics_count,
+  	 	"%{topics} supported".t % {:topics => pluralize_word(@tier.topics_count, 'topic')}) %>
+
+  	<%= sidebar_stats_pair(@tier.people_count,
+  	 	"%{participants} seen" % {:participants => pluralize_word(@tier.people_count, 'participant')}) %>
+
+    <% if @tier.is_a?(Organization) %>
+    	<%= sidebar_stats_pair(@tier.members_count,
+    	 	"%{employees} engaged".t % {:employees => pluralize_word(@tier.members_count, 'employee')}, :last => true) %>
+
+    <% elsif @tier.is_a?(Group) %>
+
+    	<%= sidebar_stats_pair(@tier.members_count,
+    	 	"%{members} joined".t % {:members => pluralize_word(@tier.members_count, 'member')}, :last => true) %>
+
+    <% end %>
+
+  <% end %>
+<% end %>

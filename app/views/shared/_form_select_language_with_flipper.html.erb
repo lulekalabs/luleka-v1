@@ -1,0 +1,15 @@
+<% # shared/form_select_language_with_flipper, required object_name
+	object_name ||= :kase
+	object ||= form_select_language_with_flipper || @kase
+	id ||= dom_id(object, :language_flipper)
+%>
+<% switcher_link_to("Change writing language from %{language}".t % {
+    :language => "<b>#{select_native_language(object.language_code)}</b>"
+  }, {:open => false, :sticky => false}, {}) do %>
+	<% form_element do %>
+	  <%= form_label :kase, :language_code, {:text => "The language I use is %{select}".t % {
+	    :select => "&nbsp;" + localized_language_select(object_name, :language_code, Utility.active_language_codes, 
+	      {:object => object}, {:class => "nofontweight"})
+	  }, :position => :top}%>
+	<% end %>
+<% end %>

@@ -1,0 +1,62 @@
+--- 
+javascripts: 
+- front: 
+  - prototype
+  - effects
+  - dragdrop
+  - controls
+  - prototype_ext
+  - primary_navigation
+  - textarea_widget
+  - facebox
+  - carousel
+  - event_simulate
+  - fast_autocompleter
+  - fast_autocompleter_ext
+  - prototip/prototip
+  - prototip/styles
+  - application
+  - luleka_i18n
+  - luleka_date_helper
+- rsa:
+  - rsa/jsbn
+  - rsa/prng4
+  - rsa/rng
+  - rsa/rsa
+  - rsa/base64
+- markdown_editor:
+  - markdown_editor/showdown
+  - markdown_editor/prettify
+  - markdown_editor/livepipe-ui/livepipe
+  - markdown_editor/livepipe-ui/textarea
+  - markdown_editor/livepipe-ui/hotkey
+  - markdown_editor/markdown_editor
+- active_scaffold/default/base:
+  - active_scaffold
+- feedback:
+  - prototype
+  - effects
+  - controls
+  - widgets/feedback
+  - luleka_i18n
+  - luleka_date_helper
+stylesheets: 
+- front_styles:
+  - markdown_editor
+  - front
+  - facebox
+  - prettify
+  - autocomplete
+  - prototip
+- admin_styles: 
+  - scaffold
+  - admin
+- active_scaffold/default/base_styles:
+  - stylesheet
+- active_scaffold/default/ie_base_styles:
+  - stylesheet
+  - stylesheet-ie
+- feedback_styles:
+  - markdown_editor
+  - prettify
+  - widgets/feedback

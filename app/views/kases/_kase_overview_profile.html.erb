@@ -1,0 +1,16 @@
+<%
+  kase ||= kase_overview_profile || @kase
+	headline ||= ""
+%>
+<% div_tag_unless headline.blank?, :style => 'padding-bottom:6px' do %>
+	<%= headline -%>
+<% end %>
+<% div_tag :class => 'subContentPictureBlue' do %>
+	<%= profile_link_to(image_avatar_tag(kase.person), kase.person) -%>
+<% end %>
+<% div_tag :style => 'font-weight:bold;' do %>
+	<%= profile_link_to(h(kase.person.name), kase.person) %>
+<% end %>
+<% div_tag do %>
+	<%= kase.person.current_state_t %>
+<% end %>

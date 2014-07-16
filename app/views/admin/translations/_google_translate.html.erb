@@ -1,0 +1,20 @@
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+//<![CDATA[
+  google.load("language", "1");
+  google.setOnLoadCallback(init);
+
+  function init() {
+  }
+
+	function translateKey(keyId, textId, code) {
+		google.language.translate(document.getElementById(keyId).innerHTML, "en", code, function(result) {
+		  if (!result.error) {
+				$(textId).select('textarea')[0].value = result.translation;
+		  }
+		});
+		
+	}
+
+//]]>
+</script>

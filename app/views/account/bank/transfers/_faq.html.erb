@@ -1,0 +1,35 @@
+<%# account/bank/transfer/faq %>
+<%
+  unique ||= false
+%>
+<div class="faq">
+  <p class="question">
+    <%= "How can I transfer funds?".t %>
+  </p>
+  <p class="answer">
+    <%= "Currently, you can use %{paypal} to transfer funds from your #{SERVICE_PIGGYBANK_NAME} to your real bank.".t % {
+      :paypal => link_to('Paypal', "http://www.paypal.com/%{country}" % {
+        :country => Utility.country_code.downcase
+      }, :popup => true)
+    } %>
+  </p>
+  <p class="question">
+    <%= "Can I change the currency of my #{SERVICE_PIGGYBANK_NAME}?".t %>
+  </p>
+  <p class="answer">
+    <%= ["No, the amount is denominated in the currency you selected when you signed up with us.".t, "However, your bank may convert the amount to the bank account's currency.".t].to_sentences %>
+  </p>
+  <p class="question">
+    <%= "Do you charge transaction fees?".t %>
+  </p>
+  <p class="answer">
+    <%= "A small transaction fee may apply to outbound transfers depending on the method you select.".t %>
+  </p>
+  <p class="question">
+    <%= "Is the entire amount transferred?".t %>
+  </p>
+  <p class="answer">
+    <%= "The amount you see on your destination account is the value you enter minus a transaction fee.".t %>
+  </p>
+</div>
+<%= render :partial => "account/bank/faq" unless unique %>

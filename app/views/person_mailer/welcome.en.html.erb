@@ -1,0 +1,7 @@
+Welcome! We are very happy to have you as a <%= @person.current_state_t(@status).humanize %> in the <%= "#{SERVICE_NAME}" %> network.
+
+If you should have any questions regarding your <%= @person.partner? ? 'partnership' : 'membership' -%>, please click on the following link or copy the entire link into your browser address field:
+
+<%= new_luleka_question_url %>
+
+<%= render :partial => 'notifier/signature', :object => @person %>

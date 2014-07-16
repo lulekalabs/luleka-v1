@@ -1,0 +1,80 @@
+<% # kases/_new %>
+<%
+  form_url ||= collection_path([@tier, @topic, :kases])
+  form_id ||= dom_class(Kase, "kase-form-#{rand(10000)}")
+  form_name ||= form_id
+  accordion ||= accordion?
+%>
+<% div_tag :id => page_dom_id do %>
+
+  <% unless uses_modal? %>
+
+  	<% content_left do %>
+  		<% wizard_form_for :kase, @kase, :url => form_url, :remote => true,
+  				:html => {:id => form_id, :name => form_name, :method => :post, :multipart => true} do |f| %>
+			
+    		  <%= render :partial => 'kases/form', :locals => {:f => f, :accordion => accordion} %>
+		  
+  		  <% form_button_container do %>
+  	    	<%= probono_button :label => "Cancel".t, :type => :passive, :action => :back %>
+  	    	<%= form_submit_button "Post".t, :position => :right %>
+  	    <% end %>
+
+  		<% end %>
+  	<% end %>
+  	<% content_right do %>
+  		<% sidebar_context_actions_container(:partial => 'tiers/sidebar_profile_content') do %>
+
+        <% if @tier %>
+
+        	<%= sidebar_action_link_to("Add Topic".t % {
+        			:name => truncate(h(@tier.name), 15), :topic => @tier.topic_t
+        		}, member_path([@tier, @tier.topic_class], :new), :icon => :plus) %>
+
+        	<%= sidebar_action_link_to("Join as Employee".t % {:name => truncate(h(@tier.name), 15)},
+        	  tier_claim_url(@tier)) %>
+
+        <% end %>
+
+        <%= sidebar_action_link_to("Start New Community".t,
+          new_tier_path, {:icon => :plus}) %>
+
+        <%= sidebar_action_separator -%>
+
+        <%= sidebar_action_link_to("Recently Active".t,
+          collection_path([@tier, @topic, :kases])) %>
+
+  		<% end %>
+	
+  		<%= render :partial => 'kases/guidelines' %>
+
+  		<%= render :partial => 'kases/faq', :locals => {:concise => true} %>
+
+  	<% end %>
+  	
+  <% else %>	
+  
+    <% content_modal do %>
+  		<% wizard_form_for :kase, @kase, :url => form_url, :remote => true,
+  				:html => {:id => form_id, :name => form_name, :method => :post, :multipart => true} do |f| %>
+			
+  		  <%= render :partial => 'kases/form', :locals => {:f => f, :accordion => accordion}%>
+		  
+  		  <% form_button_container :id => "kase-accordion-button-container" do %>
+	        <%= probono_button :label => "Cancel".t, :position => :left, :type => :passive, 
+	          :function => close_modal_javascript %>
+	        
+	        <% if accordion %>
+	          <%= probono_button :label => "Post".t, :position => :right, :type => :active, 
+  	          :id => "kase-accordion-more-button", :function => "showAccordionContent()" %>
+  	    	<% end %>
+          <%= form_submit_button "Post".t, :position => :right, 
+            :id => "kase-submit-button", :display => !accordion %>
+  	    	
+  	    <% end %>
+
+  		<% end %>
+  	<% end %>
+  <% end %>
+  	
+<% end %>

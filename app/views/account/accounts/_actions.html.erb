@@ -1,0 +1,9 @@
+<% sidebar_context_actions_container(:partial => 'people/sidebar_item_content', 
+    :object => current_user.person) do %>
+  <%= sidebar_action_link_to "Add Credit".t, new_account_bank_deposit_path %>
+  <%= sidebar_action_link_to "Transfer Credit".t, new_account_bank_transfer_path %>
+	<%= sidebar_action_separator -%>
+  <%= sidebar_action_link_to "Ledger".t, account_bank_transactions_path %>
+  <%= sidebar_action_link_to_if @person.partner?, "Sales History".t, account_sales_orders_path %>
+  <%= sidebar_action_link_to "Purchase History".t, account_purchase_orders_path %>
+<% end %>

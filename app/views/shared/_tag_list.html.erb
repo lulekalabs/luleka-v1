@@ -1,0 +1,75 @@
+<% # shared/tag_list
+	taggable ||= tag_list
+	editable ||= false
+	edit ||= false
+	context ||= nil
+	update ||= false
+	tags ||= (context && !['', 'tags'].include?("#{context}") ? taggable.tags_on(context) : taggable.tags)
+%>
+<% ul_tag_unless tags.blank?, :class => "tags clearfix", :id => dom_id(taggable, edit ? :edit_tags : :show_tags),
+		:display => (!edit && !update) || (edit && update) do %>
+
+	<% tags.each do |tag| %>
+		<% li_tag :class => "tag", :id => dom_id(tag, edit ? :edit_tag : :show_tag) do %>
+      <% if @tier && @tier.class.base_class == taggable.class.base_class %>
+			  <%= link_to(tag.name, tag_path([taggable.class.base_class], tag), :class => 'tagLink', :title => tag) %>
+			<% else %>
+		    <%= link_to(tag.name, tag_path([@tier, taggable.class.base_class], tag), :class => 'tagLink', :title => tag) %>
+			<% end %>
+			
+			<%= probono_remove_button(:id => dom_id(tag, :delete_tag_button),
+			 	:function => remote_function(:url => kase_tag_path(:kase_id => taggable,
+			 		:id => tag, :context => context),	:method => :delete,
+					:loading => update_page do |page|
+						page[dom_id(tag, :delete_tag_spinner)].show
+						page[dom_id(tag, :delete_tag_button)].hide
+					end,
+					:confirm => "Are you sure you want to delete this tag?".t)) if edit %>
+	
+			<%= span_tag_if edit, progress_spinner(:id => dom_id(tag, :delete_tag_spinner), :tag => :img, :size => "11x11"), :style => 'display:inline-block;margin-right:4px' %>
+			
+		<% end %>
+	<% end %>
+
+	<%= probono_edit_button(:function => update_page do |page|
+    		page[dom_id(taggable, :edit_tags)].show
+    		page[dom_id(taggable, :show_tags)].hide
+  		end,
+		:id => dom_id(taggable, :edit_button)) if editable && !edit %>
+
+	<% if edit %>
+		<% form_element :add_tag, :id => dom_id(taggable, :add_tag_form) do %>
+
+			<%= hidden_field :tag, :context, :value => context %>
+	
+		  <%= form_label_tag :add_tag, :position => :left, :text => "Add tags one at a time".t, :req => true %>
+			<% form_field_tag :add_tag do %>
+		    <%= table_cells_with_options_tag({:style => "padding-right: 5px;"},
+		      text_field(:tag, :name, :size => 15, :value => ''),
+	
+		      probono_button(:label => "Add".t, :id => dom_id(taggable, :add_tag_button), :function => remote_function(
+						:url => kase_tag_path(:kase_id => taggable),
+						:method => :post,
+						:loading => update_page do |page|
+							page[dom_id(taggable, :add_tag_spinner)].show
+							page[dom_id(taggable, :add_tag_button)].hide
+							page[dom_id(taggable, :cancel_tag_button)].hide
+						end,
+						:complete => update_page do |page|
+						end,
+						:submit => dom_id(taggable, :add_tag_form)
+					)) + 
+					progress_spinner(:id => dom_id(taggable, :add_tag_spinner),
+            :tag => :img, :size => "15x15"),
+	
+		      probono_cancel_button(:id => dom_id(taggable, :cancel_tag_button),:function => update_page do |page|
+		    		page[dom_id(taggable, :show_tags)].show
+		    		page[dom_id(taggable, :edit_tags)].hide
+				  end)
+		    ) %>
+		  <% end %>
+		<% end %>
+	<% end %>
+<% end %>
+<%= render :partial => 'shared/tag_list', :object => taggable,
+	:locals => {:editable => editable, :edit => true, :context => context} if editable && !edit && !update %>

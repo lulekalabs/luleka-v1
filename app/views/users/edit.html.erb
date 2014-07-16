@@ -1,0 +1,12 @@
+<%= wizard_chevron :edit%>
+<% content_left do %>
+  <% wizard_form_for :person, @person, :url => user_path, :html => {:method => :put, :multipart => true} do |f| %>
+	  <%= render :partial => 'edit_person', :locals => {:f => f} %>
+		<%= render :partial => 'edit_profile', :locals => {:f => f} %>
+		<%= render :partial => 'edit_contact', :locals => {:f => f} %>
+		<% form_button_container do %>
+		  <%= form_submit_button "Continue".t, :position => :right %>
+		  <%= form_submit_button "Finish".t, :position => :right, :type => :passive, :property => 'finish' %>
+		<% end %>
+	<% end %>
+<% end %>

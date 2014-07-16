@@ -1,0 +1,9 @@
+<%
+  invitation = list_item_reminded
+%>
+<div class="listBoxTextContent">
+  <%= "You have successfully sent a reminder to %{invitee}.".t % {
+    :invitee => link_to(invitation.invitee.name, person_path(invitation.invitee))
+  } %>
+</div>
+<%= probono_clear_class %>

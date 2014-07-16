@@ -1,0 +1,98 @@
+Facebox Plugin
+==============
+
+Wrapped Facebox from
+
+Robert Gaal
+http://github.com/robertgaal/facebox-for-prototype
+
+Based on Redbox plugin
+http://github.com/craigambrose/redbox
+
+
+Adding fork of another facebox prototype enabling iframe
+http://blog.japanesetesting.com/2009/10/19/return-of-the-facebox-iframes/
+
+/*  Facebox for Prototype, version 1.1
+ *
+ *  Version 1.2		2009-10-19	:: Iframe support and a change in the way that classes and styles are handled
+ *  Version 1.1		2009-08-28
+ *
+ *  Version 1.1 By Keith Perhac http://blog.japanesetesting.com/
+ *  Version 1.0 By Scott Davis, htp://blog.smartlogicsolutions.com
+ *
+ *  Heavily based on Facebox by Chris Wanstrath - http://famspam.com/facebox
+ *  First ported to Prototype by Phil Burrows - http://blog.philburrows.com
+ *
+ *  Licensed under the MIT:
+ *  http://www.opensource.org/licenses/mit-license.php
+ *
+ *
+ *  Dependencies:   prototype & script.aculo.us + images & CSS files from original facebox
+ *
+ */
+
+
+/*-----------------------------------------
+ *
+ *	Basic Usage
+ *
+ -------------------------------------------*/
+
+1.	include the facebox.js and facebox.css in your code.
+	<link rel="stylesheet" type="text/css" href="/css/facebox.css" />
+	<script type="text/javascript" src="/js/scriptaculous.js"></script>
+	<script type="text/javascript" src="/js/effects.js"></script>
+	<script type="text/javascript" src="/js/facebox/facebox.js"></script>
+
+2.	In your code, add the tag rel="facebox" to any link that you want to 
+	open in a facebox.
+	<a href="mypage.html" rel="facebox">My Page!</a>
+
+	You can also use faceboxes with images
+	<a href="myimage.jpg" rel="facebox">My Image!</a>
+
+	or with inline content, by declaring the ID tag after a # in the href
+	<a href="#mydiv" rel="facebox">My Hidden Div!</a>
+	<div id="mydiv">This will appear!</div>
+
+/*-----------------------------------------
+ *
+ *	Advanced Usage
+ *
+ -------------------------------------------*/
+
+1. -- IFrames
+	The facebox defaults to putting the content to display in a div,
+	which means that the displayed page is INLINE. This is recommended
+	for standard usage, but will fail to display when <HEAD> tags or
+	<SCRIPT> tags conflict with the currently loaded page.
+
+	You can specify that the page be opened in an iframe rather than
+	a div by passing the relation "iframe" after the facebox tag.
+	<a href="http://google.com" rel="facebox iframe">This loads google in its own iframe</a>
+
+2. -- Classes
+	You can specify a class (or multiple classes) for the facebox contents
+	by adding them in brackets after the facebox tag.
+
+	This will style the facebox with classes "class1 class2"
+	<a href="mypage.html" rel="facebox[class1 class2]">My Classy Page!</a>
+
+	You can also use this in conjunction with the IFrames above (however, as
+	the content is in an iframe, you will only be styling the IFrame itself, not
+	the loaded page)
+	<a href="http://google.com" rel="facebox[class1 class2] iframe">This loads google in its own classy iframe</a>
+
+3. -- Styles
+	Sometimes you'll want to be able to style your facebox without having to create
+	an entire class to do so. This is especially useful when you need to set the height
+	and width of a facebox for a single message or page.
+
+	To add a style to the facebox content, include the style tag in curly
+	brackets after the facebox tag.
+	<a href="mypage.html" rel="facebox{width: 500px; height: 300px}">My Stylish Page!</a>
+
+	This can be used in conjunction with both the IFrames and class options
+	<a href="http://google.com" rel="facebox[class1 class2]{width: 500px; height: 300px} iframe">This loads google in its own classy and stylish iframe</a>
+	

@@ -1,0 +1,29 @@
+<% # order/invoice
+  object ||= list_item_content
+  expanded ||= false
+  expandable ||= false
+  empty_list_partial ||= nil
+  width ||= 450
+	description_column_width = width - 65 - 75 - 55
+%>
+<% if object %>
+  <%= div_tag link_to(object.short_number,
+    object.is_a?(Order) ? account_order_path(object) : account_invoice_path(object)),
+    :class => "listBoxTextContent", :style => "float:left;margin:0;width:65px;" %>
+
+  <%= div_tag object.is_a?(Order) ? order_description(object) : invoice_description(object),
+    :class => "listBoxTextContent",
+    :style => "float:left;width:#{description_column_width}px;" %>
+  
+  <%= div_tag object.current_state_t.titleize, :class => "listBoxTextContent",
+    :style => "float:left;width:75px;" %>
+    
+  <%= div_tag object.total.format, :class => "listBoxTextContent",
+    :style => "float: left;width:55px;font-weight:bold;text-align:right;" %>
+    
+<% else %>
+  <% div_tag :class => "listBoxTextContent" do %>
+    <%= "No items found.".t %>
+  <% end %>
+<% end %>
+<%= probono_clear_class -%>

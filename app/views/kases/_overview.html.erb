@@ -1,0 +1,37 @@
+<% # kases/overview
+  kase ||= overview || @kase
+	display ||= true
+	update ||= false
+%>
+<% div_tag flag_mouse_over_tag_options(kase).merge({:id => dom_id(kase, :overview), :display => display}) do %>
+	<% content_overview_container :type => :kase do %>
+
+    <%#--- avatar %>
+	  <%= div_tag profile_link_to(image_avatar_tag(kase.person), kase.person), :class => 'subContentPictureBlue' %>
+
+    <%#--- profile content %>
+	  <% div_tag :class => 'subContentProfileBlue' do %>
+			<%= div_tag kase_person_verb_type_and_time_in_words(kase, :pcard => true) %>
+
+      <% overview_list do %>
+
+        <%= overview_list_kase_type(kase) %>
+        <%= overview_list_kase_status(kase) %>
+        <%= overview_list_kase_price(kase, :last => true) %>
+        <%#= overview_list_kase_responses_count(kase) %>
+        <%#= overview_list_kase_votes_count(kase) %>
+        <%#= overview_list_kase_followers_count(kase) %>
+        <%#= overview_list_kase_visits_count(kase, :last => true) %>
+        <%= overview_list_kase_tier(kase, :right => true) unless @tier %>
+
+      <% end %>
+			
+	  <% end %>
+
+    <%#--- side flag, etc. %>
+	  <% div_tag :class => 'subContentSideBlue' do %>
+	    <%= link_to_flag_for(kase) %>
+    <% end %>
+	  <%= probono_clear_class %>
+	<% end %>
+<% end %>

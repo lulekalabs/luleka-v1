@@ -1,0 +1,10 @@
+<% cache(summary_fragment_cache_key) do %>
+<div id="summary">
+  <%= "%{people} have reported %{kases}, made %{responses}, and earned %{reputation}".t % {
+    :people => link_to("%{count} people".t % {:count => Utility.people_count.loc}, people_path),
+    :kases => link_to("%{count} cases".t % {:count => Utility.kases_count.loc}, kases_path),
+    :responses => link_to("%{count} replies".t % {:count => Utility.responses_count.loc}, kases_path),
+    :reputation => link_to("%{count} in reputation".t % {:count => Money.new(Utility.reputation_count, Utility.active_currency_codes.include?(Utility.currency_code) ? Utility.currency_code : "USD").format}, kases_path)
+  } %>
+</div>
+<% end %>

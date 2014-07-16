@@ -1,0 +1,49 @@
+<% # topics/select_field
+  topics ||= select_field || @topics
+  tier ||= topics.first ? topics.first.tier : nil
+  object_name ||= :kase
+  method_name ||= :topic_ids
+  selected ||= !instance_variable_get("@#{object_name}").blank? ?
+    instance_variable_get("@#{object_name}").send(method_name) :
+      []
+  size ||= 8
+  display ||= defined?(:display) && display.nil? ? true : !!display
+%>
+<% if tier %>
+  <% div_tag :id => tier_dom_id(tier, :topics_select), :class => "tierTopicsSelect", :display => display do %>
+    <% form_element do %>
+      <%#= form_label_tag(:select_topic, label) %>
+    	<% form_field :tier, :topics do %>
+    	  <% div_tag :class => "topicSelectGroup", :clear => true do %>
+
+        	<% topics.from(0).to(size - 1).each do |topic| %>
+            <%= render :partial => 'topics/select_item', :object => topic,
+              :locals => {:selected => selected, :object_name => object_name, :method_name => method_name} %>
+        	<% end %>
+      	
+        	<%#--- more %>
+        	<% if topics.size > size %>
+          	<% div_tag :id => dom_id(topics.first.tier, :more_topics), :display => !selected.blank? do %>
+            	<% topics.from(size).each do |topic| %>
+                <%= render :partial => 'topics/select_item', :object => topic,
+                  :locals => {:selected => selected, :object_name => object_name, :method_name => method_name} %>
+            	<% end %>
+            <% end %>
+          <% end %>
+      	
+        <% end %>
+
+        <%#--- more link %>
+        <% if selected.blank? && topics.size > size %>
+          <%= link_to_function "<small>#{"More...".t}</small>" , nil, {:id => dom_id(topics.first.tier, 
+              :more_topics_toggle)} do |page|
+            page[dom_id(topics.first.tier, :more_topics_toggle)].hide
+            page.visual_effect :blind_down, dom_id(topics.first.tier, :more_topics),
+              :duration => 0.5
+          end %>
+        <% end %>
+      
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

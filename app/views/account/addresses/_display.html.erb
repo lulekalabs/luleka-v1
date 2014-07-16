@@ -1,0 +1,17 @@
+<%
+	address ||= display || @address
+	step ||= :auto
+	title ||= address.class.human_name
+	description ||= nil
+	edit_text ||= "Edit".t
+	cancel_text ||= "Cancel".t
+	options ||= {}
+%>
+<% bracket_container do %>
+	<% steplet(:step => step, :title => title, :description => description) do %>
+    <%= address_display(address) %>
+    <% form_button_container do %>
+    	<%= probono_button :label => edit_text, :url => kind_account_address_path(address), :position => :right %>
+    <% end %>
+	<% end %>
+<% end %>

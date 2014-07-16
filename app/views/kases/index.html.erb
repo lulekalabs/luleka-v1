@@ -1,0 +1,25 @@
+<%
+  title ||= @title || "Recently Active".t
+%>
+
+<% content_left do %>
+  <%= render :partial => 'kases/lookup' %>
+
+  <%= render :partial => 'kases/list', :locals => {:title => title} -%>
+<% end %>
+<% content_right do %>
+  <% sidebar_context_actions_container(:partial => 'tiers/sidebar_profile_content') do %>
+    <%= render :partial => 'tiers/actions' %>
+  <% end %>
+
+  <%= render :partial => "tiers/sidebar_stats" %>
+
+  <%= render :partial => 'topics/sidebar_topics', :object => @popular_topics,
+    :locals => {:title => "Most Active".t, :kases => true} %>
+  <%= render :partial => 'topics/sidebar_topics', :object => @recent_topics,
+    :locals => {:title => "Recently Added".t, :kases => true} %>
+  
+
+
+  <%= render :partial => 'shared/sidebar_tag_cloud', :locals => {:route => [Kase]} %>
+<% end %>

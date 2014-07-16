@@ -1,0 +1,11 @@
+<% content_for :kv_title_one, "Concern" %>
+<% content_for :kv_description_one, "Find cases".t %>
+<% content_for :kv_content_one do %>
+  <% div_tag do %>
+
+    <%= render :partial => 'search_field', 
+      :locals => {:list => {'kases.recently_active' => "Recently active".t, 'kases.popular' => "Popular".t},
+        :name => 'discover', :active => 'kases.recently_active'} %>
+    
+  <% end %>
+<% end %>

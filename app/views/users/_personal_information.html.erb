@@ -1,0 +1,75 @@
+<% bracket_container do %>
+	<%= form_error_messages_for([:user, :person, :address], :unique => true, :attr_names => {
+	  :gender => "Salutation".t,
+	  :first_name => "First Name".t,
+	  :last_name => "Last Name".t,
+	  :country_code => "Country".t,
+	  :province => "State or Region".t,
+	  :province_code => "State or Region".t,
+	  :terms_of_service => "Terms and Conditions".t 
+	}) %>
+	<% steplet(
+    :step => :auto,
+    :title => "Personal Information".t
+  ) do %>
+
+    <% form_fields_for :person do |p| %>
+      <%= p.text_area :have_expertise, 
+    	  :label => {:position => :top, :text => "What are the things you know about?".t, :req => false, :help => true}, 
+    	  :id => dom_id(@user, "have_expertise"), :style => 'width: 100%', :size => '100x2' %>
+    	<%= p.help_text :have_expertise,
+    	  "Your profile will be matched against cases based on the expertise you are providing here, e.g. _employment law, taxes, accountant_".t, 
+    	    :display => false, :escape => false %>
+    <% end %>    	
+  
+    <%= render :partial => 'shared/form_salutation_and_name', :object => @person,
+      :locals => {:gender => true,
+        :reqs => {:gender => true, :first_name => true, :last_name => true},
+        :locks => {:first_name => true, :middle_name => true, :last_name => true, :academic_title => true}} %>
+
+    <% form_fields_for :person do |p| %>
+  		<%= p.check_box :show_name, :label => {:req => false, :text => "Show my real name to others".t, :help => true} %>
+      <%= p.help_text :show_name, "Check if you want your full name to be shown, uncheck if you want to display only your username to others.".t, :display => false, :escape => false %>
+    <% end %>
+  	
+    <%= render :partial => 'shared/address_country_and_province', :object => @address,
+      :locals => {:object_name => "person", :method_name => "personal_address_attributes",
+        :reqs => {:country => true, :province => true},
+          :locks => {:country => false, :province => false}} %>
+
+    <%#= render :partial => 'shared/form_verification_code', :locals => {
+      :object_name => :user
+    } %>
+
+    <%#--- confirm terms of service %>
+		<%= f.check_box(:terms_of_service, :label => {:req => true,
+		    :text => _("I agree to the %{terms_of_service_link} " +
+		      "and %{data_protection_privacy_link}") % {
+		        :terms_of_service_link => link_to("Terms of Service".t, terms_of_service_path, :popup => true),
+		          :data_protection_privacy_link => link_to("Privacy Policy".t, privacy_policy_path, :popup => true)}}) %>
+
+	<% end %>
+<% end %>
+<script type="text/javascript">
+//<![CDATA[
+
+  function lookupTags(searchString, suggest) {
+    new Ajax.Request('<%= collection_url([:person, :tags], :autocomplete) %>', {
+        parameters: {name: searchString, 
+        rand: (new Date()).getTime(),
+        authenticity_token: '<%= form_authenticity_token %>',
+        context: 'have_expertises'
+      },
+      onSuccess: function(response) {
+        suggest(response.responseJSON);
+      }});
+  }
+  var cachedBackendTags = new Autocompleter.Cache(lookupTags, {choices: 10});
+  var cachedLookupTags = cachedBackendTags.lookup.bind(cachedBackendTags);
+
+  var mvListCached = new Autocompleter.MultiValue('<%= dom_id(@user, "have_expertise") %>', cachedLookupTags, 
+    <%= @person.tag_list_on(:have_expertises, nil, :format => :tags).map {|t| [t.name, t.new_record? ? t.name : t.id]}.to_json %>, 
+    {frequency: 0.3, acceptNewValues: true});
+
+//]]>
+</script>

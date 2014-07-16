@@ -1,0 +1,20 @@
+<%= wizard_chevron :new %>
+<% content_left do %>
+	<% wizard_form_for :person, @person, :url => account_bank_deposit_path, :html => {:method => :post} do |f| %>
+		<% bracket_container do %>
+		  <%= form_flash_messages -%>
+		  <%= form_error_messages_for :person -%>
+			<% steplet :step => :auto, :title => "Add Credit".t, 
+					:description => "Charge your #{SERVICE_PIGGYBANK_NAME} account by purchasing new credit.".t	do %>
+				<%= render :partial => 'select_purchasing_credit', :object => @purchasing_credits %>
+			<% end %>
+		<% end %>
+		<% form_button_container do %>
+			<%= probono_button :label => "Cancel".t, :type => :passive, :url => :back %>
+			<%= form_submit_button "Continue".t, :position => :right %>
+		<% end %>
+	<% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'faq' %>
+<% end %>

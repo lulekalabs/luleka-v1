@@ -1,0 +1,22 @@
+<% # people/show 
+  can_edit ||= false
+%>
+<% content_left do %>
+  <%= render :partial => 'profile', :object => @profile, :locals => {:can_edit => can_edit} %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'actions' %>
+  
+  <%= render :partial => 'people/sidebar_location' unless current_user_me?(@profile) %>
+  <%= render :partial => 'people/sidebar_contacts' %>
+
+  <% if logged_in? && (@profile && current_user_me?(@profile) && !@profile.partner?) %>
+  
+    <%= div_tag render(:partial => 'partners/call_to_action'), :style => "padding:0 10px;" %>
+    
+  <% end %>
+  
+	<%#--- stats %>
+	<%= render :partial => 'sidebar_stats' %>
+	
+<% end %>

@@ -1,0 +1,12 @@
+if 0==@index
+  # I should remove the file uploads
+  # and change the check box label back to "Do you want to add files?"
+  page['participants_label'].replace_html :partial => 'participants_radio_label', :locals => { :checked => false, :issue_id => @issue_id }
+  page << "if (Element.visible('edit_participants')) {"
+  page.visual_effect :blind_up, 'edit_participants', :duration => 0.5
+#  ['asset_edit'].hide
+  page << "}"
+else
+  # Nop, therefore, just add another file
+  page.insert_html :bottom, 'participants_label', :partial => 'participant_select', :locals => { :index => @index, :delete => @index==1 ? false : true }
+end

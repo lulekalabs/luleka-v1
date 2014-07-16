@@ -1,0 +1,26 @@
+<%	# setup
+  f ||= nil
+  address ||= f ? f.object : (address_city_and_postal_code || @address || Address.new)
+  object_name ||= nil
+  method_name ||= nil
+	edit ||= true 
+	locks ||= {}
+	reqs ||= {}
+	auto ||= false
+%>
+<% if f %>
+  <% form_table_row do %>
+  	<%= f.text_field :city, :edit => edit, 
+  	  :label => {:position => :top, :text => "City".t, :lock => locks[:city], :req => reqs[:city], :auto => auto},
+  	  :style => "width: 100%" %>
+  	<%= f.text_field :postal_code, :edit => edit,
+  	  :label => {:position => :top, :text => "Zip Code".t, :lock => locks[:postal_code], :req => reqs[:postal_code], :auto => auto},
+  	  :style => "width: 100%" %>
+  <% end %>
+<% else %>
+  <% form_table_fields_for "#{object_name}[#{method_name}]", address do |f| %>
+      <%= render :partial => 'shared/address_city_and_postal_code',
+        :locals => {:f => f, :edit => edit, :locks => locks, :reqs => reqs, :auto => auto,
+          :object_name => object_name, :method_name => method_name} %>
+  <% end %>
+<% end %>

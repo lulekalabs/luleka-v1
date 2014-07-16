@@ -1,0 +1,16 @@
+<div id="bottomFooterLanguageBox">
+	<div id="bottomFooterLanguageBoxMiddle">
+		<ul class="bottomFooterCountryList">
+			<% Utility.active_locales.map(&:to_s).sort.each do |locale| %>
+			<li>
+			  <span class="flag<%= "#{I18n.locale_country(locale)}".upcase %>">
+				<%= link_to(truncate(I18n.t(I18n.locale_country(locale), :scope => 'countries'), :length => 17),
+					url_for({:locale => "#{Utility.long_to_short_locale(locale)}"}),
+					:class => "#{I18n.locale.to_s == locale ? 'active' : ''}") %>
+			  </span>
+			</li>
+			<% end %>
+		</ul>
+	</div>
+	<div id="bottomFooterLanguageBoxBottom"></div>
+</div>

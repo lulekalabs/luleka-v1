@@ -1,0 +1,11 @@
+<% content_container :theme => :broken_content do %>
+  <% div_tag :style => 'min-height:100px;' do %>
+    <% steplet(:step => :auto, :title => "Transfer Credit".t,
+        :description => "%{amount} of your account balance can be transferred.".t % {
+				  :amount => span_tag(@person.piggy_bank.available_balance.format, :style => "font-weight:bold;")
+				}
+  	) do %>
+  		<%= probono_button :label=>"Transfer".t, :url => new_account_bank_transfer_path %>
+  	<% end %>
+	<% end %>
+<% end %>

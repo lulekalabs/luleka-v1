@@ -1,0 +1,8 @@
+if @caption
+  page.replace @dom_id, help_text_tag(:caption, h(@caption), :id => @dom_id,
+    :type => @message_type || :warning)
+  page[@dom_id].show
+else
+  page.replace_html @dom_id, ''
+  page[@dom_id].hide
+end

@@ -1,0 +1,48 @@
+de_DE:
+  id: 1
+  code: "de-DE"
+  name: "Deutsch - Deutschland"
+  created_at: <%= 34.days.ago.to_s :db %>
+  updated_at: <%= 34.days.ago.to_s :db %>
+de:
+  id: 2
+  code: "de"
+  name: "Deutsch"
+  created_at: <%= 34.days.ago.to_s :db %>
+  updated_at: <%= 34.days.ago.to_s :db %>
+en:
+  id: 3
+  code: "en"
+  name: "English"
+  created_at: <%= 34.days.ago.to_s :db %>
+  updated_at: <%= 34.days.ago.to_s :db %>
+en_US:
+  id: 4
+  code: "en-US"
+  name: "English - United Stated"
+  created_at: <%= 34.days.ago.to_s :db %>
+  updated_at: <%= 34.days.ago.to_s :db %>
+es_AR:
+  id: 5
+  code: "es-AR"
+  name: "Spanish - Argentina"
+  created_at: <%= 34.days.ago.to_s :db %>
+  updated_at: <%= 34.days.ago.to_s :db %>
+es_ES:
+  id: 6
+  code: "es-ES"
+  name: "Español - España"
+  created_at: <%= 34.days.ago.to_s :db %>
+  updated_at: <%= 34.days.ago.to_s :db %>
+es:
+  id: 7
+  code: "es"
+  name: "Español"
+  created_at: <%= 34.days.ago.to_s :db %>
+  updated_at: <%= 34.days.ago.to_s :db %>
+es_CL:
+  id: 8
+  code: "es-CL"
+  name: "Español - Chile"
+  created_at: <%= 34.days.ago.to_s :db %>
+  updated_at: <%= 34.days.ago.to_s :db %>

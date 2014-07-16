@@ -1,0 +1,60 @@
+<%
+  remember_me ||= remember_me?
+  url ||= session_url_with_ssl
+  form_dom_id ||= session_form_dom_id("#{rand(1000000)}")
+  password_dom_id ||= "user_password_#{rand(1000000)}"
+  encrypted_password_dom_id ||= "user_encrypted_password_#{rand(1000000)}"
+%>
+<% wizard_form_for :user, @user, :url => url, :remote => uses_modal?,
+		:html => {:method => :post, :name => form_dom_id, :id => form_dom_id} do |f| %>
+		
+	<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+		
+	<% content_container :theme => :broken_content do %>
+	  <% div_tag :style => 'height:250px;' do %>
+      <% steplet :step => :auto, :title => "Sign In".t,
+          :description => "If you have an account with us please sign in here.".t do %>
+
+  			<%= f.text_field :login, :label => {:position => :top, :text => User.human_attribute_name(:login) +
+          or_something_inclusion(User.human_attribute_name(:email)), :req => true},
+  			    :style => 'width:165px', :autocomplete => "off" %>
+
+  			<% f.password_field :password, :label => {:position => :top, :text => User.human_attribute_name(:password),
+  			    :req => true}, :id => password_dom_id, :style => 'width:165px' do %>
+  			  <% unless uses_modal? %>
+    			  <%= link_to "Forgot password?".t, forgot_password_users_path %>
+    			<% else %>
+    			  <% if @tier || params[:tier_id]
+    			    forgot_url_modal = collection_url([:tier, :users], :forgot_password, {:tier_id => @tier || params[:tier_id], 
+    			      :uses_opened_modal => "true"})
+  			      forgot_url = collection_url([:tier, :users], :forgot_password, {:tier_id => @tier || params[:tier_id]})
+    			  else
+    			    forgot_url_modal = forgot_password_users_path(:uses_opened_modal => "true")
+    			    forgot_url = forgot_password_users_path
+            end %>
+  			    <%= link_to_remote "Forgot password?".t, {:method => :get, :url => forgot_url_modal}, 
+  			      {:href => forgot_url} %>
+    			<% end %>
+  			<% end %>
+        <%= f.hidden_field :encrypted_password, :id => encrypted_password_dom_id if encryption_required? %>
+  			<%= f.check_box(:remember_me, :label => {:text => "Remember me".t}) if remember_me %>
+  		<% end %>
+  	<% end %>
+	<% end %>
+	<% form_button_container do %>
+		<%= form_submit_button "Login".t, :position => :right %>
+	<% end %>
+<% end %>
+<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+<% if encryption_required? %>
+<script type="text/javascript">
+//<![CDATA[
+
+Event.observe('<%= form_dom_id %>', 'submit:before', function() {
+  Luleka.Form.Field.encrypt('<%= password_dom_id %>', '<%= encrypted_password_dom_id %>',
+    '<%= @public_modulus %>', '<%= @public_exponent %>');
+});
+
+//]]>
+</script>
+<% end %>

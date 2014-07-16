@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%= render :partial => "layouts/nl/head" %>
+  <body class="<%= body_dom_class %>" id="<%= @body_dom_id %>">
+    <%= render :partial => "layouts/nl/top" %>
+    <div id="wrapper" class="hfeed">
+    	<div id="main">
+        <div id="page-container">
+        
+          <%= yield %>
+
+          <div class="bottompart">
+            <% if false %>
+            <!-- mobile obsolete  -->
+            <div class="mobile-complete">
+              <a href="/account/complete">Already using Luleka on your phone?</a>
+            </div>
+            <% end %>
+            <!-- locale -->
+            <div class="language inline-list">
+              <%= render :partial => "shared/nl/change_locale" %>
+            </div>
+            <!-- footer  -->
+            <div class="footer inline-list">
+              <%= render :partial => "shared/nl/footer_nav" %>
+            </div>
+          </div>
+          
+        </div><!-- #page-container -->
+    	</div><!-- #main -->
+    </div><!-- #wrapper -->
+  </body>
+</html>

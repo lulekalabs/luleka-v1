@@ -1,0 +1,32 @@
+<% content_for :kv_title_two, "You" %>
+<% content_for :kv_description_two, "Start your case".t %>
+
+<% content_for :kv_content_two do %>
+  <% switch_theme :theme => :issue do %>
+  
+  <% if false %>
+  
+    <% form_for :search, @search, :url => search_path, 
+        :html => {:method => :post, :name => kv_dom_class(:post_kase, :form)} do |f| %>
+      <%= f.text_area :description, :class => 'singleField', :style => 'width:160px; height:30px;' %>
+      <% div_tag :style => 'margin: 5px -5px 0 0;' do %>
+        <%= form_submit_button("Post".t,
+          :id => kv_dom_class(:post_kase, :button_search),
+          :onclick => update_page do |page|
+            page[kv_dom_class(:post_kase, :spinner)].show
+            page[kv_dom_class(:post_kase, :button_search)].hide
+          end,
+          :position => :right,
+          :type => :active,
+          :name => kv_dom_class(:post_kase, :form)
+        ) %>
+        <% div_tag :style => 'float:right;padding-right:10px;' do %>
+          <%= progress_spinner(:id => kv_dom_class(:post_kase, :spinner), :tag => :img, :size => '14x14') %>
+        <% end %>
+      <% end %>
+    <% end %>
+    
+  <% end %>  
+    
+  <% end %>
+<% end %>

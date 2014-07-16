@@ -1,0 +1,10 @@
+Gracias por registrarse con <%= SERVICE_NAME %>. 
+
+Para poder terminar de registrarse, por favor haga clic en el siguiente enlace 
+o copie el enlace en el campo de la dirección de su navegador: 
+
+<%= activate_user_url(:id => @user.activation_code) %>
+
+A continuación, puede proceder a activar su cuenta. 
+
+<%= render :partial => 'notifier/signature' %>

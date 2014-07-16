@@ -1,0 +1,66 @@
+<%# partners/plans %>
+<% cache membership_plans_fragment_cache_key do %>
+<h2 id="headline">
+  <strong><%= "The Difference in Memberships".t %></strong>
+  <br/>
+	<p class="subheading">
+    <%= "choose the best option for you".t %>
+	</p>
+</h2>
+<table id="chart">
+  <tbody>
+    <tr>
+      <th class="heading">&nbsp;</th>
+      <th class="table-col-0 product">
+        <h3><%= "Basic".t %></h3>
+        <p class="subheading"><%= "Basic Membership".t %></p>
+        <% horizontal_center do %>
+          <%= probono_button :label => "Sign Up".t, :url => signup_users_path %>
+        <% end %>
+      </th>
+      <th class="table-col-4 product">
+        <h3><%= "Partner".t %></h3>
+        <p class="subheading"><%= "Premium Membership".t %></p>
+        <% horizontal_center do %>
+          <%= probono_button :label => "Sign Up".t, :url => signup_user_partner_path %>
+        <% end %>
+      </th>
+    </tr>
+    <% @features.each do |feature| %>
+    <tr class="<%= cycle("even", "odd", :name => "features") %>">
+      <td class="description"><%= feature[0] %></td>
+      <td class="table-col-0"><%= chart_feature(feature[1]) %></td>
+      <td class="table-col-4"><%= chart_feature(feature[2]) %></td>
+    </tr>
+    <% end %>
+    <tr class="last">
+      <td class="description">&nbsp;</td>
+      <td class="table-col-0 indent">
+        <% horizontal_center do %>
+          <%= probono_button :label => "Sign Up".t, :url => signup_users_path %>
+        <% end %>
+      </td>
+      <td class="table-col-4 indent">
+        <% horizontal_center do %>
+          <%= probono_button :label => "Sign Up".t, :url => signup_user_partner_path %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div id="details" class="yellow" style="text-align:center">
+  <p>
+    <span class="req">*&nbsp;</span><%= "Actual monthly Partner Membership fees may vary by the length of your subscription.".t %>
+  </p>
+</div>
+<div id="questions" class="clearfix">
+  <div class="left">
+    <%= render :partial => "users/faq" %>
+  </div>
+  <div class="right">
+    <%= render :partial => "partners/faq"%>
+    <p class="question"><%= link_to("More...".t, 
+      @tier ? tier_faq_url(:tier_id => @tier.to_param) : faq_path) %></p>
+  </div>
+</div>
+<% end %>

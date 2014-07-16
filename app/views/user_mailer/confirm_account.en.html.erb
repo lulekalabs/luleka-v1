@@ -1,0 +1,10 @@
+Thank you for registering with <%= SERVICE_NAME %>.
+
+In order to complete your registration, please click on the following link 
+or copy the entire link into your browser address field:
+
+<%= activate_user_url(:id => @user.activation_code) %>
+
+You can then proceed to activate your free account.
+
+<%= render :partial => 'notifier/signature' %>

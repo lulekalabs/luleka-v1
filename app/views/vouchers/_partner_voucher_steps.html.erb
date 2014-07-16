@@ -1,0 +1,14 @@
+<dl class="steps">
+  <dt>1</dt>
+  <dd><%= "Select continue to guide you through the process".t %></dd>
+  <dt>2</dt>
+  <dd><%= "We will ask you to %{signup} or %{signin} with us".t % {
+    :signup => link_to("Sign up".t, new_user_path),
+    :signin => link_to("Sign in".t, new_session_path)
+  } %></dd>
+  <dt>3</dt>
+  <dd><%= "Redeem your voucher during the %{signup} process".t % {
+    :signup => link_to("Partner Sign up".t, '')
+  } %></dd>
+</dl>
+<%= probono_clear_class %>

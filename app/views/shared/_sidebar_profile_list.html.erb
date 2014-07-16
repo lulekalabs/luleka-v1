@@ -1,0 +1,31 @@
+<% # shared/sidebar_profile_list
+  people ||= sidebar_profile_list
+	max ||= people.size
+  from ||= 0
+	to ||= [people.size - 1, from + max - 1].min
+	id ||= dom_class(Person, "sidebar_#{people.object_id}_page_#{max == 0 ? 0 : (from / max)}")
+%>
+<% ul_tag :class => "listBoxNarrowElements", :id => id, :display => from == 0 do %>
+  <% people.from(from).to(to).each_with_index do |person, index| -%>
+    <% li_tag :id => dom_id(person, :sidebar), :class => "listBoxNarrowElement #{cycle('oddrow', 'evenrow')}" do %>
+      <%= render :partial => 'people/sidebar_item_content', :object => person %>
+      <%= probono_clear_class -%>
+    <% end %>
+  <% end %>
+
+	<% li_tag_if people.size - 1 > to, :class => "listBoxNarrowElement #{cycle('oddrow', 'evenrow')}",
+	 		:id => "#{id}_more" do %>
+  	<%= link_to_function(('<b>' + "Next %{count}...".t + '</b>') % {
+				:count => ([people.size - 1, (from + max) + max - 1].min) - (from + max) + 1
+			}, nil) do |page|
+			page["#{id}_more"].hide
+			page[dom_class(Person, "sidebar_#{people.object_id}_page_#{(from / max) + 1}")].show
+	 	end %>
+	<% end %>
+
+<% end %>
+
+<% if people.size - 1 > to %>
+	<%= render :partial => 'shared/sidebar_profile_list', :object => people,
+		:locals => {:from => from + max, :max => max} %>
+<% end %>

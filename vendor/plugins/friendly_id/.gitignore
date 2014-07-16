@@ -1,0 +1,12 @@
+.yardoc
+*.log
+.DS_Store
+doc
+docs
+pkg
+coverage
+*.swp
+test/active_record_adapter/support/database.yml
+Gemfile
+Gemfile.lock
+.bundle

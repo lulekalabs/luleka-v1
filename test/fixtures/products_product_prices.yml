@@ -1,0 +1,49 @@
+ppp1: 
+  product_id: 1
+  product_price_id: 1
+ppp2: 
+  product_id: 1
+  product_price_id: 21
+ppp3: 
+  product_id: 2
+  product_price_id: 2
+ppp4: 
+  product_id: 2
+  product_price_id: 22
+ppp5: 
+  product_id: 3
+  product_price_id: 3
+ppp6: 
+  product_id: 3
+  product_price_id: 23
+ppp7: 
+  product_id: 4
+  product_price_id: 4
+ppp8: 
+  product_id: 4
+  product_price_id: 24
+
+ppp21: 
+  product_id: 21
+  product_price_id: 1
+ppp22: 
+  product_id: 21
+  product_price_id: 21
+ppp23: 
+  product_id: 22
+  product_price_id: 2
+ppp24: 
+  product_id: 22
+  product_price_id: 22
+ppp25: 
+  product_id: 23
+  product_price_id: 3
+ppp26: 
+  product_id: 23
+  product_price_id: 23
+ppp27: 
+  product_id: 24
+  product_price_id: 4
+ppp28: 
+  product_id: 24
+  product_price_id: 24

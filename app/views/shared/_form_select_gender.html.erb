@@ -1,0 +1,8 @@
+<%
+	disabled ||= false
+	label ||= {:position => :top, :lock => false, :auto => false, :req => true}
+	help ||= false
+	empty = true if defined?(empty).nil? || empty.nil?
+	options ||= {:style => 'width: 100%', :disabled => disabled}
+%>
+<%= f.select :gender, [empty ? ["Select...".t, nil] : nil, ["Male".tn(:gender), 'm'], ["Female".tn(:gender), 'f']].compact, {:label => label, :help => help}, options %>

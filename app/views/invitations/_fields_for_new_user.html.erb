@@ -1,0 +1,37 @@
+<% bracket_container do %>
+  <%= form_error_messages_for :invitation, :unique => true -%>
+  <%= form_flash_messages -%>
+  <% steplet(
+    :step => :auto,
+    :title => "Invite by Email".t, 
+    :description => "You can invite any of your friends if you know their email address.".t + ' ' +
+      "Only invite people you know well and who know you.".t
+  ) do %>
+    <%= render :partial => 'name_fields', :locals => {:f => f} %>
+    <%  if @invitation.invitor.partner? && @invitation.invitor.voucher_quota.to_i > 0 %>
+      <%= render :partial => 'voucher_field', :locals => {:f => f, :person => @invitation.invitor}%>
+    <% end %>
+    <% form_element do %>
+      <%= link_to_function(
+        "Add note...".t,
+        :id => 'more_link',
+        :style => 'font-size: 11px;',
+        :onclick => update_page do |page|
+          page['more_link'].hide
+          page << probono_visual_effect(:blind_down, 'personal_note')
+        end
+      ) %>
+    <% end %>
+  <% end %>
+<% end %>
+<% div_tag :id => 'personal_note', :display => false do %>
+  <% bracket_container do %>
+    <% steplet(
+      :step => :auto,
+      :title => "Personal Note".t, 
+      :description => "A personalized note better explains why you want to invite your friend to join #{SERVICE_NAME}.".t
+    ) do %>
+      <%= render :partial => 'message_field', :locals => { :f => f } %>
+    <% end %>
+  <% end %>
+<% end %>

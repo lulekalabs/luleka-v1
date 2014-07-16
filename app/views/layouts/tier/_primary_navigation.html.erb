@@ -1,0 +1,176 @@
+<%# layouts/tier/primary_navigation %>
+<ul id="primaryNavi" class="primaryNavi">
+
+  <%#--- commmunity %>
+	<% li_tag :id => "navi-tier", :class => "nav" do %>
+	  <%= link_to span_tag(@tier.class.human_name), tier_path(@tier) %>
+		<ul>
+			<%= li_tag link_to("Overview".t, tier_path(@tier)) %>
+			<%= li_tag link_to(Kase.human_name(:count => 2), collection_path([@tier, Kase])) %>
+			<%= li_tag link_to(Topic.human_name(:count => 2), collection_path([@tier, Topic])) %>
+			<%= li_tag link_to(Person.human_name(:count => 2), collection_path([@tier, Person])) %>
+			<% if @tier && @tier.is_a?(Organization) %>
+			  <%= li_tag link_to("Join as Employee".t % {:tier => Tier.human_name}, tier_claim_url(@tier)) %>
+			<% end %>
+			<%= li_tag link_to("Create your %{tier}".t % {:tier => Tier.human_name}, new_tier_path, :class => "separator") %>
+		</ul>
+	<% end %>
+	
+	<%#--- community filter, e.g. Overview %>
+	<% if controller.is_a?(TiersController) && controller.action_name =~ /index|show|popular|recent/ %>
+    <%= li_tag span_tag(action_synonym.firstcase), :class => "last" %>
+  <% end %>
+	
+	<%#--- claiming filter, e.g. Overview %>
+	<% if controller.is_a?(ClaimingsController) %>
+    <%= li_tag span_tag(Claiming.human_name), :class => "last" %>
+	<% end %>
+	
+	<%#--- kases %>
+	<% if controller.is_a?(KasesController) %>
+  	<% li_tag :id => "navi-kase", :class => "nav" do %>
+  	  <%= link_to span_tag("Advice".t), tier_kases_path(@tier) %>
+  		<ul>
+  			<%= li_tag link_to("seek advice".t.firstcase, new_tier_kase_path(@tier)) %>
+  			<%= li_tag link_to("Overview".t, tier_kases_path(@tier), :class => "separator") %>
+  			<%= li_tag link_to(Question.human_name(:count => 2), tier_questions_path(@tier)) %>
+  			<%= li_tag link_to(Idea.human_name(:count => 2), tier_ideas_path(@tier)) %>
+  			<%= li_tag link_to(Problem.human_name(:count => 2), tier_problems_path(@tier)) %>
+  			<%= li_tag link_to(Praise.human_name(:count => 2), tier_praises_path(@tier)) %>
+  		</ul>
+  	<% end %>
+  <% end %>
+
+	<%#--- questions %>
+	<% if controller.is_a?(QuestionsController) %>
+  	<% li_tag :id => "navi-question", :class => "nav" do %>
+	    <%= link_to span_tag(Question.human_name(:count => 2)), tier_questions_path(@tier) %>
+  		<ul>
+  			<%= li_tag link_to(action_synonym(:new).firstcase, new_tier_question_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:recent).firstcase, recent_tier_questions_path(@tier), :class => "separator") %>
+  			<%= li_tag link_to(action_synonym(:popular).firstcase, popular_tier_questions_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:solved).firstcase, solved_tier_questions_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:open).firstcase, open_tier_questions_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:open_rewarded).firstcase, open_rewarded_tier_questions_path(@tier)) %>
+  		</ul>
+  	<% end %>
+  <% end %>
+
+	<%#--- ideas %>
+	<% if controller.is_a?(IdeasController) %>
+  	<% li_tag :id => "navi-idea", :class => "nav" do %>
+  	  <%= link_to span_tag(Idea.human_name(:count => 2)), tier_ideas_path(@tier) %>
+  		<ul>
+  			<%= li_tag link_to(action_synonym(:new).firstcase, new_tier_idea_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:recent).firstcase, recent_tier_ideas_path(@tier), :class => "separator") %>
+  			<%= li_tag link_to(action_synonym(:popular).firstcase, popular_tier_ideas_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:considered).firstcase, popular_tier_ideas_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:solved).firstcase, solved_tier_ideas_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:closed).firstcase, popular_tier_ideas_path(@tier)) %>
+  		</ul>
+  	<% end %>
+  <% end %>
+
+	<%#--- problems %>
+	<% if controller.is_a?(ProblemsController) %>
+  	<% li_tag :id => "navi-problem", :class => "nav" do %>
+  	  <%= link_to span_tag(Problem.human_name(:count => 2)), tier_ideas_path(@tier) %>
+  		<ul>
+  			<%= li_tag link_to(action_synonym(:new).firstcase, new_tier_problem_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:recent).firstcase, recent_tier_problems_path(@tier), :class => "separator") %>
+  			<%= li_tag link_to(action_synonym(:popular).firstcase, popular_tier_problems_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:solved).firstcase, popular_tier_problems_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:open).firstcase, open_tier_problems_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:open_rewarded).firstcase, open_rewarded_tier_problems_path(@tier)) %>
+  		</ul>
+  	<% end %>
+  <% end %>
+
+	<%#--- praises %>
+	<% if controller.is_a?(PraisesController) %>
+  	<% li_tag :id => "navi-praise", :class => "nav" do %>
+  	  <%= link_to span_tag(Praise.human_name(:count => 2)), tier_praises_path(@tier) %>
+  		<ul>
+  			<%= li_tag link_to(action_synonym(:index).firstcase, tier_praises_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:new).firstcase, new_tier_problem_path(@tier)) %>
+  		</ul>
+  	<% end %>
+	<% end %>
+
+	<%#--- kases filter, e.g. Frequently Asked, Recently Active %>
+	<% if controller.is_a?(KasesController) && controller.action_name =~ /new|create|index|popular|solved|open|recent/ %>
+    <%= li_tag span_tag(action_synonym.firstcase), :class => "last" %>
+  <% end %>
+	
+	<%#--- people %>
+	<% if controller.is_a?(PeopleController) %>
+  	<% li_tag :id => "navi-person", :class => "nav" do %>
+  	  <%= link_to span_tag("People".t), tier_people_path(@tier) %>
+  		<ul>
+  			<%= li_tag link_to(action_synonym(:index).firstcase, tier_people_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:members).firstcase, tier_members_path(@tier)) %>
+  			<%= li_tag link_to("Join Community".t, tier_claim_url(@tier)) %>
+
+  			<%= li_tag link_to("Invite Friends".t, new_invitation_path, :class => "separator") %>
+  			<%= li_tag link_to("My Profile".t, me_people_path) %>
+  			<%= li_tag link_to("My Contacts".t, contacts_path) %>
+  			<%= li_tag link_to("Pending Contacts".t, pending_contacts_path) %>
+  		</ul>
+  	<% end %>
+  <% end %>
+
+  <%#--- people action filter, e.g. Overview %>
+	<% if controller.is_a?(PeopleController) && controller.action_name =~ /index|show|popular|recent|members/ %>
+    <%= li_tag span_tag(action_synonym.firstcase), :class => "last" %>
+  <% end %>
+	
+	<%#--- topics, e.g. products %>
+	<% if controller.is_a?(TopicsController) %>
+  	<% li_tag :id => "navi-topic", :class => "nav" do %>
+  	  <%= link_to span_tag("Topics".t), tier_topics_path(@tier) %>
+  		<ul>
+  			<%= li_tag link_to(action_synonym(:index).firstcase, tier_topics_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:recent).firstcase, recent_tier_topics_path(@tier)) %>
+  			<%= li_tag link_to(action_synonym(:popular).firstcase, popular_tier_topics_path(@tier)) %>
+  			<% if @topic && !@topic.new_record? %>
+  			  <%= li_tag link_to("People".t, collection_path([@tier, @topic, :people])) %>
+  			<% end %>
+  			<%= li_tag link_to("Add New Topic", new_tier_topic_path(@tier), :class => "separator") %>
+  		</ul>
+  	<% end %>
+  <% end %>
+	
+	<%#--- topics action filter, e.g. Overview %>
+	<% if controller.is_a?(TopicsController) && controller.action_name =~ /new|create|index|show|popular|recent/ %>
+    <%= li_tag span_tag(action_synonym.firstcase), :class => "last" %>
+  <% end %>
+	
+	<%#--- search %>
+	<% li_tag :id => "navi-search", :class => "search" do %>
+    <% form_for :search, @search, :url => "/search", :html => {:method => :get} do |f| %>
+      <dl class="searchField" style="position: relative;">
+        <dd>
+          <div class="glass"></div>
+          <div class="reset"></div>
+          <%= label_tag :globalsearch, "Search".t, :class => "prompted" %>
+          <span class="fieldwrap">
+          <%= text_field_tag :q, "", :size => 15, :id => "globalsearch" %>
+          </span>
+        </dd>
+      </dl>
+    <% end %>
+	<% end %>
+	
+	<%#--- new kase %>
+	<% li_tag :id => "navi-new-kase", :class => "newkase" do %>
+	    
+    <% if current_page?(new_tier_kase_path(@tier)) %> 
+      <%= span_tag("&nbsp;", :class => "newicon") %> 
+    <% else %>
+      <%= link_to_remote_facebox(span_tag("&nbsp;", :class => "newicon"), 
+        new_tier_kase_path(@tier, :accordion => true)) %>
+    <% end %>
+	    
+	<% end %>
+  
+</ul>

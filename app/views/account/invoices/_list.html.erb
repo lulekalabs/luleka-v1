@@ -1,0 +1,40 @@
+<%
+	title ||= @title || "Invoices".t
+	message ||= form_flash_messages
+	theme ||= :profile
+	invoices = list || @invoices
+	display_sales_invoices ||= @person.partner?
+%>
+
+<% div_tag :id => dom_class(Invoice, :container) do %>
+  <% content_container :type => theme do %>
+    <%= div_tag message, :id => dom_class(Invoice, :message) %>
+    <% headline do %>
+      <%= title %>
+    <% end %>
+    <% primary_content :last => !display_sales_invoices do %>
+      <%= render(
+        :partial => 'shared/items_list_content',
+        :locals => {
+          :items => invoices,
+          :options => {
+            :partial => 'account/orders/list_item_content',
+            :sort => {'invoices.created_at' => "Date".t },
+            :sort_display => true,
+            :url => hash_for_account_invoices_path
+          },
+          :theme => :profile
+        }
+      ) %>
+    <% end %>
+    <% if display_sales_invoices %>
+    	<% secondary_content(:index => 1, :open => false, :style => "padding-bottom:0px;") do %>
+    	<% end %>
+    	<% slider_control(:index => 1, :last => true, :open => false, :url => controller.controller_name == 'sales_invoices' ? hash_for_account_purchase_invoices_path : hash_for_account_sales_invoices_path) do %>
+    	  <%= slider_control_label(
+					controller.controller_name == 'sales_invoices' ? PurchaseInvoice.human_name(:count => 2) : SalesInvoice.human_name(:count => 2)
+				) %>
+    	<% end %>
+    <% end %>
+  <% end %>
+<% end %>

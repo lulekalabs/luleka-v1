@@ -1,0 +1,9 @@
+<%= @invitee.casualize_name %> lo ha confirmado como su contacto en <%= SERVICE_NAME %>.
+
+<% if @invitee.permalink %>
+Para ver el perfil de su amigo, por favor siga el enlace de abajo:
+
+<%= person_url(@invitee) %>
+<%- end -%>
+
+<%= render :partial => 'notifier/signature' %>

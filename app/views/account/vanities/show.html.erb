@@ -1,0 +1,8 @@
+<%= render :partial => 'account/form', :locals => {
+	:url => account_vanity_path,
+	:title => "Change Profile URL".t, 
+	:description => "You can customize the Web address to your profile page.".t,
+	:object => @person,
+	:object_name => :person,
+	:faq => true
+} %>

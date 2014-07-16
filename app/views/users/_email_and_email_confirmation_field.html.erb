@@ -1,0 +1,21 @@
+<%	# users/email_and_email_confirmation_field
+  minimum_length ||= User::EMAIL_MIN_CHARACTERS
+  disabled ||= false
+%>
+<% form_table_fields_for :user do |t| %>
+	<% form_table_row do %>
+
+    <%= t.text_field :email, :maxlength => User::EMAIL_MAX_CHARACTERS, :disabled => disabled, 
+        :label => {:text => "Email".t + characters_inclusion(User::EMAIL_MIN_CHARACTERS, User::EMAIL_MAX_CHARACTERS),
+        :position => :top, :lock => true, :req => true, :help => true}, :style => "width:100%;" %>
+
+    <%= t.text_field :email_confirmation, :size => 24, :maxlength => 45, :disabled => disabled, 
+      :label => {:text => "Re-type Email".t, :req => true, :position => :top}, :style => 'width:100%;' %>
+
+  <% end %>
+
+<% end %>
+<%= help_text :user, :email, 
+  "For security reasons, we allow email addresses to be used only once. You may later change your email address. Email addresses will never be shown to others, unless you decide to.".t, :display => false %>
+  
+

@@ -1,0 +1,76 @@
+user  deploy deploy;
+worker_processes  2;
+
+events {
+    worker_connections  256;
+}
+
+http {
+		passenger_root /opt/ruby-enterprise/lib/ruby/gems/1.8/gems/passenger-2.2.4;
+    passenger_ruby /opt/ruby-enterprise/bin/ruby;
+    passenger_max_pool_size 25;
+    passenger_pool_idle_time  1000;
+    passenger_default_user deploy;
+
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+    #tcp_nopush     on;
+    tcp_nodelay        on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    gzip  on;
+    gzip_comp_level 2;
+    gzip_proxied any;
+
+    gzip_types    text/plain text/html text/css application/x-javascript text/xml
+                  application/xml application/xml+rss text/javascript;
+
+    server {
+        listen 80;
+        server_name luleka.net;
+        root /var/www/apps/probono/current/public;   # <--- be sure to point to 'public'!
+        passenger_enabled on;
+        rails_env staging;
+
+        passenger_use_global_queue on;
+        rails_spawn_method smart;
+
+        auth_basic  "Restricted";
+        auth_basic_user_file  htpasswd;
+
+        # def http header expiration for caching
+        location ~* \.(ico|css|js|gif|jp?g|png)(\?[0-9]+)?$ {
+            access_log off;
+            expires max;
+        }
+
+    }
+
+    # HTTPS server
+    #
+    server {
+       listen       443;
+
+       ssl                  on;
+       ssl_certificate      /opt/nginx/certs/luleka.net.crt;
+       ssl_certificate_key  /opt/nginx/certs/luleka.net.key;
+
+       ssl_session_timeout  5m;
+
+       ssl_protocols  SSLv2 SSLv3 TLSv1;
+       ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+       ssl_prefer_server_ciphers   on;
+
+       location / {
+           proxy_set_header X-FORWARDED_PROTO https;
+           root /var/www/apps/probono/current/public;
+           passenger_enabled on;
+       }
+    }
+
+
+}

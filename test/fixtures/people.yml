@@ -1,0 +1,230 @@
+homer:
+  id: 1
+  first_name: Homer
+  last_name: Simpson
+  status: partner
+  tax_code: 12-1234567
+  voucher_quota: 5
+  email: homer@simpson.tt
+  gender: m
+  personal_status_id: 2 # employee
+  permalink: homer
+  lat: 37.234394
+  lng: -93.250966
+  summary: This is homer's profile
+  summary_de: Das ist homers Profil
+  summary_es: Esta es el perfil de homer
+  reputation_points: 0
+  show_name: 1
+
+  notify_on_newsletter: 1
+  notify_on_promotion: 1
+  notify_on_clarification_request: 1
+  notify_on_clarification_response: 1
+  notify_on_kase_matching: 1
+  notify_on_kase_status: 1
+  notify_on_comment_posted: 1
+  notify_on_comment_received: 1
+  notify_on_response_posted: 1
+  notify_on_response_received: 1
+  notify_on_follower: 1
+  notify_on_following: 1
+  
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>
+barney:
+  id: 2
+  first_name: Barney
+  last_name: Simpson
+  status: member
+  voucher_quota: 0
+  email: barney@simpson.tt
+  gender: f
+  permalink: barney
+  lat: 37.195262
+  lng: -93.315897
+  summary: This is barney's profile
+  summary_de: Das ist barneys Profil
+  summary_es: Esta es el perfil de barney
+  reputation_points: 0
+  show_name: 1
+
+  notify_on_newsletter: 1
+  notify_on_promotion: 1
+  notify_on_clarification_request: 1
+  notify_on_clarification_response: 1
+  notify_on_kase_matching: 1
+  notify_on_kase_status: 1
+  notify_on_comment_posted: 1
+  notify_on_comment_received: 1
+  notify_on_response_posted: 1
+  notify_on_response_received: 1
+  notify_on_follower: 1
+  notify_on_following: 1
+
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>
+bart:
+  id: 3
+  first_name: Bart
+  last_name: Simpson
+  status: member
+  voucher_quota: 0
+  email: bart@simpson.tt
+  gender: m
+  prefers_casual: 1
+  permalink: bart
+  lat: 37.195262
+  lng: -93.315897
+  summary: This is bart's profile
+  summary_de: Das ist barts Profil
+  summary_es: Esta es el perfil de bart
+  reputation_points: 0
+  show_name: 1
+  
+  notify_on_newsletter: 1
+  notify_on_promotion: 1
+  notify_on_clarification_request: 1
+  notify_on_clarification_response: 1
+  notify_on_kase_matching: 1
+  notify_on_kase_status: 1
+  notify_on_comment_posted: 1
+  notify_on_comment_received: 1
+  notify_on_response_posted: 1
+  notify_on_response_received: 1
+  notify_on_follower: 1
+  notify_on_following: 1
+
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>
+marge:
+  id: 4
+  first_name: Marge
+  last_name: Simpson
+  status: partner
+  voucher_quota: 100
+  email: marge@simpson.tt
+  gender: f
+  personal_status_id: 1 # employee
+  permalink: marge
+  lat: 37.244661
+  lng: -93.253198
+  summary: This is marge's profile
+  summary_de: Das ist marge Profil
+  summary_es: Esta es el perfil de marge
+  reputation_points: 0
+  show_name: 1
+
+  notify_on_newsletter: 1
+  notify_on_promotion: 1
+  notify_on_clarification_request: 1
+  notify_on_clarification_response: 1
+  notify_on_kase_matching: 1
+  notify_on_kase_status: 1
+  notify_on_comment_posted: 1
+  notify_on_comment_received: 1
+  notify_on_response_posted: 1
+  notify_on_response_received: 1
+  notify_on_follower: 1
+  notify_on_following: 1
+
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>
+lisa:
+  id: 5
+  first_name: Lisa
+  middle_name: Maria
+  last_name: Simpson
+  email: lisa@simpson.tt
+  status: member
+  voucher_quota: 0
+  email: lisa@simpson.tt
+  gender: f
+  permalink: lisa
+  lat: 37.195262
+  lng: -93.315897
+  summary: This is lisa's profile
+  summary_de: Das ist lisas Profil
+  summary_es: Esta es el perfil de lisa
+  reputation_points: 0
+  show_name: 1
+
+  notify_on_newsletter: 1
+  notify_on_promotion: 1
+  notify_on_clarification_request: 1
+  notify_on_clarification_response: 1
+  notify_on_kase_matching: 1
+  notify_on_kase_status: 1
+  notify_on_comment_posted: 1
+  notify_on_comment_received: 1
+  notify_on_response_posted: 1
+  notify_on_response_received: 1
+  notify_on_follower: 1
+  notify_on_following: 1
+
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>
+quentin:
+  id: 6
+  first_name: Quentin
+  last_name: Terantino
+  email: quentin@terantino.tt
+  status: member
+  voucher_quota: 0
+  gender: m
+  permalink: quentin
+  lat: 45.767433
+  lng: -108.492994
+  summary: This is quentin's profile
+  summary_de: Das ist quentins Profil
+  summary_es: Esta es el perfil de quentin
+  reputation_points: 0
+  show_name: 1
+
+  notify_on_newsletter: 1
+  notify_on_promotion: 1
+  notify_on_clarification_request: 1
+  notify_on_clarification_response: 1
+  notify_on_kase_matching: 1
+  notify_on_kase_status: 1
+  notify_on_comment_posted: 1
+  notify_on_comment_received: 1
+  notify_on_response_posted: 1
+  notify_on_response_received: 1
+  notify_on_follower: 1
+  notify_on_following: 1
+
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>
+aaron:
+  id: 7
+  first_name: Aaron
+  last_name: Weiz
+  email: aaron@weiz.tt
+  status: member
+  voucher_quota: 0
+  gender: m
+  permalink: aaron
+  lat: 45.771115
+  lng: -108.482995
+  summary: This is aaron's profile
+  summary_de: Das ist aaron Profil
+  summary_es: Esta es el perfil de aaron
+  reputation_points: 0
+  show_name: 1
+
+  notify_on_newsletter: 1
+  notify_on_promotion: 1
+  notify_on_clarification_request: 1
+  notify_on_clarification_response: 1
+  notify_on_kase_matching: 1
+  notify_on_kase_status: 1
+  notify_on_comment_posted: 1
+  notify_on_comment_received: 1
+  notify_on_response_posted: 1
+  notify_on_response_received: 1
+  notify_on_follower: 1
+  notify_on_following: 1
+
+  created_at: <%= 180.days.ago.to_s :db %>
+  updated_at: <%= 180.days.ago.to_s :db %>

@@ -1,0 +1,13 @@
+<%
+  invitation = list_item_accepted
+%>
+<div class="listBoxTextContent">
+  <%= "You are now friends with %{invitor}.".t % {
+    :invitor => link_to(invitation.invitor.name, person_path(invitation.invitor))
+  } %>
+  <% if invitation.with_voucher? && invitation.voucher.redeemed? %>
+    <br/>
+    <%= "You have received a voucher for a free #{SERVICE_PARTNER_NAME} membership.".t %>
+  <% end %>
+</div>
+<%= probono_clear_class %>

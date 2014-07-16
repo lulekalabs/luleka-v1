@@ -1,0 +1,75 @@
+<div id="dashboard" class="widget-area" role="complementary">
+  <% if content_for?(:sidebar) %>
+    <%= yield :sidebar %>
+  <% elsif is_active_sidebar('dashboard-top-area') %>
+  <div id="dashboard-top-area"> 
+    <ul>
+      <%# Top of right panel, In twitter, this is where shows Your twitter count & lastest one twitter. %>
+      <%= dynamic_sidebar('dashboard-top-area') %>
+    </ul>
+  </div>
+  <% else %>
+  <div id="dashboard-top-area">       
+    <img style="float: left" width="32px" src="/images/thumbnail.png" />
+    <h2 style="float: left; clear: none; margin: 0 0 10px 10px;"><a href="http://www.hostucan.com">@HostUCan</a></h2>
+    <div style="clear: both">
+      <p>A Next Generation Web Hosting Search And Review Platform<br />
+        <em style="font-size: 11px">(To change this area, put a widget at Dashboard Top Area.)</em><br />
+        <em style="font-size: 11px">(To change default thumbnail for post, add a featured image for each post.)</em>
+      </p>
+    </div>
+  </div>
+  <% end %>
+
+  <% if is_active_sidebar('dashboard-left-area') %>
+  <div id="dashboard-left-area">
+    <ul>
+      <%# Top of right panel, In twitter, this is where shows Your following. %>
+      <%= dynamic_sidebar('dashboard-left-area') %>
+    </ul>
+  </div>
+  <% else %>
+  <% end %>
+
+  <% if is_active_sidebar('dashboard-right-area') %> 
+  <div id="dashboard-right-area">
+    <ul>
+      <%# Top of right panel, In twitter, this is where shows Your followers. %>
+      <?php dynamic_sidebar('dashboard-right-area'); ?>
+    </ul>
+  </div>
+  <hr />
+  <% else %>
+  <% end %>
+
+  <% if is_active_sidebar('dashboard-footer-area') %>
+  <div id="dashboard-footer-area">
+    <ul>
+      <%# Top of right panel, In twitter, this is where copyrights go. %>
+      <%= dynamic_sidebar('dashboard-footer-area'); %>
+    </ul>
+  </div>
+  <% else %>
+  <% end %>
+
+  <% if true %>
+    <% unless content_for?(:sidebar) %>
+      <hr />
+    <% end %>
+  
+  <!-- footer section -->
+  <div class="component">
+    <div class="footer inline-list">
+      <%= render :partial => "shared/nl/footer_nav" %>
+    </div>
+  </div>
+  <% else %>
+  <div id="footer" role="contentinfo">
+    <div id="colophon">
+      <div id="site-generator">
+        Powered by <a href="http://hostucan.com/" title="Find Best Web Hosting With HostUCan" rel="generator">HostUCan</a>
+      </div><!-- #site-generator -->
+    </div><!-- #colophon -->
+  </div><!-- #footer -->
+  <% end %>
+</div>

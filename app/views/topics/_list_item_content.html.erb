@@ -1,0 +1,43 @@
+<% # topic/list_item_content
+  topic = list_item_content
+  expanded ||= false
+  expandable ||= true
+%>
+<% if topic %>
+  <% switch_theme :theme => :profile do %>
+    <%= div_tag link_to(topic_image_tag(topic, :name => :profile), member_path([@tier, topic]), 
+      :title => "#{h(@tier.name)} - #{h(topic.name)}"), :class => 'listBoxPictureWide' %>
+    <% div_tag :class => "listBoxTextContentNarrow" do %>
+      <h3 class="listBoxHeadlineTurquoise">
+        <%= link_to(h(topic.name), member_path([@tier, topic]), :title => "#{h(@tier.name)} - #{h(topic.name)}") %>
+      </h3>
+    
+      <%= div_tag_if_content kases_powered_by_people_count_in_words(topic) %>
+
+      <blockquote></blockquote>
+      
+      <% if expanded %>
+        <%= div_tag_if_content markdown(topic.description), :class => "description markdown" %>
+      <% end %>
+
+      <%= tag_list topic, :editable => false, :context => :tags %>
+
+      <blockquote>
+      <%= render :partial => 'kases/simple_list', :object => [[topic.most_recent_kases].flatten.first].compact,
+        :locals => {:image_size => :small} %>
+      </blockquote>
+
+      <% overview_list do %>
+
+        <%= overview_list_topic_kases_count(topic) %>
+        <%= overview_list_topic_people_count(topic, :last => true) %>
+		  
+  		<% end %>
+    
+    <% end %>
+    <%= list_item_expander_if expandable, topic, expanded, {:url => {:tier_id => params[:tier_id]}} %>
+  <% end %>
+<% else %>
+  <%= "No topic found.".t -%>
+<% end %>
+<%= probono_clear_class -%>

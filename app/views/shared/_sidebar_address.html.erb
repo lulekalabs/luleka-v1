@@ -1,0 +1,17 @@
+<%
+  change_js ||= nil
+  change_url ||= nil
+  address ||= sidebar_address || @address
+  title ||= address ? address.class.human_name.titleize : "Address".t
+%>
+<% div_tag_if address, :class => 'cart' do %>
+  <h4>
+    <%= "%{address} %{change}" % {
+      :address => title,
+      :change => change_js ? ("(%{change})" % {:change => link_to_function("Change?".t, change_js)}) : (change_url ? "(%{change})" % {:change => link_to("Change?".t, change_url)} : '')
+    } %>
+  </h4>
+  <div class="oddcell">
+    <%= address_display(address) %>
+  </div>
+<% end %>

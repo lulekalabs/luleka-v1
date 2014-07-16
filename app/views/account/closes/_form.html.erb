@@ -1,0 +1,15 @@
+<%
+  warning_text ||= [
+    @user.person.piggy_bank && !@user.person.piggy_bank.balance.zero? ? "Please %{transfer} you remaining funds of %{amount} before you proceed".t % {
+      :transfer => link_to("transfer".t, new_account_bank_transfer_path),
+      :amount => "<strong>#{@user.person.piggy_bank.available_balance.format}</strong>",
+    } : nil,
+    "You cannot revert this step".t
+  ].compact.to_sentences
+%>
+<%= f.password_field :password, :label => { :position => :left, :text => "Current Password".t, :req => true }, :size => 24, :maxlength => 45 %>
+<%= f.check_box :destroy_confirmation, :label => {
+  :text => ["I want to close my #{SERVICE_NAME} account".t, "my #{SERVICE_PIGGYBANK_NAME} account funds remain with #{SERVICE_NAME}".t].to_sentence
+}, :vertical_align => :top %>
+<br/>
+<%= help_text_tag :country_info, warning_text, :type => :warning, :escape => false, :disappear => false -%>

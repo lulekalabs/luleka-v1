@@ -1,0 +1,62 @@
+<% 
+	image_path = "#{verification_code_kase_emails_path(:kase_id => @kase.to_param)}.jpeg##{Time.now.to_i}"
+%>
+<% bracket_container do %>
+  <%= form_flash_messages %>
+	<%= form_error_messages_for :email, :unique => true %>
+	<% steplet(:step => :auto, :title => ("Share %{type}".t % {:type => @kase.class.human_name}).titleize,
+	  :description => "Do you know of any helpful people who might be interested to know about this?".t
+	) do %>
+	
+		<% form_table_fields_for :email, @email do |t| %>
+		  <% form_table_row do %>
+		    <%= t.text_field :sender_name, :label => {:position => :top, :text => "Your Name".t, :req => true},
+		      :size => 24, :style => "width: 100%;" %>
+		    <%= t.text_field :sender_email, :label => {:position => :top, :text => "Your Email".t, :req => true},
+		      :size => 24, :style => "width: 100%;" %>
+			<% end %>
+		  <% form_table_row do %>
+		    <%= t.text_field :receiver_email, :label => {:position => :top, :text => "Email To".t, :req => true, :help => true},
+		    :style => "width: 100%;" %>
+		    <%= t.select :language, collect_supported_languages_for_select, {:selected => current_language_code, 
+		      :label => {:position => :top, :text => "Select language".t}},
+		       {:style => "width: 100%", :id => dom_class(EmailKase, :language)} %>
+		  <% end %>
+		<% end %>
+		<%= help_text :email, :receiver_email, "Enter up to 10 email addresses separated by commas".t, :display => false %>
+
+		<% form_element do %>
+      <%= link_to_function(
+        "Add note...".t,
+        :id => 'more_link',
+        :style => 'font-size: 11px;',
+        :onclick => update_page do |page|
+          page['more_link'].hide
+          page << probono_visual_effect(:blind_down, 'personal_note')
+        end
+      ) %>
+    <% end %>
+		
+		<%= render :partial => 'shared/form_verification_code', :locals => {
+      :object_name => :email, :image_path => image_path
+    } %>
+	
+	<% end %>
+<% end %>
+
+<% div_tag :id => 'personal_note', :display => false do %>
+  <% bracket_container do %>
+    <% steplet(
+      :step => :auto,
+      :title => "Personal Note".t, 
+      :description => "A personalized note better explains why you want to share this case.".t
+    ) do %>
+			<%= f.text_area(
+			  :message,
+			  :label => {:position => :top, :text => "Add personal note".t},
+			  :rows => 2,
+			  :style => "width:100%;" 
+			) %>
+		<% end %>
+  <% end %>
+<% end %>

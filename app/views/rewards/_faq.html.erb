@@ -1,0 +1,123 @@
+<%# rewards/faq %>
+<%
+  unique ||= false
+  
+  thresholds = ReputationThreshold.action_types.map {|action| 
+    (points = ReputationThreshold.action_points(action, @tier)) && points > 0 ? 
+      [points, ReputationThreshold.human_action_name(action)] : nil}.compact.sort_by {|row| row.first}
+  
+  # reputation_rewards = [["answer is voted up", 10, -2, Money.new(10, "USD")]]
+  reputations = []
+  RewardRate.source_classes.each do |reputable|
+    RewardRate.action_types.each do |action|
+      receiver_points = ReputationReward.action_points(reputable, :receiver, action, @tier)
+      sender_points = ReputationReward.action_points(reputable, :sender, action, @tier)
+      receiver_bonus = BonusReward.action_bonus(reputable, :receiver, action, @tier)
+      sender_bonus = BonusReward.action_bonus(reputable, :sender, action, @tier)
+      receiver_bonus = receiver_bonus.format if receiver_bonus
+      sender_bonus = sender_bonus.format if sender_bonus
+      if receiver_points || sender_points || receiver_bonus || sender_bonus
+        reputations << ["Your %{reputable} %{action}".t % {:action => BonusReward.human_action_name(action), 
+          :reputable => reputable.human_name}, 
+            receiver_points, sender_points, receiver_bonus, sender_bonus]
+      end
+    end
+  end
+
+  reputation_footnote = false
+  reputation_penalty_footnote = false
+  bonus_footnote = false
+%>
+<%= render :partial => "kases/faq" unless unique %>
+
+<div class="faq">
+  
+  <h4 class="question">
+    <%= "How do I earn reputation or bonuses?".t %>
+  </h4>
+  <div class="answer">
+    <p>
+    <%= ["You gain reputation points or earn bonuses by posting useful content.".t, "In rare cases you may also lose reputation.".t, "Some communities offer bonuses related to a user's action.".t].to_sentences %>
+    </p>
+
+    <% if reputations.empty? %>
+      <p><%= "This %{tier} does not currently offer any reputation or bonuses.".t % {:tier => @tier ? @tier.class.human_name : Tier.human_name} %></p>
+    <% else %>
+
+      <table><tbody>
+        <% reputations.each do |row| %>
+        <tr>
+          <td class="description">
+            <%= row.first.firstcase %>
+          </td>
+          <td class="reward">
+            <% if !reputation_footnote && !row[1].blank? && row[1] > 0 %>
+              <% reputation_footnote = true %>
+              <% row[1] = "#{span_tag("&dagger;", :class => "footmark")}#{row[1]}" %>
+            <% end %>
+            <% if !bonus_footnote && !row[3].blank? %>
+              <% bonus_footnote = true %>
+              <% row[3] = "#{span_tag("&Dagger;", :class => "footmark")}#{row[3]}" %>
+            <% end %>
+            <%= [row[1], row[3]].compact.to_sentence.strip_period %>
+          </td>
+          <td class="ext">
+            <% if !reputation_penalty_footnote && !row[2].blank? %>
+              <% reputation_penalty_footnote = true %>
+              <% row[2] = "#{span_tag("&loz;", :class => "footmark")}#{row[2]}" %>
+            <% end %>
+            <% sender = [row[2], row[4]].compact.to_sentence.strip_period %>
+            <%= sender.blank? ? "" : "(#{sender})" %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody></table>
+      <% if reputation_footnote %>
+        <p class="footnote">
+          <span class="footmark">&dagger;</span>
+          <%= "For example, if your peers will vote up on your recommendation, those votes will cause you to gain reputation.".t %>
+        </p>
+      <% end %>
+      <% if reputation_penalty_footnote %>
+        <p class="footnote">
+          <span class="footmark">&loz;</span>
+          <%= ["Voting down someone else's content may also result in a small reputation loss for you.".t].to_sentences %>
+        </p>
+      <% end %>
+      <% if bonus_footnote %>
+        <p class="footnote">
+          <span class="footmark">&Dagger;</span>
+          <%= ["For example, if you solve a problem you will receive a bonus of %{money} paid by the community.".t].to_sentences % {
+            :money => Money.new(25, Utility.country_to_currency_code(I18n.locale_country)).format} %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <h4 class="question">
+    <%= "What can I do with reputation?".t %>
+  </h4>
+  <div class="answer">
+    <p><%= "By collecting enough reputation points you go beyond simply seeking or giving advice.".t %><p>
+
+    <% if thresholds.empty? %>
+      <p><%= "This %{tier} does not restrict you to increase your commitment.".t % {:tier => @tier ? @tier.class.human_name : Tier.human_name} %></p>
+    <% else %>
+
+      <table><tbody>
+        <% thresholds.each do |row| %>
+          <tr>
+            <td class="reward">
+              <%= row.first.loc %>
+            </td>
+            <td>
+              <%= row.last %>
+            </td>
+            <td></td>
+          </tr>
+        <% end %>
+      </tbody></table>
+    <% end %>
+    
+  </div>
+</div>

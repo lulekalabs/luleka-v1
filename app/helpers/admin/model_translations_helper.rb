@@ -1,0 +1,2 @@
+module Admin::ModelTranslationsHelper
+end

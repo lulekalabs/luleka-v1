@@ -1,0 +1,13 @@
+<% # setup
+  f ||= nil
+  object ||= work
+	edit ||= begin edit.nil? ? true : edit; rescue; true; end
+	object_name ||= :person
+	method_name ||= nil
+%>
+<% if edit %>
+  <%= render :partial => 'shared/form_work', :object => object,
+    :locals => {:object_name => object_name, :edit => true} %>
+<% else %>
+  <%= property_work object %>
+<% end %>

@@ -1,0 +1,8 @@
+<%	# Setup
+	disabled ||= false
+	label ||= {:position => :top, :text => User.human_attribute_name(:time_zone), :req => true}
+	help ||= false
+	options ||= {:style => 'width: 100%', :disabled => disabled}
+%>
+<%= f.time_zone_select :time_zone, ::ActiveSupport::TimeZone.us_zones,
+  {:label => label, :help => help, :default => @user.time_zone, :include_blank => false, :model => ::ActiveSupport::TimeZone}, options %>

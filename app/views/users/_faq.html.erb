@@ -1,0 +1,27 @@
+<%# users/faq %>
+<div class="faq">
+  <h4 class="question">
+    <%= "What is #{SERVICE_NAME}?".t %>
+  </h4>
+  <p class="answer">
+    <%= "Luleka is an online source for trusted recommendations.".t %>
+  </p>
+  <h4 class="question">
+    <%= "Is #{SERVICE_NAME} free?".t %>
+  </h4>
+  <p class="answer">
+    <%= "Signing up to #{SERVICE_NAME} is absolutely free of charge.".t %>
+  </p>
+  <h4 class="question">
+    <%= "Is #{SERVICE_NAME} secure?".t %>
+  </h4>
+  <p class="answer">
+    <%= "We use 128-bit SSL encryption. For more information see our %{privacy_policy}.".t % {:privacy_policy => link_to("Privacy Policy".t, privacy_policy_url(:popup => true))} %>
+  </p>
+  <h4 class="question">
+    <%= "Which browsers do you support?".t %>
+  </h4>
+  <p class="answer">
+    <%= "We support Firefox 2 or later, Internet Explorer 6 or later, and Safari 2 or later. We run on Mac, PC, or Linux.".t %>
+  </p>
+</div>

@@ -1,0 +1,34 @@
+<%
+  lock ||= false
+  id ||= 'test'
+  with_separator ||= false
+  selected ||= false
+%>
+<% if with_separator %>
+  <strong><%= "&mdash; Or &mdash;".t %></strong>
+  <br/>
+<% end %>
+<% radio_group do %>
+  <% div_tag :class => "radioElement" do %>
+  	<table cellpadding=0 cellspacing=0>
+  		<tr>
+  			<td style="vertical-align: middle;">
+  			  <% div_tag :class => "radioButton" do %>
+  			    <%= radio_button_tag(:partner_membership, 'voucher',
+    				  selected ? selected.is_a?(Voucher) : false,
+    				  {:disabled => lock, :id => id}) %>
+  			  <% end %>
+  			</td>
+  			<td style="vertical-align: middle;">
+  			  <%= content_tag(:label,
+			      render(:partial => 'vouchers/code_confirmation', :locals => {:with_help => true, :help_text => false}),
+  				  :for => id
+  				) %>
+  			</td>
+  		</tr>
+  	</table>
+  <% end %>
+<% end %>
+<%= help_text :voucher, :code_confirmation, 
+  "A valid #{SERVICE_PARTNER_NAME} promotion code activates a free #{SERVICE_NAME} #{SERVICE_PARTNER_NAME} account.".t + ' ' + "Existing #{SERVICE_PARTNERS_NAME} can give membership promotion codes to their friends.".t,
+  :display => false %>

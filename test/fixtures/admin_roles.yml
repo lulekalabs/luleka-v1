@@ -1,0 +1,12 @@
+admin:
+  id: 1
+  kind: admin
+  name: Administrator
+translator:
+  id: 2
+  kind: translator
+  name: Translator
+moderator:
+  id: 3
+  kind: moderator
+  name: Moderator

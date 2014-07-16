@@ -1,0 +1,6 @@
+<% form_table_fields_for @user do |t| %>
+	<% form_table_row do %>
+		<%= render :partial => 'shared/form_select_language', :locals => {:f => t, :selected => @user.language} %>
+		<%= render :partial => 'shared/form_select_time_zone', :locals => {:f => t} %>
+	<% end %>
+<% end %>

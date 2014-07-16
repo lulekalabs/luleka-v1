@@ -1,0 +1,19 @@
+<%  # setup
+  tiers ||= sidebar_tiers
+  title ||= "Tiers".t
+  time ||= true unless defined?(time)
+  topics ||= false unless defined?(topics)
+  kases ||= false unless defined?(kases)
+%>
+<% content_container_unless tiers.blank?, :theme => :sidebar do %>
+  <% headline do %>
+    <%= title %>
+  <% end %>
+  <% primary_content :style => "padding-top: 0px; padding-bottom: 0px;" do %>
+    <% ul_tag :class => "listBoxNarrowElements" do %>
+      <%= render :partial => 'tiers/sidebar_list_item', :collection => tiers,
+        :locals => {:time => time, :topics => topics, :kases => kases} %>
+    <% end %>
+  <% end %>
+  <div class="sideBarBoxGrayBottom"></div>
+<% end %>

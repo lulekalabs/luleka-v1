@@ -1,0 +1,7 @@
+Herzlich Willkommen! Wir begrüßen Sie als <%= @person.current_state_t(@status).humanize %> im <%= SERVICE_NAME %> Netzwerk.
+
+Um jetzt noch mehr über Ihre <%= @person.partner? ? 'Partnerschaft' : 'Mitgliedschaft' -%> zu erfahren, folgen Sie bitte dem Link oder kopieren sie ihn direkt in ihren Webbrowser:
+
+<%= new_luleka_question_url %>
+
+<%= render :partial => 'notifier/signature', :object => @person %>

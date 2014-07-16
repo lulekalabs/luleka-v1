@@ -1,0 +1,17 @@
+<%
+  people ||= list || @people
+  title ||= @title || "Profiles".t
+  message ||= form_flash_messages
+  url ||= nil
+%>
+<% div_tag :id => dom_class(Person, :container) do %>
+  <% content_container :type => :profile do %>
+    <%= div_tag message, :id => dom_class(Person, :message) %>
+    <% headline do %>
+      <%= title %>
+    <% end %>
+    <% primary_content :last => true do %>
+      <%= render :partial => 'people/list_content', :object => people, :locals => {:url => url} %>
+    <% end %>
+  <% end %>
+<% end %>

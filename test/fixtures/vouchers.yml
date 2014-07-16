@@ -1,0 +1,34 @@
+valid: 
+  id: 1
+  timestamp: "1222698634.69285"
+  promotable_sku: SU00101
+  expires_at: 2024-12-28 14:30:34
+  type: PartnerMembershipVoucher
+  code: ticfpjgjjlqr
+  uuid_base: email
+  mac_address: 00:16:cb:9e:c3:a2
+  promotable_type: 
+  uuid: beabcf15-6fd1-5f48-b22b-69c364f34119
+  consignor_id: "1"
+  batch: 
+  promotable_id: 
+  consignee_id: "14"
+  created_at: 2008-09-29 14:30:35
+  email: jfesslmeier@yahoo.com
+expired: 
+  id: 2
+  timestamp: "1222698635.6594"
+  promotable_sku: SU00101
+  expires_at: 2008-12-28 14:30:35
+  type: PartnerMembershipVoucher
+  code: txsjzjnisjmq
+  uuid_base: email
+  mac_address: 00:16:cb:9e:c3:a2
+  promotable_type: 
+  uuid: 90461956-75a4-51fa-ba10-cd8b67320aad
+  consignor_id: "1"
+  batch: 
+  promotable_id: 
+  consignee_id: "14"
+  created_at: 2008-09-29 14:30:35
+  email: jfesslmeier@yahoo.com

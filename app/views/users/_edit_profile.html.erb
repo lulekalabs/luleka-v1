@@ -1,0 +1,20 @@
+<% bracket_container do %>
+	<%= form_error_messages_for :person, :attr_names => {
+	  :dummy => ''
+	} %>
+	<% steplet :step => :auto, :title => "Profile".t,
+	  :description => "Some of this information is only visible to your contacts. The more information you provide the better we can help to match you with others. You can change this later on your profile page.".t do %>
+    <%= f.text_area :want_expertise, :label => {:position => :top, :auto => false, :lock => false, :req => false,
+      :text => "Which expertise are you looking for?".t,
+      :help => {:text => "Expertise you are currently in need for goes here, e.g. _iPod, taxes, child desease_. As %{partner} you will also be able to publish your expertise.".t % {:partner => "#{SERVICE_NAME} #{SERVICE_PARTNER_NAME}"}}}, :size => '200x2', :style => 'width: 100%' %>
+    <!-- spoken languages -->
+    <%= render :partial => 'shared/form_select_spoken_languages' %>
+    <br/>
+    <!-- spoken languages -->
+    <%= f.text_area :interest, :label => {:position => :top, :auto => false, :lock => true, :req => false, :text => "Share some of your interests with us".t, :help => { :text => "Interests you would like others to know about. Example: _sailing, scuba-diving, reading_".t}}, :size => '200x1', :style => 'width: 100%' %>
+    <%= f.text_field :home_page_url, :label => {:position => :top, :auto => false, :lock => true, :req => false, :text => "Home Page".t, :help => { :text => "A link to your personal home page goes here, e.g. _http://www.myhomepage.com_".t }}, :style => 'width: 100%' %>
+    <%= f.text_field :blog_url, :label => {:position => :top, :text => "Personal Blog".t, :help => {:text => "If you have a blog you can add the link here, e.g. _http://www.myblog.com_".t}}, :style => 'width: 100%' %>
+    <%= render :partial => 'shared/form_twitter_name', :object => @person,
+      :locals => {:object_name => :person, :method_name => :twitter_name} %>
+	<% end %>
+<% end %>

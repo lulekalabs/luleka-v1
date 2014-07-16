@@ -1,0 +1,53 @@
+development:
+  app_id: 105771169466526
+  api_key: 1723c58778b6857b7bd20e6e85554331
+  secret: b1b99746385580ef049cd4a4d8a32694
+  canvas_page_name:
+  callback_url: http://luleka.local/
+  pretty_errors: true
+  set_asset_host_to_callback_url: false
+  tunnel:
+    public_host_username:
+    public_host:
+    public_port: 4007
+    local_port: 3000
+test:
+  app_id: 105771169466526
+  api_key: 1723c58778b6857b7bd20e6e85554331
+  secret: b1b99746385580ef049cd4a4d8a32694
+  canvas_page_name:
+  callback_url: http://luleka.local/
+  pretty_errors: true
+  set_asset_host_to_callback_url: false
+  tunnel:
+    public_host_username:
+    public_host:
+    public_port: 4007
+    local_port: 3000
+staging:
+  app_id: 105771169466526
+  api_key: 1723c58778b6857b7bd20e6e85554331
+  secret: b1b99746385580ef049cd4a4d8a32694
+  canvas_page_name:
+  callback_url: http://staging.luleka.net/
+  pretty_errors: true
+  set_asset_host_to_callback_url: false
+  tunnel:
+    public_host_username:
+    public_host:
+    public_port: 4007
+    local_port: 3000
+production:
+  app_id: 196589333699815
+  api_key: 2ea6f6a866ae09c32fc01edf861c0421
+  secret: 9d1f6437c514f55cb49251fb3b300352
+  canvas_page_name:
+  callback_url: http://luleka.com/
+  pretty_errors: true
+  set_asset_host_to_callback_url: false
+  tunnel:
+    public_host_username:
+    public_host:
+    public_port: 
+    local_port: 
+  

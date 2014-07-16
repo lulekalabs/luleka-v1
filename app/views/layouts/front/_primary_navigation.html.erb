@@ -1,0 +1,83 @@
+<%# layouts/front/primary_navigation %>
+<% cache "front-primary-navigation-#{I18n.locale}", 1.day.from_now do %>
+<ul id="primaryNavi" class="primaryNavi">
+  
+	<%#--- kases %>
+	<% li_tag :id => "navi-kases", :class => "nav" do %>
+		<%= link_to span_tag("Advice".t), kases_path %>
+		<ul>
+		  <%= li_tag link_to("seek advice".t.firstcase, new_kase_path, :class => "separator") %>
+			
+			<%= li_tag link_to("recently active".t.firstcase, recent_kases_path) %>
+			<%= li_tag link_to("need attention".t.firstcase, open_kases_path) %>
+			<%= li_tag link_to("most popular".t.firstcase, popular_kases_path) %>
+			<%= li_tag link_to("open rewarded".t.firstcase, open_rewarded_kases_path) %>
+			
+			<%= li_tag link_to("my concerns".t.firstcase, my_kases_path), :class => "separator" %>
+			<%= li_tag link_to("my recommendations".t.firstcase, my_responded_kases_path) %>
+			<%= li_tag link_to("Advice to give".t.firstcase, my_matching_kases_path) %>
+
+      <%#--- most popular groups %>
+      <% Group.find_all_popular_orderd_by_topics(:limit => 5).each_with_index do |group, index| %>
+
+        <%= li_tag link_to(content_tag(:b, group.name.firstcase), tier_root_url(group)), 
+  			  :class => index == 0 ? "separator" : nil %>
+  			
+      <% end %>
+      
+			<%#= li_tag link_to(content_tag(:b, "Legal".t.firstcase), tier_kases_url(:tier_id => LEGAL_TIER_SITE_NAME)), 
+			  :class => "separator" %>
+			<%#= li_tag link_to(content_tag(:b, "Business".t.firstcase), tier_kases_path(:tier_id => BUSINESS_TIER_SITE_NAME)) %>
+			<%#= li_tag link_to(content_tag(:b, "Health".t.firstcase), tier_kases_path(:tier_id => HEALTH_TIER_SITE_NAME)) %>
+			<%#= li_tag link_to(content_tag(:b, "Tourism".t.firstcase), tier_kases_path(:tier_id => TOURISM_TIER_SITE_NAME)) %>
+			<%#= li_tag link_to(content_tag(:b, "Programming".t.firstcase), tier_kases_path(:tier_id => COMPUTER_TIER_SITE_NAME)) %>
+			
+		</ul>
+	<% end %>
+	
+	<%#--- people %>
+	<% li_tag :id => "navi-people", :class => "nav" do %>
+    <%= link_to span_tag(Person.human_name(:count => 2)), people_path %>
+		<ul>
+		  <%= li_tag link_to("popular".t.firstcase, popular_people_path) %>
+		  <%= li_tag link_to("reputable".t.firstcase, reputable_people_path) %>
+			
+			<%= li_tag link_to("my profile".t.firstcase, me_people_path, :class => "separator") %>
+			<%= li_tag link_to("my contacts".t.firstcase, contacts_path) %>
+			<%= li_tag link_to("invite friends".t.firstcase, new_invitation_path) %>
+
+			<%= li_tag link_to("experts".t.firstcase, partners_people_path, :class => "separator") %>
+			<%= li_tag link_to("join as expert".t.firstcase, signup_user_partner_path) %>
+		</ul>
+	<% end %>
+	
+	<%#--- search %>
+	<% li_tag :id => "navi-search", :class => "search" do %>
+    <% form_for :search, @search, :url => "/search", :html => {:method => :get} do |f| %>
+      <dl class="searchField" style="position: relative;">
+        <dd>
+          <div class="glass"></div>
+          <div class="reset"></div>
+          <%= label_tag :globalsearch, "Search".t, :class => "prompted" %>
+          <span class="fieldwrap">
+          <%= text_field_tag :q, "", :size => 15, :id => "globalsearch" %>
+          </span>
+        </dd>
+      </dl>
+    <% end %>
+	<% end %>
+	
+	<%#--- new kase %>
+	<% li_tag :id => "navi-new-kase", :class => "newkase" do %>
+	    
+	  <% if current_page?(new_kase_path) %> 
+      <%= span_tag("&nbsp;", :class => "newicon") %> 
+    <% else %>
+      <%= link_to_remote_facebox(span_tag("&nbsp;", :class => "newicon"), 
+        new_kase_path(:accordion => true), {}) %>
+    <% end %>
+	    
+	<% end %>
+  
+</ul>
+<% end %>

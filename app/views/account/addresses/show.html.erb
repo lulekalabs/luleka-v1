@@ -1,0 +1,12 @@
+<% content_left do %>
+  <%= form_flash_messages %>
+  <%= render :partial => 'display', :object => @personal_address %>
+  <%= render :partial => 'display', :object => @business_address %>
+  <%= render :partial => 'display', :object => @billing_address %>
+  <% form_button_container do %>
+  	<%= probono_button :label => "Back".t, :url => :back, :type => :passive %>
+  <% end %>
+<% end %>  
+<% content_right do %>
+  <%= render :partial => 'faq' %>
+<% end %>

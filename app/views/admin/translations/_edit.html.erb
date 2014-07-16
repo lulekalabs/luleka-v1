@@ -1,0 +1,93 @@
+<%
+  translation ||= edit
+  record ||= nil
+  delete ||= false
+  destroy_url ||= if translation.is_a?(ModelTranslation)
+    admin_translation_model_translation_path(:id => translation, :key => translation.key)
+  else
+    admin_translation_view_translation_path(:id => translation, :key => translation.key)
+  end
+  url ||= if translation.is_a?(ModelTranslation)
+    url_for(:controller => "admin/model_translations", :action => "update")
+  else
+    url_for(:controller => "admin/view_translations", :action => "update")
+  end
+%>
+<%= content_tag(:blockquote, 
+  translation.value ? h(translation.value) : "[not translated]", 
+  :id => dom_id(translation, :text),
+  :class => "value #{translation.value.blank? ? 'redText' : 'greenText'}" 
+) %>
+<div class="key">
+  &nbsp;
+</div>
+<div class="locale">
+  <%= human_locale_name(translation.locale.code) %>
+</div>
+<%= button_to_function('Edit', '',
+  :id => dom_id(translation, :edit)) %>
+<% if delete %>
+  <%= button_to_function "Delete", remote_function(
+    :url => destroy_url,
+    :confirm => "Really delete only this translation?",
+    :loading => "$('#{dom_id(translation, :button_delete)}').disabled = true;",
+    :method => :delete
+  ), {:id => dom_id(translation, :button_delete)} %>
+<% end %>  
+<%= button_to_function('Auto', 
+	"translateKey('#{dom_id(translation, :key)}', '#{dom_id(translation, :form)}', '#{I18n.locale_language(@locale.code)}')",
+	{:disabled => true, :id => "#{dom_id(translation, :auto)}", :style => "display:none;"}
+) %>
+<script type="text/javascript">
+//<![CDATA[
+  
+  new Ajax.InPlaceEditor('<%= dom_id(translation, :text) %>', 
+    '<%= url %>',
+    {
+      callback: function(form, value) { 
+        var parameters = $H(<%= {
+          'id' => translation.id,
+          'key' => translation.key,
+          'code' => @locale.code,
+          'class_name' => record ? record.class.name : nil, 
+          'facet' => translation.respond_to?(:facet) ? translation.facet : nil,
+          'record_id' => translation.respond_to?(:record_id) ? translation.record_id : nil,
+          'translation_id' => translation.id,
+          'translation_locale' => translation.locale.code,
+					'pluralization_index' => translation.respond_to?(:pluralization_index) ? translation.pluralization_index : nil
+        }.to_json %>);
+        parameters.merge({value: value});
+        qs = parameters.toQueryString();
+        //qs = qs+"&value="+escape(value);
+        qs = qs+"&value="+encodeURIComponent(value);
+        return qs;
+      },
+      rows: 2,
+      cols: 60,
+      formClassName: 'inPlaceEditorForm',
+      savingClassName: 'greyText',
+      okText: 'Update',
+      cancelText: 'Cancel',
+      method: 'post',
+      externalControl: '<%= dom_id(translation, :edit) %>',
+      formId: '<%= dom_id(translation, :form) %>',
+			onEnterEditMode: function(form, value) { 
+        $('<%= dom_id(translation, :auto) %>').disabled = '';
+        $('<%= dom_id(translation, :auto) %>').show();
+        $('<%= dom_id(translation, :button_delete) %>').disabled = 'disabled';
+        $('<%= dom_id(translation, :button_delete) %>').hide();
+      },
+      onLeaveEditMode: function(form, value) { 
+        $('<%= dom_id(translation, :auto) %>').disabled = 'disabled';
+        $('<%= dom_id(translation, :auto) %>').hide();
+        $('<%= dom_id(translation, :button_delete) %>').disabled = '';
+        $('<%= dom_id(translation, :button_delete) %>').show();
+      },
+      onSuccess: function(transport) { 
+        // bug in editor
+      }
+    }
+  );
+
+//]]>
+</script>

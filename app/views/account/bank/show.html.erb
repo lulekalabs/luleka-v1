@@ -1,0 +1,9 @@
+<% content_left do %>
+	<%= render :partial => 'account/bank/transactions/list', :locals => {
+	  :title => "Bank Account Transactions".t,
+	  :transactions => @transactions,
+	  :paginator => @transactions_pages
+	} %>
+<% end %>
+<% content_right do %>
+<% end %>

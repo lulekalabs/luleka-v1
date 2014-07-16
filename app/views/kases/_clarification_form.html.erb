@@ -1,0 +1,61 @@
+<% # Setup
+  display ||= false
+  form_id ||= 'clarification_form'
+  person ||= current_user.person
+  case clarifiable.class.name
+  when 'Issue'
+    kind = 'rfc'
+    html_id = "clarification_#{kind}_#{clarifiable.clarifications.count+1}"
+  when 'Response'
+    kind = 'rfr'
+    html_id = "clarification_#{kind}_#{clarifiable.clarifications.count+1}"
+  when 'Clarification'
+    kind = clarifiable.kind_for_reply.to_s
+    html_id = "clarification_#{kind}_#{clarifiable.clarifiable.id}"
+  end
+%>
+<% div_tag :id => html_id do %>
+	<% div_tag :id => form_id, :class => 'primaryContentComment', :style => display ? '' : 'display:none' do %>
+		<%= render :partial => 'clarification_overview' -%>
+		<% form_tag( 
+			{},
+			{ :id => "#{html_id}_form" }
+		) do %>
+			<%= text_area_tag :body, '', :style => 'width:459px; border:1px solid #878889;', :rows => 3 -%>
+			<%= hidden_field_tag :person_id, person.id -%>
+			<%= hidden_field_tag :html_id, html_id -%>
+			<%= hidden_field_tag :kind, kind -%>
+		<%- end -%>
+		<% content_button_container do %>
+			<%= probono_button(
+				:label => "Cancel".t,
+				:type => :passive,
+				:position => :left,
+				:function => update_page do |page|
+					page << toggle_flipper_function(form_id)
+					page << "Field.clear($('body'))"
+				end
+			) -%>
+			<%= probono_button(
+				:label => "Post".t,
+				:type => :active,
+				:position => :right,
+				:function => remote_function(
+					:url => { :action => 'clarify', :id => clarifiable.id },
+					:loading => update_page do |page|
+						page["#{html_id}_spinner_id"].show
+					end,
+#					:complete => update_page do |page|
+#						page["#{html_id}_spinner_id"].hide
+#					end,
+				 	:submit => "#{html_id}_form"
+				)
+			) -%>
+			<% div_tag :style => 'float:right' do %>
+				<%= progress_spinner :id => "#{html_id}_spinner_id" %>
+			<% end %>
+		<% end %>
+		<!--%= submit_to_remote 'button', "Remote", :url => { :action => 'case_clarification_request', :id => issue.id }, :submit => "request_clarification_form" %-->
+		<!-- END:form -->
+	<% end %>
+<% end %>

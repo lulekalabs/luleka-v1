@@ -1,0 +1,187 @@
+<% # widgets/feedbacks/content
+  update ||= false
+  tabindex ||= 0 
+%>
+<div id="feedbackContentContainer">
+  <div id="feedbackContent">
+    <!-- error/flash messages -->
+    <div id="messages">
+      <%= form_error_messages_for :kase, :unique => true, :attr_names => {
+        :sender_email => "Email".t, :title => "Title".t, :description => "Description".t
+      } %>
+    </div>
+  
+    <!-- new header: "Share an Idea" -->
+    <% kase_kinds.each do |kind| %>
+      <h3 id="new-header-<%= kind %>" class="newHeader" style="<%= default_kase_kind == kind ? '' : 'display:none;' %>">
+        <%= kase_action_with_topic_in_words(kind, @topic) %>
+      </h3>
+    <% end %>
+  
+    <!-- regular submit form -->
+    <% form_for :kase, @kase, :url => {}, :html => {:id => dom_class(Kase, :form)} do |f| %>
+
+      <%= f.hidden_field :kind, :id => 'kase-kind', :value => "#{default_kase_kind}" %>
+
+      <!-- title -->
+      <div id="<%= dom_class(Kase, :title_row) %>" class="fieldRow">
+        <label for="<%= dom_class(Kase, :title) %>" class="prompted">
+          <%= span_tag("Start entering your idea".t, :id => "title-idea",
+            :class => "description", :display => true) +
+          span_tag("Start entering your question".t, :id => "title-question", 
+            :class => "description", :display => false) +
+          span_tag("Start entering your problem".t, :id => "title-problem", 
+            :class => "description", :display => false) +
+          span_tag("Start entering your praise".t, :id => "title-praise", 
+            :class => "description", :display => false) %>
+        </label>
+        <%= f.text_area :title, :id => dom_class(Kase, :title), 
+          :size => '80x2', :tabindex => tabindex += 1, :class => "field wfull hdouble", :style => "" %>
+      </div>
+    
+      <!-- continue remote function -->
+      <div id="<%= dom_class(Kase, :continue_row) %>" class="fieldRow" style="min-height:20px;" style="<%= update ? 'display:none;' : '' %>">
+        <div class="columnLeft">
+          <%= link_to_powered_by_logo %>
+        </div>
+        <div class="columnRight fr">
+
+          <div id="<%= dom_class(Kase, :continue_spinner) %>" class="spinner fr" style="display:none;"></div>
+          <%= fat_turquoise_button_link_to_remote("Continue".t, {
+              :url => lookup_feedback_path([@tier, @topic]),
+              :method => :post,
+              :before => update_page do |page|
+  	            page << "if ($('#{dom_class(Kase, :title)}').value.length == 0) {return false;}"
+  	          end,
+              :loading => update_page do |page|
+                page[dom_class(Kase, :continue_spinner)].show
+                page[dom_class(Kase, :continue)].hide
+              end,
+              :submit => dom_class(Kase, :form)
+            }, {:id => dom_class(Kase, :continue), :class => "fr", :style => "#{update ? 'display:none;' : ''}"}
+          ) %>
+
+          <!-- Cancel or Start -->
+          <table id="<%= dom_class(Kase, :start) %>" class="fr" style="display:none;" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td style="vertical-align:middle;">
+                  <%= link_to_function "Cancel".t, "Luleka.Feedback.cancel();", {:class => 'cancel'} %>
+                  &nbsp;<%= "or".t %>&nbsp;&nbsp;
+                </td>
+                <td style="vertical-align:middle;">
+                  <%= fat_turquoise_button_link_to_function("Start".t, 
+                    "Luleka.Feedback.enter();",
+                    {:class => "fr"}) %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    
+      <% div_tag :id => dom_class(Kase, :accordion), :display => update do %>
+    
+        <!-- description -->
+        <div id="<%= dom_class(Kase, :description_row) %>" class="fieldRow">
+          <%= f.label :description, "Add a more detailed description".t, :class => 'prompted markdown_editor', 
+            :for => dom_class(Kase, :description) %>
+          <%= f.text_area :description, :tabindex => tabindex += 1, :class => "markdown_editor",
+            :id => dom_class(Kase, :description), :class => "field wfull hdouble", :style => "height:32px;" %>
+          <%= markdown_editor_javascript_tag :kase, :description, :id => dom_class(Kase, :description) %>
+        </div>
+        
+        <!-- details -->
+        <% switcher_link_to("Add details".t, {:open => false, :sticky => true}, {}) do %>
+          <!-- severity and emotions -->
+          <div id="<%= dom_class(Kase, :feeling_row) %>" class="fieldRow">
+            <div class="severityColumn">
+              <%= label :kase, :severity_id, "I am %{select}".t % {
+          	    :select => f.select(:severity_id, collect_for_severity_feeling_select(true), {}, {:class => "severity"})
+          	  } %>
+            </div>
+            <div class="feelingColumn">
+              <%= f.label :emotion, "add more feelings, e.g. confident, amused".t, :class => 'prompted',
+                :for => dom_class(Kase, :emotion) %>
+              <%= f.text_field :emotion, :tabindex => tabindex += 1,
+                :id => dom_class(Kase, :emotion), :class => "field w315" %>
+            </div>
+            <div class="clearer"></div>
+          </div>
+          <% unless @topic %>
+            <%= render :partial => 'widgets/feedbacks/topic_list', :locals => {:f => f, :max => 4} %>
+          <% end %>
+        <% end %>
+      
+        <!-- post action -->
+        <div id="<%= dom_class(Kase, :sender_email_row) %>" class="fieldRow">
+          <!-- Send or Cancel -->
+          <table id="<%= dom_id(Kase, :send) %>" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td style="vertical-align:middle;">
+                  <%= f.label :sender_email, "Your email".t, :class => 'prompted' %>
+                  <%= f.text_field :sender_email, :tabindex => tabindex += 1, 
+                    :style => "width:285px; margin-right:10px;" %>
+                </td>
+                <td id="<%= dom_id(Kase, :cancel) %>" style="vertical-align:middle;">
+                  <%= link_to_function "Cancel".t, "Luleka.Feedback.cancel();", {:class => 'cancel'} %>
+                  &nbsp;<%= "or".t %>&nbsp;&nbsp;
+                </td>
+                <td style="vertical-align:middle;">
+                
+                  <div id="<%= dom_class(Kase, :send_spinner) %>" class="spinner" style="display:none;"></div>
+                  <%= fat_turquoise_button_link_to_remote("Send".t, {
+                      :url => feedback_path([@tier, @topic]),
+                      :method => :post,
+                      :before => update_page do |page|
+          	          end,
+                      :loading => update_page do |page|
+                        page[dom_class(Kase, :send_spinner)].show
+                        page[dom_class(Kase, :send_button)].hide
+                      end,
+                      :submit => dom_class(Kase, :form)
+                    }, {:id => dom_class(Kase, :send_button)}
+                  ) %>
+                
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+
+    <% end %>
+  </div>
+
+  <!-- complete -->
+  <div id="feedbackComplete" style="display:none;">
+    <div class="successExplanation">
+      <h2><%= "Thank you!".t %></h2>
+      <p><%= (CREATE_SUCCESS.t % {:object => @kase ? @kase.class.human_name : Kase.human_name}).firstcase %></p>
+    </div>
+    <h3 class="nextHeader" style="padding:0;">
+      <%= "What do you want to do next?".t %>
+    </h3>
+    <p class="more"><%= link_to_start_kase %></p>
+    <p class="more"><%= link_to_community %></p>
+  </div>
+  
+  <!-- list -->
+  <div id="feedbackList">
+    <%= render :partial => 'widgets/feedbacks/kase_list', :object => @ideas, 
+      :locals => {:kind => :idea, :display => true} %>
+
+    <%= render :partial => 'widgets/feedbacks/kase_list', :object => @questions,
+      :locals => {:kind => :question, :display => false} %>
+
+    <%= render :partial => 'widgets/feedbacks/kase_list', :object => @problems, 
+      :locals => {:kind => :problem, :display => false} %>
+
+    <%= render :partial => 'widgets/feedbacks/kase_list', :object => @praises, 
+      :locals => {:kind => :praise, :display => false} %>
+  </div>
+  
+</div>
+<div class="clearer"></div>

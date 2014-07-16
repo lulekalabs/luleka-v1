@@ -1,0 +1,19 @@
+<% # setup
+  f ||= nil
+  object ||= text_area_tags
+	edit ||= begin edit.nil? ? true : edit; rescue; true; end
+	object_name ||= :person
+	method_name ||= nil
+%>
+<% if f %>
+  <%= f.text_area method_name, :label => false, :size => '80x2', :style => "width:475px;" %>
+<% else %>
+  <% if edit %>
+    <% form_fields_for object_name, object do |f| %>
+      <%= render :partial => 'people/text_area_tags', :object => object,
+        :locals => {:f => f, :edit => edit, :object_name => object_name, :method_name => method_name} %>
+    <% end %>
+  <% else %>
+    <%= property_tags object, object.send("#{method_name}_taggings") %>
+  <% end %>
+<% end %>

@@ -1,0 +1,41 @@
+<% cache(application_i18n_javascript_fragment_cache_key) do %>
+  <% I18n.with_options :scope => 'datetime.distance_in_words' do |locale| %>
+    <script type="text/javascript">
+    //<![CDATA[
+      Luleka.I18n.translations = $H(<%= {
+        'less_than' => "less than".t,
+    		'about' => "about".t,
+    		'over' => "over".t,
+    		'expired' => "expired".t,
+    		'half_a_minute' => locale.t("half_a_minute"),
+    		'over_x_years' => [locale.t('over_x_years', :count => 1).gsub(/(\s[0-9]*\s)/, " %d "), 
+    		  locale.t('over_x_years', :count => 2).gsub(/(\s[0-9]*\s)/, " %d ")],
+    		'about_x_year' => [locale.t('about_x_years', :count => 1).gsub(/(\s[0-9]*\s)/, " %d "), 
+    		  locale.t('about_x_years', :count => 2).gsub(/(\s[0-9]*\s)/, " %d ")],
+    		'almost_x_years' => [locale.t('almost_x_years', :count => 1).gsub(/(\s[0-9]*\s)/, " %d "), 
+    		  locale.t('almost_x_years', :count => 2).gsub(/(\s[0-9]*\s)/, " %d ")],
+    		'less_than_x_minutes' => [locale.t('less_than_x_minutes', :count => 1).gsub(/(\s[0-9]*\s)/, " %d "), 
+    		  locale.t('less_than_x_minutes', :count => 2).gsub(/(\s[0-9]*\s)/, " %d ")],
+    		'less_than_x_seconds' => [locale.t('less_than_x_seconds', :count => 1).gsub(/(\s[0-9]*\s)/, " %d "), 
+    		  locale.t('less_than_x_seconds', :count => 2).gsub(/(\s[0-9]*\s)/, " %d ")],
+    		'about_x_hours' => [locale.t('about_x_hours', :count => 1).gsub(/(\s[0-9]*\s)/, " %d "), 
+    		  locale.t('about_x_hours', :count => 2).gsub(/(\s[0-9]*\s)/, " %d ")],
+    		'about_x_months' => [locale.t('about_x_months', :count => 1).gsub(/(\s[0-9]*\s)/, " %d "), 
+    		  locale.t('about_x_months', :count => 2).gsub(/(\s[0-9]*\s)/, " %d ")],
+    		'about_x_years' => [locale.t('about_x_years', :count => 1).gsub(/(\s[0-9]*\s)/, " %d "), 
+    		  locale.t('about_x_years', :count => 2).gsub(/(\s[0-9]*\s)/, " %d ")],
+    		'day' => [locale.t('x_days', :count => 1).gsub(/^[0-9]*\s/, ''), 
+    		  locale.t('x_days', :count => 2).gsub(/^[0-9]*\s/, '')],
+    		'month' => [locale.t('x_months', :count => 1).gsub(/^[0-9]*\s/, ''),
+    		  locale.t('x_months', :count => 2).gsub(/^[0-9]*\s/, '')],
+    		'hour' => [locale.t('x_hours', :count => 1).gsub(/^[0-9]*\s/, ''), 
+    		  locale.t('x_hours', :count => 2).gsub(/^[0-9]*\s/, '')],
+    		'minute' => [locale.t('x_minutes', :count => 1).gsub(/^[0-9]*\s/, ''),
+    		  locale.t('x_minutes', :count => 2).gsub(/^[0-9]*\s/, '')],
+    		'second' => [locale.t('x_seconds', :count => 1).gsub(/^[0-9]*\s/, ''),
+    		  locale.t('x_seconds', :count => 2).gsub(/^[0-9]*\s/, '')]
+      }.to_json %>);
+    //]]>
+    </script>
+  <% end %>
+<% end %>

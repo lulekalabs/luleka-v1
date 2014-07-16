@@ -1,0 +1,48 @@
+<% content_container :theme => :broken_content do %>
+  <% div_tag :style => 'height:250px;' do %>
+    <% steplet :step => :auto, :title => "Sign Up".t,
+        :description => "Sign up or login here.".t do %>
+  	  <div class="inbracket" style="font-size:1.0em">
+
+        <h4><%= "Got Facebook?".t %></h4>
+        <%= link_to_fb_connect %>
+
+        <% if false %>
+        <br/>
+
+        <h4><%= "Or Twitter?".t %></h4>
+        <%= link_to_twitter_connect %>
+        <% end %>
+        
+        <br />
+
+        <h4><%= "Don't have an account?".t %></h4>
+        <p>
+          <%= "Sign up is a snap, create your account in less than 2 minutes.".t %>
+        </p>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+<% form_button_container do %>
+  <% unless uses_modal? %>
+    <%= probono_button :label => "Create Account".t, :href => new_user_path, :position => :right %>
+  <% else %>
+    <% if @tier || params[:tier_id]
+        url_modal = collection_url([:tier, :user], :new, {:tier_id => @tier || params[:tier_id], :uses_opened_modal => "true"}) 
+        url = collection_url([:tier, :user], :new, {:tier_id => @tier || params[:tier_id]}) 
+      else
+        url_modal = new_user_path(:uses_opened_modal => "true")
+        url = new_user_path
+      end %>
+    <%= probono_button :label => "Create Account".t, :position => :right, :id => dom_class(User, :create_account),
+      :function => remote_function(:url => url_modal, :method => :get,
+        :loading => update_page do |page| 
+          page[dom_class(User, :create_account_spinner)].show
+          page[dom_class(User, :create_account)].hide
+        end), :href => url %>
+    <%= div_tag(progress_spinner(:id => dom_class(User, :create_account_spinner), :display => false),
+        :style => "float:right;margin-right:10px;") %>
+      
+  <% end %>
+<% end %>

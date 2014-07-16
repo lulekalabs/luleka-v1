@@ -1,0 +1,10 @@
+page << render(:partial => 'tiers/replace_select_field_topics')
+=begin
+page.replace dom_class(Product, :select), :partial => 'products/select_field', :object => @products,
+  :locals => {
+    :object_name => @object_name, :method_name => @method_name, :selected => @selected, :display => false,
+    :label => {:position => :top, :req => false, :text => "Select products or services from %{org}".t % {
+      :org => truncate(h(@organization.name))
+    }}
+  }
+=end

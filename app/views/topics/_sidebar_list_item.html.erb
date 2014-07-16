@@ -1,0 +1,11 @@
+<% 
+  topic ||= sidebar_list_item 
+  time ||= true unless defined?(time)
+  kases ||= false unless defined?(kases)
+%>
+<% li_tag :id => dom_id(topic, :sidebar),
+    :class => "listBoxNarrowElement #{cycle('oddrow', 'evenrow', :name => dom_class(Topic, :sidebar))}" do %>
+  <%= render :partial => 'topics/sidebar_item_content', :object => topic,
+    :locals => {:time => time, :kases => kases} %>
+  <%= probono_clear_class -%>
+<% end %>

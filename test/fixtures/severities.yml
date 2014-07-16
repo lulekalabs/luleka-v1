@@ -1,0 +1,31 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+trivial:
+  id: 1
+  weight: 1
+  kind: trivial
+  name: trivial
+  name_de: unwesentlich
+minor:
+  id: 2
+  weight: 25
+  kind: minor
+  name: minor
+  name_de: gering
+normal:
+  id: 3
+  weight: 50
+  kind: normal
+  name: normal
+  name_de: normal
+major:
+  id: 4
+  weight: 75
+  kind: major
+  name: major
+  name_de: wichtig
+critical:
+  id: 5
+  weight: 100
+  kind: critical
+  name: critical
+  name_de: kritisch

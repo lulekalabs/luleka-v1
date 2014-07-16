@@ -1,0 +1,18 @@
+english: 
+  id: 1
+  code: en
+  native_name: english
+  name: english
+  name_de: englisch
+french: 
+  id: 2
+  code: fr
+  native_name: français
+  name: french
+  name_de: französisch
+german: 
+  id: 3
+  code: de
+  native_name: Deutsch
+  name: German
+  name_de: Deutsch

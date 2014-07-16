@@ -1,0 +1,95 @@
+<%
+  topic ||= form || @topic
+%>
+<% bracket_container do %>
+  <%= form_flash_messages -%>
+  <%= form_error_messages_for :topic, :unique => true -%>
+  <% steplet(
+    :step => :auto,
+    :title => "Add new %{topic} at %{tier}".t % {:tier => h(@tier.name), :topic => topic.class.human_name},
+    :description => "Start by adding the name.".t % {:topic => topic.class.human_name}
+  ) do %>
+    <% f.text_field :name, :label => {
+      :text => "%{topic} Name".t % {:topic => topic.class.human_name}, :position => :left,
+      :help => {:text => "This is how %{topics} of %{tier} are displayed".t % {:tier => @tier.name, :topics => @tier.topics_t}}}, :size => 25 do %>
+      <%= progress_spinner :id => dom_id(topic, :spinner), :tag => :img, :size => '14x14', :style => "padding-left: 1px;" %>
+    <% end %>
+    <% form_table_fields_for topic_type, topic do |t| %>
+			<% form_table_row do %>
+      	<%= t.select :language_code, collect_topic_languages_for_select, {:label => {:position => :top, :text => "%{topic} described in".t % {:topic => topic.class.human_name}, :auto => false, :req => true, :help => true}}, {:style => 'width:100%;'} %>
+      	<%= t.select :country_code, collect_topic_countries_for_select, {:label => {:position => :top, :text => "%{topic} available in".t % {:topic => topic.class.human_name}, :help => true}}, {:style => 'width:100%;'} %>
+			<% end %>
+		<% end %>
+		<%= help_text topic_type, :language_code, "Select the language in which you describe the %{topic}" % {:topic => topic.class.human_name}, :display => false %>
+		<%= help_text topic_type, :country_code, "If the %{topic} is available in multiple regions, select 'Worldwide', otherwise, specify the exact region where the %{topic} is available" % {:topic => topic.class.human_name}, :display => false %>
+  <% end %>
+<% end %>
+<% bracket_container do %>
+  <% steplet(
+    :step => :auto,
+    :title => "Add Details".t,
+    :description => "You can upload an image, and describe the %{topic} in more detail".t % {:topic => topic.class.human_name}
+  ) do %>
+    <% form_element do %>
+  		<%= form_label(topic_type, :image, :position => :top, :auto => false, :req => false,
+  		  :text => "%{type} Image".t % {:type => topic.class.human_name}, :help => true
+  		) %>
+  		<% form_field topic_type, :image do %>
+      	<%= file_field(
+      		topic_type,
+      		:image
+      	) -%>
+  		<% end %>
+  		<%= help_text topic_type, :image, allowed_image_files_in_words, :display => false %>
+  	<% end %>
+  	<% if topic && topic.class == Product %>
+      <% form_element do %>
+    		<%= form_label(topic_type, :kind, :position => :top, :auto => false, :req => false, :text => "This is a?".t) %>
+      	<% form_field_tag "#{topic_type}_kind" do %>
+      		<% radio_group do %>
+      		  <% topic.class.self_and_subclasses.each do |klass| %>
+      				<%= form_radio_element_tag("#{topic_type}_kind_#{klass.kind}", :label => {:text => klass.class.human_name},
+      					:button => radio_button(topic_type, :kind, klass.kind, :object => topic)
+      				) %>
+      			<% end %>
+    			<% end %>
+      	<% end %>
+      <% end %>
+    <% end %>
+    <% f.text_area(:description, :label => {:text => "Description".t, :position => :top, :auto => false, :req => false, :help => {:text => "The description of %{type} goes here".t % {:type => topic.class.human_name}}}, :size => '50x2', :style => 'width: 100%;height:58px;', :class => "markdown_editor autogrow", :id => dom_id(topic, :description)) do %>
+      
+      <% flipper_link_to :topic_description_preview, :display => false,
+					:open_text => "<small>#{ "Preview".t }</small>",
+					:close_text => "<small>#{ "Close Preview".t }</small>" do %>	
+  			<%= div_tag '', :id => 'markdown_editor_preview', :class => 'markdown markdownEditorPreview' %>
+  			<%= probono_clear_class %>
+			<% end %>
+      
+    <% end %>
+
+		<%= f.text_field :tag_list, :label => {:position => :top, :text => "Tag it with words".t, :help => {:text => "Assign meaningful tags for this %{type}, e.g. _gadget, music, portable_".t % {:type => topic.class.human_name}}}, :style => 'width: 100%', :id => "tags" %>
+
+    <%= f.text_field :site_url, :label => {:text => "Web Address".t, :position => :left, :help => {:text => "This is the Web Address (URL) of %{type}, e.g. _http://apple.com/ipod_".t % {:type => topic.class.human_name}}}, :size => 25 %>
+  <% end %>
+<% end %>
+
+<%= markdown_editor_javascript_tag :tier, :description, :id => dom_id(topic, :description),
+ 	:preview_id => 'markdown_editor_preview' %>
+<script type="text/javascript">
+//<![CDATA[
+
+  function lookupTags(searchString, suggest) {
+    new Ajax.Request('<%= collection_path([@tier, :topic, :tags], :autocomplete) %>', {parameters: {name: searchString, rand: (new Date()).getTime(), authenticity_token: '<%= form_authenticity_token %>'},
+      onSuccess: function(response) {
+        suggest(response.responseJSON);
+      }});
+  }
+  var cachedBackendTags = new Autocompleter.Cache(lookupTags, {choices: 10});
+  var cachedLookupTags = cachedBackendTags.lookup.bind(cachedBackendTags);
+
+  var mvListCached = new Autocompleter.MultiValue('tags', cachedLookupTags, 
+    <%= @topic.tag_list_on(:tags, nil, :format => :tags).map {|t| [t.name, t.id]}.to_json %>, 
+    {frequency: 0.4, acceptNewValues: true});
+
+//]]>
+</script>

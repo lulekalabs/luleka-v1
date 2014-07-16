@@ -1,0 +1,33 @@
+<%	# setup
+  person = item
+  update ||= true
+  link_to_person ||= true
+  expanded ||= false
+  expandable ||= true
+  html_message_id ||= 'profile_message_id'
+  html_item_id ||= "people_list_item#{person.id}"
+  empty_list_partial ||= nil
+%>
+<% if person %>
+  <% div_tag :class => "listBoxPicture" do %>
+    <%= link_to_person ? profile_link_to( image_avatar_tag(person), person) : image_avatar_tag( person ) -%>
+  <% end %>
+  <% div_tag :class => "listBoxTextContent", :style => "width:200px" do %>
+    <%= person_attributes_display(
+      person,
+      :attributes => [
+        { :name => { :html_options => { :class => "listBoxHeadlineShort", :style => 'font-weight:bold;' }}.merge( link_to_person ? { :helper => :profile_link_to, :helper_options => person } : {} ) },
+        :title_at_company,
+        :status
+      ] 
+    ) -%>
+  <% end %>
+  <% div_tag :class => "listBoxRightItem", :style => "width: 200px;" do %>
+    <div>What would you like to do?</div>
+    <%= probono_button :label => "Confirm", :type => :active, :position => :right %>
+    <%= probono_button :label => "Ignore", :type => :passive, :position => :right %>
+	<% end %>
+<% else %>
+  <%= "No contacts to manage." -%>
+<% end %>
+<%= probono_clear_class -%>

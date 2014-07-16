@@ -1,0 +1,20 @@
+<%	# Setup
+  minimum_length ||= 5
+  disabled ||= false
+  help ||= {:text => "For security reasons, we allow email addresses to be used only once. You may later change your email address. Email addresses will never be shown to others, unless you decide to.".t}
+  label ||= {:text => "Email".t, :auto => false, :lock => true, :req => true, :help => help}
+%>
+<% f.text_field :email, :size => 24, :maxlength => 45, :disabled => disabled, :label => label do %>
+  <%= progress_spinner :id => dom_class(User, :email_spinner), :tag => :img, :size => '14x14', :style => "padding-left: 1px;" %>
+<% end %>
+<% unless disabled %>
+  <%= help_text_tag(:user_email, '', {:id => dom_class(User, :email_validation), :display => false, :type => :warning}) %>
+  <%= observe_field :user_email, :frequency => 1,
+    :loading => "Element.show('#{dom_class(User, :email_spinner)}')",
+    :complete => "Element.hide('#{dom_class(User, :email_spinner)}')", 
+    :url => hash_for_validates_uniqueness_user_path.merge({:field => 'email', :dom_id => dom_class(User, :email_validation)}),
+    :with => "'value='+encodeURIComponent(value)",
+    :condition => "($('user_email').value.length >= #{minimum_length} && " +
+      "!Element.visible('#{dom_class(User, :email_spinner)}'))"
+  %>
+<% end %>

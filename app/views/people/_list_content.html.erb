@@ -1,0 +1,18 @@
+<%
+  people ||= list_content || @people
+  theme ||= :profile
+  url ||= hash_for_people_path
+%>
+<%= render(
+  :partial => 'shared/items_list_content',
+  :locals => {
+    :items => people,
+    :options => {
+      :partial => 'people/list_item_content',
+      :sort => {'people.last_name' => "Name".t},
+      :sort_display => false,
+      :url => url
+    },
+    :theme => theme
+  }
+) %>

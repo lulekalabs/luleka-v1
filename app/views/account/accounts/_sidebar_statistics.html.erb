@@ -1,0 +1,17 @@
+<%
+	person ||= sidebar_statistics || @person
+%>
+<% div_tag do %>
+	<%= "%{case_count} cases posted and %{response_count} responses received".t % {
+	  :case_count => person.kases.count.loc,
+	  :response_count => person.responses.count.loc
+  }	-%>
+<% end %>
+<% div_tag do %>
+  <%= sidebar_action_separator -%>
+  <%= total_spending_earnings_and_profit(person) %>
+<% end %>
+<% div_tag_if person.partner? && (rating_html = total_response_rating(person))  do %>
+	<%= sidebar_action_separator -%>
+	<%= rating_html %>
+<% end %>

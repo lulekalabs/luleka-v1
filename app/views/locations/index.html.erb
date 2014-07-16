@@ -1,0 +1,16 @@
+<% content_left do %>
+  <%= render :partial => 'locations/map' %>
+<% end %>
+<% content_right do %>
+  <%= sidebar_context_actions_container_if(@person, :partial => 'people/sidebar_item_content', :object => @person, :locals => {
+    :function => :link_to_function, :url => trigger_marker_function(@person)
+  }) %>
+  <%= sidebar_context_actions_container_if(@organization, :partial => 'organizations/sidebar_item_content',
+    :object => @organization, :locals => {:function => :link_to_function,
+      :url => trigger_marker_function(@organization)}
+  ) %>
+  <%= sidebar_context_actions_container_if(@kase, :title => "Case Context".t, :partial => 'kases/sidebar_item_content',
+    :object => @kase, :locals => {:function => :link_to_function,
+      :url => trigger_marker_function(@kase)}
+  ) %>
+<% end %>

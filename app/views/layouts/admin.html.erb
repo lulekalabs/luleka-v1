@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Luleka Administration Console<%= @page_title ? " - #{@page_title}" : nil %></title>
+		<%= stylesheet_link_merged 'active_scaffold/default/base_styles', 'admin_styles' %>
+		<%= javascript_include_merged 'front', 'active_scaffold/default/base' %>
+  </head>
+  <body>
+    <div id="shellTop">
+  
+      <h1>
+        Administration Console
+      </h1>
+  
+      <ul id="admin_user_nav">
+        <% if logged_in? && current_user.is_a?(AdminUser) %>
+          <li>Logged in as: <%= link_to_unless_current current_user.name, admin_admin_user_path(current_user) %></li>
+          <li>| <%= link_to("Logout".t, ssl_admin_session_url, {:method => :delete}) %>
+          </li>
+        <% end %>
+      </ul>
+  
+      <div class='clearing'><br clear="both" /></div>
+  
+      <ul class='tabs'>
+        <%= admin_tab_list_link_to 'Home', '/admin' %>
+      </ul>
+
+      <% if current_user && (current_user.has_role?(:moderator) || current_user.has_role?(:admin)) %>
+      <ul id="users_nav" class='tabs'>
+        <%= admin_tab_list_link_to_if current_user && current_user.has_role?(:moderator), 'Users', '/admin/users' %>
+        <%= admin_tab_list_link_to_if current_user && current_user.has_role?(:moderator),  'People', '/admin/people' %>
+        <%= admin_tab_list_link_to_if current_user && current_user.has_role?(:admin),  'Admins', '/admin/admin_users' %>
+      </ul>
+      <% end %>
+      
+      <% if current_user && current_user.has_role?(:moderator) %>
+      <ul id="products_nav" class='tabs'>
+        <%= admin_tab_list_link_to_if current_user && current_user.has_role?(:moderator), 'Tiers', '/admin/tiers' %>
+        <%= admin_tab_list_link_to_if current_user && current_user.has_role?(:moderator), 'Topics', '/admin/topics' %>
+        <%= admin_tab_list_link_to_if current_user && current_user.has_role?(:moderator), 'Claimings', '/admin/claimings' %>
+        <%= admin_tab_list_link_to_if current_user && current_user.has_role?(:moderator), 'Flags', '/admin/flags' %>
+      </ul>
+  
+      <ul id="kases_nav" class='tabs'>
+        <%= admin_tab_list_link_to_if current_user && current_user.has_role?(:moderator), 'Kases', '/admin/kases' %>
+      </ul>
+      <% end %>
+
+      <% if current_user && current_user.has_role?(:admin) %>
+      <ul id="commerce_nav" class='tabs'>
+        <%= admin_tab_list_link_to 'POs', '/admin/purchase_orders' %>
+        <%= admin_tab_list_link_to 'SOs', '/admin/sales_orders' %>
+      </ul>
+      <% end %>
+      
+      <ul id="content_nav" class='tabs'>
+        <%= admin_tab_list_link_to_if current_user && (current_user.has_role?(:foo) || current_user.has_role?(:copywriter)), 
+          'Pages', '/admin/pages' %>
+        <%= admin_tab_list_link_to_if current_user && (current_user.has_role?(:translator) || current_user.has_role?(:copywriter)), 
+          'Translate', '/admin/translation' %>
+        <%= admin_tab_list_link_to_if current_user && (current_user.has_role?(:foo) || current_user.has_role?(:copywriter)),
+          'Etc', '/admin/spoken_languages' %>
+      </ul>
+      <div class='clearing'><br clear="both" /></div>
+
+    </div>
+
+    <%= yield :content_sub_nav %>
+
+    <div id="flash">
+      <!-- flash -->
+      <% flash.each do |key, msg| %>
+        <%= content_tag :div, msg, :id => key %>
+      <% end %>
+    </div>
+
+    <div id="shellMiddle">
+      <%= yield %>
+    </div>
+
+    <div id="shellBottom">
+  
+    </div>
+
+  </body>
+</html>

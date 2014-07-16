@@ -1,0 +1,24 @@
+<%
+  remember_me ||= remember_me?
+  url ||= session_url_with_ssl
+%>
+<% wizard_form_for :user, @user, :url => url, :html => {:method => :post} do |f| %>
+	<% content_container :theme => :sidebar do %>
+	  <% headline do %>
+      <%= "Sign in here".t %>
+    <% end %>
+    <% primary_content :last => true, :style => "padding-bottom:5px;" do %>
+			<%= f.text_field :login, :label => {:position => :top, :text => "Username".t, :req => true},
+			  :style => 'width:173px;' %>
+			<% f.password_field :password, :label => {:position => :top, :text => "Password".t, :req => true},
+			  :style => 'width:173px;' do %>
+			  <br/>
+  			<%= link_to "Forgot password?".t, new_password_user_path%>
+			<% end %>
+		  <%= f.check_box(:remember_me, :label => {:text => "Remember me".t}, :vertical_align => :middle) if remember_me %>
+			<% content_button_container do %>
+    		<%= form_submit_button "Login".t, :position => :right %>
+    	<% end %>
+  	<% end %>
+	<% end %>
+<% end %>

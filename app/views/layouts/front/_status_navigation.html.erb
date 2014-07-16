@@ -1,0 +1,64 @@
+<%#--- signed in %>
+<% if logged_in? && current_user.is_a?(User) %>
+<div id="topHeaderSmallNavi">
+  <div class="username">
+    <%= link_to(image_avatar_tag(current_user.person, {:size => "20x20"}),
+	    me_people_path, {:class => "avatar"}) %>
+    <% if current_user.facebook_user? %>
+      <span class="fbFav">&nbsp;</span>
+    <% end %>    
+    <%= link_to(current_user.login, me_people_path, {:class => "login mypcard", :rel => "my-pcard"}) %>
+    <div id="my-pcard" style="display:none;">
+      <%= render :partial => "people/pcard", :object => current_user.person, :locals => {
+        :open => false, :image_size => :small, :show_name => true, :show_piggy_bank => true} %>
+    </div>
+  </div>
+  <ul class="usernav">
+    <li><%= link_to_unless_current(span_tag('&nbsp;', {:class => 'house'}), 
+      home_page_path, {:class => 'image'}) %></li>
+    <li><%= "·" %></li>
+    <li><%= link_to_unless_current(span_tag('&nbsp;', {:class => 'pig'}), 
+          account_bank_path, {:class => 'image'}) %></li>
+    <li><%= "#{current_user.person.piggy_bank.balance.format} (%{add_credit})" % {
+        :add_credit => link_to_unless_current("Add?".t, new_account_bank_deposit_path)} %></li>
+    <li><%= "·" %></li>
+    <li><%= link_to_unless_current("Account".t, account_path, {:class => "highlighted"}) %></li>
+    <li><%= "·" %></li>
+    <li><%= link_to_unless_current("Help".t, @tier ? tier_faq_url(:tier_id => @tier.to_param) : faq_path) %></li>
+    <li><%= "·" %></li>
+    <li><%= link_to_signout %></li>
+  </ul>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+/* my pcard */
+$$('a.mypcard[rel]').each(function(element) {
+	new Tip(element, $(element.rel), {
+		style: 'pcard',
+		showOn: 'mouseover',
+		delay: 0.5,
+		hook: {target: 'bottomLeft', tip: 'topLeft', mouse: false},
+		hideOn: {element: 'tip', event: 'mouseleave'},
+		offset: {x: -48, y: -37},
+		hideOthers: true,
+		width: 'auto'
+	});
+});
+//]]>
+</script>
+<%#--- signed out %>
+<% else %>
+<div id="topHeaderSmallNavi">
+  <div class="username">
+    <strong><%= "Welcome!".t %></strong>
+  </div>
+  <ul class="usernav">
+    <li><%= link_to_unless_current(span_tag('&nbsp;', {:class => 'house'}), 
+          home_page_path, {:class => 'image'}) %></li>
+    <li><%= "·" %></li>
+    <li><%= link_to_unless_current("Help".t, @tier ? tier_faq_url(:tier_id => @tier.to_param) : faq_path) %></li>
+    <li><%= "·" %></li>
+    <li><%= link_to_signin_or_signup %></li>
+  </ul>
+</div>
+<% end %>

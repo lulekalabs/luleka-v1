@@ -1,0 +1,29 @@
+<% # piggy bank transactions
+  transaction = list_item_content
+  expanded ||= false
+  expandable ||= true
+  empty_list_partial ||= nil
+  width ||= 450
+	description_column_width = width - 65 - 75 - 55
+%>
+<% if transaction %>
+
+	<%= div_tag transaction.created_at.to_date.to_s(:short), :class => "listBoxTextContent",
+	  :style => "float:left;width:65px;margin:0;" %>
+
+	<% div_tag :class => "listBoxTextContent", :style => "float:left;width:#{description_column_width}px;" do %>
+	  <%= transaction_description(transaction) %>
+	<% end %>
+
+	<%= div_tag transaction.action_t.titleize, :class => "listBoxTextContent", :style => "float:left;width:75px;" %>
+
+	<%= div_tag transaction.amount.format,
+	  :class => "listBoxTextContent", :style => "float:left;width:55px;font-weight:bold;text-align:right; #{transaction.amount.cents < 0 ? 'color:#ff0000;' : 'color:#00ff00;'}" %>
+	
+<% else %>
+	<!-- no item -->
+	<% div_tag :class => "listBoxTextContent" do %>
+		<%= "No transactions found".t -%>
+	<% end %>
+<% end %>
+<%= probono_clear_class -%>

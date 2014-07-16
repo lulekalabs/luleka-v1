@@ -1,0 +1,6 @@
+<% recipient ||= nil -%>
+<% if recipient -%>
+Schönen Guten Tag <%= recipient.casualize_salutation_and_name_t %>,
+<% else -%>
+Hallo,
+<% end -%>

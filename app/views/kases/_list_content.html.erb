@@ -1,0 +1,17 @@
+<%
+  kases ||= list_content || @kases
+  theme ||= :issue
+%>
+<%= render(
+  :partial => 'shared/items_list_content',
+  :locals => {
+    :items => kases,
+    :theme => theme,
+    :options => {
+      :partial => 'kases/list_item_content',
+      :url => hash_for_kases_path,
+      :sort => {'kases.subject' => "Subject".t, 'kases.price_cents' => "Price".t, 'kases.expires_at' => "Time".t},
+      :sortable => true
+    }
+  }
+) %>

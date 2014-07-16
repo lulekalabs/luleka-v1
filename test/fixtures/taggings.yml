@@ -1,0 +1,36 @@
+homer_powerplant_have_expertise:
+  id: 1
+  tag_id: 1  # powerplants
+  taggable_id: 1  # homer
+  taggable_type: 'Person'  # homer
+  context: 'have_expertises'
+homer_beer_have_expertise:
+  id: 2
+  tag_id: 2  # beer
+  taggable_id: 1  # homer
+  taggable_type: 'Person'  # homer
+  context: 'have_expertises'
+homer_watching_tv_have_expertise:
+  id: 3
+  tag_id: 3  # watching tv
+  taggable_id: 1  # homer
+  taggable_type: 'Person'  # homer
+  context: 'have_expertises'
+marge_cooking_have_expertise:
+  id: 4
+  tag_id: 4  # cooking
+  taggable_id: 4  # marge
+  taggable_type: 'Person'  # marge
+  context: 'have_expertises'
+powerplant_leak_radioactive:
+  id: 5
+  tag_id: 5  # radioactive
+  taggable_id: 1  # powerplant_leak
+  taggable_type: 'Kase'  # powerplant_leak
+  context:
+powerplant_leak_leak:
+  id: 6
+  tag_id: 6  # radioactive
+  taggable_id: 1  # powerplant_leak
+  taggable_type: 'Kase'  # powerplant_leak
+  context:

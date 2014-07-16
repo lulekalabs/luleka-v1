@@ -1,0 +1,24 @@
+us_oregon:
+  id: 1
+  kind: sales tax
+  rate: 8.5
+  country_code: US
+  province_code: OR
+de_wildcard:
+  id: 2
+  kind: vat
+  rate: 19
+  country_code: DE
+  province_code: '*'
+us_state_list:
+  id: 3
+  kind: sales tax
+  rate: 8.25
+  country_code: US
+  province_code: CA, NY, MA
+luxembourg_nothing:
+  id: 4
+  kind: vat
+  rate: 15
+  country_code: LU
+  province_code: 

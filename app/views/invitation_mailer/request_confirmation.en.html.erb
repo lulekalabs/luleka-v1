@@ -1,0 +1,11 @@
+You have invited <%= @invitation.invitee_name %> to the <%= SERVICE_NAME %> network.
+
+<%- if @invitation.message -%>
+Your invitation message said:
+
+---
+<%= @invitation.message %>
+---
+<%- end -%>
+
+<%= render :partial => 'notifier/signature', :object => @invitor %>

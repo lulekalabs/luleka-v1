@@ -1,0 +1,33 @@
+<% bracket_container do %>
+  <%= form_flash_messages %>
+	<%= form_error_messages_for :person, :attr_names => {
+	  :gender => "Salutation".t,
+	  :academic_title_id => "Title".t,
+	  :first_name => "First Name".t,
+	  :middle_name => "Middle Name".t,
+	  :last_name => "Last Name".t,
+	  :avatar => "Image".t
+	} %>
+	<% steplet(:step => :auto, :title => "Personal Information".t,
+	  :description => "The information below is visible on your profile.".t
+	) do %>
+    <%= render :partial => 'shared/form_salutation_and_name', :object => @user.person,
+      :locals => {:reqs => {:first_name => true, :last_name => true},
+        :locks => {:first_name => true, :middle_name => true, :last_name => true, :academic_title => true}} %>
+    <br/>
+    <!-- avatar-->
+    <% form_element do %>	
+      <%= form_label :person, :avatar, :text => "Your Image".t, :auto => false, :position => :top, :help => true %>
+  		<% form_field :person, :avatar do %>
+  		  <%= table_cells_with_options_tag({:style => 'vertical-align:bottom;'},
+  		    div_tag(image_avatar_tag(@user.person),
+  		      :style => "border: 1px solid #e5e5e5; padding: 2px"),
+  		    "&nbsp;",
+  		    file_field('person', 'avatar')
+  		  ) %>
+  		<% end %>
+  		<%= help_text :person, :avatar, allowed_image_files_in_words, :display => false %>
+    <% end %>
+    <!-- avatar-->		
+	<% end %>
+<% end %>

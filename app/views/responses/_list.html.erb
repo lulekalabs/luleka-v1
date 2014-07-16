@@ -1,0 +1,8 @@
+<% # responses/list
+%>
+<% div_tag :id => dom_class(Response, :list), :class => 'responseListContainer' do %>
+  <% list.each_with_index do |response, index| %>
+    <%= render :partial => 'responses/response', :object => response, 
+      :locals => {:separator => index < list.size - 1} %>
+  <% end %>
+<% end %>

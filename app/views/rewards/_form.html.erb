@@ -1,0 +1,117 @@
+<%
+  update_reward ||= @reward.active_reward_from_sender?
+%>
+<% bracket_container do %>
+  <%= form_flash_messages %>
+	<%= form_error_messages_for :reward, :unique => true, :attr_names => {
+	  :price => Reward.human_attribute_name(:price),
+	  :sender => Reward.human_attribute_name(:sender)
+	} %>
+	<% steplet(:step => :auto,
+	  :title => update_reward ? "Update Reward".t : "Add Reward".t,
+    :description => update_reward ? "You can update your offer to get faster and more detailed responses.".t :
+      "You can offer a reward to get faster and more detailed responses.".t
+	) do %>
+	
+    <% form_element do %>
+      <%= form_label :reward, :price, "Your offer amount".t + currency_inclusion(@reward.default_currency), 
+        :help => true, :position => :top, :req => true %>
+
+    	<% form_field :reward, :price do %>
+    	  <%= text_field_with_currency_unit :reward, :price, :size => 6, :maxlength => 6,
+    	    :id => dom_class(Reward, :price), :style => "text-align:right;padding-right:5px;" %>
+  		<% end %>
+
+    	<%= help_text :reward, :price, reward_price_help_text, :display => true, :type => :warning, :escape => false %>
+    <% end %>
+		
+	<% end %>
+<% end %>
+
+<% bracket_container do %>
+  <%= form_error_messages_for :reward, :unique => true, :attr_names => {
+    :expires_at => "Offer Expiration".t
+  } %>
+	
+	<% steplet(:step => :auto,
+	  :title => "Set Expiry".t
+	) do %>
+
+    <%#--- expiry %>
+  	<% form_element do %>
+  		<%= form_label :reward, :expiry, "When does your offer end?".t, :position => :top, :help => true,
+  		  :req => !@reward.kase.offers_reward? %>
+  		<% form_field :reward, :expiry do %>
+  			<% radio_group do %>
+  				<%= form_radio_element_tag(
+  					:expiry_option_in,
+  					:label => {:text => "in %{days} from now".t % {
+  					  :days => select(:reward, :expiry_days, collect_days_to_expire_for_select(Reward::MAX_EXPIRY_DAYS), {},
+  					    {:disabled => @reward.kase.offers_reward?, :class => "nofontweight"})
+  					}},
+  					:button => radio_button(:reward, :expiry_option, :in, {
+  						:onclick => "enableExpiresIn();",
+  						:disabled => @reward.expiry_option == :on,
+  						:selected => true,
+  						:class => "noborder"
+  					})
+  				) %>
+  				<%= form_radio_element_tag(
+  					:kase_expiry_option_on,
+  					:label => {:text => "on %{date}".t % {
+  					  :date => f.datetime_select(:expires_at, {
+  				      :start_year => Time.now.year,
+  				      :end_year => (Time.now + 7.days).year, 
+  				      :use_month_names => collect_abbreviated_month_names_for_select,
+  				      :order => Date.format_array,
+  				      :disabled => @reward.expiry_option == :in || @reward.kase.offers_reward?,
+  				      :include_blank => false
+  					  })
+  					}},
+  					:button => radio_button(:reward, :expiry_option, :on, {
+  				  	:onclick => "enableExpiresOn();",
+  						:disabled => @reward.kase.offers_reward?,
+  					  :class => "noborder"
+  					})
+  				) %>
+  			<% end %>
+  		<% end %>
+
+  		<%= help_text :reward, :expiry, reward_expiry_help_text, :display => true, :type => :warning, :escape => false %>
+
+  	<% end %>
+
+	<% end %>
+	
+<% end %>
+<script type="text/javascript">
+//<![CDATA[
+
+  window.enableExpiresIn = function() {
+    $('reward_expiry_days').disabled = '';
+    for (var i=0; i<5; i++) {
+      $('reward_expires_at_' + (i + 1) + 'i').disabled = 'disabled';
+    }
+  }
+
+  window.enableExpiresOn = function() {
+    $('reward_expiry_days').disabled = 'disabled';
+    for (var i=0; i<5; i++) {
+      $('reward_expires_at_' + (i + 1) + 'i').disabled = '';
+    }
+  }
+
+  Event.observe('<%= dom_class(Reward, :price) %>', "keypress", function(event) {
+    var key;
+    var chr;
+    document.all ? key = event.keyCode : key = event.which;
+    chr = String.fromCharCode(key);
+    if (key >= 28 && key <= 128) {
+      if (/^\s*[0-9.,]+$/i.exec(chr) == null) {
+        Event.stop(event);
+      }
+    }
+  });
+
+//]]>
+</script>

@@ -1,0 +1,27 @@
+<%	# /shared/form_text_field_username
+  minimum_length ||= 5
+  disabled ||= false
+  help ||= {:text => "Your username may be displayed instead of your actual name. Make sure to pick a username that does not compromise your privacy.".t}
+  label ||= {:text => 'Username'.t, :auto => false, :req => true, :lock => false, :help => help}
+%>
+<% f.text_field :login, :size => 24, :disabled => disabled, :label => label do %>
+
+	<%= progress_spinner :id => dom_class(User, :login_spinner), 
+	  :tag => :img, :size => '14x14', :style => "padding-left: 1px;" %>
+
+<% end %>
+
+<% unless disabled %>
+
+	<%= f.help_text(:login, '', {:id => dom_class(User, :login_validation), :type => :warning}) %>
+	<%= observe_field(:user_login, :frequency => 0.5,
+    :loading => "Element.show('#{dom_class(User, :login_spinner)}')",
+    :complete => "Element.hide('#{dom_class(User, :login_spinner)}')", 
+    :url => hash_for_validates_uniqueness_user_path.merge({:field => 'login',
+      :dom_id => dom_class(User, :login_validation)}),
+    :with => "'value='+encodeURIComponent(value)",
+    :condition => "($('user_login').value.length >= #{minimum_length} && " +
+      "!Element.visible('#{dom_class(User, :login_spinner)}'))"
+	) %>
+	
+<% end %>

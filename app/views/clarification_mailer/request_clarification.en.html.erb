@@ -1,0 +1,13 @@
+<%= "There is a request regarding %{type} \"%{title}\":" % {
+  :type => @clarification.kase.class.human_name,
+  :title => h(@clarification.kase.title)
+} %>
+---
+<%= "#{h(@clarification.message)}" %>
+---
+
+To view the case details, please click on the following link or copy the entire link into your browser:
+
+<%= kase_url(@clarification.kase) %>
+
+<%= render :partial => 'notifier/signature' %>

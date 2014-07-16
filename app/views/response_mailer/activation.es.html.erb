@@ -1,0 +1,13 @@
+Usted ha publicado una respuesta al siguiente caso:
+
+<%= kase_url(@kase) %>
+
+---
+<%= h(@response.description) %>
+---
+
+Para publicar su respuesta ahora, por favor haga clic en el siguiente enlace o copiar el enlace en todo el campo de la dirección de su navegador:
+
+<%= activate_kase_url(@kase.activation_code) %>
+
+<%= render :partial => "notifier/signature" %>

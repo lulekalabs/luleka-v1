@@ -1,0 +1,26 @@
+<% # setup
+  invitation = remind_control
+  button_background = cycle('#ffffff', '#f1f8fa', :name => "button_background")
+%>
+<% content_button_container_if current_user_me?(invitation.invitor) && invitation.pending? do %>
+  <%= probono_button(
+    :label => "Remind".t,
+    :type => :active,
+    :position => :right,
+    :background_color => button_background,
+    :function => remote_function(
+      :url => remind_invitation_path(invitation),
+      :loading => update_page do |page|
+        page[dom_id(invitation, :spinner)].show
+      end,
+      :failure => update_page do |page|
+        page[dom_id(invitation, :spinner)].hide
+      end,
+      :update => { :success => dom_id(invitation), :failure => dom_class(Invitation, :message) },
+      :position => :replace
+    )
+  ) -%>
+  <% div_tag :style => 'float:right;' do %>
+    <%= progress_spinner :id => dom_id(invitation, :spinner) %>
+  <% end %>
+<% end %>

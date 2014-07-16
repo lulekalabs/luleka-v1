@@ -1,0 +1,30 @@
+marge_to_lisa: 
+  id: 1
+  type: Invitation
+  sender_id: 4
+  receiver_id: 5
+  status: pending
+  message: "Hi Lisa!"
+  voucher_id: 
+  language: en
+  uuid: 
+  last_name: ""
+  first_name: ""
+  email: ""
+  created_at: 2008-04-22 20:09:55
+  updated_at: 2008-04-22 20:10:01
+lisa_to_marge: 
+  id: 2
+  type: Invitation
+  sender_id: 5
+  receiver_id: 4
+  status: pending
+  message: "Hi Marge!"
+  voucher_id: 
+  language: en
+  uuid: 
+  last_name: ""
+  first_name: ""
+  email: ""
+  created_at: 2008-04-22 20:09:55
+  updated_at: 2008-04-22 20:10:01

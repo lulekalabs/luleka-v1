@@ -1,0 +1,20 @@
+There is a conversation going on about<%= @kase.tier ? " #{h(@kase.tier.name)}" : '' %>:
+
+<% unless @email.message.blank? %>
+---
+<%= h(@email.message) %>
+---
+
+<%-end-%>
+
+<%= h(@kase.title.capitalize) %> by <%= h(@kase.person.name) %>
+
+<%= h(@kase.description) %>
+
+To see more details, please click on the following link or copy the entire link into your browser:
+
+<%= kase_url(@kase) %>
+
+This message was sent from <%= SERVICE_NAME %> - <%= I18n.t('service.tagline') %>.
+
+<%= render :partial => 'notifier/signature' %>

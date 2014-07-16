@@ -1,0 +1,25 @@
+<% # setup
+  url ||= false # e.g. { :controller => :cases, :action => :tag }
+  route ||= [Kase]
+%>
+<% unless @tags.blank? %>
+<div class="bracketBoxSmallTop"></div>
+<div class="bracketBoxSmallMiddle">
+  <div class="tagCloudBoxTop"></div>
+  <div class="tagCloudBoxMiddle">
+    <p align="justify">
+    <% tag_cloud @tags, %w(tagCloudFont1 tagCloudFont2 tagCloudFont3 tagCloudFont4 tagCloudFont5 tagCloudFont6) do |tag, css_class| %>
+      <% span_tag :class => css_class do %>
+        <% if url %>
+          <%= link_to tag.name, url_for(url.merge(:id => tag.name)) %>
+        <% else %>
+          <%= link_to tag.name, tag_path(route, tag) %>
+        <% end %>
+      <% end %>
+    <% end %>
+    </p>
+  </div>
+  <div class="tagCloudBoxBottom"></div>
+</div>
+<div class="bracketBoxSmallBottom"></div>
+<% end %>

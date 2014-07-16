@@ -1,0 +1,85 @@
+<!-- START:KeyVisual 2D //-->
+<div class="kvContainer">
+	<!-- turquoise -->
+	<div class="kvBoxTurquoiseContainer">
+		<div class="kvBoxTurquoiseIcon">&nbsp;</div>
+		<div class="kvBoxTurquoiseTitle">
+		    <%= yield :kv_title_one -%>
+		</div>
+		<div class="clearClass"></div>
+		<div class="kvBoxTurquoiseTop"></div>
+		<div class="kvBoxTurquoiseMiddle">
+			<div class="kvBoxTurquoiseGutter">
+				<div class="kvBoxTurquoiseStep">
+					1
+				</div>
+			</div>
+			<div class="kvBoxTurquoiseContent">
+				<div class="kvBoxTurquoiseDescription">
+					<%= yield :kv_description_one -%>
+				</div>
+				<%= yield :kv_content_one %>
+			</div>
+			<div class="clearClass"></div>
+		</div>
+		<% if true %>
+		<div class="kvBoxTurquoiseBottom"></div>
+		<% end %>
+	</div>
+
+	<!-- blue-->
+	<div class="kvBoxBlueContainer">
+		<div class="kvBoxBlueIcon">&nbsp;</div>
+		<div class="kvBoxBlueTitle">
+			<%= yield :kv_title_two -%>
+		</div>
+		<div class="clearClass"></div>
+		<div class="kvBoxBlueTop"></div>
+		<div class="kvBoxBlueMiddle">
+			<div class="kvBoxBlueGutter">
+				<div class="kvBoxBlueStep">
+					2
+				</div>
+			</div>
+			<div class="kvBoxBlueContent">
+				<div class="kvBoxBlueDescription">
+					<%= yield :kv_description_two -%>
+				</div>
+				<%= yield :kv_content_two %>
+			</div>
+			<div class="clearClass"></div>
+		</div>
+		<div class="kvBoxBlueBottom"></div>
+	</div>
+	<!-- green -->
+	<div class="kvBoxGreenContainer">
+		<div class="kvBoxGreenIcon">&nbsp;</div>
+		<div class="kvBoxGreenTitle">
+			<%= yield :kv_title_three -%>
+		</div>
+		<div class="clearClass"></div>
+		<div class="kvBoxGreenTop"></div>
+		<div class="kvBoxGreenMiddle">
+			<div class="kvBoxGreenGutter">
+				<div class="kvBoxGreenStep">
+					3
+				</div>
+			</div>
+			<div class="kvBoxGreenContent">
+				<div class="kvBoxGreenDescription">
+					<%= yield :kv_description_three -%>
+				</div>
+				<%= yield :kv_content_three %>
+			</div>
+			<div class="clearClass"></div>
+		</div>
+		<% if true %>
+		<div class="kvBoxGreenBottom"></div>
+		<% end %>
+	</div>
+	<div class="clearClass"></div>
+	<% if false %>
+	<div class="kvBoxBottom">&nbsp;</div>
+	<% end %>
+</div>
+<!-- END:KeyVisual 2D //-->

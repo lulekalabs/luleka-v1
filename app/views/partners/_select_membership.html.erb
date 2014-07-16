@@ -1,0 +1,34 @@
+<%
+  partner_memberships ||= select_membership || @partner_membership
+  selected ||= false
+  lock ||= false
+%>
+<% form_element do %>
+	<%= form_label(:partner, :membership, :auto => false, :position => :top, :req => false, :help => true,
+	  :text => "Select #{SERVICE_NAME} #{SERVICE_PARTNER_NAME} Membership option".t) %>
+	<% form_field_tag :partner_membership do %>
+		<% radio_group do %>
+	    <% partner_memberships.each do |partner_membership| %>
+	      <% unless partner_membership.product.is_a?(Voucher) %>
+    			<%= form_radio_element_tag("partner_membership_#{partner_membership.item_number.downcase}",
+    			  :label => {:text => '<strong>' + h(partner_membership.name) + '</strong>'},
+    			  :description => h(partner_membership.description),
+    				:button => radio_button_tag(:partner_membership, partner_membership.item_number,
+    				  selected && selected.respond_to?(:item_number) ? selected.item_number == partner_membership.item_number : false,
+    				  {:disabled => lock})
+    			) %>
+    		<% else %>
+          <%= form_radio_element_tag(:partner_membership_voucher,
+    			  :label => {:text => '<strong>' + "Or enter your promotion code here".t + '</strong>'},
+    			  :description => '<br/>' + render(:partial => 'vouchers/code_confirmation', :partner => true, :label => false),
+    				:button => radio_button_tag(:partner_membership, :voucher,
+    				  false, {:disabled => lock})
+    			) %>
+    		<% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= help_text :partner, :membership, "After expiry your %{membership} is not automatically renewed.".t % {
+    :membership => "Partner Membership".t
+  }, :type => :warning, :display => false %>
+<% end %>

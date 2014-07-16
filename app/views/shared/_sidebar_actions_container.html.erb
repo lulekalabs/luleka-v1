@@ -1,0 +1,18 @@
+<%
+  title ||= nil
+%>
+<% content_container :theme => :sidebar do %>
+  <% if title %>
+  	<% headline do %>
+  		<%= title -%>
+  	<% end %>
+  <% else %>
+    <%= div_tag :class => "sideBarBoxGrayTopSimple" %>
+	<% end %>
+	<% primary_content :style => "padding-bottom:0px;" do %>
+		<% ul_tag :class => "sideBarActionElements" do %>
+		<%= body -%>
+		<% end %>
+	<% end %>
+	<div class="sideBarBoxGrayBottom"></div>
+<% end %>

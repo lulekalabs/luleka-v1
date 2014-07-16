@@ -1,0 +1,79 @@
+<%= render :partial => 'admin/translations/google_translate' %>
+<%
+  record_index = 0
+  new_record = true
+%>
+
+<style>
+  
+  h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+</style>
+
+<h3><%= @translations.length %> <%= Utility.locale_in_words(@locale.code) %> model translations</h3>
+
+<table id="translationList" border="0" cellpadding="2" cellspacing="0">
+  <thead>
+    <tr>
+      <td width="3%">&nbsp;</td>
+      <td width="43%">
+        <strong>Base Language <%= Utility.locale_in_words(I18n.default_locale) %></strong>
+      </td>
+      <td width="53%">
+        <strong><%= Utility.locale_in_words(@locale.code) %> Translation</strong>
+      </td>
+    </tr>
+  </thead>
+  <% if @translations.empty? %>
+    <%= 'Nothing to translate' %>
+  <% end %>
+  <% @translations.each_with_index do |translation, index| %>
+    <%
+      if index > 0 && @translations[index - 1] && @translations[index - 1].record_id != translation.record_id
+        new_record = true
+        record_index += 1
+      elsif index == 0
+        new_record = true
+      else
+        new_record = false
+      end
+      record = @records[record_index]
+      english = record.send(translation.facet)
+    %>
+    <% if new_record %>
+      <thead>
+        <tr>
+          <td colspan="3">
+            <!-- Translation Info -->
+            <h5>
+              <%= "Model \"#{record.class.name}\" - record \"#{record.id}\"" %>
+            </h5>
+          </td>
+        </tr>
+      </thead>
+    <% end %>
+    <tbody>
+      <tr style="border-bottom:1px dotted #ccc;">
+        <td>
+          <%= index + 1 %>
+        </td>
+        <td style="border-left:1px dotted #ccc;">
+          <div style="max-width:450px;" class="raw_key">
+  					<span id="<%= dom_id(translation, :key) %>" onmouseover="new Effect.Highlight(this, { startcolor: '#ffff99',endcolor: '#ffffff' });">
+            <%= english.blank? ? '[empty]' : h(english) %>
+  					</span>
+  				</div>	
+  				<div class="key">
+  				  <%= "#{record.class.name}:#{record.id}:#{translation.facet}" %>
+  				</div>
+        </td>
+        <td style="border-left:1px dotted #ccc;">
+          <%= render :partial => 'admin/translations/edit', :object => translation, :locals => {:record => record} %>
+        </td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>

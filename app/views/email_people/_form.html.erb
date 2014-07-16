@@ -1,0 +1,19 @@
+<% # email_people/form
+%>
+<% bracket_container do %>
+  <%= form_flash_messages %>
+	<%= form_error_messages_for :email, :unique => true %>
+	<% steplet(:step => :auto, :title => ("Send Message to %{name}".t % {:name => h(@profile.name)}),
+	  :description => "Craft your message now and instantly send it.".t
+	) do %>
+	
+    <%= f.text_field :subject, :label => {:position => :top, :text => "Subject".t, :req => true},
+      :size => 24, :style => "width: 100%;" %>
+      
+	  <%= f.text_area(:message,
+		  :label => {:position => :top, :text => "Add personal note".t},
+		  :rows => 2, :class => "autogrow", :style => "width:100%;" 
+		) %>
+		
+	<% end %>
+<% end %>

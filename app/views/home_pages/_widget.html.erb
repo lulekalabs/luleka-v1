@@ -1,0 +1,197 @@
+<% cache home_page_widget_fragment_cache_key, 15.minutes.from_now do %>
+  <%
+    update ||= false
+    recent_kases = Kase.active.most_recent.all(:limit => 32)
+  %>
+  <% div_tag :id => "kvContainer", :class => "kvContainer", :update => update do %>
+    <div class="kvTopContainer">
+      <div class="kvTopLeftContainer">
+      	<!-- turquoise -->
+      	<div class="kvBoxTurquoiseContainer">
+      		<div class="kvBoxTurquoiseIcon">&nbsp;</div>
+      		<h2 class="kvBoxTurquoiseTitle">
+      		  <%= "Seek advice?".t %>
+      		</h2>
+      		<div class="clearClass"></div>
+      		<div class="kvBoxTurquoiseTop"></div>
+      		<div class="kvBoxTurquoiseMiddle">
+      			<div class="kvBoxTurquoiseGutter">
+      				<div class="kvBoxTurquoiseStep">1</div>
+      			</div>
+      			<div class="kvBoxTurquoiseContent">
+      				<div class="kvBoxTurquoiseDescription">
+      					<%= "Luleka is a source for trusted recommendations".t %>
+      				</div>
+      				<%= "Find fast, reliable advice and solutions.".t %>
+      			</div>
+      			<div class="clearClass"></div>
+      		</div>
+      		<div class="kvBoxTurquoiseBottom"></div>
+      	</div>
+      </div>
+    
+      <div class="kvTopRightContainer">
+      	<!-- share concern -->
+      	<div class="kvBoxBlueWideContainer" style="padding-left:0;">
+      	  <div class="kvBoxBlueWideIcon" id="kvAvatar">
+      	    <%= image_tag image_avatar_path(nil, {:name => :profile}) %>
+            <script type="text/javascript">
+            //<![CDATA[
+            <%= remote_function(:url => widget_avatar_home_page_path, :method => :put, 
+              :update => {:success => "kvAvatar"}) %>
+            //]]>
+            </script>
+      	  </div>
+      		<h2 class="kvBoxBlueWideTitle">
+      		  <%= "Share your concern".t %>
+      		  <%= more_link_to("View latest".t, recent_kases_path) %>
+      		</h2>
+      		<div class="clearClass"></div>
+      		<div class="kvBoxBlueWideTop"></div>
+      		<div class="kvBoxBlueWideMiddle">
+      			<div class="kvBoxBlueWideGutter">
+      				<div class="kvBoxBlueWideStep">
+      					2
+      				</div>
+      			</div>
+      			<div class="kvBoxBlueWideContent">
+
+              <% wizard_form_for :kase, @kase, :url => new_kase_path, :html => {:method => :post} do |f| %>
+
+                <% switch_theme :theme => :kase do %>
+
+          	      <% form_element :style => "position: relative;" do %>
+                    <% form_field :kase, :title do %>
+                      <%= label :kase, :title, "Enter your question, idea, problem or praise here".t, 
+                        :class => "prompted", :for => dom_class(Kase, :title) %>
+                      <span class="fieldwrap">
+                      <%= text_area :kase, :title, :size => "80x2", :class => "title", 
+                        :id => dom_class(Kase, :title), :name => "title" %>
+                      </span>  
+                    <% end %>
+                  <% end %>
+
+          	      <div class="formButtonContainer">
+          	        <div style="float:left;"><a href="#" id="kvExampleTip" class="questionmark"><span><%= "Examples".t %></span></a></div>
+          	        <%= form_submit_button "Share".t, :position => :right %>
+          	      </div>
+          	      <div id="kvExamples" style="display:none;">
+          	        <%= render :partial => "home_pages/widget_examples" %>
+        	        </div>
+        	        
+        	      <% end %>  
+      	      <% end %>
+
+      			</div>
+      			<div class="clearClass"></div>
+      		</div>
+      		<div class="kvBoxBlueWideBottom"></div>
+      	</div>
+      </div>
+  	
+    </div>
+  	<div class="clearClass"></div>
+  	<div class="kvBottomContainer clearfix">
+	  
+  	  <div class="kvBottomLeftContainer">
+  	    <!-- list -->
+    	  <div class="kvBoxWhiteContainer" style="padding-left:0">
+      		<h2 class="kvBoxWhiteTitle">
+    	      <%= "Latest Recommendations".t %>
+    	      <%= more_link_to("View all".t, kases_path) %>
+      		</h2>
+      		<div class="clearClass"></div>
+      		<div class="kvBoxWhiteTop"></div>
+      		<div class="kvBoxWhiteMiddle" style="height:274px">
+      			<div class="kvBoxWhiteContent full">
+
+              <%= render :partial => "kases/simple_list", :object => recent_kases, 
+                :locals => {:with_type => false, :show_pcard => true} %>
+
+      			</div>
+      			<div class="kvBoxWhiteFade"></div>
+      		</div>
+      		<div class="kvBoxWhiteBottom"></div>
+      	</div>
+      	<div class="clearClass"></div>
+  	  </div>
+
+  	  <div class="kvBottomRightContainer">
+	    
+      	<!-- green -->
+      	<div class="kvBoxGreenContainer">
+      		<div class="kvBoxGreenIcon">&nbsp;</div>
+      		<h2 class="kvBoxGreenTitle">
+      		  <%= "Solutions".t %>
+      		  <%= more_link_to("View all".t, solved_kases_path) %>
+      		</h2>
+      		<div class="clearClass"></div>
+      		<div class="kvBoxGreenTop"></div>
+      		<div class="kvBoxGreenMiddle">
+      			<div class="kvBoxGreenGutter">
+      				<div class="kvBoxGreenStep">
+      					3
+      				</div>
+      			</div>
+      			<div class="kvBoxGreenContent">
+      				<div class="kvBoxGreenDescription">
+      					<%= "Get recommendations from people you trust".t %>
+      				</div>
+      				<%= "Receive valuable responses from your circle of friends.".t %>
+      			</div>
+      			<div class="clearClass"></div>
+      		</div>
+      		<div class="kvBoxGreenBottom"></div>
+      	</div>
+    	
+      	<!-- gray -->
+      	<div class="kvBoxGrayContainer" style="margin-top:0;">
+      		<h2 class="kvBoxGrayTitle">
+      		  <%= "Get started".t %>
+      		  <%= more_link_to("Join now".t, signup_users_path) %>
+      		</h2>
+      		<div class="clearClass"></div>
+      		<div class="kvBoxGrayTop"></div>
+      		<div class="kvBoxGrayMiddle">
+      			<div class="kvBoxGrayGutter">
+      				<div class="kvBoxGrayStep">4</div>
+      			</div>
+      			<div class="kvBoxGrayContent">
+      				<div class="kvBoxGrayDescription">
+      					<%= "Everyone is an expert of something".t %>
+      				</div>
+      				<%= "Give advice, earn reputation and money or get new business leads.".t %>
+      			</div>
+      			<div class="clearClass"></div>
+      		</div>
+      		<div class="kvBoxGrayBottom"></div>
+      	</div>
+	    
+  	  </div>
+    </div>
+  
+  <% end %>
+  <script type="text/javascript">
+  //<![CDATA[
+    new Tip('kvExampleTip', $('kvExamples'), {
+      style: "default",
+      showOn: 'click',
+      hideOn: {element: 'tip', event: 'mouseleave'},
+      stem: 'topMiddle',
+      hook: {target: 'bottomMiddle', tip: 'topMiddle'},
+      offset: {x: 0, y: -2},
+      width: 'auto'
+    });
+  
+    document.observe('dom:loaded', function() {
+      Luleka.DefaultFields.clear();
+      Luleka.DefaultFields.initialize();
+    });
+  
+    document.observe('authentication:success', function() {
+      <%= remote_function(:url => widget_avatar_home_page_path, :method => :put, 
+        :update => {:success => "kvAvatar"}, :complete => "document.fire('dom:updated')") %>
+    });
+  //]]>
+  </script>
+<% end %>

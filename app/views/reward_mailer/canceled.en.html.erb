@@ -1,0 +1,7 @@
+The reward of <%= @reward.price.format %> was canceled.
+
+To see more details, please click on the following link or copy the entire link into your browser:
+
+<%= kase_url(@reward.kase) %>
+
+<%= render :partial => 'notifier/signature' %>

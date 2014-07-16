@@ -1,0 +1,33 @@
+<%
+  amount ||= false 
+  bank ||= piggy_bank_payment || @piggy_bank
+  message_type ||= :info
+  text = []
+  if amount
+    text << "The payment amount is %{payment_amount}.".t % {
+      :payment_amount => "*#{amount.format}*"
+    }
+    if bank && amount > bank.available_balance
+      text << "Your available account balance of %{available} is not sufficient.".t % {
+        :available => "*#{bank.available_balance.format}*"
+      }
+      message_type = :warning
+    else
+      text << if bank
+        "Your available account balance is %{available}.".t % {
+          :available => "*#{bank.available_balance.format}*"
+        }
+      end
+    end
+  else
+    text << if bank
+      "Your available account balance is %{available}.".t % {
+        :available => "*#{bank.available_balance.format}*"
+      }
+    end
+  end
+  text = text.compact.join(' ')
+%>
+<% form_element do %>
+  <%= help_text_tag :available, text, :type => message_type, :escape => false %>
+<% end %>

@@ -1,0 +1,33 @@
+<% # responses/show
+  kase ||= show || @kase
+  responses ||= @responses || kase.responses.visible
+	display ||= true
+	message ||= nil
+%>
+<% div_tag :id => dom_class(Response, :container), :class => "responsesContainer", :display => display do %>
+
+	<div class="actionHeader">
+		<ul class="tabs">
+			<li class="active"><h2>&nbsp;<%= kase_responses_count_in_words(kase) %>&nbsp;</h2></li>
+		</ul>
+		
+		<% ul_tag_if kase.responses_count > 0, :class => "filters" do %>
+			<%= li_tag link_to_remote("Latest".t, {:url => kase_responses_path(:kase_id => kase), :method => :get}) %>
+			<li class="separator">|</li>
+			<%= li_tag link_to_remote("Popular".t, {:url => popular_kase_responses_path(:kase_id => kase), :method => :get}) %>
+		<% end %>
+	</div>
+	<div class="clearfix"></div>
+
+	<% div_tag :id => dom_class(Response, :message) do %>
+	<% end %>
+
+  <%= render :partial => 'responses/list', :object => responses %>
+
+  <%#--- new response%>
+  <% if @response %>
+    <%= div_tag_unless @responses.blank?, '', :class => "separator" %>
+    <%= render :partial => 'responses/response', :object => @response %>
+  <% end %>
+
+<% end %>

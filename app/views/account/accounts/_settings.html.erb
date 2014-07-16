@@ -1,0 +1,91 @@
+<% 
+	slider_index = 0
+%>
+<% content_container :theme => :info do %>
+	<% headline do %>
+		<%= "Account Settings".t %>
+	<% end %>
+	<% primary_content :last => true do %>
+		<% account_settings_container do %>
+			<% account_setting :title => "Email".t do %>
+				<%= "Your email address is set to %{email}.".t % {
+				  :email => content_tag(:strong, user.email)
+				} %>
+				<br/>
+				<% account_setting_button_container do %>
+					<%= account_setting_action_button :label => "Change".t, :url => account_email_path %>
+				<% end %>
+			<% end %>
+			<% account_setting :title => "Password".t do %>
+				<%= "Change your password or request a new one.".t -%>
+				<br/>
+				<%= account_setting_action_button :label => "Change".t, :url => account_password_path %>
+			<% end %>
+
+			<% account_setting :title => "Personalize".t do %>
+				<%= ["You appear as %{public_name} to others.".t, "We communicate with you using your name %{etiquette}".t].to_sentences % {
+				  :public_name => content_tag(:b, @user.person.username_or_title_and_full_name),
+				    :etiquette => content_tag(:b, @user.person.casualize_salutation_and_name_t)
+				} %> 
+				<br/>
+				<%= account_setting_action_button :label => "Change".t, :url => account_personal_path %>
+			<% end %>
+
+			<% account_setting :title => "International".t do %>
+				<%= ["%{language} is your default language".t, "%{timezone} your time zone.".t].to_sentence % {
+				  :language => content_tag(:strong, I18n.t(user.language, :scope => 'languages')),
+				  :timezone => content_tag(:strong, user.tz.to_s)
+				} %> 
+				<br/>
+				<%= account_setting_action_button :label => "Change".t, :url => account_international_path %>
+			<% end %>
+
+			<% account_setting :title => "Notifications".t do %>
+				<%= "Change the way you would like to be notified about system events.".t %> 
+				<br/>
+				<%= account_setting_action_button :label => "Change".t, :url => account_notification_path %>
+			<% end %>
+
+			<% account_setting :title => "Custom URL".t do %>
+				<%= "Change the Web address of your %{profile}.".t % {
+				  :profile => link_to("profile".t, person_path(@person))
+				} %> 
+				<br/>
+				<%= account_setting_action_button :label => "Change".t, :url => account_vanity_path %>
+			<% end %>
+			
+  		<% account_setting :title => "Personal Contact".t do %>
+  		  <%= address_display(@user.person.personal_address) %>
+				<%= account_setting_action_button :label => "Change".t, :url => personal_account_address_path %>
+  		<% end %>
+  		
+  		<% account_setting_if @person.partner? && @user.person.business_address, :title => "Business Contact".t do %>
+  		  <%= address_display(@user.person.business_address) %>
+				<%= account_setting_action_button :label => "Change".t, :url => business_account_address_path %>
+  		<% end %>
+  		
+  		<% account_setting_if @person.billing_address, :title => "Billing Address".t do %>
+  		  <%= address_display(@user.person.billing_address) %>
+				<%= account_setting_action_button :label => "Change".t, :url => billing_account_address_path %>
+  		<% end %>
+  		
+			<% account_setting :title => "Deactivate Account".t do %>
+				<%= "Close your account and remove all your personal information.".t %> 
+				<br/>
+				<%= account_setting_action_button :label => "Close".t, :url => account_close_path %>
+			<% end %>
+			
+			<% account_setting :title => "Connect Accounts".t do %>
+				<%= ["You can reconnect any time to restore connection on #{SERVICE_NAME}."].to_sentences %> 
+				<br/>
+				<% if current_user.facebook_user? %>
+				  <%= account_setting_action_button :label => "Disconnect Facebook".t, :url => unlink_fb_connect_account_path %>
+				<% else %>
+  				<br/>
+  			  <%= link_to_fb_connect nil, :redirect_to => account_path %>
+				<% end %>
+			<% end %>
+			
+		<% end %>
+	<% end %>
+<% end %>

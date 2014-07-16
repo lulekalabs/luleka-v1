@@ -1,0 +1,58 @@
+<%
+  profile ||= profile_overview || @profile
+	display ||= true
+  can_edit ||= false
+	div_options = if can_edit
+    {:id => dom_id(profile, :overview), :display => display}
+  else
+	  flag_mouse_over_tag_options(profile, {:id => dom_id(profile, :overview), :display => display})
+  end
+%>
+<% div_tag div_options do %>
+	<% content_overview_container :type => :profile do %>
+		<table class="turquoiseBoxContentTable">
+			<tr>
+				<td class="turquoiseBoxContentTableLeft">
+					<%= render :partial => 'profile_avatar', :object => profile, 
+					  :locals => {:editable => can_edit} %>
+				</td>
+				<td class="turquoiseBoxContentTableRight">
+				  
+				  <%#--- flag or edit %>
+				  <% if can_edit %>
+  				  <%= div_tag_if can_edit,
+              probono_edit_button(:url => account_personal_path), :class => "fr" %>
+				  <% else %>
+				    <%= div_tag link_to_flag_for(profile), :class => 'fr' %>
+				  <% end %>
+            
+				  <%#--- name %>
+          <% div_tag :class => 'profileName' do %>
+            <%= can_edit ? h(profile.title_and_full_name) : h(profile.username_or_title_and_full_name) %>
+            <%= span_tag_if can_edit && !profile.show_name?, "", :class => "lock" %>
+          <% end %>
+          
+          <%#--- more info %>
+          <%= div_tag person_member_status_since_in_words(profile) %>
+          <%= div_tag_if_content person_employed_at_in_words(profile) %>
+          
+          <%#--- stats %>
+          <% overview_list do %>
+
+            <%= overview_list_person_reputation_points(profile) %>
+            <%= overview_list_person_kases_count(profile) %>
+            <%= overview_list_person_responses_count(profile) %>
+            <%= overview_list_person_votes_count(profile) %>
+            <%= overview_list_person_followers_count(profile) %>
+            <%= overview_list_person_friends_count(profile, :last => true) %>
+            <%#= overview_list_person_visits_count(profile, :last => true) %>
+
+      		<% end %>
+          
+				</td>
+			</tr>
+		</table>
+		<%= render :partial => 'profile_avatar', :object => profile,
+		  :locals => {:kind => :editor, :editable => can_edit} %>
+	<% end %>
+<% end %>

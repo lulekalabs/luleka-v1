@@ -1,0 +1,39 @@
+<% # setup
+  title ||= @title || "Recently Active".t
+  message ||= form_flash_messages
+%>
+<% content_left do %>
+  <% div_tag :id => dom_class(Tier, :content) do %>
+    <% content_container :theme => :profile do %>
+      <%= div_tag message, :id => dom_class(Tier, :message) %>
+      <% headline do %>
+        <%= title %>
+      <% end %>
+      <% primary_content :last => true, :style => 'padding-bottom:0px;' do %>
+        <%= render(
+          :partial => 'shared/items_list_content',
+          :locals => {
+            :items => @tiers,
+            :theme => :profile,
+            :options => {
+              :partial => 'tiers/list_item_content',
+              :url => hash_for_collection_path(tier_class)
+            }
+          }
+        ) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+<% content_right do %>
+  <% sidebar_actions_container do %>
+    <%= sidebar_action_link_to("Add %{type}".t % {:type => tier_class.human_name},
+      member_path(:tier, :new), {:icon => :plus, :title => "Love a %{type}? Or hate one? Add it to #{SERVICE_NAME}".t % {:type => tier_class.human_name}}) %>
+  <% end %>
+  <%= render :partial => 'tiers/sidebar_tiers', :object => @recent_tiers,
+    :locals => {:title => "Recently Added".t, :time => true} %>
+  <%= render :partial => 'tiers/sidebar_tiers', :object => @popular_tiers,
+    :locals => {:title => "Most Active".t, :kases => true} %>
+  <%= render :partial => 'shared/sidebar_tag_cloud', 
+    :locals => {:route => [@tier]} %>
+<% end %>

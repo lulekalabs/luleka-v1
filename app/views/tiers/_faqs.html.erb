@@ -1,0 +1,30 @@
+<%# tiers/faqs %>
+<div class="faq">
+  <p class="question">
+    <%= "What is a community on #{SERVICE_NAME}?".t %>
+  </p>
+  <p class="answer">
+    <%= "A community on #{SERVICE_NAME} is a shared space (e.g. a group or organization), where people meet to give recommendations about related topics.".t %>
+  </p>
+  <p class="question">
+    <%= "How can I create my own community?".t %>
+  </p>
+  <p class="answer">
+    <%= ["During our beta period, we only have a limited number of groups and organizations available.".t, "If you are interested to start your own community, please submit your application or %{contact_us} directly.".t % {:contact_us => mail_to("business@luleka.com", "contact us".t)}].to_sentences %>
+  </p>
+  <p class="question">
+    <%= "What types of communities can I start?".t %>
+  </p>
+  <p class="answer">
+    <%= ["You can create private or open communities (e.g. %{example}).".t, "The difference between groups and organizations is that company employees can moderate discussions.".t].to_sentences % {:example => link_to("Luleka", luleka_root_url)} %>
+  </p>
+  
+  <% if false %>
+  <p class="question">
+    <%= "How long does it take before my community is online?".t %>
+  </p>
+  <p class="answer">
+    <%= "We will have to double check the details before making your community public. This may take 1-3 business days.".t %>
+  </p>
+  <% end %>
+</div>

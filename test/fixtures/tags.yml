@@ -1,0 +1,18 @@
+powerplants:
+  id: 1
+  name: powerplants
+beer:
+  id: 2
+  name: beer
+television: 
+  id: 3
+  name: watching TV
+cooking:
+  id: 4
+  name: cooking
+radioactive:
+  id: 5
+  name: radioactive
+leak:
+  id: 6
+  name: leak

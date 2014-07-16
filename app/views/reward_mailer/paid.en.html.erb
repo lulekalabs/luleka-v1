@@ -1,0 +1,11 @@
+The reward of <%= @reward.price.format %> was paid to <%= h(@reward.receiver.name) %>.
+
+To view your Piggy Bank balance now, please click on the following link or copy the entire link into your browser:
+
+<% account_bank_url %>
+
+To see more details, please click on the following link or copy the entire link into your browser:
+
+<%= kase_url(@reward.kase) %>
+
+<%= render :partial => 'notifier/signature' %>

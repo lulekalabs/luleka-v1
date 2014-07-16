@@ -1,0 +1,19 @@
+Description:
+    The friendship_model generator creates a Role model for use with the Friendships plugin.
+
+    The generator takes a model name as its argument, which at this time must be 'Friendship'.
+
+    The generator creates a self referential Frienship model class in app/models, a test suite in
+    test/unit, test fixtures in test/fixtures/friendships.yml, and a migration in db/migrate.
+
+Example:
+    ./script/generate friendship_model Friendship
+
+    This will create a Role model:
+        Model:      app/models/friendship.rb
+        Test:       test/unit/friendship_test.rb
+        Fixtures:   test/fixtures/friendships.yml
+        Migration:  db/migrate/XXX_add_friendships.rb
+        
+    You should then run "rake migrate".
+

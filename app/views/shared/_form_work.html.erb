@@ -1,0 +1,44 @@
+<%
+  f ||= nil
+  object_name ||= :person
+  object ||= form_work
+	edit ||= begin edit.nil? ? true : edit; rescue; true; end
+%>
+<% form_table_fields_for object_name, object do |t| %>
+	<% form_table_row do %>
+
+		<%= t.select :personal_status_id, collect_personal_status_for_select, {:edit => edit,
+		  :label => {:position => :top, :text => "Personal Status".t, 
+		    :auto => false, :lock => true, :req => true, :help => true}},
+		  {:style => 'width: 100%'} %>
+
+		<%= t.text_field :profession, :edit => edit,
+		  :label => {:position => :top, :text => "What's your profession?".t, :help => true, :auto => false, :lock => true},
+		  :style => 'width: 100%' %>
+
+	<% end %>
+<% end %>
+<%= help_text object_name, :personal_status_id,
+  "Select the option that best matches your professional employment status.".t,
+  :display => false, :escape => false %>
+<%= help_text object_name, :profession,
+  "E.g. _Lawyer, Accountant_".t,
+  :display => false, :escape => false %>
+
+
+<% form_table_fields_for object_name, object do |t| %>
+	<% form_table_row do %>
+		<%= t.text_field :professional_title, :edit => edit,
+		  :label => {:position => :top, :text => "Professional Titel".t, :help => true, :auto => false, :lock => true},
+		  :style => 'width: 100%' %>
+		<%= t.text_field :industry, :edit => edit,
+		  :label => {:position => :top, :text => "Industry".t, :help => true, :auto => false, :lock => true},
+		  :style => 'width: 100%' %>
+	<% end %>
+<% end %>
+<%= help_text object_name, :professional_title,
+  "E.g. _Attorney at Law_, _Director of Sales_".t,
+  :display => false, :escape => false %>
+<%= help_text object_name, :industry,
+  "E.g. _Internet, Media, Automobile_".t,
+  :display => false %>

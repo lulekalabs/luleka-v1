@@ -1,0 +1,16 @@
+<% # tiers/sidebar_participants
+	title ||= "Participants".t
+	participants ||= @participants || sidebar_participants || []
+	last ||= false
+%>
+<% content_container :theme => :sidebar do %>
+
+  <% headline do %>
+    <%= title %>
+  <% end %>
+
+  <% primary_content :last => true do %>
+    <%= render :partial => 'shared/sidebar_profile_list', :object => participants, :locals => {:max => 5} %>
+  <% end %>
+
+<% end %>

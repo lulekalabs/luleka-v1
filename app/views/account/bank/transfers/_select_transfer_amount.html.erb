@@ -1,0 +1,23 @@
+<%
+  deposit_object ||= select_transfer_amount || @deposit_object || DepositAccount.new
+  person ||= deposit_object.person || @person
+%>
+<% form_element do %>
+  <%= form_label_tag(:transfer_amount,
+      :text => "Amount (%{currency})".t % {:currency => person.default_currency},
+      :auto => false, :position => :left, :req => true, :help => true
+  ) %>
+  <% form_field_tag :transfer_amount do %>
+    <%= text_field(:deposit_object, :transfer_amount, :size => 5, :maxlength => 5,
+      :autocomplete => 'off', :object => deposit_object) %>
+  <% end %>
+<% end %>
+<%= help_text_tag(:transfer_amount, [
+    "*%{available}* of *%{balance} is available* to transfer from your #{SERVICE_PIGGYBANK_NAME} account".t % {
+      :available => person.piggy_bank.available_balance.format,
+      :balance => person.piggy_bank.balance.format,
+    },
+    "a transaction fee may apply, which decreases the amount transferred".t
+  ].to_sentences,
+  :display => true, :escape => false, :type => :warning
+) -%>      

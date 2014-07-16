@@ -1,0 +1,294 @@
+<% bracket_container do %>
+  <%= form_flash_messages %>
+  <%= form_error_messages_for :tier, :unique => true, :attr_names => {
+	  :base => '', :name => "Name".t, :site_name => "Site Name".t, :site_url => "Web Address".t,
+	  :terms_of_service => "Terms of Service".t, :summary => "Summary".t, :description => "Description".t
+	} %>
+  <% steplet(:step => :auto,
+    :title => "New %{type}".t % {:type => @tier.class.human_name},
+    :description => "Start by adding the %{type} name. Anyone can do it.".t % {:type => @tier.class.human_name}
+  ) do %>
+  
+    <%#--- name %>
+    <% f.text_field :name, :label => {
+      :text => "%{type} name".t % {:type => @tier.class.human_name}, :auto => false, :req => true, :position => :left,
+      :help => {:text => "This is how the name of the %{type} is displayed.".t % {:type => @tier.class.human_name}}}, :size => 25 do %>
+      <%= progress_spinner :id => dom_id(@tier), :tag => :img, :size => '14x14', :style => "padding-left: 1px;" %>
+    <% end %>
+    
+    <%#--- site name %>
+  	<% form_element do %>
+  		<%= form_label(:tier, :site_name, :position => :top, :auto => false, :req => true,
+  		  :text => "The URL on #{SERVICE_NAME} will be".t, :help => true
+  		) %>
+  		<% form_field_tag(:site_name_field) do %>
+  		  <%= table_cells_tag(
+  		    span_tag("http://" + "&nbsp;"),
+  		    text_field(:tier, :site_name, :size => 25, :object => @tier),
+  		    span_tag("&nbsp;" + ".luleka.com/")
+  		  ) %>
+  		<% end %>
+  		<%= help_text :tier, :site_name, "This is something that can't be changed later.".t + '<br/>' +
+  	    "Only letters and numbers, including \"-\" are allowed.".t, :display => true, :type => :warning, :escape => false %>
+  	<% end %>
+  	
+    <%#--- summary %>
+    <%= f.text_area :summary, :label => {:text => "Summary".t, :position => :top, :req => false, :help => {:text => "Write a short summary no longer than %{count} characters in length.".t % {:type => @tier.class.human_name, :count => 250.loc}}}, :size => '50x2', :style => 'width: 100%;height:32px;', :class => "autogrow" %>
+
+    <%#--- description %>
+    <% f.text_area :description, :label => {:text => "Description".t, :position => :top, :req => false, :help => {:text => "Add a description no longer than %{count} characters in length.".t % {:type => @tier.class.human_name, :count => 1000.loc}}}, :size => '50x2', :class => "markdown_editor autogrow", :style => 'width: 100%; height:32px;',
+      :id => dom_id(@tier, :description) do %>
+    
+      <% flipper_link_to :tier_description_preview, :display => false,
+					:open_text => "<small>#{ "Preview".t }</small>",
+					:close_text => "<small>#{ "Close Preview".t }</small>" do %>	
+  			<%= div_tag '', :id => 'markdown_editor_preview', :class => 'markdown markdownEditorPreview' %>
+  			<%= probono_clear_class %>
+			<% end %>
+    <% end %>
+
+    <%#--- tag list %>
+		<%= f.text_field :tag_list, :label => {:position => :top, :text => "Tag it with words".t, :help => {:text => "Assign meaningful, comma separated, tags for this %{type}, e.g. _computer, hardware_".t % {:type =>  @tier.class.human_name}}}, :style => 'width: 100%', :id => "tags" %>
+		
+  	<%#--- site url %>
+    <%= f.text_field :site_url, :label => {:text => "Web Address".t, :auto => false, :req => true, :position => :left, :help => {:text => "This is the official Web Address (URL) for this %{type}, e.g. _%{url}_".t % {:type => @tier.class.human_name, :url => link_to('http://apple.com', 'http://www.apple.com', :popup => true)}}}, :size => 35 %>
+    
+  	<%#--- language code %>
+  	<% form_element do %>
+  	  <%= form_label :tier, :language_code, "Language".t, :position => :top %>
+  	  <% form_field :tier, :language_code do %>
+      	<%= localized_language_select(:tier, :language_code, Utility.active_language_codes, 
+          {}, {:class => "nofontweight"}) %>
+  	  <% end %>
+  	<% end %>
+
+    <%#--- geographic location %>
+    <%= f.check_box :single_geo_location, :label => {
+      :text => "%{tier} is based in a single geographic location".t % {:tier => @tier.class.human_name}
+    } %>
+
+    <% div_tag :id => "tier_country_code_container", :style => "margin-left:25px;", 
+      :display => @tier.single_geo_location do %>
+
+  	  <%#--- country code %>
+  	  <% form_element do %>
+    	  <%= form_label :tier, :language_code, "Country".t, :position => :top, :help => true %>
+    	  <% form_field :tier, :language_code do %>
+        	<%= localized_country_select(:tier, :country_code, Utility.active_country_codes.sort, 
+            {}, {:class => "nofontweight"}) %>
+    	  <% end %>
+    	  <%= help_text :tier, :language_code, "If the %{type} is a subsidiary or the name is already taken on #{SERVICE_NAME}, you may want to try a different country.".t % {:type => @tier.class.human_name} %>
+    	<% end %>
+
+    <% end %>
+
+    <%#--- terms %>
+    <%= f.check_box :terms_of_service, :label => {:req => true,
+      :text => "Check to confirm you have read and accept the %{terms}".t % {:terms => link_to("Terms of Service".t, 
+        terms_of_service_path)}
+    } %>
+    
+  <% end %>
+<% end %>
+<% bracket_container do %>
+  <%= form_error_messages_for :tier, :unique => true, :attr_names => {
+	  :base => '', :kind => "Community Type", :category => "Community Category".t,
+	  :twitter_name => "Twitter Name".t, :image => "Image".t, :logo => "Logo".t, 
+	  :owner_email => "Owner Email".t, :pre_approved_emails => "Pre-approved Emails"
+	} %>
+  <% steplet(
+    :step => :auto,
+    :title => "Add Details".t,
+    :description => "Describe your community in more detail.".t % {:type => @tier.class.human_name}
+  ) do %>
+  
+    <%#--- owner email address %>
+    <%= f.text_field :owner_email, :label => {:text => "Owner email".t, :req => true, :position => :left}, :size => 35 %>
+
+    <%#--- image %>
+    <% form_element do %>
+  		<%= form_label(:tier, :image, :position => :top, :req => false, :auto => false,
+  		  :text => "Upload icon image".t % {:type => @tier.class.human_name}, :help => true
+  		) %>
+  		<% form_field :tier, :image do %>
+      	<%= file_field(
+      		:tier,
+      		:image, {:class => "singleField"}
+      	) -%>
+  		<% end %>
+  		<%= help_text :tier, :image, ["The image file will be used as icon representation.".t, 
+  		      "A portrait or square image file, with at least 100x100 pixels in size, will work best.".t,
+  		      allowed_image_files_in_words, allowed_file_size_in_words(Tier::MAXIMUM_IMAGE_SIZE_IN_KB)].to_sentences,
+  		  :display => false %>
+  	<% end %>
+	
+    <%#--- select community type %>
+    <% form_element do %>
+  		<%= form_label(:tier, :kind, :position => :top, :auto => false, :req => true, 
+  		  :text => "This community is a?".t) %>
+    	<% form_field_tag "tiers_kind" do %>
+    		<% radio_group do %>
+    		  
+    		  <%# ( )  Organization %>
+    		  <%= form_radio_element_tag(
+  					"tier_kind_#{Organization.kind}",
+  					:label => {:text => "Organization as %{category}".t % {
+  					  :category => "&nbsp;" + select(:tier, :category_id, collect_organization_categories_for_select(true),
+  					  {}, {:disabled => !(@tier.kind.to_sym == :organization), :class => "nofontweight", :id => "organization_category"})
+  					}},
+  					:button => radio_button(:tier, :kind, Organization.kind, {
+  						:object => @tier,
+  						:class => "noborder"
+  					})
+  				) %>
+
+    		  <%# ( )  Group %>
+          <%= form_radio_element_tag(
+  					"tier_kind_#{Group.kind}",
+  					:label => {:text => "Group as %{category}".t % {
+  					  :category => "&nbsp;" + select(:tier, :category_id, collect_group_categories_for_select(true),
+  					  {}, {:disabled => !(@tier.kind.to_sym == :group), :class => "nofontweight", :id => "group_category"})
+  					}},
+  					:button => radio_button(:tier, :kind, Group.kind, {
+  						:object => @tier,
+  						:class => "noborder"
+  					})
+  				) %>
+  				
+  			<% end %>
+    	<% end %>
+    <% end %>
+
+    <%#--- access type %>
+    <% form_element do %>
+  		<%= form_label(:tier, :access_type, :position => :top, :auto => false, :req => true, 
+  		  :text => "Access".t) %>
+    	<% form_field_tag "tiers_access_type" do %>
+    		<% radio_group do %>
+    		  
+    		  <%# ( )  Open Access %>
+    		  <%= form_radio_element_tag(
+  					"tier_access_type_open",
+  					:label => {:text => "Open Access".t},
+  					:button => radio_button(:tier, :access_type, "open", {
+  						:object => @tier,
+  						:class => "noborder"
+  					})
+  				) %>
+
+    		  <%# ( )  Request to join %>
+          <%= form_radio_element_tag(
+  					"tier_access_type_closed",
+  					:label => {:text => "Request to join".t},
+  					:button => radio_button(:tier, :access_type, "closed", {
+  						:object => @tier,
+  						:class => "noborder"
+  					})
+  				) %>
+  				
+  			<% end %>
+    	<% end %>
+    <% end %>
+
+    <% div_tag :style => "margin-left:25px;" do %>
+
+      <%= f.check_box :allow_display_in_directory, :label => {
+        :text => "List in directory".t
+      } %>
+
+      <%= f.check_box :allow_display_logo_in_profile, :label => {
+        :text => "Allow members to display the logo on their profiles".t
+      } %>
+
+      <% div_tag :id => "access_type_closed_only", :display => @tier.access_type != "open" do %>
+
+        <%= f.check_box :allow_member_invites, :label => {
+          :text => "Allow members to invite others to join this group".t
+        } %>
+    
+        <%#--- pre-approved emails %>
+        <%= f.text_area :pre_approved_emails, :label => {:text => "Pre-approve members with the following email addresses".t, :position => :top, :help => {:text => ["Comma separate email addresses".t].to_sentences}}, :size => '50x2', :style => 'width: 100%;height:64px;', :id => "pre_approved_emails" %>
+
+      <% end%>
+      
+    <% end %>
+    
+    <%#--- twitter name %>
+    <% form_element do %>
+  		<%= form_label(:tier, :twitter_name, :position => :top, :auto => false, :req => false,
+  		  :text => "Twitter name".t, :help => true
+  		) %>
+  		<% form_field_tag(:twitter_name_field) do %>
+  		  <%= table_cells_tag(
+  		    span_tag("@" + "&nbsp;"),
+  		    text_field(:tier, :twitter_name, :size => 25, :object => @tier)
+  		  ) %>
+  		<% end %>
+  		<%= help_text :tier, :twitter_name, "Provide a twitter name for this community, e.g. {example}".t % {:example => link_to("@luleka", "http://twitter.com/luleka")}, 
+  		  :display => false, :type => :notice, :escape => false %>
+  	<% end %>
+  	
+    <%#--- logo %>
+    <% if false %>
+      <% form_element do %>
+    		<%= form_label(:tier, :logo, :position => :top, :req => false, :auto => false,
+    		  :text => "Upload Logo".t % {:type => @tier.class.human_name}, :help => true
+    		) %>
+    		<% form_field :tier, :logo do %>
+        	<%= file_field(
+        		:tier,
+        		:logo, {:class => "singleField"}
+        	) -%>
+    		<% end %>
+    		<%= help_text :tier, :logo, ["This will be used as logo.".t, 
+    		      "An image file with exactly 300x66 pixels in size, all excess will be clipped.".t,
+    		      allowed_image_files_in_words].to_sentences,
+    		  :display => false %>
+    	<% end %>
+    <% end %>
+  	
+  <% end %>
+<% end %>
+<%= markdown_editor_javascript_tag :tier, :description, :id => dom_id(@tier, :description),
+ 	:preview_id => 'markdown_editor_preview' %>
+
+<script type="text/javascript">
+//<![CDATA[
+
+  Event.observe("tier_kind_organization", "click", function() {
+    $("organization_category").disabled = false;
+    $("group_category").disabled = true;
+  });
+
+  Event.observe("tier_kind_group", "click", function() {
+    $("organization_category").disabled = true;
+    $("group_category").disabled = false;
+  });
+
+  Event.observe("tier_access_type_open", "click", function() {
+    $("access_type_closed_only").hide();
+  });
+
+  Event.observe("tier_access_type_closed", "click", function() {
+    $("access_type_closed_only").show();
+  });
+  
+  Event.observe("tier_single_geo_location", "click", function() {
+    this.checked ? $("tier_country_code_container").show() : $("tier_country_code_container").hide()
+  });
+
+  function lookupTags(searchString, suggest) {
+    new Ajax.Request('<%= collection_path([:tier, :tags], :autocomplete) %>', {parameters: {name: searchString, rand: (new Date()).getTime(), authenticity_token: '<%= form_authenticity_token %>'},
+      onSuccess: function(response) {
+        suggest(response.responseJSON);
+      }});
+  }
+  var cachedBackendTags = new Autocompleter.Cache(lookupTags, {choices: 10});
+  var cachedLookupTags = cachedBackendTags.lookup.bind(cachedBackendTags);
+
+  var mvListCached = new Autocompleter.MultiValue('tags', cachedLookupTags, 
+    <%= @tier.tag_list_on(:tags, nil, :format => :tags).map {|t| [t.name, t.new_record? ? t.name : t.id]}.to_json %>, 
+    {frequency: 0.5, acceptNewValues: true});
+
+//]]>
+</script>

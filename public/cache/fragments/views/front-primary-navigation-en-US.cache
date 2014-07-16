@@ -1,0 +1,91 @@
+"*	
+<ul id="primaryNavi" class="primaryNavi">
+  
+	
+	<li class="nav" id="navi-kases">
+		<a href="/concerns"><span>Advice</span></a>
+		<ul>
+		  <li><a href="/concerns/new" class="separator">Seek advice</a></li>
+			
+			<li><a href="/concerns/recent">Recently active</a></li>
+			<li><a href="/concerns/open">Need attention</a></li>
+			<li><a href="/concerns/popular">Most popular</a></li>
+			<li><a href="/concerns/open_rewarded">Open rewarded</a></li>
+			
+			<li class="separator"><a href="/concerns/my">My asked</a></li>
+			<li><a href="/concerns/my_matching">Advice to give</a></li>
+
+      
+      
+
+        <li class="separator"><a href="http://travel.luleka.local/"><b>Tourism</b></a></li>
+  			
+      
+
+        <li><a href="http://money.luleka.local/"><b>Business and Money</b></a></li>
+  			
+      
+
+        <li><a href="http://med.luleka.local/"><b>Health</b></a></li>
+  			
+      
+
+        <li><a href="http://computer.luleka.local/"><b>Computers</b></a></li>
+  			
+      
+
+        <li><a href="http://legal.luleka.local/"><b>Law and Legal</b></a></li>
+  			
+      
+      
+			
+			
+			
+			
+			
+			
+		</ul>
+	</li>
+	
+	
+	<li class="nav" id="navi-people">
+    <a href="/people"><span>People</span></a>
+		<ul>
+		  <li><a href="/people/popular">Popular</a></li>
+		  <li><a href="/people/reputable">Reputable</a></li>
+			
+			<li><a href="/people/me" class="separator">My profile</a></li>
+			<li><a href="/contacts">My contacts</a></li>
+			<li><a href="/invitations/new">Invite friends</a></li>
+
+			<li><a href="/people/partners" class="separator">Experts</a></li>
+			<li><a href="/users/partners/signup">Join as expert</a></li>
+		</ul>
+	</li>
+	
+	
+	<li class="search" id="navi-search">
+    <form action="/search" method="get">
+      <dl class="searchField" style="position: relative;">
+        <dd>
+          <div class="glass"></div>
+          <div class="reset"></div>
+          <label class="prompted" for="globalsearch">Search</label>
+          <span class="fieldwrap">
+          <input id="globalsearch" name="q" size="15" type="text" value="" />
+          </span>
+        </dd>
+      </dl>
+    </form>
+	</li>
+	
+	
+	<li class="newkase" id="navi-new-kase">
+	    
+	  
+      <a href="/concerns/new?accordion=true&amp;uses_modal=true" rel="facebox"><span alt="Seek advice" class="newicon" title="Seek advice">&nbsp;</span></a>
+    
+	    
+	</li>
+  
+</ul>

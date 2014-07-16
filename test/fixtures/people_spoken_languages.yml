@@ -1,0 +1,31 @@
+homer_english: 
+  person_id: 1
+  spoken_language_id: 1
+barney_english: 
+  person_id: 2
+  spoken_language_id: 1
+barney_french: 
+  person_id: 2
+  spoken_language_id: 2
+bart_english:
+  person_id: 3
+  spoken_language_id: 1
+marge_english:
+  person_id: 4
+  spoken_language_id: 1
+marge_french:
+  person_id: 4
+  spoken_language_id: 2
+marge_german:
+  person_id: 4
+  spoken_language_id: 3
+lisa_english:
+  person_id: 5
+  spoken_language_id: 1
+quentin_english:
+  person_id: 6
+  spoken_language_id: 1
+aaron_german:
+  person_id: 7
+  spoken_language_id: 3
+  

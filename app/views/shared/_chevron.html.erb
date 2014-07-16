@@ -1,0 +1,43 @@
+<% content_top do %>
+	<ul class="chevron">
+	<%  
+		index = 0 
+		class_tag = ''
+		stumbled = false
+	 	data.each do |item|
+			class_tag = ''
+			if 0 == index
+				class_tag = 'first'
+			else
+				if index == data.size - 1
+					class_tag = 'last'
+				end
+			end
+			if (step && step.class != Fixnum && item[:action].to_sym == step.to_sym) ||
+			   (step.class == Fixnum && index == step - 1)
+			    stumbled = true
+				if class_tag.empty?
+					class_tag = 'active'
+				else
+					class_tag += '-active'
+				end
+			end
+			index += 1
+	%>
+  <% if item[:display] %>
+		<li class="<%=class_tag-%>">
+		  <h5>
+		  <%= !stumbled && item[:link] ? content_tag(:a, "#{item[:caption]}".tn(:wizard),
+        {:href => url_for(:action => item[:action])}) : "#{item[:caption]}".tn(:wizard) %>
+      </h5>
+		</li>
+	<% end %>
+<% end -%>
+<% if class_tag == 'last-active' -%>
+  <li class="empty-active"></li>
+<% else -%>
+  <li class="empty"></li>
+<% end -%>
+	</ul>
+	<div class="clearClass"></div>
+<% end %>

@@ -1,0 +1,41 @@
+<% # setup
+  title ||= @title || "Recently Active at %{name}".t % {:name => @tier.name}
+  message ||= form_flash_messages
+%>
+<% content_left do %>
+  <% div_tag :id => dom_class(Topic, :content) do %>
+    <% content_container :theme => :profile do %>
+      <%= div_tag message, :id => dom_class(Topic, :message) %>
+      <% headline do %>
+        <%= title %>
+      <% end %>
+      <% primary_content :last => true, :style => 'padding-bottom:0px;' do %>
+        <%= render(
+          :partial => 'shared/items_list_content',
+          :object => @topics,
+          :locals => {
+            :theme => :profile,
+            :options => {
+              :partial => 'topics/list_item_content',
+              :url => hash_for_collection_path([@tier, topic_class]),
+            }
+          }
+        ) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+<% content_right do %>
+  <% sidebar_context_actions_container(:partial => 'tiers/sidebar_profile_content',
+    :locals => {:tier => @tier, :topic => @topic}
+  ) do %>
+  
+    <%= render :partial => 'tiers/actions' %>
+  
+  <% end %>
+
+  <%= render :partial => 'topics/sidebar_topics', :object => @popular_topics,
+    :locals => {:title => "Popular %{topics}".t % {:topics => @tier.topics_t.titleize}, :time => true} %>
+  <%= render :partial => 'shared/sidebar_tag_cloud', 
+    :locals => {:route => [@tier, @topic]} %>
+<% end %>

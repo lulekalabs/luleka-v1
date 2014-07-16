@@ -1,0 +1,35 @@
+<%= wizard_chevron :index %>
+<% content_left do %>
+  <% wizard_form_for :voucher, @voucher, :url => voucher_path, :html => {:method => :post} do |f| %>
+    <% bracket_container do %>
+      <%= form_flash_messages %>
+    	<%= form_error_messages_for :voucher, :unique => true, :attr_names => {
+			  :consignee => "Consignee".t,
+			  :consignee_confirmation => "Consignee".t,
+			  :code_confirmation => "Promotion code".t,
+			  :code => "Promotion code".t
+			} %>
+    	<% steplet(:step => :auto, :title => "Promotion Code".t,
+    	  :description => "If you have received a voucher with a valid promotion code you can redeem it here.".t
+    	) do %>
+    	  <%= render :partial => 'code_confirmation' %>
+    	<% end %>
+    <% end %>
+    <% bracket_container_unless logged_in? do %>
+    	<%= form_error_messages_for :voucher, :attr_names => {
+  		  :verification_code => "Verification Code".t
+    	} %>
+    	<% steplet(:step => :auto, :title => "Confirm".t) do %>
+        <%= render :partial => 'shared/form_verification_code', :locals => {
+          :object_name => :voucher
+        } %>
+    	<% end %>
+    <% end %>
+		<% form_button_container do %>
+		  <%= form_submit_button "Continue".t, :position => :right %>
+		<% end %>
+	<% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'faq' %>
+<% end %>

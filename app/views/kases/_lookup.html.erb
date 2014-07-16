@@ -1,0 +1,128 @@
+<%
+  active_type = :question
+  active_index = Kase.ordered_subclasses.map(&:kind).index(active_type)
+%>
+<% bracket_container do %>
+  <% tab_header :style => "width:99%;" do %>
+    <% Kase.ordered_subclasses.each_with_index do |klass, index| %>
+
+      <%= header_tab_link_to_function klass.human_name, "Tabs.select('#{klass.kind}')", 
+        {:index => index, :size => Kase.ordered_subclasses.size,
+          :active_index => active_index, :id => "tab-#{klass.kind}"} %>
+
+    <% end %>  
+  <% end %>
+
+  <% switch_theme :theme => :form do %>
+    <% wizard_form_for :kase, @kase, :url => collection_path([@tier, @topic, Kase], :lookup), :remote => true,
+        :html => {:method => :post, :id => dom_class(Kase, :lookup_form)} do |f| %>
+      <div class="bracketBoxContent">
+        <div class="formBox">
+          <div class="formBoxColumnLeft" style="margin-top:5px;">
+            <% Kase.ordered_subclasses.each_with_index do |klass, index| %>
+              <%= div_tag "&nbsp;", :id => "step-#{klass.kind}", 
+                :class => "step #{steplet_icon_css_selector(klass.kind)}", :style => "margin-left:5px;",
+                :display => klass.kind == active_type %>
+            <% end %>
+          </div>
+          <div class="formBoxColumnRight">
+            
+            <% form_element :class => "title", :style => "position: relative;" do %>
+              <% form_field :kase, :title do %>
+                <%= label :kase, :title, 
+                  span_tag("We will look for answers".t, :id => "headline-question",
+                    :class => "headline", :display => :question == active_type) +
+                  span_tag("We will see if others have the same idea".t, :id => "headline-idea", 
+                    :class => "headline", :display => :idea == active_type) +
+                  span_tag("We will look for solutions".t, :id => "headline-problem", 
+                    :class => "headline", :display => :problem == active_type) +
+                  span_tag("What makes you happy?".t, :id => "headline-praise", 
+                    :class => "headline", :display => :praise == active_type), 
+                      :class => "prompted", :for => dom_class(Kase, :title), :style => "font-size:18px;" %>
+                
+                <span class="fieldwrap">
+                  <%= text_area :kase, :title, :label => false, :size => "80x1", :class => "", 
+                    :id => dom_class(Kase, :title) %>
+                </span>
+              <% end %>
+            <% end %>
+                
+            <%= f.hidden_field :kind, :id => 'kase-kind', :value => "#{active_type}" %>
+        
+            <% div_tag :id => dom_class(Kase, :lookup_results), :display => false do %>
+            <% end %>
+          </div>
+          <div class="clearClass"></div>
+          
+        	<div class="lookupButtonBox">
+            <%= div_tag(progress_spinner(:id => dom_class(Kase, :lookup_spinner)), 
+              :style => "float:right;margin-right:10px;") %>
+        
+            <%= form_button("Continue".t, :id => dom_class(Kase, :lookup_continue), :position => :right,
+              :function => remote_function(
+                :url => collection_path([@tier, @topic, Kase], :lookup), :method => :post,
+                :before => update_page do |page|
+    	            page << "if ($('#{dom_class(Kase, :title)}').value.length == 0) {return false;}"
+    	          end,
+                :loading => update_page do |page|
+                  page[dom_class(Kase, :lookup_spinner)].show
+                  page[dom_class(Kase, :lookup_continue)].hide
+                  page << probono_visual_effect(:blind_up, dom_class(Kase, :lookup_results), :duration => 0.3)
+                end,
+                :submit => dom_class(Kase, :lookup_form)
+              )) %>
+            
+            <%= form_button "Start", :id => dom_class(Kase, :lookup_start), :position => :right, :display => false,
+              :url => member_path([@tier, @topic, Kase], :new) %>
+
+            <%= form_button("Cancel".t, :id => dom_class(Kase, :lookup_cancel), :position => :right, :display => false, :type => :passive, 
+              :function => update_page do |page| 
+                page[dom_class(Kase, :lookup_continue)].show
+                page[dom_class(Kase, :lookup_start)].hide
+                page[dom_class(Kase, :lookup_cancel)].hide
+                page << probono_visual_effect(:blind_up, dom_class(Kase, :lookup_results), :duration => 0.3)
+              end
+            ) %>
+
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+<script type="text/javascript">
+//<![CDATA[
+Tabs = {
+  formId: "<%= dom_class(Kase, :lookup_form) %>",
+  select: function(kind, first) {
+    $$(".step").each(function(element, index) {
+      element.hide();
+    });
+    $(Tabs.stepId(kind)).show();
+
+    $$(".headline").each(function(element, index) {
+      element.hide();
+    });
+    $(Tabs.headlineId(kind)).show();
+    
+    $('kase-kind').value = kind;
+  },
+  tabId: function(kind) {
+    return "tab-" + kind;
+  },
+  stepId: function(kind) {
+    return "step-" + kind;
+  },
+  headlineId: function(kind) {
+    return "headline-" + kind;
+  }
+};
+
+document.observe('dom:loaded', function() {
+  Luleka.DefaultFields.clear();
+  Luleka.DefaultFields.initialize();
+});
+
+//]]>
+</script>

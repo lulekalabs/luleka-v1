@@ -1,0 +1,49 @@
+<% # setup
+  title ||= "Browse".t
+  slider_index = 0
+  controller_name ||= :kases
+%>
+<% content_container :theme => :sidebar do %>
+  <% headline do %>
+    <%= title -%>
+  <% end %>
+  <% primary_content :style => "padding-bottom:0px;" do %>
+    <%= sidebar_category_browser(category, :controller_name => controller_name) %>
+  <% end %>
+  <% if category %>
+    <%#--- view all --- %>
+    <% secondary_content( :index => slider_index += 1, :open => false, :style => "padding-bottom:0px;" ) do %>
+    <% end %>
+    <% slider_control(
+      :index => slider_index,
+      :last => false,
+      :open => false,
+      :url => { :controller => 'categories', :action => 'show_all_categories' }
+    ) do %>
+      <%= content_tag( :div, "Show All".t, :style => "float:left; padding-right: 5px;font-weight:bold;font-size:13px;" ) -%>
+    <% end %>
+    <%#--- subscribe --- %>
+    <% secondary_content( :index => slider_index += 1, :open => false, :last => true, :style => "padding-bottom:0px;" ) do -%>
+      <%= content_tag(
+        :div,
+        link_to(
+          image_tag( 'icons/rss/rss_link_32x32.png', :size => "32x32" ),
+          send("formatted_category_#{controller_name}_path", :category_id => category, :format => :rss),
+          :title => "Subscribe to '%{category}' cases".t % { :category => category.name }
+        ),
+        :style => "float:left; padding-right: 5px;"
+      ) -%>
+    <% end %>
+    <% slider_control( :index => slider_index, :last => true, :open => false ) do %>
+      <%= content_tag( :div, image_tag( 'icons/rss/rss_28x28.png', :size => "16x16" ), :style => "float:left; padding-right: 5px;" ) -%>
+      <%= content_tag(
+        :div, 
+        category.short_name(:length => 22),
+        :title => category.short_name==category.name ? '' : category.name,
+        :style => "float:left; padding-right: 5px;font-weight:bold;font-size:13px;"
+      ) -%>
+    <% end %>
+  <% else %>
+  <div class="sideBarBoxGrayBottom"></div>  
+  <% end %>
+<% end %>

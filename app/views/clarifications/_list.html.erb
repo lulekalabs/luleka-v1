@@ -1,0 +1,7 @@
+<%
+  clarifiable ||= list
+  clarifications ||= clarifiable.clarifications.active
+%>
+<% div_tag :id => dom_id(clarifiable, :comments), :class => 'commentListContainer' do %>
+  <%= render :partial => 'clarifications/show', :collection => clarifications %>
+<% end %>

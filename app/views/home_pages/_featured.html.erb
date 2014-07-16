@@ -1,0 +1,126 @@
+<% cache(featured_fragment_cache_key) do %>
+<div id="featured" class="clearClass">
+
+	<div class="featuredLeftColumn">
+		<div class="noneBracketContainer">
+		
+    	<%#--- featured people %>
+			<h3 class="green"><%= "Who Cares?".t %></h3>
+			<p class="message green">
+			  <%= "People most engaged in the network".t %>
+			</p>
+			<div id="featuredLeftCarousel">
+			  <div class="previous_button"><label>&lsaquo;</label></div>
+			  <div class="container">
+          <ul class="carouselList">
+    				<% @featured_people.each do |person| %>
+            <li class="carouselItem">
+              <div class="profile">
+                <div class="fl">
+                  <%= avatar_link_to(person) %>
+                </div>
+                <div class="fl info">
+        					<b><%= link_to(h(person.name), person_path(person)) %></b>
+        					<p><%= person_employed_at_in_words(person) %></p>
+                </div>
+                <div class="clearClass"></div>
+                <hr>
+                <p><%= truncate(h(person.summary), 100) %></p>
+              </div>
+            </li>
+    				<% end %>
+  		    </ul>
+  		  </div>
+        <div class="next_button"><label>&rsaquo;</label></div>
+			</div>
+			<ul class="actions">
+				<li><%= link_to(span_tag('» ' + "Sign Up".t), new_user_path) %></li>
+			</ul>
+			<%#--- featured people %>
+			
+		</div>	
+	</div>
+  
+	
+	<div class="featuredMiddleColumn">
+		<div class="bracketBoxHalfTop"></div>
+		<div class="bracketBoxHalfMiddle">
+		  <div class="bracketBoxHalfContent">
+
+      	<%#--- featured communities %>
+  			<h3 class="blue"><%= "Who Dares?".t %></h3>
+  			<p class="message blue">
+  			  <%= "Communities, Companies, Groups, Cities".t %>
+  			</p>
+  			<div id="featuredMiddleCarousel">
+  			  <div class="previous_button"><label>&lsaquo;</label></div>
+  			  <div class="container">
+    			  <ul class="carouselList">
+    				<% @featured_tiers.each do |tier| %>
+    				  <li class="carouselItem">
+    				    <div class="community">
+    							<%= tier_image_link_to(tier, {:name => :profile, 
+    							  :title => "#{tier.name}#{tier.summary.blank? ? '' : " &mdash; #{tier.summary}"}",
+    							  :alt => "#{tier.name}#{tier.summary.blank? ? '' : " &mdash; #{tier.summary}"}"
+    							}) %>
+    							<hr>
+        					<h4>
+        					  <%= link_to(truncate(h(tier.name), 30), tier_path(tier), 
+        					    {:title => "#{tier.name}#{tier.summary.blank? ? '' : " &mdash; #{tier.summary}"}"}) %>
+        					</h4>
+                </div>
+      				</li>
+    				<% end %>
+    				</ul>
+    			</div>
+          <div class="next_button"><label>&rsaquo;</label></div>
+  			</div>
+  			<ul class="actions clearClass">
+  				<li><%= link_to(span_tag('» ' + "New Community".t), new_tier_path) %></li>
+  			</ul>
+      	<%#--- featured tiers %>
+      	
+			</div>
+		</div>
+		<div class="bracketBoxHalfBottom"></div>
+	</div>
+	
+	<div class="featuredRightColumn">
+		<div class="noneBracketContainer">
+
+			<%#--- featured cases %>
+			<h3 class="turquoise"><%= "Success Stories".t %></h3>
+			<p class="message turquoise">
+			  <%= "Expert answers, employees reaching out, frustration turning into praise".t %>
+			</p>
+			<p></p>
+			<div id="featuredRightCarousel">
+			  <div class="previous_button"><label>&lsaquo;</label></div>
+		    <div class="container">
+			    <ul class="carouselList">
+			      <% @featured_kases.in_groups_of(3).each do |page| %>
+            <li class="carouselItem">
+              <%= render :partial => "kases/simple_list", :object => page.compact %>
+            </li>
+            <% end %>
+          </ul>
+			  </div>
+  			<div class="next_button"><label>&rsaquo;</label></div>
+  		</div>
+  		<ul class="actions">
+				<li><%= link_to(span_tag('» ' + "Get Started".t), new_kase_path) %></li>
+			</ul>
+			<%#--- featured cases %>
+
+		</div>
+	</div>
+
+</div>
+<% end %>
+<script>
+//<![CDATA[
+  new UI.Carousel("featuredLeftCarousel");
+  new UI.Carousel("featuredMiddleCarousel");
+  new UI.Carousel("featuredRightCarousel");
+//]]>
+</script>

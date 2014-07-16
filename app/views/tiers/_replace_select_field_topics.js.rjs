@@ -1,0 +1,2 @@
+page.replace dom_class(Topic, :select), :partial => 'topics/select_field', :object => @topics,
+  :locals => {:object_name => @object_name, :method_name => @method_name, :selected => @selected, :display => false}

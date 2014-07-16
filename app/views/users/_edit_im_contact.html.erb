@@ -1,0 +1,17 @@
+<%
+  object = edit_im_contact || @person
+%>
+<% form_table_fields_for :person, object do |t| %>
+	<% form_table_row do %>
+		<%= t.text_field :skype, :label => {:position => :top, :text => "Skype".t, :lock => true, :help => true}, :style => "width: 100%" %>
+		<%= t.text_field :msn, :label => {:position => :top, :text => "MSN Messenger".t, :lock => true, :help => true}, :style => "width: 100%" %>
+	<% end %>
+	<% form_table_row do %>
+		<%= t.text_field :icq, :label => {:position => :top, :text => "ICQ".t, :lock => true, :help => true}, :style => "width: 100%" %>
+		<%= t.text_field :aim, :label => {:position => :top, :text => "AIM".t, :lock => true, :help => true}, :style => "width: 100%" %>
+	<% end %>
+<% end %>
+<%= help_text :person, :skype, "Enter your Skype name here.".t, :display => false %>
+<%= help_text :person, :msn, "Enter your MSN messenger identity here.".t , :display => false %>
+<%= help_text :person, :icq, "Enter your ICQ account name here.".t , :display => false %>
+<%= help_text :person, :aim, "Enter your AOL AIM account name".t, :display => false %>

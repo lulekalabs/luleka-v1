@@ -1,0 +1,15 @@
+<div id='page'>
+  <h1><%= "Your Web Browser Setting".t -%></h1>
+  <p>
+    <%= "#{SERVICE_NAME} requires a browser feature called <strong>JavaScript</strong>. All modern browsers support JavaScript. You probably just need to change a setting in order to turn it on.".t %>
+  </p>
+  <p>
+    <%= "Please see: %{link}.".t % {
+      :link => link_to("How to enable JavaScript in your browser".t, 'http://www.google.com/support/bin/answer.py?answer=23852')
+    } %>
+  </p>
+  <p>
+    <%= "Please turn JavaScript back on if you wish to use our site. Once you have enabled JavaScript, you can %{try_reloading}. Sorry for the inconvenience.".t % {:try_reloading => link_to("try loading this page again".t, '/')} -%>
+  </p>
+  <p><strong><%= "Your #{SERVICE_NAME} Team".t -%></strong></p>
+</div>

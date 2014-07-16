@@ -1,0 +1,11 @@
+<% content_for :kv_title_three, "Solution".t %>
+<% content_for :kv_description_three, "Find solution".t %>
+<% content_for :kv_content_three do %>
+  <% div_tag do %>
+
+    <%= render :partial => 'search_field', 
+      :locals => {:list => {'kases.solved' => "Solved".t, 'kases.open' => "Open".t, 'people.partner' => "Partners".t},
+        :name => 'solve', :active => 'kases.solved'} %>
+      
+  <% end %>
+<% end %>

@@ -1,0 +1,46 @@
+<% # responses/body
+	response ||= body || @response
+%>
+<%#--- content %>
+<div class="primaryContentContainer">
+	<div class="primaryContentColumnLeft">
+		
+		<%= vote_control(response) %>
+
+	</div>
+	<div class="primaryContentColumnRight">
+
+		<%= property_editor(:response, :description, :partial => 'responses/description',
+		  :object => response, :controller_name => 'responses',
+		    :editable => current_user_my?(response) || @can_edit) %>
+	  
+	</div>
+	<div class="clearClass"></div>
+</div>
+<div class="clearClass"></div>
+
+<%#--- content actions %>
+<% content_action_list do %>
+
+	<%= content_action_item_if response.comments_count > 0, comment_count_in_words(response) %>
+
+  <%= content_comment_action_link("Add Comment".t, new_commentable_comment_dom_id(response),
+    collection_path([@tier, response.kase, response, :comment], :new)) %>
+
+
+  <% if response.can_be_accepted_by?(@person) %>
+    <% accept_url ||= member_path([@tier, response.kase, response], :accept) %>
+    <%= content_accept_action_item(
+      link_to_remote("Accept".t, {
+        :url => accept_url,
+        :method => :put,
+        :confirm => "Do you accept this recommendation as solution?".t
+      }, {:href => accept_url, :title => "Accept as Solution".t})) %>
+  <% end %>
+
+<% end %>
+
+<%#--- comments %>
+<%= render :partial => 'comments/list', :object => response %>
+<%= render :partial => 'comments/new', :locals => {:id => new_commentable_comment_dom_id(response)} %>
+

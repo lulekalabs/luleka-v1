@@ -1,0 +1,22 @@
+<%
+  change_url ||= new_user_partner_path
+  cart ||= sidebar_cart || @cart
+%>
+<% div_tag_if cart, :class => 'cart' do %>
+  <h4>
+    <%= "You selected (%{change})".t % {
+      :change => link_to("Change?".t, change_url)
+    } %>
+  </h4>
+  <% cart.line_items.each do |line_item| %>
+  <div class="item oddcell">
+    <div class="name">
+      <%= "#{line_item.quantity > 1 ? "#{line_item.quantity}&nbsp;&times;&nbsp;" : ''}#{line_item.name}" %>
+    </div>
+    <div class="description">
+      <%= line_item.description %>
+    </div>
+  </div>
+  <% end %>
+  <div class="total evencell"><%= "Total %{total}".t % {:total => cart.total.format} %></div>
+<% end %>

@@ -1,0 +1,44 @@
+<%
+  kase ||= description || @kase
+  f ||= nil
+  edit ||= defined?(:edit) && edit.nil? ? true : !!edit
+	label ||= defined?(:label) && label == false ? false : {:position => :top, :help => true,
+	  :text => "%{type} description".t % {:type => kase.class.human_name}}
+  description_dom_id ||= dom_id(kase, "description_#{rand(10000)}")
+  description_preview_dom_id ||= dom_id(kase, "description_preview_#{rand(10000)}")
+  flipper_description_preview_dom_id ||= dom_id(kase, "description_preview_#{rand(10000)}")
+%>
+<% if edit %>
+  <% if f %>
+
+	  <%#--- description %>
+  	<% f.text_area(:description, :position => :top, :label => label, :id => description_dom_id,
+  	  :class => "kaseDescriptionTextArea markdown_editor autogrow", :size => "80x2") do %>
+
+  		<% flipper_link_to flipper_description_preview_dom_id, :display => false,
+  				:open_text => "<small>#{ "Preview".t }</small>",
+  				:close_text => "<small>#{ "Close Preview".t }</small>" do %>	
+  			<%= div_tag '', :id => description_preview_dom_id, :class => 'markdown markdownEditorPreview' %>
+  			<%= probono_clear_class %>
+  		<% end %>
+  		
+  	<% end %>
+  	
+  	<%#--- select language %>
+		<%= render :partial => 'shared/form_select_language_with_flipper', :object => kase, 
+		  :locals => {:object_name => :kase} %>
+    
+    <%= markdown_editor_javascript_tag :kase, :description, :id => description_dom_id,
+     	:preview_id => description_preview_dom_id %>
+    
+  <% else %>
+    <% form_fields_for :kase, kase do |f| %>
+      <%= render :partial => 'kases/description', :object => kase, 
+        :locals => {:f => f, :edit => edit, :label => label, :description_dom_id => description_dom_id,
+          :description_preview_dom_id => description_preview_dom_id} %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= div_tag auto_link_with_nofollow(markdown(kase.description)), :class => "primaryContentText markdown" %>
+<% end %>
+

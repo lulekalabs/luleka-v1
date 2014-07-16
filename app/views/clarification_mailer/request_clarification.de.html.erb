@@ -1,0 +1,13 @@
+<%= "In Bezug auf %{type} \"%{title}\" liegt folgende Anfrage vor:" % {
+  :type => @clarification.kase.class.human_name,
+  :title => h(@clarification.kase.title)
+} %>
+---
+<%= "#{h(@clarification.message)}" %>
+---
+
+Um den Fall jetzt einzusehen, können sie dem Link folgen oder kopieren sie den Link direkt in ihren Webbrowser:
+
+<%= kase_url(@clarification.kase) %>
+
+<%= render :partial => 'notifier/signature' %>

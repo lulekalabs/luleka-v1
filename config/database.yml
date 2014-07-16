@@ -1,0 +1,33 @@
+development:
+  adapter: mysql
+  database: luleka_development
+  username: root
+  password:
+  host: localhost
+  encoding: utf8
+  socket: /tmp/mysql.sock 
+
+test:
+  adapter: mysql
+  database: luleka_test
+  username: root
+  password:
+  host: localhost
+  encoding: utf8
+
+staging:
+  adapter: mysql
+  database: luleka_staging
+  username: root
+  password: <secret>
+  host: localhost
+  encoding: utf8
+
+production:
+  adapter: mysql
+  database: luleka_production
+  username: root
+  password: <secret>
+  host: localhost
+  encoding: utf8
+

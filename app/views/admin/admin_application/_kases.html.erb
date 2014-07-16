@@ -1,0 +1,15 @@
+<% if current_user && current_user.has_role?(:moderator) %>
+  <% content_for :content_sub_nav do %>
+  <div id="shellSub">
+    <ul class="sub_tabs">
+      <%= admin_tab_list_link_to 'Problems', '/admin/problems' %>
+      <%= admin_tab_list_link_to 'Questions', '/admin/questions' %>
+      <%= admin_tab_list_link_to 'Ideas', '/admin/ideas' %>
+      <%= admin_tab_list_link_to 'Praises', '/admin/praises' %>
+    </ul>
+  </div>
+  <div class='clearing'><br clear="both" /></div>
+  <% end %>
+
+  <%= render :active_scaffold => "admin/#{controller.controller_name}" %>	
+<% end %>

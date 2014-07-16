@@ -1,0 +1,9 @@
+<%
+	@user.email_new = @user.email
+	@user.email = ''
+%>
+<%= f.text_field :email_new, :size => 24, :maxlength => 45, :disabled => true, :label => { :text => "Current Email".t }, :help => false -%>
+<%= render :partial => 'shared/form_text_field_email', :locals => { :f => f, :label => { :text => "New Email" } } -%>
+<%= render :partial => 'shared/form_text_field_username', :locals => { :f => f, :disabled => true, :help => false } -%>
+<%= f.password_field :password, :label => {:position => :left, :text => "Password".t, :req => true },
+  :size => 24, :maxlength => 45 %>

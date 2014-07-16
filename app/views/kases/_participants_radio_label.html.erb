@@ -1,0 +1,57 @@
+<%
+	if defined?( issue_id ).nil? || issue_id.nil?
+		issue_id = nil 
+	end
+	edit_link = link_to_function(
+		"edit".t,
+		probono_visual_effect( :toggle_blind, 'edit_participants' )
+	) 
+	add_link = link_to_remote(
+		"Add".t,
+		:url => { :action => :update_participant },
+		:loading => update_page do |page|
+			page['participants_spinner'].show
+		end,
+		:complete => update_page do |page|
+			page['participants_spinner'].hide
+		end,
+		:before => 'participants_index++;',
+		:with => "'index='+encodeURIComponent(participants_index)"
+	)
+	text_edit     = content_tag( :span, "Add participants to this case?".t, :style => 'font-weight: bold;' )
+    text_add_edit = "{add_link} participants to this case or {edit_link} settings?".t.gsub(/\{add_link\}/, add_link ).gsub(/\{edit_link\}/, edit_link )
+	text_add_edit = content_tag( :span, text_add_edit, :style => 'font-weight: bold;' )
+%>
+
+<% div_tag :id => 'participants_label' do %>
+		<%= form_radio_element_tag( :participants_label,
+		                            :label => { :id => 'participants_label_text', :text => checked ? text_add_edit : text_edit },
+		                            :help => { :text => "Add people who are connected to this case, like witnesses, defendants or others. Names will not be disclosed to the public.".t },
+		                            :button => check_box_tag( 'participants', "1", checked ) ) %>
+		<%= observe_field( "participants",
+					:url => { :action => :update_participant, :issue_id => issue_id },
+					:loading => update_page do |page|
+						page['participants_spinner'].show
+					end,
+					:before => 'participants_index++;',
+					:with => "'checked='+encodeURIComponent(value)",
+					:after => update_page do |page|
+			        	page[:participants_label_text].replace_html text_add_edit
+					end,
+					:complete => update_page do |page|
+						page['participants_spinner'].hide
+					end,
+				    :on => :change )
+		%>
+		<% if checked %>
+			<% @issue.followings.each_with_index do |following, index| %>
+				<% if following.person %>
+					<% @following = following %>
+					<% @index = index + 1 %>
+					<%= javascript_tag "participants_index++" %>
+					<%= render :partial => 'participant_select', :locals => { :index => @index, :issue_id => issue_id, :delete => true, :edit => false } %>
+				<% end %>
+			<% end %>
+		<% end %>
+<% end %>
+<%= progress_spinner :id => 'participants_spinner', :display => false %>

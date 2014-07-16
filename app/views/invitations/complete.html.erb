@@ -1,0 +1,54 @@
+<% unless request.xhr? %>
+
+  <%#--- regular form %>
+  <%= wizard_chevron :show %>
+  <% content_left do %>
+    <% bracket_container do %>
+      <%= form_error_messages_for :person -%>
+      <%= form_flash_messages -%>
+      <% steplet(
+        :step => :check,
+        :title => "Finish".t, 
+        :description => "The following friend of yours has been invited to join your contacts.".t
+      ) do %>
+        <% if @invitation.has_registered_invitee? %>
+          <%= render :partial => 'people/sidebar_item_content', :locals => { :person => @invitation.invitee } %>
+          <%= probono_clear_class %>
+        <% else %>
+          <strong><%= h @invitation.to_invitee.name_and_email %></strong>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% form_button_container do %>
+      <%= probono_button :label => "Continue".t, :position => :right, :type => :active, :url => new_invitation_url %>
+    <% end %>
+  <% end %>
+  <% content_right do %>
+    <%= render :partial => 'invitations/faqs' %>
+  <% end %>
+  
+<% else %>
+
+  <%#--- facebox modal %>
+  <% div_tag :id => dom_class(Invitation) do %>
+		<% content_modal do %>
+
+      <%= form_error_messages_for :person -%>
+      <%= form_flash_messages -%>
+      <% steplet(
+        :step => :check,
+        :title => "Finish".t, 
+        :description => "The following friend of yours has been invited to join your contacts.".t
+      ) do %>
+        <% if @invitation.has_registered_invitee? %>
+          <%= render :partial => 'people/sidebar_item_content', :locals => { :person => @invitation.invitee } %>
+          <%= probono_clear_class %>
+        <% else %>
+          <strong><%= h(@invitation.to_invitee.name_and_email) %></strong>
+        <% end %>
+      <% end %>
+
+    <% end %>
+  <% end %>
+
+<% end %>

@@ -1,0 +1,25 @@
+<% # responses/form
+  response ||= form || @response
+  display ||= false
+  disabled ||= false
+  form_url ||= if @tier || params[:tier_id]
+    collection_url([:tier, @kase, :responses], nil, {:tier_id => @tier || params[:tier_id]})
+  else
+    kase_responses_path(:kase_id => @kase.to_param)
+  end
+%>
+<% wizard_form_for :response, response, {:url => form_url, :remote => true} do |f| %>
+	<%#--- description %>
+  <%= render :partial => 'responses/description', :object => response, 
+    :locals => {:edit => true, :label => false, :disabled => disabled} %>
+
+	<%#--- sign in or signup? %>
+  <% unless logged_in? %>
+	  <%= render :partial => "shared/inline_authentication_form", 
+	    :locals => {:object_name => :response, :object => @response, :omit_authentication_success => true} %>
+  <% end %>
+
+	<% content_button_container do %>
+    <%= form_submit_button "Post %{post}".t % {:post => Response.human_name}, :position => :right %>
+	<% end %>
+<% end %>

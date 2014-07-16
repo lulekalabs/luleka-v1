@@ -1,0 +1,11 @@
+<% if @issue.owner==@person %>
+Your case has just expired, '<%= @issue.subject -%>'.
+<% else %>
+A case you were working on just expired, '<%= @issue.subject -%>'.
+<% end %>
+
+In order to get more details on this case, please click on the following link or copy the entire link into your browser address field:
+
+   <%= case_url(@issue.id) -%>
+
+Your <%= SERVICE_NAME %> Team

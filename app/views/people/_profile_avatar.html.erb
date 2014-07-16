@@ -1,0 +1,82 @@
+<%
+  profile ||= profile_avatar || @profile
+	update ||= false
+	editable ||= false
+	kind ||= :control
+%>
+<% if :control == kind %>
+	<% div_tag :id => dom_id(profile, :avatar_view) do %>
+		<% div_tag do %>
+			<%= image_avatar_tag(profile, :name => 'profile', :size => '113x113') -%>
+		<% end %>
+    <%#--- update controls %>
+		<% div_tag_if editable, :class => 'profileAvatarEditButtonBox' do %>
+		  <% div_tag :class => "profileAvatarEditButton" do %>
+        <%= progress_spinner :id => dom_id(profile, :avatar_spinner), :tag => :img,
+          :size => "11x11", :style => "border:0;margin:1px 1px;" %>
+      <% end %>
+      <%= probono_clear_class %>
+		  <% div_tag :id => dom_id(profile, :avatar_controls) do %>
+		    <% div_tag :id => dom_id(profile, :avatar_update_controls), :display => false do %>
+    		  <%#--- cancel button %>
+      		<% div_tag :class => "profileAvatarEditButton", :id => dom_id(profile, :avatar_cancel_control) do %>
+      			<%= probono_cancel_button(
+      				:function => update_page do |page|
+    					  page[dom_id(profile, :avatar_update_controls)].hide
+    					  page[dom_id(profile, :avatar_edit_control)].show
+    					  page << visual_effect(:blind_up, dom_id(profile, :avatar_edit), :duration => 0.5)
+      				end
+      			) %>
+      		<% end %>
+    		  <%#--- delete button %>
+    			<% div_tag_if profile.avatar.file?, :class => "profileAvatarEditButton", 
+    			    :id => dom_id(profile, :avatar_delete_control) do %>
+    				<%= probono_remove_button(
+    					:function => remote_function(
+    						:confirm => "Remove avatar?".t,
+    						:url => destroy_avatar_person_path(profile),
+    						:method => :delete,
+    						:loading => update_page do |page|
+      					  page << visual_effect(:blind_up, dom_id(profile, :avatar_edit), :duration => 0.5)
+      					  page[dom_id(profile, :avatar_controls)].hide
+      					  page[dom_id(profile, :avatar_spinner)].show
+    						end,
+    						:update => {:failure => dom_class(Person, :message)},
+    						:failure => "new Effect.ScrollTo(#{dom_class(Person, :message)}, {offset:-12});"
+    					)
+    				) %>
+    			<% end %>
+    		<% end %>
+    		<%#--- edit button %>
+  			<% div_tag :class => "profileAvatarEditButton", :id => dom_id(profile, :avatar_edit_control) do %>
+  				<%= probono_edit_button(
+  					:function => update_page do |page|
+  						page << visual_effect(:blind_down, dom_id(profile, :avatar_edit), :duration => 0.5)
+  					  page[dom_id(profile, :avatar_edit_control)].hide
+  					  page[dom_id(profile, :avatar_update_controls)].show
+  					end
+  				) %>
+  			<% end %>
+  		<% end %>
+		<% end %>
+	<% end %>
+<% elsif :editor == kind %>
+	<% div_tag_if editable, :id => dom_id(profile, :avatar_edit), :display => false do %>
+		<% content_button_container do %>
+			<% form_iframe_tag( update_avatar_person_path(@profile), {
+			  :method => :put,
+      	:id => dom_id(profile, :avatar_form),
+      	:name => dom_id(profile, :avatar_form)
+      }) do %>
+				<%= file_field(:profile, :avatar,
+					:onchange => update_page do |page|
+						page << probono_visual_effect(:blind_up, dom_id(profile, :avatar_edit), :duration => 0.5)
+						page[dom_id(profile, :avatar_controls)].hide
+						page[dom_id(profile, :avatar_spinner)].show
+						page << "document.forms['#{dom_id(profile, :avatar_form)}'].submit();"
+					end
+				) %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

@@ -1,0 +1,36 @@
+<%  # email_people/new
+%>
+<% unless request.xhr? %>
+
+	<% content_left do %>
+	  <% wizard_form_for :email, @email, {:url => person_emails_path(:person_id => @profile.to_param), :method => :post} do |f| %>
+	
+			<%= render :partial => 'form', :locals => {:f => f} %>
+
+	    <% form_button_container do %>
+	      <%= probono_button :label => "Cancel".t, :position => :left, :type => :passive, :url => :back %>
+	      <%= form_submit_button "Send".t, :position => :right %>
+	    <% end %>
+	  <% end %>
+	<% end %>
+	<% content_right do %>
+	<% end %>
+
+<% else %>
+	<% div_tag :id => dom_class(Email) do %>
+
+		<% content_modal do %>
+		  <% wizard_form_for :email, @email, 
+		      {:url => person_emails_path(:person_id => @profile.to_param), :method => :post, :remote => true} do |f| %>
+
+				<%= render :partial => 'form', :locals => {:f => f} %>
+
+		    <% form_button_container do %>
+		      <%= probono_button :label => "Cancel".t, :position => :left, :type => :passive, :function => close_modal_javascript %>
+		      <%= form_submit_button "Send".t, :position => :right %>
+		    <% end %>
+		  <% end %>
+		<% end %>
+
+	<% end %>
+<% end %>

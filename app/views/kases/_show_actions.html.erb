@@ -1,0 +1,18 @@
+<%= sidebar_action_remote_facebox_link_to("Add Reward".t,
+	collection_url([@tier, @kase, :reward], :new), {:icon => :add}) %>
+
+<%= sidebar_action_link_to("Remove this %{type}".t % {:type => @kase.class.human_name},
+	kase_path(@kase), {:method => :delete, :confirm => "Do you want to remove this case?".t, :icon => :minus}) if current_user_my?(@kase) %>
+
+<% if @tier && @tier.is_a?(Organization) %>
+
+	<%= sidebar_action_link_to("Join as Employee".t,
+  	tier_claim_url(@tier)) %>
+
+<% else %>
+
+  <%= sidebar_action_link_to("Start New Community".t,
+    new_tier_path, {:icon => :plus}) %>
+
+<% end %>
+

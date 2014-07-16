@@ -1,0 +1,20 @@
+<% # topics/new
+  form_url ||= member_url([@tier, @topic])
+%>
+<% content_left do %>
+  <% wizard_form_for topic_type, @topic, :url => form_url, 
+    :method => :post, :html => {:multipart => true} do |f| %>
+
+    <%= render :partial => 'topics/form', :object => @topic, :locals => {:f => f} %>
+
+    <% form_button_container do %>
+      <%= form_submit_button "Create %{type}".t % {:type => topic_class.human_name.titleize}, :position => :right %>
+    <% end %>
+  <% end %>
+<% end %>
+<% content_right do %>
+  <% sidebar_context_actions_container(:partial => 'tiers/sidebar_profile_content',
+    :locals => {:tier => @tier}
+  ) do %>
+  <% end %>
+<% end %>

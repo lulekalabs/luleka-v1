@@ -1,0 +1,10 @@
+<%  # setup
+  disabled ||= false
+  req ||= false
+  label ||= {:position => :top, :text => "Desired Language".t, :req => req}
+  help ||= false
+  options ||= {:style => 'width: 100%', :disabled => disabled}
+  with_select ||= false
+  selected ||= defined?(:selected) && selected == nil ? nil : current_language_code
+%>
+<%= f.select :language, collect_supported_languages_for_select(with_select), {:selected => selected, :label => label}, options %>

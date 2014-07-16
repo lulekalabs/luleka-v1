@@ -1,0 +1,25 @@
+<% if @new_locale && @new_locale != current_locale %>
+<div id="siteAlert">
+  <% form_for :translate, 
+    :url => translate_path(:to => url_for({})) do %>
+    <p>
+      <%
+        current_language_question = I18n.switch_locale(current_locale) {I18n.t("service.locale_question") % {
+          :language => I18n.t("languages.#{I18n.locale_language(@new_locale)}"), :country => I18n.t("countries.#{I18n.locale_country(@new_locale)}")}}
+        new_language_question = I18n.switch_locale(@new_locale) { I18n.t("service.locale_question") % {:language => I18n.t("languages.#{I18n.locale_language(@new_locale)}"), :country => I18n.t("countries.#{I18n.locale_country(@new_locale)}")}}
+        current_language_yes = I18n.switch_locale(current_locale) {I18n.t("Yes", :scope => :service)}
+        current_language_no = I18n.switch_locale(current_locale) {I18n.t("No", :scope => :service)}
+        new_language_yes = I18n.switch_locale(@new_locale) {I18n.t("Yes", :scope => :service)}
+        new_language_no = I18n.switch_locale(@new_locale) {I18n.t("No", :scope => :service)}
+      %>
+      <%= "#{current_language_question} (#{new_language_question})" %>&nbsp;&nbsp;
+      <button class="smallbutton" name="code" value="<%= Utility.long_to_short_locale(@new_locale) %>">
+        <span><%= "#{current_language_yes} (#{new_language_yes})" %></span>
+      </button>&nbsp;
+      <button class="smallbutton" name="code" value="<%= Utility.long_to_short_locale(@current_locale) %>">
+        <span><%= "#{current_language_no} (#{new_language_no})" %></span>
+      </button>
+    </p>
+  <% end %>
+</div>
+<% end %>

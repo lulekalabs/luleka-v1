@@ -1,0 +1,26 @@
+<%
+  object_name = :person
+	edit = true if defined?(edit).nil? || edit.nil?
+%>
+<% if f %>
+  <% bracket_container do %>
+  	<%= form_error_messages_for :person, :attr_names => {
+  	  :tax_code => "Tax ID".t
+  	} %>
+  	<% steplet :step => :auto, :title => "Tax Identification".t,
+  	  :description => "It is your responsibility to declare taxable revenues in the country you registered. Your tax information is  never published or shared anywhere, except on invoices to your clients.".t do %>
+  	  
+  	  <%= f.text_field :tax_code, :edit => edit, :label => {:text => "Tax ID".t, :lock => true}, :help => true, :size => 20  %>
+    	<%= help_text(object_name, :tax_code,
+    	  "A valid Tax ID is a %{tax_names}.".t % {
+    	    :tax_names => tax_names_for(@person)
+    	  }, :display => true, :escape => false
+    	) %>
+    	
+  	<% end %>
+  <% end %>
+<% else %>
+  <% wizard_form_fields_for object_name do |f| %>
+    <%= render :partial => 'edit_tax', :locals => {:f => f, :object_name => object_name, :edit => edit} %>
+  <% end %>
+<% end %>

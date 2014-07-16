@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+entrepreneur: 
+  id: 1
+  name: Entrepreneur
+  name_de: Unternehmer
+employee: 
+  id: 2
+  name: Employee
+  name_de: Angestellter
+civil_servant: 
+  id: 3
+  name: Civil Servant
+  name_de: Beamter
+freelancer: 
+  id: 4
+  name: Freelancer
+  name_de: Freiberufler

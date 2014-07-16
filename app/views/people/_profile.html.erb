@@ -1,0 +1,161 @@
+<% # people/profile
+  person ||= profile || @person
+  html_id ||= "profile_id"
+  display ||= true
+  html_message_id ||= dom_class(Person, :message)
+  message ||= form_flash_messages
+  can_edit ||= false
+%>
+
+<style type="text/css">
+
+  td dl.fieldRow dt {
+    color: #000;
+  }
+  
+</style>
+
+<% div_tag :id => html_id, :display => display do %>
+	<% content_container :theme => :info do %>
+		<%= div_tag message, :id => html_message_id %>
+		<% headline do %>
+		  <% if can_edit %>
+			  <%= "Edit Profile".t %>
+			<% else %>
+			  <% if current_user_friends_with?(@profile) %>
+		      <%= "Shared Profile".t %>
+		    <% else %>
+	        <%= "Public Profile".t %>
+		    <% end %>
+			<% end %>
+		<% end %>
+	
+		<%= render :partial => 'profile_overview', :locals => {:person => person, :can_edit => can_edit}%>
+	
+		<% primary_content :class => can_edit ? "edit" : nil, :last => true do %>
+
+      <%#--- basic information %>
+      <% profile_grouper "Bio".t do %>
+
+			  <%= property_editor_if(can_edit || !@profile.summary.blank?,
+					:profile, :summary, {:partial => 'people/text_area_summary',
+			    :editable => can_edit
+				}) %>
+
+      <% end %>
+      
+      <%#--- basic information %>
+      <% profile_grouper "Basic Information".t do %>
+
+  			<%= profile_property_if(can_edit || !@profile.have_expertise.blank?,
+  			  :profile, :have_expertise, "Have Expertise".t, {
+  		    :partial => 'people/text_area_tags', :editable => can_edit
+  			}) %>
+
+  			<%= profile_property_if(can_edit || !@profile.want_expertise.blank?,
+  			  :profile, :want_expertise, "Want Expertise".t, {
+  		    :partial => 'people/text_area_tags', :editable => can_edit
+  			}) %>
+
+  			<%= profile_property_if(can_edit || !@profile.spoken_languages.empty?,
+  			  :profile, :spoken_language_ids, "Spoken Languages".t, {
+  		    :partial => 'shared/form_select_spoken_languages', :editable => can_edit
+  			}) %>
+  			
+  			<%= profile_property_if(can_edit || !@profile.interest.blank?,
+  			  :profile, :interest, "Interests".t, {
+  		    :partial => 'people/text_area_tags', :editable => can_edit
+  			}) %>
+
+  			<%= profile_property_if(can_edit || !@profile.home_page_url.blank?,
+  			  :profile, :home_page_url, "Home Page".t, {
+  		    :partial => 'people/text_area_link', :editable => can_edit
+  			}) %>
+
+  			<%= profile_property_if(can_edit || !@profile.blog_url.blank?,
+  			  :profile, :blog_url, "Blog", {
+  		    :partial => 'people/text_area_link', :editable => can_edit
+  			}) %>
+
+  			<%= profile_property_if(can_edit || !@profile.twitter_name.blank?,
+  			  :profile, :twitter_name, "Twitter", {
+  		    :partial => 'shared/form_twitter_name', :editable => can_edit
+  			}) %>
+
+			<% end %>
+
+      <%#--- contact information %>
+      <% profile_grouper "Contact Information".t do %>
+
+  			<%= profile_property_if(can_edit || (!@profile.partner? && @profile.is_friends_with?(@person)),
+  			  :profile, :personal_address_attributes, {
+  			  :text => "Personal Contact".t, :lock => true
+  			}, {
+  		    :object => @profile.personal_address,
+  		    :partial => 'shared/address', :editable => can_edit, :edit => false
+  			}) %>
+
+  			<%= profile_property_if(@profile.partner? && (can_edit || @profile.is_friends_with?(@person)),
+  			  :profile, :business_address_attributes, {
+  			  :text => "Business Contact".t, :lock => true
+  			}, {
+  		    :object => @profile.business_address,
+  		    :partial => 'shared/address', :editable => can_edit, :edit => false
+  			}) %>
+
+			<% end %>
+
+      <%#--- education and work %>
+      <% profile_grouper_if @profile.partner?, "Work and Education".t do %>
+      
+  			<%= profile_property_if(can_edit || !@profile.academic_degree.blank? || !@profile.university.blank?,
+  			  :profile, :education, "Education".t, {
+  		    :partial => 'people/education', :editable => can_edit
+  			}) %>
+
+  			<%= profile_property_if(can_edit || !@profile.profession.blank? || !@profile.professional_title.blank? || !@profile.industry.blank?,
+  			  :profile, :work, "Work".t, {
+  		    :partial => 'people/work', :editable => can_edit
+  			}) %>
+
+			<% end %>
+		<% end %>
+		
+    <% if false %>		
+		
+  		<%#--- kases %>
+  		<% secondary_content(:open => false, :last => false, :style => "padding-bottom:0;") do %>
+      <% end %>
+    	<% slider_control(:last => false, :open => false,
+    	    :url => hash_for_kases_person_path(:id => @profile)) do %>
+    	  <%= slider_control_label "Cases".t %>
+    	<% end %>
+
+  		<%#--- responses %>
+  		<% secondary_content(:open => false, :last => false, :style => "padding-bottom:0;") do %>
+      <% end %>
+    	<% slider_control(:last => false, :open => false,
+    	    :url => hash_for_kases_person_path(:id => @profile)) do %>
+    	  <%= slider_control_label "Responses".t %>
+    	<% end %>
+
+  		<%#--- comments %>
+  		<% secondary_content(:open => false, :last => false, :style => "padding-bottom:0;") do %>
+      <% end %>
+    	<% slider_control(:last => false, :open => false,
+    	    :url => hash_for_kases_person_path(:id => @profile)) do %>
+    	  <%= slider_control_label "Comments".t %>
+    	<% end %>
+
+  		<%#--- votes %>
+  		<% secondary_content(:open => false, :last => true, :style => "padding-bottom:0;") do %>
+      <% end %>
+    	<% slider_control(:last => true, :open => false,
+    	    :url => hash_for_kases_person_path(:id => @profile)) do %>
+    	  <%= slider_control_label "Votes".t %>
+    	<% end %>
+
+    <% end %>
+    
+	<% end %>
+<% end %>

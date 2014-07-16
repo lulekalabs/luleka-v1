@@ -1,0 +1,92 @@
+<%= render :partial => 'admin/translations/google_translate' %>
+<style>
+  
+  h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  span.pluralization {
+    color: #aaaaaa;
+  }
+  span.namespace {
+    color: #bbbbbb;
+  }
+  
+</style>
+<h3>
+  <%= link_to "#{@translations_count} translations", admin_translation_view_translations_path(:code => @locale.code) %>
+  for <%= Utility.locale_in_words(@locale.code) %>:
+  <%= link_to "#{@translated_count} translated", 
+    admin_translation_view_translations_path(:code => @locale.code, :options => "translated") %>,&nbsp;
+  <%= link_to "#{@untranslated_count} untranslated", 
+    admin_translation_view_translations_path(:code => @locale.code, :options => "untranslated") %>&nbsp;
+  <%= "(#{percent(@translated_count, @translations_count)}% complete)" %>
+</h3>
+<table id="translationList" border="0" cellpadding="0" cellspacing="0" width="900">
+  <thead>
+    <tr>
+      <td width="20">&nbsp;</td>
+      <td width="440">
+        <strong>Translation Key</strong>
+        <div class="search">
+          <% form_tag admin_translation_view_translations_path, :method => :get do %>
+            <%= text_field_tag :q, params[:q], :size => 35 %>
+            <%= hidden_field_tag :code, params[:code] %>
+            <%= hidden_field_tag :options, params[:options] %>
+            <%= submit_tag "Search" %>&nbsp;
+            <%= link_to "Reset", admin_translation_view_translations_path(:code => params[:code], 
+              :options => params[:options]), :style => "color:#ddd;" %>
+          <% end %>
+        </div>
+      </td>
+      <td width="440"><strong><%= "#{Utility.locale_in_words(@locale.code)}" %></strong></td>
+    </tr>
+  </thead>
+  <% if @translations.empty? %>
+    <%= 'Nothing to translate' %>
+  <% end %>
+
+  <% @translations.each_with_index do |translation, index| %>
+  <tbody>
+    <tr id="<%= dom_id(translation) %>" style="border-bottom:1px dotted #ccc;">
+      <td width="20">
+        <%= index + ((@translations.current_page - 1) * @translations.per_page) + 1 %>
+      </td>
+      <td width="440" style="border-left:1px dotted #ccc;width:440px;word-wrap:break-word;">
+        <div class="raw_key">
+          <% if namespace = unescape_raw_key_namespace(translation.raw_key) %>
+          <span id="namespace"><%= "#{namespace}." %></span>
+          <% end %>
+          <span id="<%= dom_id(translation, :key) %>" onmouseover="new Effect.Highlight(this, {startcolor: '#ffff99',endcolor: '#ffffff'});">
+            <%= unescape_raw_key(translation.raw_key) %>
+          </span>
+          <% if translation.pluralization_index != 1 %>
+            <span class="pluralization">
+            <%= "[#{translation.pluralization_index.ordinalize} pluralization]" %>
+            <span>
+          <% end %>
+        </div>
+        <div class="key" title="Translation Key">
+          <%= translation.key %>
+        </div>
+        <%= button_to_function "Locate Source", remote_function(
+          :url => locate_admin_translation_view_translation_path(:id => translation, :key => translation.key),
+          :loading => "$('#{dom_id(translation, :button_locate)}').disabled = true",
+          :method => :get
+        ), {:id => dom_id(translation, :button_locate)} %>
+        <%= button_to_function "Retire", remote_function(
+          :url => admin_translation_view_translation_path(:id => translation, :key => translation.key, :retire => true),
+          :confirm => "Really destroy all translations for this key?",
+          :loading => "$('#{dom_id(translation, :button_retire)}').disabled = true;",
+          :method => :delete
+        ), {:id => dom_id(translation, :button_retire)} %>
+      </td>
+      <td width="440" style="border-left:1px dotted #ccc;">
+        <%= render :partial => 'admin/translations/edit', :object => translation, :locals => {:delete => true} %>
+      </td>
+    </tr>
+  </tbody>
+  <% end %>
+</table>
+<%= will_paginate @translations, :inner_window => 2, :outer_window => 2 %>

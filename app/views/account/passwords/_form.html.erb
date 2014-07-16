@@ -1,0 +1,9 @@
+<%= f.password_field :password, :label => {
+  :position => :left, :text => "Current Password".t, :req => true
+}, :size => 24, :maxlength => 45 %>
+<%= f.password_field :new_password, :label => { 
+  :position => :left, :text => "New Password".t, :req => true
+}, :size => 24, :maxlength => 45  %>
+<%= f.password_field :new_password_confirmation, :label => {
+  :position => :left, :text => "Confirm Password".t, :req => true
+}, :size => 24, :maxlength => 45  %>

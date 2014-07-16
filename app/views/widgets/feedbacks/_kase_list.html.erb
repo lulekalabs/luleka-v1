@@ -1,0 +1,35 @@
+<%
+  display ||= false
+  update ||= false
+  kind ||= false
+  kase_class = Kase.klass(kind)
+  id ||= kase_list_dom_class(kind)
+%>
+<% div_tag :id => id, :class => "caseListContainer", :display => display, :update => update do %>
+
+  <% div_tag :id => update ? existing_kases_list_dom_class(kind) : popular_kases_list_dom_class(kind) do %>
+    <h3 id="list-header-<%= kind %>" class="listHeader">
+      <%= update ? existing_kases_list_header_in_words(kind) : popular_kases_list_header_in_words(kind) %>
+    </h3>
+  
+    <% ul_tag :class => "caseList" do %>
+      <% kase_list.each do |kase| %>
+    	<li class="<%= cycle('oddrow', 'evenrow') %>">
+    	  <p class="caseVotes">
+    	      <em><%= kase.votes_count.loc %></em>
+    	      <span class="label"><%= votes_count_localized_word(kase) %><span>
+    	  </p>
+    	  <h3 class="caseDescription">
+      		<%= link_to h(kase.title.titleize), member_url([@tier, @topic, kase]), {:popup => true} %>&nbsp;
+      		<%= kase_status(kase) %>
+      		<p>
+      		  <%= kase_description_in_words(kase) %>
+      		</p>
+      	</h3>
+    	</li>
+    	<% end %>
+    <% end %>
+    <p class="more"><%= kase_list.blank? ? link_to_enter_kase : link_to_community %></p>
+  <% end %>
+  
+<% end %>

@@ -1,0 +1,25 @@
+<% # comments/show
+  comment ||= show
+%>
+<% div_tag flag_mouse_over_tag_options(comment).merge({:id => dom_id(comment), :class => 'commentContainer',
+    :display => display}) do %>
+  <% div_tag :class => 'commentColumnLeft' do %>
+    <%= link_to image_avatar_tag(comment.sender, :size => '20x20', :style => 'float:right;'),
+ 			person_path(comment.sender) %>
+  <% end %>
+  <% div_tag :class => 'commentColumnRight' do %>
+    <% div_tag :class => 'commentOverview', :clear => true do %>
+      <%= div_tag comment_title_in_words(comment, :pcard => true), :class => 'commentProfile' %>
+      <%= div_tag link_to_flag_for(comment), :class => 'commentSide' %>
+    <% end %>
+
+    <%#--- show or edit comment message %>
+	  <%= property_editor(:comment, :message, :partial => 'comments/message',
+	    :object => comment, :controller_name => 'comments',
+	    :editable => comment.editable? && (@can_edit || current_user_my?(comment)),
+	 		:message_id => dom_class(comment.commentable.class.base_class, :message)
+		)%>
+
+  <% end %>
+  <div class="clearClass"></div>
+<% end %>

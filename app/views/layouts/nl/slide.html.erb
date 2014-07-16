@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%= render :partial => "layouts/nl/head", :locals => {:with_custom_style => true} %>
+  <body class="<%= body_dom_class %>">
+    <%= render :partial => "layouts/nl/top" %>
+
+    <div id="wrapper" class="hfeed">
+    	<div id="main">
+        <div id="pane-outer">
+          <div id="pane-wrap">
+            <div id="pane-shell">
+              <div id="pane-base"></div>
+              <div id="pane">
+          
+                <div class="pane-toolbar">
+                  <a class="pane-close toolbar-control" href="javascript:void(0)">close <span>&times;</span></a>
+                  <br style="clear: both">
+                </div>
+                <div class="pane-components">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%= yield %>
+    	</div><!-- #main -->
+    </div><!-- #wrapper -->
+  </body>
+</html>

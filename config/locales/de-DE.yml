@@ -1,0 +1,18 @@
+# http://github.com/svenfuchs/rails-i18n/blob/master/rails/locale
+"de-DE":
+  service:
+    domain: "luleka.de"
+    url: "http://www.luleka.de"
+    paypal_url: "http://www.paypal.de"
+  
+  paper:
+    sizes:
+      standard: "A4"
+
+  address:
+    city:
+      format: "%z %c"
+
+  number:
+    currency:
+      code: "EUR"

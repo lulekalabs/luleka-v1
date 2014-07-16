@@ -1,0 +1,57 @@
+<%= javascript_tag "var index = 0" %>
+<% form_element do %>
+	<%= render :partial => 'asset_label', :locals => { :checked => !@issue.assets.empty?, :issue_id => @issue.id } %>
+<% end %>
+<% form_element do %>
+	<% div_tag :id => 'asset_edit', :style => 'display:none' do %>
+		<% form_fields_for :asset, object do |f| %>
+			<%= f.text_field :tag_list, :label => { :position => :top, :text => "Add tags for all files you are adding".t }, :help => { :text => "Assign meaningful tags to your files.<br/>Example: _parking_ _sign_ _'not readable'_".t }, :size => 25, :style => 'width: 95%' %>
+			<% form_element do %>
+				<%= form_label_tag 'asset_privacy', :text => "Choose the privacy settings".t, :position => :top %>
+				<% form_field_tag 'asset_privacy' do %>
+					<% radio_group do %>
+						<%= form_radio_element_tag(
+							'asset_privacy_private',
+							:label => "Private".t,
+							:button => radio_button(
+								:asset,
+								:privacy,
+								'private',
+								:onclick => update_page do |page|
+									page << "$('asset_private_to_respondents').disabled=''"
+									page << "$('asset_private_to_friends').disabled=''"
+									page << "$('asset_private_to_followers').disabled=''"
+								end
+							)
+						) %>
+						<% radio_group do %>
+							<%= form_radio_element_tag 'asset_privacy_private_to_respondent',
+					                              :label => "Visible to answering #{SERVICE_PARTNER_NAME}".t,
+							                      :button => check_box(:asset, :private_to_respondents, :disabled => @asset.privacy=="public" ) %>
+							<%= form_radio_element_tag 'asset_privacy_private_to_friends',
+					                              :label => "Visible to my #{SERVICE_FRIENDS_NAME}".t,
+							                      :button => check_box( :asset, :private_to_friends, :disabled => @asset.privacy=="public" ) %>
+							<%= form_radio_element_tag 'asset_privacy_private_to_followers',
+					                              :label => "Visible to case #{SERVICE_FOLLOWERS_NAME}".t,
+							                      :button => check_box( :asset, :private_to_followers, :disabled => @asset.privacy=="public" ) %>
+						<% end %>
+						<%= form_radio_element_tag(
+							'asset_privacy_public',
+							:label => "Public".t,
+							:button => radio_button(
+								:asset,
+								:privacy,
+								'public', 
+								:onclick => update_page do |page|
+									page << "$('asset_private_to_respondents').disabled='disabled'"
+									page << "$('asset_private_to_friends').disabled='disabled'"
+									page << "$('asset_private_to_followers').disabled='disabled'"
+								end
+							)
+						) %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

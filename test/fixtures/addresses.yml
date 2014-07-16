@@ -1,0 +1,360 @@
+homer_personal_address:
+  id: 1
+  addressable_id: 1
+  addressable_type: Person
+  type: PersonalAddress
+  gender: m
+  street: 1418 W Madison St
+  city: Springfield
+  postal_code: 65806
+  province: Missouri
+  province_code: MO
+  country: United States
+  country_code: US
+  company_name:
+  first_name: Homer
+  middle_name:
+  last_name: Simpson
+  lat: 37.195262
+  lng: -93.315897
+  note:
+  phone: '+1 (417) 123-2567'
+  mobile: '+1 (417) 123-3567'
+  fax: '+1 (417) 123-4567'
+homer_business_address:
+  id: 2
+  addressable_id: 1
+  addressable_type: Person
+  type: BusinessAddress
+  gender:
+  street: 2198 E Dale St
+  city: Springfield
+  postal_code: 65803
+  province: Missouri
+  province_code: MO
+  country: United States
+  country_code: US
+  lat: 37.234394
+  lng: -93.250966
+  phone: '+1 (417) 343-1864'
+  mobile: '+1 (417) 432-6543'
+  fax: '+1 (417) 343-1865'
+homer_billing_address:
+  id: 3
+  addressable_id: 1
+  addressable_type: Person
+  type: BillingAddress
+  gender: m
+  street: 2198 E Dale St
+  city: Springfield
+  postal_code: 65803
+  province: Missouri
+  province_code: MO
+  country: United States
+  country_code: US
+  company_name:
+  first_name: Homer
+  middle_name:
+  last_name: Simpson
+  lat: 37.234394
+  lng: -93.250966
+  phone: '+1 (417) 343-1864'
+  mobile: '+1 (417) 432-6543'
+  fax: '+1 (417) 343-1865'
+barney_personal_address:
+  id: 4
+  addressable_id: 2
+  addressable_type: Person
+  type: PersonalAddress
+  gender: f
+  street: 1418 W Madison St
+  city: Springfield
+  postal_code: 65806
+  province: Missouri
+  province_code: MO
+  country: United States
+  country_code: US
+  lat: 37.195262
+  lng: -93.315897
+  phone: '+1 (417) 123-2567'
+  mobile: '+1 (417) 123-3535'
+  fax: '+1 (417) 123-3453'
+bart_personal_address:
+  id: 5
+  addressable_id: 3
+  addressable_type: Person
+  type: PersonalAddress
+  gender: m
+  street: 1418 W Madison St
+  city: Springfield
+  postal_code: 65806
+  province: Missouri
+  province_code: MO
+  country: United States
+  country_code: US
+  lat: 37.195262
+  lng: -93.315897
+  phone: '+1 (417) 123-2567'
+  mobile: '+1 (417) 123-3539'
+  fax: '+1 (417) 123-3453'
+marge_personal_address:
+  id: 6
+  addressable_id: 4
+  addressable_type: Person
+  type: PersonalAddress
+  gender: f
+  street: 1418 W Madison St
+  city: Springfield
+  postal_code: 65806
+  province: Missouri
+  province_code: MO
+  country: United States
+  country_code: US
+  lat: 37.195262
+  lng: -93.315897
+  phone: '+1 (417) 123-2567'
+  mobile: '+1 (417) 123-3139'
+  fax: '+1 (417) 123-3433'
+marge_business_address:
+  id: 7
+  addressable_id: 4
+  addressable_type: Person
+  type: BusinessAddress
+  gender:
+  street: 2707 N Barnes Ave
+  city: Springfield
+  postal_code: 65803
+  province: Missouri
+  province_code: MO
+  country: United States
+  country_code: US
+  lat: 37.244661
+  lng: -93.253198
+  phone: '+1 (417) 574-3423'
+  mobile: '+1 (417) 483-2342'
+  fax: '+1 (417) 238-2342'
+marge_billing_address:
+  id: 8
+  addressable_id: 4
+  addressable_type: Person
+  type: BillingAddress
+  gender: f
+  street: 2707 N Barnes Ave
+  city: Springfield
+  postal_code: 65803
+  province: Missouri
+  province_code: MO
+  country: United States
+  country_code: US
+  company_name:
+  first_name: Marge
+  middle_name:
+  last_name: Simpson
+  note:
+  lat: 37.244661
+  lng: -93.253198
+  phone: '+1 (417) 574-3423'
+  mobile: '+1 (417) 483-2342'
+  fax: '+1 (417) 238-2342'
+lisa_personal_address:
+  id: 9
+  addressable_id: 5
+  addressable_type: Person
+  type: PersonalAddress
+  gender: f
+  street: 1418 W Madison St
+  city: Springfield
+  postal_code: 65806
+  province: Missouri
+  province_code: MO
+  country: United States
+  country_code: US
+  lat: 37.195262
+  lng: -93.315897
+  phone: '+1 (417) 123-2567'
+  mobile:
+  fax:
+quentin_personal_address:
+  id: 10
+  addressable_id: 6
+  addressable_type: Person
+  type: PersonalAddress
+  gender: m
+  street: 898 S 31st St
+  city: Billings
+  postal_code: 59101
+  province: Montana
+  province_code: MT
+  country: United States
+  country_code: US
+  lat: 45.767433
+  lng: -108.492994
+  phone: '+1 (406) 478-8423'
+  mobile: '+1 (406) 874-3453'
+  fax: '+1 (406) 985-8432'
+aaron_personal_address:
+  id: 11
+  addressable_id: 7
+  addressable_type: Person
+  type: PersonalAddress
+  gender: m
+  street: 498 Custer Ave
+  city: Billings
+  postal_code: 59101
+  province: Montana
+  province_code: MT
+  country: United States
+  country_code: US
+  lat: 45.771115
+  lng: -108.482995
+  phone: '+1 (406) 478-8123'
+  mobile: '+1 (406) 874-3753'
+  fax: '+1 (406) 985-8439'
+
+luleka_address:
+  id: 21
+  addressable_id: 3
+  addressable_type: Tier
+  type: Address
+  gender: 
+  street: 100 Rousseau St
+  city: San Francisco
+  postal_code: 94112
+  province: California
+  province_code: CA
+  country: United States
+  country_code: US
+  company_name: Luleka
+  lat: 37.733117
+  lng: -122.430375
+  phone: '+1 (415) 111-2222'
+  mobile: '+1 (415) 111-3333'
+  fax: '+1 (415) 111-4444'
+luleka_de_address:
+  id: 22
+  addressable_id: 4
+  addressable_type: Tier
+  type: Address
+  gender: 
+  street: Annette-Kolb-Anger 4
+  city: München
+  postal_code: 80797
+  province: Bayern
+  province_code: BY
+  country: Germany
+  country_code: DE
+  company_name: Luleka GmbH
+  lat: 48.8453
+  lng: 11.451608
+  phone: '+49 (89) 111-2222'
+  mobile: '+49 (89) 111-3333'
+  fax: '+49 (89) 111-4444'
+luleka_us_address:
+  id: 23
+  addressable_id: 5
+  addressable_type: Tier
+  type: Address
+  gender: 
+  street: 100 Rousseau St
+  city: San Francisco
+  postal_code: 94112
+  province: California
+  province_code: CA
+  country: United States
+  country_code: US
+  company_name: Luleka Inc.
+  lat: 37.733117
+  lng: -122.430375
+  phone: '+1 (415) 111-2222'
+  mobile: '+1 (415) 111-3333'
+  fax: '+1 (415) 111-4444'
+powerplant_address:
+  id: 24
+  addressable_id: 1
+  addressable_type: Tier
+  type: Address
+  gender:
+  street: 2198 E Dale St
+  city: Springfield
+  postal_code: 65803
+  province: Missouri
+  province_code: MO
+  country: United States
+  country_code: US
+  lat: 37.234394
+  lng: -93.250966
+  phone: '+1 (417) 343-1864'
+  mobile: '+1 (417) 432-6543'
+  fax: '+1 (417) 343-1865'
+powerplant_leak_location:
+  id: 25
+  addressable_id:
+  addressable_type:
+  type: Location
+  gender:
+  street: 2198 E Dale St
+  city: Springfield
+  postal_code: 65803
+  province: Missouri
+  province_code: MO
+  country: United States
+  country_code: US
+  lat: 37.234394
+  lng: -93.250966
+  phone:
+  mobile:
+  fax: 
+persil_de_address:
+  id: 26
+  addressable_id: 6
+  addressable_type: Tier
+  type: Address
+  gender:
+  street: 100 Persil Weg
+  city: Düsseldorf
+  postal_code: 40191
+  province: NRW
+  province_code: NW
+  country: Germany
+  country_code: DE
+  lat: 47.234394
+  lng: -83.250966
+  phone: '+49 (800) 1112290'
+  mobile: '+49 (800) 1112291'
+  fax: '+49 (800) 1112292'
+persil_uk_address:
+  id: 27
+  addressable_id: 7
+  addressable_type: Tier
+  type: Address
+  gender:
+  street: Springfield Drive
+  city: Leatherhead
+  postal_code: KT22 7GR
+  province: Surrey
+  province_code: SU
+  country: United Kingdom
+  country_code: UK
+  lat: 44.234394
+  lng: -82.250966
+  phone: '+44 800 776644'
+  mobile: '+44 800 776645'
+  fax: '+44 800 776646'
+persil_us_address:
+  id: 28
+  addressable_id: 8
+  addressable_type: Tier
+  type: Address
+  gender:
+  street: Persil Drive
+  city: Livingstone
+  postal_code: 45674
+  province: Virginia
+  province_code: VA
+  country: United States
+  country_code: US
+  lat: 2.234394
+  lng: -22.250966
+  phone: '+1 800 776644'
+  mobile: '+1 800 776645'
+  fax: '+1 800 776646'

@@ -1,0 +1,31 @@
+<div class="faq">
+  <p class="question">
+    <%= "What is a Personal Address?".t %>
+  </p>
+  <p class="answer">
+    <%= ["Your Personal Address is your private contact address.".t,
+      "It represents your country of residence.".t, 
+        "It will not be shared with others, unless you decide to.".t].to_sentences %>
+  </p>
+  <p class="question">
+    <%= "What is a Business Address?".t %>
+  </p>
+  <p class="answer">
+    <%= "The Business Address is the way clients get in touch with #{SERVICE_NAME} #{SERVICE_PARTNERS_NAME}.".t %>
+  </p>
+  <p class="question">
+    <%= "What is a Billing Address?".t %>
+  </p>
+  <p class="answer">
+    <%= ["Your Billing Address is used for all purchases.".t, "For #{SERVICE_NAME} #{SERVICE_PARTNERS_NAME} the Billing Address appears on all %{sales_order} and %{sales_invoice}.".t].to_sentences % {
+      :sales_order => SalesOrder.human_name,
+      :sales_invoice => SalesInvoice.human_name
+    } %>
+  </p>
+  <p class="question">
+    <%= "Why can I not edit the country field of my Billing Address?".t %>
+  </p>
+  <p class="answer">
+    <%= "You first have to change country of your Personal Address before you can change your Billing Address.".t %>
+  </p>
+</div>

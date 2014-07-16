@@ -1,0 +1,43 @@
+<% form_element do %>
+	<%= form_label_tag(
+		'general',
+		:position => :top,
+		:text => "General".t
+	) %>
+	<% radio_group do %>
+		<%= f.check_box :notify_on_newsletter,
+		  :label => {:text => "Would you like to receive the #{SERVICE_NAME} newsletters?".t} -%>
+		<%= f.check_box :notify_on_promotion,
+		  :label => { :text => "Are you interested in hearing about #{SERVICE_NAME} related promotions?".t} -%>
+		<%= f.check_box :notify_on_follower, 
+		  :label => {:text => "Notify me when someone follows me or a case of mine?".t} %>
+		<%= f.check_box :notify_on_following,
+		  :label => {:text => "Notify me on updates when I am following a profile or case? ".t} %>
+		<%= f.check_box :notify_on_comment_posted,
+		  :label => {:text => "Notify me of comments I am making?".t} %>
+		<%= f.check_box :notify_on_comment_received,
+		  :label => {:text => "Notify me of comments on content I have posted?".t} %>
+	<% end %>
+	<br/>
+	<%= form_label_tag(
+		'issue_related',
+		:position => :top,
+		:text => "Case Related".t
+	) %>
+	<% radio_group do %>
+		<% if @person.partner? %>
+			<%= f.check_box :notify_on_kase_matching,
+			  :label => {:text => "Notify me when cases matching my profile become available?".t} %>
+		<% end %>
+		<%= f.check_box :notify_on_clarification_request,
+		  :label => {:text => "Notify me when someone requests a clarification?".t} %>
+		<%= f.check_box :notify_on_clarification_response,
+		  :label => {:text => "Notify me when someone responds to my clarification request?".t} %>
+		<%= f.check_box :notify_on_kase_status,
+		  :label => {:text => "Notify me on changes to my case?".t} %>
+		<%= f.check_box :notify_on_response_posted,
+		  :label => {:text => "Notify me on answers I am posting?".t} %>
+		<%= f.check_box :notify_on_response_received,
+		  :label => {:text => "Notify me on answers of cases I have posted?".t} %>
+	<% end %>
+<% end %>

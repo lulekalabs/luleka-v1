@@ -1,0 +1,7 @@
+La recompensa de <%= @reward.price.format %> se agregó a la siguiente <%= @reward.kase.class.human_name %>.
+
+Para ver más detalles, por favor haga clic en el siguiente enlace o copiar todo el enlace en su navegador:
+
+<%= kase_url(@reward.kase) %>
+
+<%= render :partial => 'notifier/signature' %>

@@ -1,0 +1,7 @@
+<%= render :partial => 'account/form', :locals => {
+	:url => account_close_path,
+	:title => "Close Account".t, 
+	:description => "This will close your #{SERVICE_NAME} account. All of your personal information and all the content you have posted will be removed.".t,
+	:submit_text => "Close Account".t,
+	:faq => true
+} %>

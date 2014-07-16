@@ -1,0 +1,31 @@
+<div class="page-header home-header">
+  <% if is_front_page %>
+    <h1 class="site-name"><%= @page_title %></h1>
+  <% else %>
+    <h2 class="site-name"><%= @page_title %></h2>
+  <% end %>
+  
+  <div id="" class="menu">
+    <ul>
+      <li><a href="#">Timeline</a></li>
+      <li><a href="#">Favourites</a></li>
+      <li><a href="#">Lists</a></li>
+      <li>
+        <a href="#">Lists following @chinshr</a>
+        <ul class="children">
+          <li><a href="#">ruby</a></li>
+          <li><a href="#">VC</a></li>
+          <li>
+            <a href="#">Argentina<i></i></a>
+            <ul class="children">
+              <li><a href="#">Mendozza</a></li>
+              <li><a href="#">Buenos Aires</a></li>
+              <li><a href="#">Arieca de Acapulca de Palermo</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>  
+  
+</div>

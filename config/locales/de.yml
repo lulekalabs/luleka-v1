@@ -1,0 +1,234 @@
+# German translations for Ruby on Rails 
+# by Clemens Kofler (clemens@railway.at)
+# http://github.com/svenfuchs/rails-i18n/blob/master/rails/locale/de.yml 
+de:
+  service:
+    tagline: "Verlässliche Empfehlungen"
+    language_question: "Möchten Sie diese Seite lieber auf %{language} sehen?"
+    locale_question: "Länderwahl %{country} und Seite auf %{language} sehen?"
+    "Yes": "Ja"
+    "No": "Nein"
+
+  salutation:
+    "Mr": "Herr"
+    "Ms": "Frau"
+  
+  gender:
+    "male": "männlich"
+    "female": "weiblich"
+  
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%e. %b"
+      long: "%e. %B %Y"
+      only_day: "%e"
+      full: "%A, %d. %B %Y"
+      numeric: "%d.%m.%y"
+ 
+    day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
+    abbr_day_names: [So, Mo, Di, Mi, Do, Fr, Sa]
+    month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
+    abbr_month_names: [~, Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
+    order: [ :day, :month, :year ]
+  
+  time:
+    formats:
+      default: "%A, %d. %B %Y, %H:%M Uhr"
+      short: "%d. %B, %H:%M Uhr"
+      long: "%A, %d. %B %Y, %H:%M Uhr"
+      time: "%H:%M"
+ 
+    am: "vormittags"
+    pm: "nachmittags"
+      
+  datetime:
+    distance_in_words:
+      half_a_minute: 'eine halbe Minute'
+      less_than_x_seconds:
+        zero: 'weniger als 1 Sekunde'
+        one: 'weniger als 1 Sekunde'
+        other: 'weniger als {{count}} Sekunden'
+      x_seconds:
+        one: '1 Sekunde'
+        other: '{{count}} Sekunden'
+      less_than_x_minutes:
+        zero: 'weniger als 1 Minute'
+        one: 'weniger als eine Minute'
+        other: 'weniger als {{count}} Minuten'
+      x_minutes:
+        one: '1 Minute'
+        other: '{{count}} Minuten'
+      about_x_hours:
+        one: 'etwa 1 Stunde'
+        other: 'etwa {{count}} Stunden'
+      x_days:
+        one: '1 Tag'
+        other: '{{count}} Tage'
+      about_x_months:
+        one: 'etwa 1 Monat'
+        other: 'etwa {{count}} Monate'
+      x_months:
+        one: '1 Monat'
+        other: '{{count}} Monate'
+      about_x_years:
+        one: 'etwa 1 Jahr'
+        other: 'etwa {{count}} Jahre'
+      over_x_years:
+        one: 'mehr als 1 Jahr'
+        other: 'mehr als {{count}} Jahre'
+    prompts:
+      second: "Sekunden"
+      minute: "Minuten"
+      hour: "Stunden"
+      day: "Tag"
+      month: "Monat"
+      year: "Jahr"
+ 
+  number:
+    format:
+      precision: 2
+      separator: ','
+      delimiter: '.'
+    currency:
+      format:
+        unit: '€'
+        format: '%n%u'
+        separator: 
+        delimiter: 
+        precision: 
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+      storage_units:
+        # Storage units output formatting.
+        # %u is the storage unit, %n is the number (default: 2 MB)
+        format: "%n %u"
+        units:
+          byte:
+            one:   "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+ 
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " und "
+      last_word_connector: " und "
+      two_words_connector_with_or: " oder "
+      last_word_connector_with_or: " oder "
+ 
+  activerecord:
+    errors:
+      template:
+        header:
+          one:    "Konnte dieses {{model}} Objekt nicht speichern: 1 Fehler."
+          other:  "Konnte dieses {{model}} Objekt nicht speichern: {{count}} Fehler."
+        body: "Bitte überprüfen Sie die folgenden Felder:"
+ 
+      messages:
+        inclusion: "ist kein gültiger Wert"
+        exclusion: "ist nicht verfügbar"
+        invalid: "ist nicht gültig"
+        confirmation: "stimmt nicht mit der Bestätigung überein"
+        accepted: "muss akzeptiert werden"
+        empty: "muss ausgefüllt werden"
+        blank: "muss ausgefüllt werden"
+        too_long: "ist zu lang (nicht mehr als {{count}} Zeichen)"
+        too_short: "ist zu kurz (nicht weniger als {{count}} Zeichen)"
+        wrong_length: "hat die falsche Länge (muss genau {{count}} Zeichen haben)"
+        taken: "ist bereits vergeben"
+        not_a_number: "ist keine Zahl"
+        greater_than: "muss größer als {{count}} sein"
+        greater_than_or_equal_to: "muss größer oder gleich {{count}} sein"
+        equal_to: "muss genau {{count}} sein"
+        less_than: "muss kleiner als {{count}} sein"
+        less_than_or_equal_to: "muss kleiner oder gleich {{count}} sein"
+        odd: "muss ungerade sein"
+        even: "muss gerade sein"
+        record_invalid: "Gültigkeitsprüfung ist fehlgeschlagen: {{errors}}"
+        # custom
+        price_range: "muss zwischen {{min}} und {{max}} sein"
+        price_too_high: "kann nicht größer als {{max}} sein" 
+        days_range: "muss zwischen {{min}} und {{max}} Tage von heute sein"
+        image_types: "{{extensions}} Dateien erlaubt"
+        image_size: "übersteigt Bildgröße von {{size}}"
+        address_invalid: "ist nicht gültig"
+        change_once: "kann nur einmal ausgefüllt werden"
+
+        email_format: "Format ist ungültig"
+        tax_format: "Format ist ungültig. Beispiel: {{example}}"
+        claim_exclusion: "wurde bereits in Kenntnis gesetzt"
+        match_activation: "Aktivierungs E-Mail ({{sender_email}}) stimmt nicht mit registrierter E-Mail Adresse überein ({{registration_email}})"
+        greater_than_zero: "muss positiv sein"
+        greater_than_balance_of: "{{count}} übersteigt den derzeitigen Kontostand von {{balance}}"
+        invitation_message: "{{invitee}},<br/><br/>ich würde Sie/Dich gerne in mein Netzwerk auf Luleka einladen.<br/><br/>-{{invitor}}"
+        invitation_self_exclusion: "Kann nicht selbst eingeladen werden"
+        invitation_exclusion: "Bereits ein bestehender Kontakt"
+        invitation_taken: "wurde bereits eingeladen"
+        invitation_vouchers_used: "Keine Gutscheine mehr verfügbar"
+        invitation_partner_exclusion: "kann nicht für bereits bestehende Partner eingelöst werden"
+        invitation_partner_only: "kann nur von Partnern verschickt werden"
+        insufficient_funds: "erscheint als zu gering"
+        transfer_greater_or_equal_to: "kleinster Überweisungsbetrag ist {{count}}"
+        transfer_less_or_equal_to: "grösster Überweisungsbetrag ist {{count}}"
+        transfer_destination_invalid: "Zielkonto nicht gültig"
+        transfer_self_exclusion: "Kann nicht auf gleiches Konto überwiesen werden"
+        expired: "ist bereits abgelaufen"
+        redeemed: "wurde bereits eingelöst"
+        invalid_credit_card: "Kreditkartentyp nicht gültig"
+        reward_sender: "hat bereits eine Belohnung hinzugefügt"
+        self_invalid: "ist nicht erlaubt bei eigenen Einträgen"
+        reward_kase_state: "kann keine neue Belohnung hinzugefügt werden"
+
+      models:
+        user: 
+          attributes:
+            currency: 
+              cannot_change: "kann nicht geändert werden"
+        reputation/threshold:
+          attributes:
+            base:
+              invalid: "{{action}} benötigt {{required}} {{points}}, im momentan sind {{current}} vorhanden. Für mehr Informationen besuchen Sie bitte unsere {{faq}}."
+      
+    attributes:
+      reputation:
+        points: "Rufpunkte"
+      user:
+        login: "Benutzername"
+        password: "Passwort"
+        password_confirmation: "Passwort Bestätigung"
+        email: "E-Mail"
+        email_confirmation: "E-Mail Bestätigung"
+        fb_user_id: "Facebook Benutzer"
+      reward:
+        price: "Gebot"
+        sender: "Absender"
+      reward_rate:
+        action_accept_response: "Als Lösung akzeptieren"
+        action_vote_down: "negative Stimme abgeben"
+        action_vote_up: "positive Stimme abgeben"
+        action_edit_post: "Eintrag editieren"
+        action_flag_offensive: "Missbrauch melden"
+        action_leave_comment: "Kommentare hinzufügen"
+        action_moderate: "Moderieren"
+        action_newtag_kase: "Neue Stichwörter erstellen"
+        action_offer_reward: "Belohnung anbieten"
+        action_retag_kase: "Stichwörter des Anliegens abändern"
+        beneficiary_receiver: "Empfänger"
+        beneficiary_sender: "Absender"
+      bonus_reward:
+        action_accept_response: "wurde als Lösung akzeptiert"
+        action_vote_down: "wurde als negativ gestimmt"
+        action_vote_up: "wurde als positiv gestimmt "
+        

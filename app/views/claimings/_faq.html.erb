@@ -1,0 +1,23 @@
+<div class="faq">
+  <p class="question">
+    <%= "What does claiming an organization mean?".t %>
+  </p>
+  <p class="answer">
+    <%= "Inside a community (e.g. a company), employees can volunteer and gain moderation rights (e.g. as official reps) by claiming their organization.".t %>
+  </p>
+  <p class="question">
+    <%= "When will my employee status be activated?".t %>
+  </p>
+  <p class="answer">
+    <%= "If you provide us with your corporate email account, your employee status will be verified immediately. Otherwise, your employee status will be activated after our internal verification process, which may take up to three business days.".t %>
+  </p>
+  <p class="question">
+    <%= "How do I contact #{SERVICE_NAME} customer service?".t %>
+  </p>
+  <p class="answer">
+    <%= "For customer support, you can %{post}, or email us at %{email}.".t % {
+      :post => link_to("post a new concern".t, new_luleka_kase_path),
+      :email => mail_to(Notifier.unprettify(Notifier.support_email))
+    }%>
+  </p>
+</div>

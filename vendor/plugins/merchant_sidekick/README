@@ -1,0 +1,86 @@
+merchant_sidekick
+=================
+
+Created by Juergen Fesslmeier
+
+merchant_sidekick is an ActiveRecord extension that eases the development of applications 
+that process credit card transactions.
+
+The code is heavily influences by acts_as_billable
+
+* support credit card payment with active merchant
+* supports taxes
+* supports address management using acts_as_addressable
+
+== Requirements
+
+* Acts As Addressable
+    script/plugin install url_follows
+* Active Merchant
+    script/plugin install url_follows
+* Money gem
+    gem install money
+* acts_as_money
+    script/plugin install http://source.collectiveidea.com/public/rails/plugins/acts_as_money
+
+== Installation
+
+  script/plugin install url_follows
+
+== Configuration
+
+To create these tables, run the billable_migration generator:
+
+  script/generate 
+  
+And run:
+
+  rake db:migrate
+
+=== Declare your models
+
+  class User < ActiveRecord::Base
+    acts_as_buyer
+  end
+  
+=== Declare your sellable models
+
+  class Product < ActiveRecord::Base
+    acts_as_sellable
+  end
+
+== Usage
+
+  @order = @user.purchase Product.find(1)
+  @order.pay ActiveMerchant::Billing::CreditCard.new :credit_card => {
+		:type => 'visa',
+        :number => '1234567812345678', 
+		:month => '10', 
+		:year => '2007', 
+		:verification_value => '678',
+        :first_name => 'First', 
+		:last_name => 'Last'
+	}
+
+=== Controllers
+
+  def create
+    @credit_card = ActiveMerchant::Billing::CreditCard.new(params[:credit_card])
+    if @credit_card.valid?
+      @order = current_user.purchase(@cart.items)
+      @payment = @order.pay(@credit_card)
+    end
+  rescue Payment::AuthorizationError => error
+    @order.destroy
+    flash[:notice] = error.message
+    render :action => 'new'
+  end
+
+
+
+== Running the specs
+
+Tests are written using RSpec. Try running "rake spec:plugins". It would be appreciated if all patches have specs to go with them.
+
+== To Do
+

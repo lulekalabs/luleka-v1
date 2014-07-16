@@ -1,0 +1,31 @@
+<% # setup
+  title ||= @title || "Pending Invitation Requests".t
+  message ||= form_flash_messages
+%>
+<% content_left do %>
+  <% div_tag :id => dom_class(Invitation, :content) do %>
+    <% content_container :type => :profile do %>
+      <% div_tag :id => dom_class(Invitation, :message) do %>
+        <%= message -%>
+      <% end %>
+      <% headline do %>
+        <%= title %>
+      <% end %>
+      <% primary_content :last => true, :style => 'padding-bottom:0px;' do %>
+        <%= render(
+          :partial => 'shared/items_list_content',
+          :locals => {
+            :items => @invitations,
+            :theme => :profile,
+            :options => {
+              :partial => 'invitations/list_item_content',
+              :url => hash_for_invitations_path
+            }
+          }
+        ) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+<% content_right do %>
+<% end %>

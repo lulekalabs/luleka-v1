@@ -1,0 +1,19 @@
+<%= wizard_chevron :edit %>
+<% content_left do %>
+	<% wizard_form_for :person, @person, :url => user_partner_path, :html => {:method => :put} do |f| %>
+    <%= render :partial => 'edit_profile', :locals => {:f => f} %>
+    <%= render :partial => 'edit_tax', :locals => {:f => f} %>
+    <%= render :partial => 'edit_contact', :object => @user.person.business_address %>
+		<% form_button_container do %>
+		  <%= probono_button :label => "Back".t, :position => :left, :type => :passive, :url => new_user_partner_path %>
+			<%= form_submit_button "Continue".t, :position => :right %>
+		  <%#= form_submit_button "Save".t, :position => :right, :type => :passive, :property => "save" %>
+		<% end %>
+	<% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'cart' %>
+  <br/>
+  <br/>
+  <%= render :partial => 'edit_faq' %>
+<% end %>

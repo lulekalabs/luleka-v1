@@ -1,0 +1,31 @@
+<%
+  f ||= nil
+  address ||= f ? f.object : (address_province || @address || Address.new)
+  object_name ||= nil
+  method_name ||= nil
+	edit ||= true
+	req ||= false
+	lock ||= false
+	auto ||= false
+	provinces ||= nil
+	disabled ||= false
+	html_id ||= dom_class(Address, "#{address.kind}_province")
+%>
+<% if f %>
+	<% unless provinces %>
+		<%= f.text_field :province, :label => {
+		  :position => :top, :edit => edit, :text => "State or Region".t, :req => req, :lock => lock
+		}, :style => "width: 100%", :id => html_id %>
+	<% else %>
+		<%= f.select(:province_code, 
+		  provinces.empty? ? provinces.insert(0, ["Pick country first...".t, '']) : provinces.insert(0, ["Select...".t, '']), {
+		    :edit => edit, :label => {:position => :top, :text => "State or Region".t, :req => req, :lock => lock, :auto => auto}
+		  }, {:style => 'width: 100%', :id => html_id, :disabled => disabled}) %>
+	<% end %>
+<% else %>
+  <% fields_for "#{object_name}[#{method_name}]", address do |f| %>
+    <%= render :partial => 'shared/address_province', :object => address,
+      :locals => {:f => f, :edit => edit, :req => req, :lock => lock, :auto => auto, :provinces => provinces, 
+        :object_name => object_name, :method_name => method_name, :html_id => html_id, :disabled => disabled}%>
+  <% end %>
+<% end %>

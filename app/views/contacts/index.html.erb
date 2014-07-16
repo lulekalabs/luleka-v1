@@ -1,0 +1,11 @@
+<% # setup
+  title ||= @title || "My Contacts".t
+  message ||= form_flash_messages
+%>
+<% content_left do %>
+  <%= render :partial => 'people/list', 
+    :locals => {:title => title, :url => hash_for_contacts_path} %>
+<% end %>
+<% content_right do %>
+	<%= render :partial => 'shared/sidebar_tag_cloud', :locals => {:route => [Person]} %>
+<% end %>

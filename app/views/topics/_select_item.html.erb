@@ -1,0 +1,16 @@
+<% # topics/select_item
+  topic ||= select_item
+  id ||= "#{object_name}_#{method_name}_#{topic.id}"
+  selected ||= nil
+%>
+<% div_tag :class => "topicSelectItem", :id => dom_id(topic, :item) do %>
+  <%= check_box_tag("#{object_name}[#{method_name}][]",
+    topic.id, [selected].flatten.reject(&:blank?).include?(topic.id),
+      {:id => id}) %>
+  <label for="<%= id %>">
+    <span class="image"><%= topic_image_tag(topic, :title => h(topic.name)) %></span>
+    <em title="<%= h(topic.name) %>" alt="<%= h(topic.name) %>">
+      <%= truncate(h(topic.name), :length => 14) %>
+    </em>
+  </label>
+<% end %>

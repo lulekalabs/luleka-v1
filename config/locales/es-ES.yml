@@ -1,0 +1,16 @@
+# http://github.com/svenfuchs/rails-i18n/tree/master/rails/locale
+"es-ES":
+  service:
+    paypal_url: "http://www.paypal.es"
+
+  paper:
+    sizes:
+      standard: "A4"
+
+  address:
+    city:
+      format: "%z %c"
+
+  number:
+    currency:
+      code: "EUR"

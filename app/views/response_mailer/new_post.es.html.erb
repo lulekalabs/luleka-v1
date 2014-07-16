@@ -1,0 +1,13 @@
+<%= "Hay un nuevo problema para la respuesta %{type} sobre \"%{title}\"" % {
+  :type => @response.kase.class.human_name,
+  :title => h(@response.kase.title)
+} %>
+---
+<%= "#{h(@response.description)}" %>
+---
+
+Para ver más detalles sobre el caso, por favor haga clic en el siguiente enlace o copiar todo el enlace en tu navegador:
+
+<%= kase_url(@response.kase) %>
+
+<%= render :partial => 'notifier/signature' %>

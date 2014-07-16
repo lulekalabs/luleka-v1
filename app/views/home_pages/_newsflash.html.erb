@@ -1,0 +1,76 @@
+<div id="newsflash" class="clearClass">
+  <div id="newsflashCarousel">
+    <div class="previous_button"><label>&lsaquo;</label></div>
+	  <div class="container">
+      <ul class="carouselList">
+
+        <li class="carouselItem">
+          <div class="news">
+            <div class="newsGutter">
+              <a href="http://estatico.buenosaires.gov.ar/areas/produccion/subs_produccion/emprende09/catalogo2009/luleka.pdf" target="_blank">
+                <img src="/images/logos/organizations/bae_small_white.png" width="120" height="53" alt="Buenos Aires Emprende"/>
+              </a>  
+            </div>
+            <div class="newsContent">
+              <%= "Luleka is a winner in the %{name} contest.".t % {:name => content_tag(:b, "Buenos Aires Emprende")} %>
+            </div>
+            <p class="newsLink">
+              <%= more_link_to("Read more".t, 
+                "http://estatico.buenosaires.gov.ar/areas/produccion/subs_produccion/emprende09/catalogo2009/luleka.pdf",
+                  :popup => true) %>
+            </p>
+          </div>
+        </li>
+
+        <li class="carouselItem">
+          <div class="news">
+            <div class="newsGutter">
+              <a href="http://www.endeavor.org.ar/" target="_blank">
+                <img src="/images/logos/organizations/endeavor_medium.png" width="120" height="66" alt="Endeavor"/>
+              </a>
+            </div>
+            <div class="newsContent">
+              <%= "Luleka is backed by an early stage investment from %{bae} through the help of the fine folks at %{endeavor}.".t % {:bae => link_to(content_tag(:b, "Buenos Aires Emprende"), 'http://www.buenosaires.gov.ar/areas/produccion/subs_produccion/emprende09/index.php', :popup => true), :endeavor => link_to(content_tag(:b, "Endeavor"), 'http://www.endeavor.org.ar/', :popup => true)} %>
+            </div>
+            <p class="newsLink">
+              <%= more_link_to("Read more".t, 
+                "http://www.endeavor.org.ar/",
+                  :popup => true) %>
+            </p>
+          </div>
+        </li>
+
+        <li class="carouselItem">
+          <div class="quote">
+            <div class="quoteGutter">
+              <a href="<%= about_path %>" target="_blank">
+                <img src="/images/logos/organizations/luleka.jpg" width="100" height= "100" alt="Luleka Logo"/>
+              </a>
+            </div>
+            <div class="quoteContent">
+              <blockquote>
+                <span><%= '“' %></span><%= "Luleka is dedicated to get those nagging every day issues resolved quickly!".t %><span><%= '”' %></span>
+              </blockquote>
+            </div>
+            <p class="quoteSignature">
+              &mdash;&nbsp;The Luleka Team
+            </p>
+          </div>
+        </li>
+        
+	    </ul>
+	  </div>
+    <div class="next_button"><label>&rsaquo;</label></div>
+	</div>
+  
+</div>
+<script type="text/javascript">
+//<![CDATA[
+  var nfCarousel = new UI.Carousel("newsflashCarousel");
+  nfCarousel.auto = function() {
+    this.scrollTo(this.currentIndex() < this.elements.size() - 1 ? this.currentIndex() + 1 : 0);
+  }
+  var nfCarouselInterval = setInterval("nfCarousel.auto()", 15000);
+  setTimeout("clearInterval(' + nfCarouselInterval + ')", 120000);
+//]]>
+</script>

@@ -1,0 +1,7 @@
+<%= render :partial => 'account/form', :locals => {
+	:url => account_notification_path,
+	:title => "Notifications".t, 
+	:description => "You can select which kinds of notifications you want to receive from us. Notifications are sent to the email account you have provided us with.".t,
+	:object => @person,
+	:object_name => :person
+} %>

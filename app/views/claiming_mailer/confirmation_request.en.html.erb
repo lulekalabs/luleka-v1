@@ -1,0 +1,10 @@
+Thanks for your interest in supporting <%= h(@organization.name) %>. 
+
+In order to confirm your request, please click on the following link 
+or copy the entire link into your browser address field:
+
+<%= confirm_organization_claiming_url(@organization, @activation_code) -%>
+
+You can then proceed to activate your employment.
+
+<%= render :partial => 'notifier/signature', :object => @person %>

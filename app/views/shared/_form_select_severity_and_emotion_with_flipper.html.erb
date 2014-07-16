@@ -1,0 +1,11 @@
+<% # shared/form_select_language_with_flipper, required object_name
+	object_name ||= :kase
+	object ||= form_select_severity_and_emotion_with_flipper
+	with_select ||= false
+%>
+<% switcher_link_to(severity_feeling_in_words(object), {:open => false, :sticky => false}, {}) do %>
+
+	<%= render :partial => 'shared/form_select_severity_and_emotion', :object => object,
+		:locals => {:object_name => object_name, :with_select => with_select} %>
+
+<% end %>

@@ -1,0 +1,19 @@
+<%# account/bank/deposit/faq %>
+<%
+  unique ||= false
+%>
+<div class="faq">
+  <p class="question">
+    <%= "What is purchasing credit?".t %>
+  </p>
+  <p class="answer">
+    <%= "You can charge your #{SERVICE_PIGGYBANK_NAME} account by purchasing credit using a payment method.".t %>
+  </p>
+  <p class="question">
+    <%= "Are there any fees involved when adding credit?".t %>
+  </p>
+  <p class="answer">
+    <%= ["#{SERVICE_NAME} does not charge you any fees for adding credit.".t, "However, your bank may charge you fees, such as currency conversion fees, etc.".t].to_sentences %>
+  </p>
+</div>
+<%= render :partial => "account/bank/faq" unless unique %>

@@ -1,0 +1,2 @@
+<%= sidebar_action_remote_facebox_link_to("Send Message".t, new_person_email_path(:person_id => @profile.to_param),
+  {:icon => :action}) if !current_user_me?(@profile) && current_user_friends_with?(@profile) %>

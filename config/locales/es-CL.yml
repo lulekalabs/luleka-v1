@@ -1,0 +1,15 @@
+# http://github.com/svenfuchs/rails-i18n/tree/master/rails/locale
+service:
+  paypal_url: "http://www.paypal.cl"
+  
+paper:
+  sizes:
+    standard: "Letter"
+
+address:
+  city:
+    format: "%z %c"
+
+number:
+  currency:
+    code: "CLP"

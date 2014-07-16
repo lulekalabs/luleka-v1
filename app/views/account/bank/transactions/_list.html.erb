@@ -1,0 +1,30 @@
+<%
+	title ||= "#{SERVICE_PIGGYBANK_NAME} Transactions".t
+	message ||= form_flash_messages
+	theme ||= :profile
+	transactions = list || @transactions
+%>
+
+<% div_tag :id => dom_class(PiggyBankAccountTransaction, :container) do %>
+  <% content_container :type => theme do %>
+    <%= div_tag message, :id => dom_class(PiggyBankAccountTransaction, :message) %>
+    <% headline do %>
+      <%= title %>
+    <% end %>
+    <% primary_content :last => true, :style => 'padding-bottom:0px;' do %>
+      <%= render(
+        :partial => 'shared/items_list_content',
+        :locals => {
+          :items => transactions,
+          :options => {
+            :partial => 'account/bank/transactions/list_item_content',
+            :sort => {'piggy_bank_account_transactions.created_at' => "Date".t },
+            :sort_display => true,
+            :url => hash_for_account_bank_transactions_path
+          },
+          :theme => theme
+        }
+      ) %>
+    <% end %>
+  <% end %>
+<% end %>

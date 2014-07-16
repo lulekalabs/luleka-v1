@@ -1,0 +1,27 @@
+<% unless @invitation.message.blank? %>
+---
+<%= h(@invitation.message) %>
+---
+
+<%-end-%>
+
+<% if @invitation.with_voucher? %>
+A voucher for a free <%= @invitation.voucher.class.human_name %> is included. The voucher code is:
+
+<%= @invitation.voucher.code %>
+
+Redeem the voucher by confirming the invitation or by following the link to
+
+<%= voucher_url %>
+
+<%-end-%>
+
+To accept the invitation of <%= @invitation.invitor.casualize_name %> follow the link below:
+
+<%= confirm_invitation_url(:id => @invitation.uuid) %>
+
+It's free to join <%= SERVICE_NAME %> and it only takes a minute to sign up.
+
+<%= SERVICE_NAME %> is useful to find qualified professional services quickly. Get in touch with industry experts and people who care about you. Find solutions to your cases quickly.
+
+<%= render :partial => 'notifier/signature' %>

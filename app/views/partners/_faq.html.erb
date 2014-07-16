@@ -1,0 +1,27 @@
+<%# partners/faq %>
+<div class="faq">
+  <p class="question">
+    <%= "What is a Luleka Partner?".t %>
+  </p>
+  <p class="answer">
+    <%= ["A Luleka Partner membership is a premium membership option available for all basic membership accounts.".t, "Please find our %{plans} for more information about the difference between basic and premium memberships.".t].to_sentences % {:plans => link_to("plans".t, plans_user_partner_path),  }%>
+  </p>
+  <p class="question">
+    <%= "Which payment methods do you support?".t %>
+  </p>
+  <p class="answer">
+    <%= ["We allow all major credit cards and payments using the #{SERVICE_NAME} #{SERVICE_PIGGYBANK_NAME} micro payment method.".t, "We will add more payment methods over time.".t].to_sentences %>
+  </p>
+  <p class="question">
+    <%= "Can I sign up as Partner for free?".t %>
+  </p>
+  <p class="answer">
+    <%= ["Yes".t, "When other #{SERVICE_NAME} #{SERVICE_PARTNERS_NAME} invite you to become a friend, they can choose to include a partner membership voucher for you.".t].to_sentences %>
+  </p>
+  <p class="question">
+    <%= "Can I cancel my Partner subscription?".t %>
+  </p>
+  <p class="answer">
+    <%= ["Your subscription is paid in advance up front.".t, "Please see %{pricing} and our %{terms} for more information.".t].to_sentences % {:pricing => link_to("pricing".t, plans_user_partner_path), :terms => link_to("Terms of Service".t, terms_of_service_path)} %>
+  </p>
+</div>

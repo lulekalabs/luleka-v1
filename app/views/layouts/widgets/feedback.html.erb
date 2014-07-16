@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta content="<%= I18n.locale.to_s.downcase %>" http-equiv="Content-Language" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+		<title><%= @page_title || "#{I18n.t('service.name')} - #{I18n.t('service.tagline')}" %></title>
+		<%= stylesheet_link_merged 'feedback_styles' %>
+		<%= javascript_include_merged 'feedback', 'markdown_editor' %>
+	  <%= link_to_fav_icon %>
+	  <%= link_to_itouch_icon %>
+	  <%= ga_async_javascript_tag("UA-9091575-3") %>
+	</head>
+	<body>
+	  <%= render :partial => 'shared/application_i18n_javascript' %>
+		<%= yield %>
+	</body>
+</html>

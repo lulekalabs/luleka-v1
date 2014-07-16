@@ -1,0 +1,13 @@
+<%= wizard_chevron :complete %>
+<% content_left do %>
+	<% wizard_form_for :person, @person, :url => user_partner_path, :html => {:method => :put} do |f| %>
+    <% bracket_container do %>
+    	<%= form_flash_messages %>
+    	<% steplet(:step => :check, :title => "Finished".t, :markup => true,
+    	  :description => complete_steplet_description_t(@person)
+    	) do %>
+    	  <%= render :partial => 'shared/order_invoice', :object => @order %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

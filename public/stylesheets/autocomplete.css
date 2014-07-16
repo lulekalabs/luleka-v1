@@ -1,0 +1,109 @@
+/* Used suggestions on all examples */
+div.autocomplete {
+	z-index: 1000;
+}
+div.autocomplete ul {
+/*
+  background: #EEE;
+*/
+	background: #fff;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  border-bottom: 1px solid #afafaf;
+}
+
+div.autocomplete ul li {
+  background:#fff;
+  border: 1px solid #afafaf;
+  border-top: none;
+	border-bottom:none;
+  font-size: 80%;
+  padding: 4px 12px;
+  font-family: "Lucida Grande","Verdana";
+  font-size: 11px;
+  margin: 0px !important;
+  white-space: nowrap !important;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+div.autocomplete ul li.selected {
+/*	
+  background: #78959D;
+*/
+	background: #afafaf;
+  border: none;
+  padding: 4px 13px 5px;
+  color: #fff;
+}
+
+
+/* Only used on multi select fields */
+
+ul.multi_value_field {
+	background:#ffffff url(/images/css/fields_v1.png) repeat-x scroll -500px 0;
+  overflow: hidden;
+  list-style-type: none;
+  padding: 1px 2px;
+  margin: 0;
+  border: 1px solid #afafaf;
+  height: auto !important;
+	min-height: 25px;
+	-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+ul.multi_value_field li, ul.multi_value_field input {
+  display: block;
+  float: left;
+  margin: 2px 5px 2px 0;
+  list-style-type: none;
+  -x-system-font: none;
+  font-family: "Lucida Grande","Verdana";
+  font-size: 11px;
+}
+
+ul.multi_value_field li.choice {
+  -border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background: transparent none repeat scroll 0 0;
+  border: 1px solid #dddddd; /*#CAD8F3*/
+  padding: 1px 4px 2px;
+/*
+	background: #DEE7F8 none repeat scroll 0 0;
+	border: 1px solid #CAD8F3;
+*/
+}
+
+ul.multi_value_field li.choice a.close {
+  font-weight: bold;
+  color: #777;
+  padding: 2px 0 2px 3px;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+}
+
+ul.multi_value_field li input {
+  border: 0 !important;
+  margin: 0 !important;
+  outline: 0 !important;
+  padding: 3px 0 3px !important;
+  width: 100px !important;
+  background: none !important;
+}
+
+ul.multi_value_field li.choice:hover {
+	background-color: #353535;
+	color:#fff;
+/*
+  background-color: #BBCEF1;
+  border-color: #6D95E0;
+*/
+}
+

@@ -1,0 +1,9 @@
+<%
+  invitation = list_item_declined
+%>
+<div class="listBoxTextContent">
+  <%= "You have ignored a friend request from %{invitor}.".t % {
+    :invitor => link_to(invitation.invitor.name, person_path(invitation.invitor))
+  } %>
+</div>
+<%= probono_clear_class %>

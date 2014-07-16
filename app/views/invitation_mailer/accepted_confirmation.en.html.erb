@@ -1,0 +1,9 @@
+<%= @invitee.casualize_name %> confirmed you as a contact on <%= SERVICE_NAME %>.
+
+<% if @invitee.permalink %>
+To view <%= @invitee.is_male? ? 'his' : 'her' %> profile, please follow the link below:
+
+<%= person_url(@invitee) %>
+<%- end -%>
+
+<%= render :partial => 'notifier/signature' %>

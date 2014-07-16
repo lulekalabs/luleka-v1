@@ -1,0 +1,42 @@
+<%	# setup
+	person = user.person
+%>
+<% content_container :theme => :sidebar do %>
+	<% headline do %>
+		<%= "Summary" -%>
+	<% end %>
+	<% primary_content do %>
+		<% div_tag do %>
+			<%= person_member_status_since_in_words( user.person ) -%>
+		<% end %>
+		<% div_tag_if person.partner? do %>
+			<%= sidebar_action_separator -%>
+			<%= "%{partner_membership} expires in %{distance} on %{date}".t % {
+			  :partner_membership => link_to("Partner Membership".t, new_user_partner_path),
+			  :date => user.person.partner_membership_expires_on.to_date.to_s(:short),
+			  :distance => distance_of_time_in_words(user.person.partner_expires_on, Time.now.utc)
+			} if user.person.partner_expires_on %>
+		<% end %>
+		<% div_tag do %>
+			<%= sidebar_action_separator -%>
+			<%= "%{available_balance} of %{balance} can be %{transferred}".t % {
+			  :available_balance => user.person.piggy_bank.available_balance.format,
+			  :balance => user.person.piggy_bank.balance.format,
+			  :transferred => link_to("transferred".t, account_bank_transfer_path)
+			} -%>
+		<% end %>
+		<% div_tag_if person.partner? do %>
+			<%= sidebar_action_separator -%>
+			<%= "%{current_quota} responses available for this month, your current monthly quota is %{default_quota}.".t % {
+			  :current_quota => person.current_response_quota.loc, 
+			  :default_quota => person.default_response_quota.loc
+			} -%>
+		<% end %>
+	<% end %>
+
+	<% secondary_content(:index => 10, :open => false) do %>
+	<% end %>
+	<% slider_control(:index => 10, :last => true, :open => false,:url => statistics_account_path) do %>
+	  <%= slider_control_label "Statistics" %>
+	<% end %>
+<% end %>

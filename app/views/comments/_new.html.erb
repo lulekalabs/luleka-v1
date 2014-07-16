@@ -1,0 +1,50 @@
+<% # comments/new
+  comment ||= new || @comment
+  id ||= comment && comment.commentable ? comment_dom_id(comment) : "new_comment"
+  display ||= false
+  update ||= false
+%>
+<% if comment %>
+  <% div_tag :id => id, :class => 'commentContainer', :display => display, :update => update do %>
+    <% div_tag :class => 'commentColumnLeft' do %>
+      <%= image_avatar_tag(@person, :size => '20x20', :style => 'float:right;') %>
+    <% end %>
+  	<% div_tag :class => 'commentColumnRight' do %>
+
+  		<% wizard_form_for :comment, comment, :url => commentable_comments_path(comment.commentable), 
+  		    :remote => true, :html => {:id => comment_dom_id(comment, :form), :name => comment_dom_id(comment, :form)} do |f| %>
+
+        <%= render :partial => "comments/form", :object => comment, :locals => {:f => f} %>
+
+        <% content_button_container do %>
+  				<%= probono_button :label => "Cancel".t, :type => :passive, 
+  					:position => :left, :id => comment_dom_id(comment, :button_cancel),
+  					:function => "Element.hide('#{id}')" %>
+	    	  <%= form_submit_button "Post %{post}".t % {:post => Comment.human_name}, :position => :right %>
+    		<% end %>
+  		<% end %>
+
+  	<% end %>
+  	<%= probono_clear_class %>
+  <% end %>
+<% else %>  
+  <% div_tag :id => id, :class => 'commentContainer', :display => display do %>
+    <%= progress_spinner :display => true %>
+    <%= clear_class %>
+  <% end %>
+
+  <script type="text/javascript">
+  //<![CDATA[
+
+    Event.observe(document, 'authentication:new', function() {
+      $("<%= id %>").hide();
+    });
+
+    Event.observe(document, 'threshold:failure', function() {
+      $("<%= id %>").hide();
+    });
+
+  //]]>
+  </script>
+
+<% end %>

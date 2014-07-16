@@ -1,0 +1,49 @@
+<% # kases/list_item_content
+  kase = list_item_content
+  update ||= true
+  expanded ||= false
+  expandable ||= true
+%>
+<% if kase %>
+  <% div_tag :class => "listBoxPicture" do %>
+    <% unless kase.person.nil? %>
+      <% if kase.person.displayable?(:avatar, kase) %>
+        <%= profile_link_to(image_avatar_tag(kase.person), kase.person) -%>
+      <% else %>
+        <%= image_avatar_tag(kase.person) %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% div_tag :class => "listBoxTextContent" do %>
+    <h3 class="listBoxHeadlineBlue">
+      <%= link_to(h(kase.title), member_path([@tier, @topic, kase]), :title => h(kase.title)) %>
+    </h3>
+		
+    <% if expanded %>
+			<%#--- long %>
+      <div class="listBoxTextLong markdown">
+        <%= markdown(kase.description.firstcase) -%>
+      </div>
+    <% end %>
+    
+    <%= tag_list kase, :editable => false, :context => :tags %>
+    
+    <% overview_list do %>
+
+      <%= overview_list_kase_type(kase) %>
+      <%= overview_list_kase_status(kase) %>
+      <%= overview_list_kase_price(kase) %>
+		  <%= overview_list_kase_responses_count(kase) %>
+		  <%= overview_list_kase_votes_count(kase) %>
+		  <%= overview_list_kase_followers_count(kase) %>
+		  <%= overview_list_kase_visits_count(kase, :last => true) %>
+		  <%= overview_list_kase_tier(kase, :right => true) %>
+		  
+		<% end %>
+		
+  <% end %>
+  <%= list_item_expander_if expandable, kase, expanded %>
+<% else %>
+  <%= "No cases found.".t -%>
+<% end %>
+<%= probono_clear_class -%>

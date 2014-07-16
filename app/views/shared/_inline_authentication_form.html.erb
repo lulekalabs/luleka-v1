@@ -1,0 +1,86 @@
+<%
+  object_name ||= :kase
+  object ||= @kase
+  form_dom_id ||= current_form_id
+  password_dom_id ||= "user_password_#{rand(1000000)}"
+  encrypted_password_dom_id ||= "user_encrypted_password_#{rand(1000000)}"
+  omit_authentication_success ||= false
+%>
+<% div_tag :id => "inline-authentication-form" do %>
+  <% fields_for object_name do |f| %>
+    <% form_element :style => "padding-bottom:0;" do %>
+      <%= f.label :authentication_type, "Sign In or Sign Up?".t, :help => true, :position => :top %>
+      <% form_field_tag :signin_or_signup do %>
+        <div class="radiogroup">
+          <div class="radioElementHorizontal" style="margin-bottom:0;">
+            <%= f.radio_button :authentication_type, "signin", :id => "sign-in-button" %>
+            <%= f.label :authentication_type, "Sign In".t, :for => "sign-in-button" %>
+          </div>
+          <div class="radioElementHorizontal" style="margin-bottom:0;">
+            <%= f.radio_button :authentication_type, "signup", :id => "sign-up-button" %>
+            <%= f.label :authentication_type, "Sign Up".t, :for => "sign-up-button" %>
+          </div>
+          <div class="radioElementHorizontal" style="margin-bottom:0;">
+            <%= link_to_fb_connect %>
+          </div>
+        </div>
+      <% end %>
+      <%= help_text object_name, :authentication_type, 
+        "You can sign in or sign up while submitting".t, :display => false %>
+    <% end %>
+  <% end %>
+
+  <% div_tag :id => "sign-in", :display => object.authenticate_with_signin? do %>
+    <% form_table_fields_for :user do |u| %>
+    	<% form_table_row do %>
+
+    	  <%= u.text_field :login, :name => "user[signin_login]", :label => {:position => :top, 
+    	      :text => User.human_attribute_name(:login) +
+    	        or_something_inclusion(User.human_attribute_name(:email)) , :req => true},
+    		      :style => 'width:100%;', :autocomplete => "off" %>
+
+    		<%= u.password_field :password, :label => {:position => :top, 
+    		  :text => User.human_attribute_name(:password), :req => true},
+            :id => password_dom_id, :style => 'width:100%;' %>
+        <%= u.hidden_field :encrypted_password, :id => encrypted_password_dom_id if encryption_required? %>
+
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <% div_tag :id => "sign-up", :display => object.authenticate_with_signup? do %>
+  	<% form_fields_for :user do |u| %>
+  		<%= render :partial => 'users/login_field', :locals => {:f => u} %>
+
+      <%= render :partial => 'users/email_and_email_confirmation_field' %>
+    <% end %>
+  <% end %>
+<% end %>
+<script type="text/javascript">
+//<![CDATA[
+
+  Event.observe("sign-in-button", "click", function() {
+    $("sign-in").show();
+    $("sign-up").hide();
+  });
+
+  Event.observe("sign-up-button", "click", function() {
+    $("sign-in").hide();
+    $("sign-up").show();
+  });
+
+  <% unless omit_authentication_success %>
+  Event.observe(document, 'authentication:success', function() {
+    $("inline-authentication-form").hide();
+  });
+  <% end %>
+
+  <% if encryption_required? %>
+  Event.observe('<%= form_dom_id %>', 'submit:before', function() {
+    Luleka.Form.Field.encrypt('<%= password_dom_id %>', '<%= encrypted_password_dom_id %>',
+      '<%= @public_modulus %>', '<%= @public_exponent %>');
+  });
+  <% end %>
+//]]>
+</script>
+

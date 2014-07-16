@@ -1,0 +1,75 @@
+<% # kases/show
+  kase ||= show_kase || @kase
+	new_response ||= kase.build_response(@person)
+  display ||= true
+  update ||= false
+%>
+<% div_tag :id => dom_id(kase), :class => "kaseContainer", :display => display do %>
+	<% switch_theme :type => :case do %>
+		
+		<% headline do %>
+			<%= h(kase.title) %>
+		<% end %>
+		
+		<%= render :partial => "kases/overview", :object => kase, :locals => {:update => update} %>
+		
+		<% primary_content :last => !@kase.location? do %>
+
+      <%#--- description %>
+			<div class="primaryContentContainer">
+				<div class="primaryContentColumnLeft">
+					
+					<%= vote_control(kase) %>
+					<%= star_follow_control(kase) %>
+
+				</div>
+				<div class="primaryContentColumnRight">
+
+					<%= property_editor(:kase, :description, :partial => 'kases/description',
+				    :editable => kase.editable? && (@can_edit || current_user_my?(kase))) %>
+				  
+					<%= tag_list kase, :context => :tags %>
+				  
+				</div>
+				<div class="clearClass"></div>
+			</div>
+			<div class="clearClass"></div>
+			
+      <%#--- content actions %>
+      <% content_action_list do %>
+      
+				<%= content_action_item_if kase.comments_count > 0, comment_count_in_words(kase) %>
+
+        <%= content_reply_comment_action_item(
+          link_to_function("Reply to this %{type}".t % {:type => kase.class.human_name},
+            "Effect.ScrollTo('#{dom_id(new_response)}', {offset:-12})")) if new_response %>
+
+        <%= content_comment_action_link("Add Comment".t, new_commentable_comment_dom_id(@kase),
+          collection_path([@tier, @kase, :comment], :new)) %>
+          
+        <%= content_edit_action_link_if(kase.editable? && (@can_edit || current_user_my?(kase)), 
+          "Edit".t, kase) %>  
+
+      <% end %>
+
+      <%#--- comments %>
+      <%= render :partial => 'comments/list', :object => @kase %>
+      <%= render :partial => 'comments/new', :locals => {:id => new_commentable_comment_dom_id(@kase)} %>
+
+		<% end %>
+
+    <%#--- location %>
+    <% if @kase.location? %>
+
+  		<% secondary_content :style => "padding-bottom:0px" do %>
+  		  <%= render :partial => 'locations/google_map_load_script' %>
+  	  <% end %>
+    	<% slider_control(:last => true, :url => member_path([@tier, @topic, @kase], :location), 
+    	    :success => "window.loadScript();") do %>
+    	  <%= slider_control_label "Location".t %>
+    	<% end %>
+    	
+    <% end %>
+
+	<% end %>
+<% end %>

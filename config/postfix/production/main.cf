@@ -1,0 +1,86 @@
+myhostname = production.corp.luleka.net
+mydomain = luleka.net
+myorigin = $mydomain
+#
+smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
+biff = no
+#
+# appending .domain is the MUA's job.
+append_dot_mydomain = no
+#
+# Uncomment the next line to generate "delayed mail" warnings
+#delay_warning_time = 4h
+#
+readme_directory = no
+#
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+#mydestination = $mydomain, localhost.$mydomain, localhost
+mydestination = localdomain, localhost, localhost.localdomain, localhost
+#mynetworks_style = host
+mynetworks = 127.0.0.0/8
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = all
+address_verify_map = hash:/var/lib/postfix/verify
+address_verify_map = btree:/var/lib/postfix/verify
+## TLS Settings
+#
+# For no logs set = 0
+debug_peer_level = 2
+smtp_tls_loglevel = 2
+debug_peer_list = 127.0.0.1
+# 
+# smtp_enforce_tls = yes
+# Above is commented because doing it site by site below
+smtp_tls_per_site = hash:/etc/postfix/tls_per_site
+#
+smtp_tls_CAfile = /etc/postfix/cacert.pem
+smtp_tls_cert_file = /etc/postfix/FOO-cert.pem
+smtp_tls_key_file = /etc/postfix/FOO-key.pem
+smtp_tls_session_cache_database = btree:/var/lib/postfix/smtp_scache
+smtp_use_tls = yes
+smtpd_tls_CAfile = /etc/postfix/cacert.pem
+smtpd_tls_cert_file = /etc/postfix/FOO-cert.pem
+smtpd_tls_key_file = /etc/postfix/FOO-key.pem
+smtpd_tls_received_header = yes
+smtpd_tls_session_cache_database = btree:/var/lib/postfix/smtpd_scache
+smtpd_tls_session_cache_timeout = 3600s
+smtpd_tls_always_issue_session_ids = no
+smtpd_use_tls = yes
+smtpd_tls_security_level = may
+smtpd_delay_reject = no
+tls_random_source = dev:/dev/urandom
+#
+## SASL Settings
+#
+# This is going in to THIS server
+smtpd_sasl_auth_enable = no
+# We need this
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtpd_sasl_local_domain = $myhostname
+smtp_sasl_security_options = noanonymous
+smtp_sasl_tls_security_options = noanonymous
+smtpd_sasl_application_name = smtpd
+smtp_discard_ehlo_keywords = pipelining
+smtpd_sasl_local_domain = $myhostname
+#
+## Gmail Relay
+#
+relayhost = [smtp.gmail.com]:587
+## Good for Testing
+# sender_bcc_maps = hash:/etc/postfix/bcc_table
+#
+# Disable DNS Lookups
+disable_dns_lookups = yes
+#
+# Great New feature Address Mapping 
+# for example may mchirico@localhost to mchirico@gmail.com
+#smtp_generic_maps = hash:/etc/postfix/generic
+#
+# 
+transport_maps = hash:/etc/postfix/transport
+default_destination_concurrency_limit = 4
+soft_bounce = yes
+default_process_limit =  1000

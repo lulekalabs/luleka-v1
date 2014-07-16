@@ -1,0 +1,38 @@
+de:
+  # invoice test
+  "order": "Bestellung"
+  "purchase order": "Kaufauftrag"
+  "sales order": "Kundenauftrag"
+  "invoice": "Rechnung"
+  "purchase invoice": "Eingangsrechnung"
+  "sales invoice": "Ausgangsrechnung"
+  # order test
+  "order": "Bestellung"
+  "purchase order": "Kaufauftrag"
+  "sales order": "Kundenauftrag"
+  # person test
+  gender:
+    "male": "männlich"
+    "female": "weiblich"
+  salutation:
+    "Mr": "Herr"
+    "Ms": "Frau"
+  # product test
+  "%{price} (%{unit_price} per %{unit})": "%{price} (%{unit_price} pro %{unit})"
+  "{{count}} month":
+    zero: "kein Monat"
+    one: "1 Monat"
+    other: "{{count}} Monate"
+  "month":
+    zero: "kein Monate"
+    one: "Monat"
+    other: "Monate"
+  # voucher test
+  "Partner Membership Voucher": "Gutschein für eine Partner Mitgliedschaft"
+  
+  reputation:
+    actions:
+      vote_up: "Zustimmen"
+      vote_down: "Ablehnen"
+      accept_response: "Antwort Akzeptieren"
+  

@@ -1,0 +1,28 @@
+<% unless uses_modal? %>
+  <%= wizard_chevron :confirm %>
+  <% content_left do %>
+
+    <%= render :partial => @user.pending? ? "users/confirm_pending" : "users/confirm_screening" %>
+
+    <% form_button_container do %>
+			<%= probono_button :label => "Continue".t, :position => :right, :url => "/" %>
+		<% end %>
+
+  <% end %>
+  <% content_right do %>
+    <%= render :partial => 'faq' %>
+  <% end %>
+<% else %>
+  <% content_modal do %>
+    <%= wizard_chevron :confirm %>
+  
+    <%= render :partial => @user.pending? ? "users/confirm_pending" : "users/confirm_screening" %>
+    
+    <% form_button_container do %>
+      <%= probono_button :label => "Continue".t, :position => :right,
+        :function => close_modal_javascript %>
+		<% end %>
+    
+  <% end %>
+
+<% end %>

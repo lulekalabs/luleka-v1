@@ -1,0 +1,15 @@
+<%= @email.sender.name%> has sent you a message:
+<% unless @email.message.blank? %>
+---
+<%= h(@email.message) %>
+---
+
+<%-end-%>
+
+To view the sender's profile, please click on the following link or copy the entire link into your browser:
+
+<%= person_url(@email.sender) %>
+
+This message was sent from <%= SERVICE_NAME %> - <%= I18n.t('service.tagline') %>.
+
+<%= render :partial => 'notifier/signature' %>

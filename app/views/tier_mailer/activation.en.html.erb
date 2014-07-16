@@ -1,0 +1,17 @@
+The following community has been activated:
+
+Community Name: <%= h(@tier.name) %>
+
+Summary:
+
+<%= h(@tier.summary) %>
+
+Description:
+
+<%= h(@tier.description) %>
+
+Access Link:
+
+<%= tier_url(@tier) %>
+
+<%= render :partial => "notifier/signature" %>

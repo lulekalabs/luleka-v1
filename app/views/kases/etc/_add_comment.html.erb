@@ -1,0 +1,24 @@
+<h1><%= "Rate this case".t %></h1>
+
+<% div_tag( :class => 'commentsRating' ) do %>
+	<% stars_rate({:stars => 0})do %>
+	<% end %>
+	<% div_tag( :class => 'commentsStarBoxDescription' ) do %>
+		<%= "Move mouse cursor over stars you wish to rate this case for. Click to set rating".t %>
+	<% end %>
+	<%= div_tag({:class => 'clearClass'}) %>
+<% end %>
+
+<h1><%= "Comment".t %></h1>
+<%= "(please limit to 300 characters)".t %>
+
+<%= probono_textarea("comment","",{:class=>"commentsTextArea"}) %>
+<br /><br />
+
+<% div_tag({:class => 'commentsButtons'}) do%>
+	<%= probono_button( :label => "Cancel".t, :type => :passive ) %>
+	<%= probono_button( :label => "Preview".t, :type => :passive ) %>
+	<%= probono_button( :label => "Submit".t, :position => :right ) %>
+	<%= div_tag({:class => 'clearClass'}) %>
+<% end %>
+<%= div_tag({:class => 'clearClass'}) %>

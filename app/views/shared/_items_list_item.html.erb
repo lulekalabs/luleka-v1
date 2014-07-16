@@ -1,0 +1,15 @@
+<% # Setup
+  update ||= false
+  expanded ||= false
+  options ||= { :partial => 'shared/issues_list_item_content', :locals => { :expanded => false } }
+  html_item_id ||= items_list_item ? dom_id(items_list_item) : 'empty_item'
+%>
+<% li_tag :id => html_item_id, :class => "listBoxElement #{cycle('oddrow', 'evenrow')}", :update => update do %>
+  <%= render(
+    :partial => options[:partial],
+    :object => items_list_item,
+    :locals => {
+      :item => items_list_item
+    }.merge(options[:locals] || {})
+  ) %>
+<% end %>

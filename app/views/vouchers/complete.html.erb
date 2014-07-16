@@ -1,0 +1,30 @@
+<%= wizard_chevron :complete %>
+<% content_left do %>
+  <% wizard_form_for :voucher, @voucher, :url => voucher_path, :html => {:method => :put} do |f| %>
+    <% bracket_container do %>
+      <%= form_flash_messages %>
+    	<% steplet(:step => :check, :title => "Complete".t,
+    	  :description => "Your %{voucher} is verified and valid. Read the steps below to see what happens next.".t % {
+    	    :voucher => @voucher.class.human_name
+    	  }
+    	) do %>
+    	  <%= render :partial => 'partner_voucher_steps' if @voucher.is_a?(PartnerMembershipVoucher) %>
+    	  <br/>
+    	  <br/>
+			  <%= help_text :voucher, :complete, 
+			    "A %{voucher} with promotion code %{code} has been assigned to you. It expires on %{date}.".t % {
+      	    :voucher => @voucher.class.human_name,
+			      :code => "<strong>#{@voucher.obfuscated_code}</strong>",
+			      :date => "<strong>#{@voucher.expires_at.to_date.to_s(:long)}</strong>"
+			    },
+			    :display => true, :type => :warning, :escape => false %>
+    	<% end %>
+    <% end %>
+		<% form_button_container do %>
+		  <%= form_submit_button "Continue".t, :position => :right %>
+		<% end %>
+	<% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'faq' %>
+<% end %>

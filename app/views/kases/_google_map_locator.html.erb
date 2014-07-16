@@ -1,0 +1,263 @@
+<% # setup
+  gmap_key ||= @gmap_key
+  language_code ||= current_language_code
+  field_id ||= 'search_location'
+  default_address ||= 'DE'
+  help_text ||= "Start by typing the address or set and drag the marker to choose a specific location, e.g. %{city}, %{address}, %{location}".t % {
+    :city => link_to_function('San Francisco', 'setAddress("San Francisco");showAddress();'),
+    :address => link_to_function('Downing St, London, SW1A 2, GB', 'setAddress("Downing St, London, SW1A 2, GB");showAddress();'),
+    :location => link_to_function('geo:lat=-15.769788 geo:lng=-69.684906', 'setAddress("geo:lat=-15.769788 geo:lng=-69.684906"); showAddress();')
+  }
+  help_html = "<div style='width: 210px; padding-right: 10px'><small>%{text}</small></div>" % {
+    :text => help_text
+  }
+  chosen_html = "<div style='width: 210px; padding-right: 10px'><small>%{text}</small></div>" % {
+    :text => "This location has been recorded.".t
+  }
+  
+  load_script ||= false
+  open ||= false
+%>
+<% if load_script %>
+  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%= gmap_key %>&amp;hl=<%= language_code %>" type="text/javascript"></script>
+<% end %>
+
+<script type="text/javascript">
+//<![CDATA[
+
+  <% if open %>
+  document.observe('dom:loaded', function() {
+  	window.loadmap();
+  });
+  
+  window.loadScript = function() {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "http://maps.google.com/maps?file=api&v=2&key=<%= gmap_key %>&hl=<%= language_code %>&async=2&callback=loadmap";
+    document.body.appendChild(script);
+  }
+  
+  <% end %>
+  
+  window.setup = function() {
+    window.map = null;
+    window.geocoder = null;
+    window.maploaded = 0;
+    window.overlayscleared = 1;
+    window.marker = null;
+    window.locationchosen = 0;
+
+    window.HELP_HTML = "<%= escape_javascript(help_html) %>";
+    window.CHOSEN_HTML = "<%= escape_javascript(chosen_html) %>";
+    window.LOCATION_FIELD_ID = "<%= field_id %>";
+    window.RESET_CONTROL_ID = 'kase_location_reset';
+    window.DEFAULT_MARKER_POINT = new GLatLng(37.4228, -122.085);
+    window.DEFAULT_MARKER_ADDRESS = '<%= default_address %>';
+    window.DEFAULT_BIG_ZOOM = 2;
+    window.DEFAULT_SMALL_ZOOM = 8;
+  }
+
+  window.loadmap = function() {
+    setup();
+    
+    if (!maploaded) {
+      if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("themap"));
+        map.addControl(new GSmallMapControl()); 
+        map.addControl(new GMapTypeControl());
+        map.enableScrollWheelZoom();
+        
+        marker = new GMarker(DEFAULT_MARKER_POINT,{draggable: true}); 
+        geocoder = new GClientGeocoder();
+      
+        setMapCenter();
+      
+        GEvent.addListener(marker, "dragend", function() { 
+          locationchosen = 1;
+          marker.openInfoWindowHtml(getChosenHtml()); 
+          var newloc = marker.getPoint(); 
+          geocoder.getLocations(newloc, setAddressFromGeocoder);
+        }); 				
+
+        GEvent.addListener(marker, "click", function() {
+          marker.openInfoWindowHtml(HELP_HTML);
+        });
+      
+        GEvent.addListener(map, "click", function(overlay,loc) {     
+          if (loc && marker && !locationchosen) {
+            if (overlayscleared) {
+              map.addOverlay(marker);
+              overlayscleared = 0;
+            }
+            marker.setPoint(loc);
+            marker.openInfoWindowHtml(getChosenHtml());
+            locationchosen = 1;
+            geocoder.getLocations(loc, setAddressFromGeocoder);
+          }
+        });
+      }
+      
+      showAddress();
+      maploaded=1;
+    }
+  }
+
+  window.setAddressFromGeocoder = function(response) {
+    if (!response) {
+      return;
+    }
+    if (response.Status.code != 200) {
+      point = decodeCommaDelimitedLatLng(response.name)
+      if (point) {
+        setAddressFromLatLng(point);
+      }    
+    } else {
+      place = response.Placemark[0];
+      if (place.AddressDetails.Accuracy >= 8) {
+        setAddress(place.address);
+      } else {
+        point = decodeCommaDelimitedLatLng(response.name)
+        if (point) {
+          setAddressFromLatLng(point);
+        } else {
+          point = new GLatLng(place.Point.coordinates[1],
+            place.Point.coordinates[0]);
+          setAddressFromLatLng();
+        }
+      }
+    }
+  }
+
+  window.encodeLatLng = function(latlng) {
+    return "geo:lat="+latlng.lat()+" geo:lng="+latlng.lng()
+  }
+
+  window.decodeLatLng = function(address) {
+    var lat = null;
+    var lng = null;
+    if (address == null) {return null;}
+    if (matchLat = /geo:lat[\s]{0,}=[\s]{0,}([+-]{0,1}\d*([.]\d*)?|[.]\d+)\s/i.exec(address + ' ')) {
+      if (matchLng = /geo:lng[\s]{0,}=[\s]{0,}([+-]{0,1}\d*([.]\d*)?|[.]\d+)\s/i.exec(address + ' ')) {
+        lat = parseFloat(matchLat[1])
+        lng = parseFloat(matchLng[1])
+        if (!isNaN(lat) && !isNaN(lng)) {
+          return new GLatLng(lat, lng)
+        }
+      }
+    }
+  }
+
+  window.decodeCommaDelimitedLatLng = function(str) {
+    lat = str.split(',')[0];
+    lng = str.split(',')[1];
+    if (lat && lng) {
+      return new GLatLng(lat, lng);
+    }
+  }
+
+  window.setAddressFromLatLng = function(latlng) {
+    setAddress(encodeLatLng(latlng));
+  }
+
+  window.setAddress = function(str) {
+    var addressField = document.getElementById(LOCATION_FIELD_ID); 
+    if (addressField) {
+      addressField.value = str;
+      onFormFieldChanged(addressField);
+    }
+  }
+
+  window.setMapCenter = function() {
+    if (geocoder) {
+      geocoder.getLatLng(DEFAULT_MARKER_ADDRESS,
+        function(point) {
+          if (!point) {
+            map.setCenter(DEFAULT_MARKER_POINT, DEFAULT_BIG_ZOOM); 
+            map.openInfoWindowHtml(DEFAULT_MARKER_POINT,
+              HELP_HTML);
+          } else {
+            map.setCenter(point, DEFAULT_BIG_ZOOM); 
+            map.openInfoWindowHtml(point,
+              HELP_HTML);
+          }
+        }
+      );
+    } else {
+      map.setCenter(DEFAULT_MARKER_POINT, DEFAULT_BIG_ZOOM); 
+      map.openInfoWindowHtml(DEFAULT_MARKER_POINT,
+        HELP_HTML);
+    }
+
+  //  map.setCenter(DEFAULT_MARKER_POINT, DEFAULT_BIG_ZOOM); 
+    map.clearOverlays();
+    overlayscleared = 1;
+  //  map.openInfoWindowHtml(map.getCenter(),
+  //    HELP_HTML);
+  }
+
+  window.showAddress= function() {
+    var addressField = document.getElementById(LOCATION_FIELD_ID);
+    var address = addressField.value;
+    var scrubAddress = address;
+  
+    if (point = decodeLatLng(scrubAddress)) {
+      scrubAddress = point.lat().toString() + ' ' + point.lng().toString();
+    }
+  /*  
+    if (address.indexOf("geo:lat=") != -1) {
+      scrub_address = address.substring(address.indexOf("geo:lat=")+8);
+      scrub_address = scrub_address.substring(0,scrub_address.indexOf(" "));
+    }
+    if (address.indexOf("geo:lng=") != -1) {
+      scrub_address = scrub_address+" "+address.substring(address.indexOf("geo:lng=")+8);
+    }
+  */  
+    if (geocoder) {
+      geocoder.getLatLng(scrubAddress,
+        function(point) {
+          if (!point) {
+            return;
+          } else {
+            map.setCenter(point, locationchosen ? null : DEFAULT_SMALL_ZOOM);
+            marker.setPoint(point);
+            if (overlayscleared) {
+              map.addOverlay(marker);
+              overlayscleared = 0;
+            }
+            marker.openInfoWindowHtml(getChosenHtml());
+            locationchosen = 1;
+          }
+        }
+      );
+    }
+  }
+
+  window.getChosenHtml =  function(str) {
+    if (str) {
+      return CHOSEN_HTML + ' ' + str;
+    } else {
+      return CHOSEN_HTML;
+    }
+  }
+
+  window.clearAddress = function() {
+    var addressField = document.getElementById(LOCATION_FIELD_ID);
+    addressField.value='';
+    locationchosen = 0;
+    setMapCenter();
+    map.openInfoWindowHtml(map.getCenter(),
+      HELP_HTML);
+    $(RESET_CONTROL_ID).hide();
+  }
+
+  window.isLocationSet = function() {
+    return (locationchosen == 1);
+  }
+
+  window.onFormFieldChanged = function(fieldElement) {
+    if (fieldElement) fieldElement.up().down(".reset").show();
+//    $(RESET_CONTROL_ID).show();
+  }
+
+//]]>
+</script>

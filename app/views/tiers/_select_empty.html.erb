@@ -1,0 +1,17 @@
+<%
+  tag_list ||= @tag_list
+  tag_name ||= @tag_name
+  result = []
+  result << ("No topics were found for %{tag_list}." % {:tag_list => tag_list_link_to(tag_list,
+    hash_for_member_path([:tier, :tag], nil, :id => "foo"))}) unless tag_list.blank?
+
+  result << ("Would you like to %{add_new_topic} now?".t % {:add_new_topic => link_to("add topic %{new_topic}".t %  
+    {:new_topic => content_tag(:strong, h(tag_name.humanize))}, 
+      member_path([@tier || :tier, @tier ? :topic : nil], :new, :name => h(tag_name.humanize)))}) if tag_name
+      
+  result << "Enter more tags to get a list of available topics.".t # if result.empty?
+  text = result.to_sentences
+%>
+<% unless text.blank? %>
+  <%= help_text(:tier, :empty, text, :display => true, :type => :warning) %>
+<% end %>

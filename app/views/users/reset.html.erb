@@ -1,0 +1,25 @@
+<% content_left do %>
+  <% wizard_form_for :user, @user, :url => update_password_user_path(:id => @user.reset_code), 
+      :html => {:method => :put} do |f| %>
+
+    <% bracket_container do %>
+    	<%= form_flash_messages %>
+    	<%= form_error_messages_for([:user, :person], :unique => true, :attr_names => {
+    	  :base => '',
+    	  :password => User.human_attribute_name(:password)
+    	}) %>
+    	<% steplet :step => :auto, :title => "Reset Password".t do %>
+
+          <%= render :partial => "password_confirmation_fields", :locals => {:f => f}%>
+
+    	<% end %>
+    <% end %>
+
+
+    <% form_button_container do %>
+			<%= probono_button :label => "Cancel".t, :url => :back, :type => :passive %>
+			<%= form_submit_button "Reset Password".t, :position => :right %>
+		<% end %>
+		
+  <% end %>
+<% end %>

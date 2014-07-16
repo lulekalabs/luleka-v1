@@ -1,0 +1,18 @@
+<%
+	if defined?( delete ).nil? || delete.nil?
+		delete = true 
+	end
+	if defined?( issue_id ).nil? || issue_id.nil?
+		issue_id = nil 
+	end
+%>
+<% form_table_fields_for :participant do |t| %>
+	<% form_table_row do %>
+		<%= t.text_field :firstname, :label => { :position => :top }, :style => 'width:100%' %>
+		<%= t.text_field :lastname, :label => { :position => :top }, :style => 'width:100%' %>
+	<% end %>
+	<% form_table_row do %>
+		<%= t.text_field :email, :label => { :position => :top }, :style => 'width:100%' %>
+		<%= t.text_field :role, :label => { :position => :top }, :style => 'width:100%' %>
+	<% end %>
+<% end %>

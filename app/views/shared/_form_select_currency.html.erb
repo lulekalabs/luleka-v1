@@ -1,0 +1,9 @@
+<%	# setup
+	disabled ||= false
+  req ||= false
+	label ||= {:position => :top, :text => "Preferred Currency".t, :req => req} 
+	options ||= { :style => 'width:100%;', :disabled => disabled }
+  with_select ||= false
+  selected ||= defined?(:selected) && selected == nil ? nil : currency_code
+%>
+<%= f.select :currency, collect_currencies_for_select(with_select), {:selected => selected, :label => label}, options %>

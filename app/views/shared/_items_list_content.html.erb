@@ -1,0 +1,39 @@
+<% # setup
+  items ||= items_list_content
+  theme ||= @theme_name || theme_name_for(items)
+  defaults = {
+    :sort => { :subject => "Subject".t, :price_cents => "Price".t, :expires_at => "Time".t },
+    :sort_display => false,
+    :url => {:controller => 'kases', :action => 'index'},
+    :partial => 'shared/issues_list_item_content',
+    :paginate => true,
+    :locals => {}
+  }
+  options ||= {}
+  options = defaults.merge(options).symbolize_keys
+  
+  html_id ||= list_dom_id(items, :kind => options[:kind])
+  html_message_id ||= list_message_dom_id(items, :kind => options[:kind])
+%>
+<% div_tag :id => html_id do %>
+  <% list_overview_container :type => theme, :style => true == options[:sort_display] ? '' : 'display:none;' do %>
+    <% div_tag :style => 'float:right;' do %>
+      <%= progress_spinner :id => "#{html_id}_spinner", :tag => :img, :size => "14x14" %>
+    <% end %>
+    <% list_sort_options_if true == options[:sort_display] && options[:sort] do %>
+      <% options[:sort].each do |field, description| %>
+        <%= list_sort_link_to description, field, :update => html_id, :url => options[:url] -%>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% list_elements_container do %>
+    <% unless items.to_a.empty? %>
+      <%= render :partial => 'shared/items_list_item', :collection => items,
+        :locals => { :options => options, :html_message_id => html_message_id } -%>
+    <% else %>
+      <%= render :partial => 'shared/items_list_item',
+        :locals => { :items_list_item => nil, :options => options, :html_message_id => html_message_id } -%>
+    <% end %>
+  <% end %>
+  <%= list_paginator_if(true == options[:paginate], items, :update => html_id, :url => options[:url]) %>
+<% end %>

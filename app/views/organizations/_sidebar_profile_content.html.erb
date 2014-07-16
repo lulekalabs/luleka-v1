@@ -1,0 +1,5 @@
+<%
+  organization ||= @organization
+  product ||= @product
+%>
+<%= render :partial => 'tiers/sidebar_profile_content', :locals => {:tier => organization, :topic => product} %>

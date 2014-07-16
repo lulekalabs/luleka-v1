@@ -1,0 +1,27 @@
+<%= wizard_chevron :new %>
+<% content_left do %>
+	<% wizard_form_for :user, @user, :url => user_partner_path, :html => {:method => :post} do |f| %>
+		<% bracket_container do %>
+			<%= form_flash_messages %>
+			<%= form_error_messages_for :voucher, :unique => true, :attr_names => {
+			  :consignee => "Consignee".t,
+			  :consignee_confirmation => "Consignee".t,
+			  :code_confirmation => "Promotion code".t,
+			  :code => "Promotion code".t
+			} %>
+			<% steplet(:step => :auto, :title => "Select Membership".t, :description => new_steplet_description_t(@person)) do %>
+			  <%= render :partial => 'partners/select_membership', :object => @partner_memberships,
+          :locals => {:selected => @selected, :lock => false} %>
+        <%= render :partial => 'partners/select_membership_with_voucher', :locals => {
+          :with_separator => true, :selected => @selected, :lock => false} %>
+			<% end %>
+		<% end %>
+		<% form_button_container do %>
+			<%= form_submit_button "Continue".t, :position => :right %>
+		<% end %>
+	<% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'partners/why_to_buy' %>
+  <%= render :partial => 'partners/faq' %>
+<% end %>

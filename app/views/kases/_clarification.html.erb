@@ -1,0 +1,39 @@
+<% # Setup
+	if defined?( display ).nil? || display.nil?
+		display = true
+	end
+	if defined?( reply ).nil? || reply.nil?
+		reply = false
+	end
+	if defined?( button ).nil? || button.nil?
+		button = true
+	end
+%>
+<% div_tag :id => "clarification_#{clarification.kind}_#{clarification.id}", :class => 'primaryContentComment', :style => display ? '' : 'display:none' do %>
+	<%= render :partial => 'clarification_overview', :locals => { :clarification => clarification } -%>
+	<p><%= h clarification.body -%></p>
+	<% if reply && button %>
+		<% content_button_container do %>
+			<%= flipper_with_method(
+				"#{clarification.kind}_#{clarification.id}_form",
+				:open_text => "Reply".t,
+				:close_text => "",
+				:method => :probono_button,
+				:method_options => { :position => :right },
+				:display => false
+			) -%>
+		<% end %>
+	<% end %>
+<% end %>
+<% if reply %>
+	<%
+	if defined?( person ).nil? || person.nil?
+		if user=current_user
+			person = current_user
+		else
+			person = nil
+		end
+	end
+	%>
+	<%= render :partial => 'clarification_form', :locals => { :clarifiable => clarification, :person => person, :form_id => "#{clarification.kind}_#{clarification.id}_form" } -%>
+<% end %>

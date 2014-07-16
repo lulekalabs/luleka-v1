@@ -1,0 +1,24 @@
+#
+# NOTE: don't change rates as tests rely on them!!
+#
+eur_to_usd: 
+  id: 1
+  rate: "1.3448"
+  from_currency: EUR
+  to_currency: USD
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+usd_to_eur: 
+  id: 2
+  rate: "0.743605"
+  from_currency: USD
+  to_currency: EUR
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+eur_to_gbp:
+  id: 3
+  rate: "0.86"
+  from_currency: EUR
+  to_currency: GBP
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>

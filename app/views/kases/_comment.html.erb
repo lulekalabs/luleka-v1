@@ -1,0 +1,60 @@
+<% # setup
+  person ||= current_user.person
+  display ||= false
+  update ||= false
+  orientation ||= :top
+  html_id ||= "comment#{comment.id}"
+  html_comments_message_id ||= 'comments_message_id'
+%>
+<% div_tag :id => html_id do %>
+	<% if orientation == :top %>
+		<% bubble_top do %>
+			<%= h comment.body -%>
+		<% end %>
+		<% comment_info_container do %>
+			<% unless comment.person.nil? %>
+				<%= content_tag(:span, profile_link_to(image_avatar_tag(comment.person, :size => "15x15", :style => 'vertical-align: middle;'), comment.person), { :style => "float:left;" }) -%>
+				<%= content_tag(:span, "&nbsp;|&nbsp;", { :style => "float:left;" }) -%>
+				<%= content_time_tag( :span, "{time}".t, time_ago_in_words(comment.created_at, :cache => !update), :style => "float:left;" ) -%>
+				<%= content_tag(:span, "&nbsp;|&nbsp;", { :style => "float:left;" }) -%>
+				<% if comment.rated?(person) || update || comment.person.id == person.id %>
+					<% stars_tag( :stars => comment.rating, :style => "float:left;", :tag => :span ) do %>
+						<%= "({vote})".gsub(/\{vote\}/,("%d vote" / comment.ratings_count)) -%>
+					<% end %>
+				<% else %>
+					<% stars_rate_field_tag(
+							"rate_comment#{comment.id}",
+							comment.rating,
+							{
+								:star_img_inactive => 'star_comment_small.png',
+								:star_img_active => 'star_comment_small_highlight.png',
+								:style => "float:left;",
+								:id => "rate_comment#{comment.id}",
+								:tag => :span,
+								:function => remote_function( {
+										:url => { :method => :post, :action => 'comment', :kind => 'rate', :comment_id => comment, :person_id => person },
+										:loading => update_page do |page|
+											page.replace "rate_comment#{comment.id}", progress_spinner(:style => 'vertical-align: middle;', :color => :blue)
+										end,
+										:complete => update_page do |page|
+										end,
+										:update => { :success => html_id, :failure => html_comments_message_id },
+										:failure => "new Effect.ScrollTo(#{html_comments_message_id}, {offset:-6});",
+										:submit => "rate_comment#{comment.id}"
+								} )
+							}
+					) do %>
+						<%= "({vote})".gsub(/\{vote\}/,("%d vote" / comment.ratings_count)) -%>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% else %>
+		<% stars_rank_bubble( :stars => comment.rating, :align => :left ) do %>
+		<% end %>
+		<% bubble_bottom do%>
+			<%= h comment.body -%>
+		<% end %>
+	<% end %>
+	<%= probono_clear_class %>
+<% end %>

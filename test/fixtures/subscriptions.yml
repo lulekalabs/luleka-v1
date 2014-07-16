@@ -1,0 +1,33 @@
+homer_expert_membership_subscription_1: 
+  id: 1
+  person_id: 1
+  product_id: 2   
+  last_renewal_on: <%= 15.days.ago.to_date.to_s %>
+  length_in_issues: 12
+  auto_renew: "0"
+  status: "active"
+  created_at: <%= 15.days.ago.to_s :db %>
+  activated_at: <%= 15.days.ago.to_s :db %>
+  suspended_at: 
+marge_expert_membership_subscription_1: 
+  id: 2
+  person_id: 4
+  product_id: 2   
+  last_renewal_on: <%= 5.days.ago.to_date.to_s %>
+  length_in_issues: 12
+  auto_renew: "0"
+  status: "active"
+  created_at: <%= 5.days.ago.to_s :db %>
+  activated_at: <%= 5.days.ago.to_s :db %>
+  suspended_at: 
+bart_expired_expert_membership_subscription_1: 
+  id: 3
+  person_id: 3
+  product_id: 1
+  last_renewal_on: <%= 4.months.ago.to_date.to_s %>
+  length_in_issues: 3
+  auto_renew: "0"
+  status: "active"
+  created_at: <%= 4.months.ago.to_s :db %>
+  activated_at: <%= 4.months.ago.to_s :db %>
+  suspended_at: 

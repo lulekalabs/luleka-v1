@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%= render :partial => "layouts/nl/head" %>
+  <body class="<%= body_dom_class %>" id="<%= @body_dom_id %>">
+    <%= render :partial => "layouts/nl/top" %>
+
+
+    <div id="wrapper" class="hfeed">
+    	<div id="main">
+
+        <%= yield %>
+
+    	</div><!-- #main -->
+
+    </div><!-- #wrapper -->
+
+    <div id="footer" class="round wide">
+      <h3 class="offscreen">Footer</h3>
+      <%= render :partial => "shared/nl/footer_nav" %>
+    </div><!-- #footer -->
+  </body>
+</html>

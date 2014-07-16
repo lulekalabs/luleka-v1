@@ -1,0 +1,34 @@
+<%
+	url ||= nil
+	cancel_url ||= account_url
+	object_name ||= :user
+	object ||= nil
+	step ||= :auto
+	title ||= "Change".t
+	description ||= nil
+	submit_text ||= "Update".t
+	cancel_text ||= "Cancel".t
+	partial ||= 'form'
+	options ||= {}
+	method ||= :put
+	faq ||= false
+	property ||= nil
+%>
+<% content_left do %>
+	<% wizard_form_for object_name, object, :url => url, :html => {:method => method} do |f| %>
+		<% bracket_container do %>
+			<%= form_flash_messages -%>
+			<%= form_error_messages_for object_name -%>
+			<% steplet( :step => step, :title => title, :description => description) do %>
+				<%= render :partial => partial, :object => object, :locals => {:f => f, :object_name => object_name}.merge(options) %>
+			<% end %>
+		<% end %>
+		<% form_button_container do %>
+			<%= probono_button :label => cancel_text, :url => cancel_url, :type => :passive %>
+			<%= form_submit_button submit_text, :position => :right, :property => property %>
+		<% end %>
+	<% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => faq.is_a?(String) ? faq : 'faq' if faq %>
+<% end %>

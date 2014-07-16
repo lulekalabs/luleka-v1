@@ -1,0 +1,13 @@
+<%
+  title ||= @title || "People".t
+  message ||= nil
+  url ||= nil
+%>
+<% content_left do %>
+  <%= render :partial => 'people/list', :object => @people,
+    :locals => {:title => title, :message => message, :url => url} %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'shared/sidebar_tag_cloud', 
+    :locals => {:route => [Person]} %>
+<% end %>

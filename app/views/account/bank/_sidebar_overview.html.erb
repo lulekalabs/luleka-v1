@@ -1,0 +1,11 @@
+<%
+  bank ||= sidebar_overview || @bank
+%>
+<div class='bankOverview'>
+  <h4><%= "Account Balance".t %></h4>
+  <big><big><b><%= bank.balance.format %></b></big></big>
+  <br/>
+  <br/>
+  <h4><%= "Available Balance".t %></h4>
+  <big><big><b><%= bank.available_balance.format %></b></big></big>
+</div>

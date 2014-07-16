@@ -1,0 +1,4 @@
+if @follow
+  page.replace_html dom_class(Person, :message), form_flash_messages
+  page.replace dom_class(Person, :action_follow), :partial => 'action_follow_stop_following', :object => @profile
+end

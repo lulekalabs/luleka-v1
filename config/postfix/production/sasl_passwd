@@ -1,0 +1,5 @@
+# contents of /etc/postfix/sasl_passwd
+#
+#   sudo postmap sasl_passwd
+#
+[smtp.gmail.com]:587 admin@luleka.net:<password>

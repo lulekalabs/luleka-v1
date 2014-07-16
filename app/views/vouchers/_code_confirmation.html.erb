@@ -1,0 +1,37 @@
+<%
+  voucher ||= code_confirmation || @voucher || Voucher.new
+  with_help ||= false
+  help_text ||= defined?(help_text) && help_text == false ? nil : "You may have received a promotion code through a friend's invitation or other promotions.".t
+  label ||= defined?(:label) && label == false ? nil : {:position => :top, :auto => false, :req => false,
+    :text => "Enter your promotion code here".t, :help => with_help
+  }
+%>
+<% form_element do %>
+  <%= form_label(:voucher, :code_confirmation, :label => label) if label %>
+  <% form_field :voucher, :code_confirmation do %>
+    <%= table_cells_tag(
+      text_field_tag("voucher[code_confirmation_attributes][1s]",
+        voucher.code_confirmation(1), :maxlength => 4, :autocomplete => 'off', :class => 'voucherCode', :style => 'width:40px;', :id => "voucher_code_1s"),
+      '&nbsp;&mdash;&nbsp;',
+      text_field_tag("voucher[code_confirmation_attributes][2s]",
+        voucher.code_confirmation(2), :maxlength => 4, :autocomplete => 'off', :class => 'voucherCode', :id => "voucher_code_2s", :style => 'width:40px;'),
+      '&nbsp;&mdash;&nbsp;',
+      text_field_tag("voucher[code_confirmation_attributes][3s]",
+        voucher.code_confirmation(3), :maxlength => 4, :autocomplete => 'off', :class => 'voucherCode', :id => "voucher_code_3s", :style => 'width:40px;')
+    ) %>
+  <% end %>
+  <%= help_text(:voucher, :code_confirmation, help_text, :display => false) if with_help %>
+<% end %>
+<script type="text/javascript">
+//<![CDATA[
+
+  Event.observe("voucher_code_1s", "keyup", function(event) {
+    if ($("voucher_code_1s").value.length >= 4) $("voucher_code_2s").select();
+  });
+
+  Event.observe("voucher_code_2s", "keyup", function(event) {
+    if ($("voucher_code_2s").value.length >= 4) $("voucher_code_3s").select();
+  });
+
+//]]>
+</script>

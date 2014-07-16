@@ -1,0 +1,127 @@
+powerplant_leak:
+  id: 1
+  person_id: 1
+  permalink: powerplant-leak
+  status: open
+  title: Powerplant Leak
+  description: "Does anyone have more information on the leakage at the in Springfield Powerplant?"
+  visits_count: 0
+  type: Question
+  lat: 37.234394
+  lng: -93.250966
+  severity_id: 5
+  comments_count: 0
+  language_code: en
+  currency: EUR
+  price_cents: 0
+  happened_at: <%= 25.days.ago.to_s :db %>
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+  opened_at: <%= 5.days.ago.to_s :db %>
+  resolved_at:
+  closed_at: 
+  suspended_at:
+  deleted_at:
+  expires_at:
+probono_problem:
+  id: 2
+  permalink: dirt-in-the-entrance
+  status: open
+  visits_count: 0
+  title: Dirt in the entrance
+  type: Problem
+  lng: -58.528314
+  description: There has been lots of dirt spread out in the entrace caused by "trucks" that took a ride in the dirt
+  severity_id: 4
+  comments_count: 
+  lat: "-34.4944601"
+  language_code: en
+  person_id: 5
+  currency: EUR
+  price_cents: 0
+  happened_at: <%= 2.days.ago.to_s :db %>
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+  opened_at: <%= 5.days.ago.to_s :db %>
+  resolved_at:
+  closed_at: 
+  suspended_at:
+  deleted_at:
+  expires_at:
+fixed_price_problem:
+  id: 3
+  permalink: ledger_with_business_objects
+  status: open
+  visits_count: 0
+  title: Ledger with Business Objects
+  type: Problem
+  lng: -58.528314
+  description: I need to know how ledgers work
+  severity_id: 5 # critical
+  comments_count: 
+  lat: "-34.4944601"
+  language_code: en
+  person_id: 5
+  currency: EUR
+  price_cents: 2000
+  happened_at: <%= 2.days.ago.to_s :db %>
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+  opened_at: <%= 5.days.ago.to_s :db %>
+  resolved_at:
+  closed_at: 
+  suspended_at:
+  deleted_at:
+  expires_at: <%= 7.days.from_now.to_s :db %>
+probono_template_en:
+  id: 4
+  permalink: template-en
+  template: 1
+  status: suspended
+  visits_count: 0
+  title: "Welcome %{name}!"
+  type: Problem
+  lng:
+  description: "Here you can find and start cases about %{name}."
+  severity_id: 4
+  comments_count: 
+  lat:
+  language_code: en
+  person_id: 1
+  currency: EUR
+  price_cents: 0
+  happened_at: <%= 2.days.ago.to_s :db %>
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+  opened_at: <%= 5.days.ago.to_s :db %>
+  resolved_at:
+  closed_at: 
+  suspended_at:
+  deleted_at:
+  expires_at:
+probono_template_de:
+  id: 5
+  permalink: template-de
+  template: 1
+  status: suspended
+  visits_count: 0
+  title: "Willkommen %{name}!"
+  type: Problem
+  lng:
+  description: "Hier können Sie einen Fall über %{name} starten und sich mit anderen Interessierten und Betroffenen austauschen."
+  severity_id: 4
+  comments_count: 
+  lat:
+  language_code: de
+  person_id: 1
+  currency: EUR
+  price_cents: 0
+  happened_at: <%= 2.days.ago.to_s :db %>
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+  opened_at: <%= 5.days.ago.to_s :db %>
+  resolved_at:
+  closed_at: 
+  suspended_at:
+  deleted_at:
+  expires_at:

@@ -1,0 +1,64 @@
+<%
+  with_custom_style ||= false
+%>
+<head>
+  <meta charset="utf-8" />
+  <title><%= @title || "Newluleka" %></title>
+  <% if false %>
+  <link rel="profile" href="http://gmpg.org/xfn/11" />
+  <link rel="pingback" href="<% "some_url" %>" />
+  <% end %>
+  <%= stylesheet_link_tag "nl/basic", "nl/buttons", "nl/tipsy" %>
+  <%= javascript_include_tag "jquery-1.5.2.min.js", "jquery.form.js", "jquery.tipsy.js", "application" %>
+  <% if with_custom_style %>
+  <style type="text/css">
+  <%
+    @color_options = hostucan_get_options
+    @b_c = @color_options['hostucan_background_color']
+    @t_c = @color_options['hostucan_text_color']
+    @l_c = @color_options['hostucan_links_color']
+    @s_c = @color_options['hostucan_sidebar_color'];
+    @sb_c = @color_options['hostucan_sidebar_border_color'];
+  %>
+
+  body {
+    background-color: <%= html2rgb(@b_c, 1) %>;
+    color: <%= html2rgb(@t_c) %>;
+  }
+
+  #main {
+    background-color: <%= html2rgb(@s_c, 0.9) %>;
+  }
+
+  .commentlist li.comment:hover,
+  .commentlist .pingback:hover,
+  #container .teaser .hentry:hover,
+  html #container .teaser .focused:hover
+  {
+  	background-color: <%= html2rgb(@l_c, 0.1) %>;
+    border-color: <%= html2rgb(@l_c, 0.15) %>;
+  }
+
+  a,
+  .menu ul  li:hover  .children li a,
+  .menu ul li:hover  .children li:hover .children a,
+  #container .teaser .hentry:hover .entry-meta a,
+  #container .teaser .hentry:hover .entry-date,
+  .teaser .hentry:active .entry-title a,
+  .teaser .hentry:hover .entry-title a {
+  	color: <%= html2rgb(@l_c) %>;
+  }
+
+  #content .page-title {
+  	background-color: <%= html2rgb(@l_c, 0.2) %>;
+    border-color: <%= html2rgb(@l_c, 0.25) %>;
+  }
+
+  </style>
+  <script type="text/javascript">
+  var hostucan_pane_type = "<%= @color_options['hostucan_pane_type'] %>";
+  </script>
+  <% end %>
+  
+  <%= yield :head %>
+</head>

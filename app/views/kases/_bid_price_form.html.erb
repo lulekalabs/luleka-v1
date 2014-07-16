@@ -1,0 +1,56 @@
+<% # Setup
+	if defined?( display ).nil? || display.nil?
+		display = true
+	end
+	if defined?( form_id ).nil? || form_id.nil?
+		form_id = 'price_tag_form'
+	end
+	if defined?( html_id ).nil? || html_id.nil?
+		html_id = "price_tag_id"
+	end
+	if defined?( replace_html_id ).nil? || replace_html_id.nil?
+		replace_html_id = html_id
+	end
+	if defined?( person ).nil? || person.nil?
+		person = current_user.person
+	end
+	if defined?( headline ).nil? || headline.nil?
+		headline = ""
+	end
+	if defined?( infoline ).nil? || infoline.nil?
+		infoline = ""
+	end
+	if defined?( delimiter ).nil? || delimiter.nil?
+		delimiter = false
+	end
+%>
+<% div_tag :id => html_id, :style => '' do %>
+	<% div_tag :id => form_id, :style => display ? '' : 'display:none' do %>
+		<%= headline unless headline.empty? %>
+		<% form_tag( 
+			{},
+			{ :id => form_id }
+		) do %>
+			<% kase_price do %>
+				<%= text_field_tag( :price, '', :style => 'width:40px' ) -%>
+			<% end %>
+			<%= infoline unless infoline.empty? %>
+			<%= hidden_field_tag :person_id, person.id %>
+			<%= hidden_field_tag :html_id, replace_html_id %>
+			<%= hidden_field_tag :html_message_id, 'issue_message_id' %>
+		<% end %>
+		<% content_button_container do %>
+			<%= probono_button(
+				:label => "Bid".t,
+				:type => :passive,
+				:position => :right,
+				:function => update_page do |page|
+					page << "if (confirm( '#{ "Are you sure to bid?".t }')) {"
+					page << remote_function( :url => { :method => :post, :action => 'bid', :id => issue.id }, :submit => form_id )
+					page << "}"
+				end
+			) -%>
+		<% end %>
+	<% end %>
+	<%= widget_overview_delimiter if delimiter -%>
+<% end %>

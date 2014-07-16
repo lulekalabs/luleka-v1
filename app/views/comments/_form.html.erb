@@ -1,0 +1,33 @@
+<% # comments/form
+  comment ||= form || @comment
+  f ||= nil
+%>
+<% if f %>
+
+  <%#--- comment message %>
+  <% form_element :style => 'padding-top:0;' do %>
+		<%= form_label(:comment, :email_name, :position => :top, :auto => false, :req => false,
+		  :text => "Add %{comment_type} to %{name}'s %{commentable}".t % {
+				:comment_type => comment.class.human_name,
+				:name => link_to(comment.commentable.person.username_or_name,
+				  person_path(comment.commentable.person)),
+				:commentable => comment.commentable.class.human_name
+			}, :help => false
+		) %>
+		<% form_field(:comment, :message) do %>
+		  <%= text_area(:comment, :message, :size => '80x2', :class => "commentMessageTextArea autogrow", :object => comment) %>
+		<% end %>
+	<% end %>
+
+  <%#--- sender email %>
+  <% unless logged_in? %>
+    <% form_fields_for :comment do |f| %>
+      <%= render :partial => 'shared/form_sender_email', :locals => {:f => f} %>
+    <% end %>
+  <% end %>
+  
+	<%#--- language %>
+	<%= render :partial => 'shared/form_select_language_with_flipper', :object => comment,
+		:locals => {:object_name => :comment, :id => comment_dom_id(comment, :language_flipper)} %>
+	
+<% end %>

@@ -1,0 +1,20 @@
+Hier ist eine interessante Unterhaltung über<%= @kase.tier ? " #{h(@kase.tier.name)}" : '' %>:
+
+<% unless @email.message.blank? %>
+---
+<%= h(@email.message) %>
+---
+
+<%-end-%>
+
+<%= h(@kase.title.capitalize) %> by <%= h(@kase.person.name) %>
+
+<%= h(@kase.description) %>
+
+Um jetzt mehr zu erfahren, können sie dem Link folgen oder kopieren sie den Link direkt in ihren Webbrowser:
+
+<%= kase_url(@kase) %>
+
+Diese Nachricht wurde von <%= SERVICE_NAME %> - <%= I18n.t('service.tagline') %> versandt.
+
+<%= render :partial => 'notifier/signature' %>

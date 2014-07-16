@@ -1,0 +1,26 @@
+<%  # setup
+  bank ||= short_list || @bank
+  from ||= Time.now.utc.beginning_of_month
+%>
+<% div_tag :style => "font-weight: bold;text-align: right;padding-bottom:5px;" do %>
+  <%= "%{balance} beginning balance as of %{time}".t % {
+    :balance => bank.balance(from).format,
+    :time => from.to_s(:long)
+  } %>
+<% end %>
+<br/>
+<% div_tag :style => "width:440px;" do %>
+  <% bank.transactions.after(from).each do |transaction| %>
+    <% div_tag :class => cycle('oddcell', 'evencell', :name => 'bank_transactions') do %>
+      <%= render :partial => 'account/bank/transactions/list_item_content', :object => transaction,
+        :locals => {:width => 400} -%>
+    <% end %>
+  <% end %>
+<% end %>
+<br/>
+<% div_tag :style => "font-weight: bold;text-align: right;padding-top:5px;" do %>
+  <%= "%{balance} ending balance as of %{time}".t % {
+    :balance => bank.balance.format,
+    :time => from.to_s(:long)
+  } -%>
+<% end %>

@@ -1,0 +1,100 @@
+<%= wizard_chevron :complete %>
+<% content_left do %>
+
+  <% bracket_container do %>
+    <%= form_flash_messages %>
+  
+    <% steplet(:step => :auto,
+      :title => "Complete".t,
+      :description => "Thanks for adding your community.".t % {:type => @tier.class.human_name, :name => h(@tier.name)}
+    ) do %>
+
+      <%#--- status %>
+      <dl class="fieldRow">
+        <dt class="left">
+          <label>
+            <%= "Status".t %>
+          </label>
+        </dt>
+        <dd>
+          <%= @tier.current_state_t %>
+        </dd>
+      </dl>
+
+      <%#--- tier name %>
+      <dl class="fieldRow">
+        <dt class="left">
+          <label>
+            <%= "%{type} name".t % {:type => @tier.class.human_name} %>
+          </label>
+        </dt>
+        <dd>
+          <%= truncate(h(@tier.name)) %>
+        </dd>
+      </dl>
+
+      <%#--- image & logo %>
+      <dl class="fieldRow">
+        <dt class="top">
+          <label>
+            <%= "Image and Logo".t %>
+          </label>
+        </dt>
+        <dd>
+          <div style="float:left;margin-right:10px">
+            <%= tier_image_tag(@tier) %>
+          </div>
+          <div style="float:left;margin-right:10px">
+            <%= tier_logo_tag(@tier) %>
+          </div>
+          <div class="clearClass"></div>
+        </dd>
+      </dl>
+      
+      <%#--- summary %>
+      <% unless @tier.summary.blank? %>
+      <dl class="fieldRow">
+        <dt class="top">
+          <label>
+            <%= "Summary".t %>
+          </label>
+        </dt>
+        <dd>
+          <%= h(@tier.summary) %>
+        </dd>
+      </dl>
+      <% end %>
+
+      <%#--- description %>
+      <% unless @tier.description.blank? %>
+      <dl class="fieldRow">
+        <dt class="top">
+          <label>
+            <%= "Description".t %>
+          </label>
+        </dt>
+        <dd class="markdown">
+          <%= markdown(@tier.description) %>
+        </dd>
+      </dl>
+      <% end %>
+      
+      <%#--- site url %>
+      <dl class="fieldRow">
+        <dt class="top">
+          <label>
+            <%= "Site URL".t %>
+          </label>
+        </dt>
+        <dd>
+          <%= link_to_tier_site(@tier) %>
+        </dd>
+      </dl>
+      
+    <% end %>
+  <% end %>
+
+<% end %>
+<% content_right do %>
+  <%= render :partial => "tiers/faqs" %>
+<% end %>

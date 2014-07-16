@@ -1,0 +1,26 @@
+<%
+  kase ||= bid_price || @kase
+  price ||= kase.price_s
+	title ||= nil
+	infoline ||= nil
+	delimiter ||= false
+	if defined?(status).nil? || status.nil?
+		status = nil
+		color = ''
+	end
+	if status == :invalid
+		color = 'color: #ff0000'  # red
+	elsif status == :valid
+		color = 'color: #00ff00'  # green
+	end
+%>
+<%= title unless title.blank? %>
+<% unless price.blank? %>
+	<% kase_price :id => dom_id(kase, :price) do %>
+		<% span_tag :style => color do %>
+			<%= h(price) %>
+		<% end %>
+	<% end %>
+<% end %>
+<%= infoline unless infoline.blank? -%>
+<%= widget_overview_delimiter if delimiter -%>

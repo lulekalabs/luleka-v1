@@ -1,0 +1,61 @@
+<% # setup
+  f ||= nil
+  address ||= address || @address
+	edit ||= begin edit.nil? ? true : edit; rescue; true; end
+	object_name ||= 'person'
+	method_name ||= "#{address.kind}_address_attributes"
+%>
+<% if f %>
+  <% if [:business, :personal].include?(address.kind) %>
+  	<%= render :partial => 'shared/address_country_and_province', :object => address,
+  	  :locals => {:object_name => object_name, :method_name => method_name, 
+  	    :reqs => {:country => true, :province => [:business, :billing].include?(address.kind)},
+  	    :locks => {:country => true, :province => true}, :edit => edit} %>
+  	<%= render :partial => 'shared/address_city_and_postal_code', :object => address,
+  	  :locals => {:object_name => object_name, :method_name => method_name,
+  	    :reqs => {:city => [:business, :billing].include?(address.kind),
+  	      :postal_code => [:business, :billing].include?(address.kind)},
+  	    :locks => {:city => true, :postal_code => true}, :edit => edit} %>
+  	<%= render :partial => 'shared/address_street_address', :object => address,
+  	  :locals => {:object_name => object_name, :method_name => method_name, 
+  	    :req => [:business, :billing].include?(address.kind), 
+  	    :lock => true, :edit => edit} %>
+  	<%= render :partial => 'shared/address_telecom', :object => address,
+  	  :locals => {:object_name => object_name, :method_name => method_name,
+  	    :reqs => {:phone => [:business, :billing].include?(address.kind),
+  	      :mobile => false, :fax => false},
+  	      :locks => {:phone => true, :mobile => true, :fax => true}, :edit => edit} %>
+  <% elsif :billing == address.kind %>
+	  <% wizard_form_fields_for "#{object_name}[#{method_name}]", address do |f| %>
+		  <%= f.text_field :company_name, :edit => true, 
+		    :label => {:position => :top, :text => "Business Name".t},
+		    :style => 'width: 100%'%>
+		<% end %>
+		<%= render :partial => 'shared/form_salutation_and_name', :object => address,
+		  :locals => {:object_name => object_name, :method_name => method_name, :edit => edit, :gender => true,
+		    :reqs => {:first_name => true, :last_name => true}, :locks => {:first_name => true, :last_name => true}} %>
+  	<%= render :partial => 'shared/address_street_address', :object => address,
+  	  :locals => {:object_name => object_name, :method_name => method_name, 
+  	    :req => [:business, :billing].include?(address.kind), 
+  	    :lock => true, :edit => edit} %>
+  	<%= render :partial => 'shared/address_city_and_postal_code', :object => address,
+  	  :locals => {:object_name => object_name, :method_name => method_name,
+  	    :reqs => {:city => [:business, :billing].include?(address.kind),
+  	      :postal_code => [:business, :billing].include?(address.kind)},
+  	    :locks => {:city => true, :postal_code => true}, :edit => edit} %>
+  	<%= render :partial => 'shared/address_country_and_province', :object => address,
+  	  :locals => {:object_name => object_name, :method_name => method_name, 
+  	    :reqs => {:country => true, :province => address.kind != :business},
+  	    :locks => {:country => true, :province => true}, :edit => edit} %>
+  <% end %>			
+<% else %>
+  <% if edit %>
+    <% form_table_fields_for "#{object_name}[#{method_name}]", address do |f| %>
+      <%= render :partial => 'shared/address', :object => address,
+        :locals => {:f => f, :edit => edit, :object_name => object_name, :method_name => method_name} %>
+    <% end %>
+  <% else %>
+	  <%= address_display(address) %>
+  <% end %>
+<% end %>
+

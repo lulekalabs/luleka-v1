@@ -1,0 +1,9 @@
+<%# kases/lookup_results %>
+<ul class="caseList">
+  <% @kases.each do |kase| %>
+	<li>
+		<p><%= kase_type_and_time_in_words(kase) %></p>
+		<%= kase_type_icon(kase) %>&nbsp;<%= link_to h(kase.title.titleize), member_path([@tier, @topic, kase]) %>
+	</li>
+	<% end %>
+</ul>

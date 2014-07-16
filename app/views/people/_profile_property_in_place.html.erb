@@ -1,0 +1,125 @@
+<% # setup
+  object = profile_property_in_place
+  object_name ||= nil
+  method_name ||= nil
+  display ||= begin display; rescue; true; end
+  editable ||= false
+  edit ||= false
+  update ||= false
+  label ||= nil
+  partial ||= nil
+  locals ||= {}
+%>
+<% div_tag :id => property_dom_id(object, method_name), :update => update, :display => display do %>
+  <% form_element_unless update, :id => property_dom_id(object, method_name, :edit_label), :display => false,
+      :style => "padding-top: 10px;padding-bottom:0;" do %>
+    <%= form_label(object_name, method_name, label.merge(:position => :top)) %>
+  <% end %>
+  <% div_tag :id => property_dom_id(object, method_name, :edit), :update => update do %>
+    <% profile_property_element_if edit, :type => :form do %>
+      <% switch_theme :theme => :profile, :context => :primary_content do %>
+        <% div_tag :id => property_dom_id(object, method_name, :form) do %>
+          <%= render :partial => partial, :object => object, :locals => locals.merge({:edit => true}) %>
+          <% content_button_container do %>
+            <%= div_tag progress_spinner(:id => property_dom_id(object, method_name, :update_spinner),
+              :tag => :img, :size => "15x15", :style => "padding-right: 10px;"),
+                :style => 'float:right;' %>
+            <%= probono_button(
+              :label => "Update".t,
+              :id => property_dom_id(object, method_name, :update_button),
+              :type => :active,
+              :position => :right,
+              :function => remote_function(
+                :url => {:controller => 'people', :action => "update_#{method_name}_in_place",
+                  :id => object, :object_name => object_name, :method_name => method_name},
+                :method => :put,
+                :loading => update_page do |page|
+                  page[property_dom_id(object, method_name, :update_button)].hide
+                  page[property_dom_id(object, method_name, :update_spinner)].show
+                end,
+                :submit => property_dom_id(object, method_name, :form),
+                :update => {
+                  :success => property_dom_id(object, method_name, :content),
+                  :failure => dom_class(Person, :message)
+                },
+                :failure => update_page do |page|
+                  page << "new Effect.ScrollTo('#{dom_class(Person, :message)}', {offset:-12});"
+                  page[dom_class(Person, :message)].show
+                  page[property_dom_id(object, method_name, :update_spinner)].hide
+                end,
+                :success => update_page do |page|
+                  page[property_dom_id(object, method_name, :view)].show
+                  page[property_dom_id(object, method_name, :edit)].hide
+                  page[property_dom_id(object, method_name, :edit_label)].hide
+                  page[dom_class(Person, :message)].hide
+                end,
+                :complete => update_page do |page|
+                  page[property_dom_id(object, method_name, :update_button)].show
+                  page[property_dom_id(object, method_name, :update_spinner)].hide
+                end
+              )
+            ) %>
+            <%= probono_button(
+              :label => "Cancel".t,
+              :type => :passive,
+              :position => :right,
+              :function => update_page do |page|
+                page[property_dom_id(object, method_name, :edit)].hide
+                page[property_dom_id(object, method_name, :view)].show
+                page[property_dom_id(object, method_name, :edit_label)].hide
+              end
+            ) %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if !edit && update %>
+    <%= render :partial => partial, :object => object, :locals => locals.merge({:edit => false}) %>
+  <% else %>
+    <% profile_property_element_unless edit, :id => property_dom_id(object, method_name, :view), 
+        :editable => editable, :style => edit ? 'display:none;' : '' do %>
+      
+      <% profile_property_column do %>
+        <% form_element do %>
+        	<%= form_label(object_name, method_name, label.merge(:style => "padding-top: 0px;")) %>
+          <% form_field object_name, method_name, :id => property_dom_id(object, method_name, :content),
+              :style => "float:left;width:280px;" do %>
+            <%= render :partial => partial, :object => object, :locals => locals.merge({:edit => false}) %>
+          <% end %>
+        <% end %>
+      <% end %>
+      
+      <% profile_property_column do %>
+        <% form_element do %>
+          <%= probono_edit_button(
+            :id => property_dom_id(object, method_name, :edit_button),
+            :style => 'float:right;',
+            :function => remote_function(
+              :url => {:controller => 'people', :action => "edit_#{method_name}_in_place",
+                :id => object, :object_name => object_name, :method_name => method_name},
+              :method => :get,
+              :loading => update_page do |page|
+                page[property_dom_id(object, method_name, :edit_spinner)].show
+                page[property_dom_id(object, method_name, :edit_button)].hide
+              end,
+              :complete => update_page do |page|
+                page[property_dom_id(object, method_name, :edit_spinner)].hide
+                page[property_dom_id(object, method_name, :edit_button)].show
+              end,
+              :update => {:success => property_dom_id(object, method_name, :edit), :failure => dom_class(Person, :message)},
+              :failure => "new Effect.ScrollTo('#{dom_class(Person, :message)}', {offset:-12});",
+              :success => update_page do |page|
+                page[property_dom_id(object, method_name, :edit)].show
+                page[property_dom_id(object, method_name, :view)].hide
+                page[property_dom_id(object, method_name, :edit_label)].show
+              end
+            )
+          ) if editable %>
+          <%= div_tag progress_spinner(:id => property_dom_id(object, method_name, :edit_spinner), :tag => :img, :size => "11x11"),
+            :style => 'float:right' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

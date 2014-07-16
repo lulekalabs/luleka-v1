@@ -1,0 +1,20 @@
+<% # setup
+  f ||= nil
+  object ||= education
+	edit ||= begin edit.nil? ? true : edit; rescue; true; end
+	object_name ||= :person
+	method_name ||= nil
+%>
+<% if f %>
+  <%= render :partial => 'shared/form_education', :object => object,
+    :locals => {:f => f, :object_name => object_name, :edit => true} %>
+<% else %>
+  <% if edit %>
+    <% form_table_fields_for object_name, object do |f| %>
+      <%= render :partial => 'people/education', :object => object,
+        :locals => {:f => f, :edit => edit, :object_name => object_name, :method_name => method_name} %>
+    <% end %>
+  <% else %>
+    <%= property_education object %>
+  <% end %>
+<% end %>

@@ -1,0 +1,11 @@
+Usted ha invitado a <%= @invitation.invitee_name %> a la red <%= SERVICE_NAME %>.
+
+<%- if @invitation.message -%>
+Su mensaje de invitación dice:
+
+---
+<%= @invitation.message %>
+---
+<%- end -%>
+
+<%= render :partial => 'notifier/signature', :object => @invitor %>

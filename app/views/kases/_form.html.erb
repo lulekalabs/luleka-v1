@@ -1,0 +1,214 @@
+<% # kases/_form
+  active_type ||= @kase.kind || :question
+  active_index = Kase.ordered_subclasses.map(&:kind).index(active_type)
+  accordion ||= accordion?
+  title_dom_id ||= dom_class(Kase, "title_#{rand(10000)}")
+  description_dom_id ||= dom_id(@kase, "description_#{rand(10000)}")
+  description_preview_dom_id ||= dom_id(@kase, "description_preview_#{rand(10000)}")
+%>
+<% tab_header :style => "margin-left:10px;width:490px;" do %>
+  <% Kase.ordered_subclasses.each_with_index do |klass, index| %>
+
+    <%= header_tab_link_to_function klass.human_name, "Tabs.select('#{klass.kind}')", 
+      {:index => index, :size => Kase.ordered_subclasses.size,
+        :active_index => active_index, :id => "tab-#{klass.kind}"} %>
+
+  <% end %>  
+<% end %>
+
+<% bracket_container do %>
+  <%= form_flash_messages %>
+	<%= form_error_messages_for [:kase, :user], :unique => true, :attr_names => {
+	  :base => '', :title => "Title".t, :permalink => "Title".t,
+	  :description => "Description".t, :language_code => "Language".t, 
+	  :login => User.human_attribute_name(:login), :email => User.human_attribute_name(:email),
+	  :email_confirmation => User.human_attribute_name(:email_confirmation)
+	} %>
+	
+	<div class="formBoxColumnLeft" style="margin-top:5px;">
+    <% Kase.ordered_subclasses.each_with_index do |klass, index| %>
+      <%= div_tag "&nbsp;", :id => "step-#{klass.kind}", :class => "step #{steplet_icon_css_selector(klass.kind)}", 
+        :style => "margin-left:5px;", :display => klass.kind == active_type %>
+    <% end %>
+	</div>
+	<div class="formBoxColumnRight">
+    <%= f.hidden_field :kind, :id => 'kase-kind', :value => "#{active_type}" %>
+
+    <%#--- title %>
+	  <% form_element :class => "title", :style => "position: relative;" do %>
+      <% form_field :kase, :title do %>
+        <%= label :kase, :title, 
+          Kase.ordered_subclasses.map {|k| span_tag(k.human_headline, :id => "headline-#{k.kind}",
+            :class => "headline", :display => k.kind == active_type)}.join, 
+              :class => "prompted", :for => title_dom_id %>
+        
+        <span class="fieldwrap">
+          <%= text_area :kase, :title, :label => false, :size => "80x1", 
+            :id => title_dom_id %>
+        </span>  
+      <% end %>
+    <% end %>
+
+    <%#--- select language%>
+		<%= render :partial => 'shared/form_select_language_with_flipper', :object => @kase, 
+		  :locals => {:object_name => :kase} %>
+
+    <% div_tag :id => "kase-accordion-form", :display => !accordion do %>
+    
+      <%#--- description %>
+    	<% form_element :style => "position: relative;" do %>
+    		<% form_field :kase, :description do %>
+          <%= label :kase, :description, "Describe your concern in more detail".t, 
+            :class => "prompted markdown_editor", :for => description_dom_id %>
+    	  
+    			<%= text_area(:kase, :description, :id => description_dom_id,
+    			  :style => "width: 100%;height:48px", :class => "kaseDescriptionTextArea markdown_editor autogrow", :size => "80x2") %>
+
+    			<% flipper_link_to :kase_description_preview, :display => false,
+    					:open_text => "<small>#{ "Preview".t }</small>",
+    					:close_text => "<small>#{ "Close Preview".t }</small>" do %>	
+      			<%= div_tag '', :id => description_preview_dom_id, :class => 'markdown markdownEditorPreview' %>
+      			<%= probono_clear_class %>
+    			<% end %>
+
+    		<% end %>
+    		<%= help_text(:kase, :description, ["The editor will assist you with some basic text decorations using %{markdown}, some HTML is also allowed.".t].to_sentences % {:markdown => link_to("Markdown", "http://#{Utility.language_code}.wikipedia.org/wiki/Markdown", :popup => true)} , :display => true, :escape => false) %>
+    	<% end %>
+  	
+      <%#--- happened_at %>
+  		<% switcher_link_to("Change if it did not happen %{time} ago".t % {
+  		    :time => "<b>#{time_ago_in_words(@kase.happened_at || Time.now.utc)}</b>"
+  		  }, {:open => false, :sticky => false}, {}) do %>
+    
+  			<% form_element do %>
+  			  <%= form_label :kase, :happened_at, {:text => "It happened at".t, :position => :top, :help => true} %>
+  				<% form_field :kase, :happened_at do %>
+  					<%= f.datetime_select :happened_at, {
+  			      :start_year => 1969,
+  			      :end_year => (Time.now).year, 
+  			      :use_month_names => collect_abbreviated_month_names_for_select,
+  			      :order => Date.format_array,
+  			      :disabled => false,
+  			      :include_blank => false,
+  						:default => @kase.happened_at || Time.now.utc
+  				  } %>
+  				<% end %>
+  				<%= help_text(:kase, :happened_at,
+  				  "Select the date and time when the incident occurred according to %{time_zone} time.".t % {
+  						:time_zone => "<b>#{@kase.person && @kase.person.user ? @kase.person.user.time_zone : ''}</b>"
+  					}, :display => false, :escape => false
+  				) %>
+				
+  			<% end %>
+  		<% end %>
+
+      <%#--- tags %>
+  		<%= f.text_field(:tag_list, :label => {:position => :top, :text => "Tag it with words".t, :help => true},
+  		  :style => 'width: 100%;', :id => "tags") %>
+		  
+  		<%= help_text(:kase, :tag_list, "Add words that describe your case, e.g. _%{example}_".t % {
+  		  :example => tag_list_link_to(["rent".t, "land-lord".t, "security deposit".t], hash_for_member_path([@tier, :kase, :tag], nil, :id => "foo"))
+  		}, :display => false, :escape => false) %>
+
+      <%#--- organization/products %>
+  	  <%= render :partial => 'kases/select_topics', 
+  	    :locals => {:f => f, :open => accordion ? false : @kase.tier?} %>
+
+      <%#--- select location %>
+      <%= render :partial => 'kases/select_location', 
+        :locals => {:f => f, :open => @kase.location?, :delay => !@kase.location?} %>
+    
+  		<%#--- sign in or signup? %>
+      <% unless logged_in? %>
+  		  <%= render :partial => "shared/inline_authentication_form", 
+  		    :locals => {:object_name => :kase} %>
+      <% end %>
+
+      <%= hidden_field_tag "uses_modal", uses_modal? %>
+
+    <% end %>
+	</div>
+	<div class="clearClass"></div>
+<% end %>
+
+<%= markdown_editor_javascript_tag :kase, :description, :id => description_dom_id,
+ 	:preview_id => description_preview_dom_id %>
+<%= javascript_tag "Luleka.DefaultFields.initialize();" %>
+<script type="text/javascript">
+//<![CDATA[
+  function lookupTags(searchString, suggest) {
+    new Ajax.Request('<%= collection_path([@tier, @kase, :tags], :autocomplete) %>', {parameters: {name: searchString, rand: (new Date()).getTime(), authenticity_token: '<%= form_authenticity_token %>'},
+      onSuccess: function(response) {
+        suggest(response.responseJSON);
+      }});
+  }
+  var cachedBackendTags = new Autocompleter.Cache(lookupTags, {choices: 10});
+  var cachedLookupTags = cachedBackendTags.lookup.bind(cachedBackendTags);
+
+  <% if @tier %>
+  var mvListCached = new Autocompleter.MultiValue('tags', cachedLookupTags, 
+    <%= @kase.tag_list_on(:tags, nil, :format => :tags).map {|t| [t.name, t.new_record? ? t.name : t.name]}.to_json %>, 
+    {frequency: 0.5, acceptNewValues: true});
+  <% else %>
+  var mvListCached = new Autocompleter.MultiValue('tags', cachedLookupTags, 
+    <%= @kase.tag_list_on(:tags, nil, :format => :tags).map {|t| [t.name, t.new_record? ? t.name : t.name]}.to_json %>, 
+    {frequency: 0.5, acceptNewValues: true, beforeAddEntry: addedTag, afterRemoveEntry: removedTag});
+  <% end %>
+
+  function addedTag(tag) {
+    new Ajax.Updater('toggler_id', 
+      '<%= search_field_tiers_path %>', 
+      {asynchronous:true, evalScripts:true, method:'get', 
+        parameters:Form.serialize('<%= f.options[:html][:id] %>') +
+          '&added=' + encodeURIComponent(tag) +
+            '&authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>')});
+  }
+
+  function removedTag(tag) {
+    new Ajax.Updater('toggler_id', 
+      '<%= search_field_tiers_path %>', 
+      {asynchronous:true, evalScripts:true, method:'get', 
+        parameters:Form.serialize('<%= f.options[:html][:id] %>') +
+          '&removed=' + encodeURIComponent(tag) +
+            '&authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>')});
+  }
+
+  Tabs = {
+    select: function(kind) {
+      $$(".step").each(function(element, index) {
+        element.hide();
+      });
+      $(Tabs.stepId(kind)).show();
+
+      $$(".headline").each(function(element, index) {
+        element.hide();
+      });
+      $(Tabs.headlineId(kind)).show();
+
+      $('kase-kind').value = kind;
+    },
+    stepId: function(kind) {
+      return "step-" + kind;
+    },
+    headlineId: function(kind) {
+      return "headline-" + kind;
+    }
+  };
+  Luleka.TabHeader.observe();
+
+  window.showAccordionContent = function() {
+    if (typeof($("kase-accordion-form").retrieve("open")) == "undefined" && !$("kase-accordion-form").visible()) {
+      Effect.BlindDown("kase-accordion-form", {duration:0.6});
+      Effect.Appear("kase-accordion-form", {duration:0.3});
+      $("kase-accordion-more-button").hide();
+      $("kase-submit-button").show();
+      $("kase-accordion-form").store("open", true);
+    }
+  }
+  
+  Event.observe("<%= title_dom_id %>", "keypress", function(event) {
+    showAccordionContent();
+  });
+  
+//]]>
+</script>

@@ -1,0 +1,79 @@
+<% # Setup
+  display ||= true
+  form_id ||= 'comment_form'
+  html_id ||= "comment_form_id"
+  html_comments_message_id ||= "comments_message_id"
+  person ||= current_user.person
+%>
+<% div_tag :id => html_id do %>
+	<% div_tag :id => 'comment_preview', :style => "display:none;" do %>
+	<% end %>
+	<% div_tag :id => form_id, :style => display ? '' : 'display:none' do %>
+		<% form_tag( 
+			{},
+			{ :id => form_id }
+		) do %>
+			<%= text_area "comment", "body", :style => "border:1px solid #878889; width:477px; padding:0px;", :rows => 5 %>
+			<%= hidden_field_tag :person_id, person.id %>
+			<%= hidden_field_tag :issue_id, issue.id %>
+		<% end %>
+		<% content_button_container do %>
+			<%= probono_button(
+				:label => "Cancel".t,
+				:type => :passive,
+				:position => :left,
+				:function => update_page do |page|
+					page << toggle_flipper_function( 'add_comment', :scope => :all )
+					page.replace_html "comment_preview"
+					page << "Field.clear($('comment_body'))"
+				end
+			) -%>
+			<%= probono_button(
+				:label => "Preview".t,
+				:type => :passive,
+				:position => :left,
+				:function => remote_function(
+					:url => { :method => :post, :action => 'comment', :kind => :preview },
+					:loading => update_page do |page|
+						page['comment_spinner_id'].show
+					end,
+					:complete => update_page do |page|
+						page['comment_spinner_id'].hide
+					end,
+					:submit => form_id,
+					:update => { :success => 'comment_preview', :failure => html_comments_message_id },
+					:failure => "new Effect.ScrollTo(#{html_comments_message_id}, {offset:-6});",
+					:success => update_page do |page|
+						page << probono_visual_effect( :blind_down, 'comment_preview' )
+					end
+				)
+			) -%>
+			<%= probono_button(
+				:label => "Post".t,
+				:type => :active,
+				:position => :right,
+				:function => remote_function(
+					:url => { :method => :post, :action => 'comment' },
+					:loading => update_page do |page|
+						page['comment_spinner_id'].show
+					end,
+					:complete => update_page do |page|
+						page['comment_spinner_id'].hide
+					end,
+					:submit => form_id,
+					:update => { :success => 'primary_content_comments', :failure => html_comments_message_id },
+					:failure => "new Effect.ScrollTo(#{html_comments_message_id}, {offset:-6});",
+					:success => update_page do |page|
+						page << toggle_flipper_function( 'add_comment', :scope => :all )
+						page << "Field.clear($('comment_body'))"
+						page.replace_html 'comment_preview', ''
+					end,
+					:position => :bottom
+				)
+			) -%>
+			<% div_tag :style => 'float:right' do %>
+				<%= progress_spinner :id => 'comment_spinner_id' %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

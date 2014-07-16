@@ -1,0 +1,115 @@
+<%= javascript_tag "var participant#{@index}" %>
+<%
+	if defined?( delete ).nil? || delete.nil?
+		delete = true 
+	end
+	if defined?( issue_id ).nil? || issue_id.nil?
+		issue_id = nil 
+	end
+	if defined?( edit ).nil? || edit.nil?
+		edit = false 
+	end
+
+	invite_link = link_to_function(
+		"Invite".t,
+		update_page do |page|
+			page["participant#{index}_search"].hide
+			page["participant_#{@index}_role_search"].replace ''
+			page["participant#{index}_enter"].show
+		end
+	)
+	
+	remote_delete_link = link_to_remote(
+		'',
+		:url => { :action => :remove_participant, :index => index, :issue_id => issue_id },
+		:loading => update_page do |page|
+			page['participants_spinner'].show
+		end,
+		:complete => update_page do |page|
+			page << 'try {'
+			page["participant#{index}"].replace_html ''
+			page << 'participants_index--;'
+			page << '} catch(e) {}'
+			page['participants_spinner'].hide
+		end
+	)
+
+	delete_link = link_to_function('', nil ) do |page|
+		page["participant#{@index}"].replace ''
+		page << 'participants_index--;'
+	end
+
+	delete_btn_link = delete ? button_link_tag( delete_link, :type => :minus, :color => 'turquoise', :style => 'float:right; padding: 5px 0 0 5px', :alt => "Delete".t ) : ''
+	
+	role_help_text = "A role defines the relationship between a person and this case. It will not be visible to others, except the answering #{SERVICE_PARTNER_NAME} and the person you are assigning this role to. You can assign more than one role to a person by separating each tag. Examples for roles are _defendant_, _witness_, _landlord_, _owner_".t
+	show_participant_search = true
+	if @following && @following.person && @following.person.new_record?
+		show_participant_search = false
+	end
+%>
+
+<% div_tag :id => "participant#{@index}" do %>
+	<% div_tag :id => "participant#{@index}_search", :style => show_participant_search ? '' : 'display:none'  do %>
+		<% form_table do %>
+			<% form_table_row do %>
+				<% form_table_delimiter do %>
+					<% form_element do %>
+						<%= form_label_tag :searchname, :label => {:position => :top, :text => (@following && @following.person) ? "Name" : "Search or {invite}".t.gsub(/\{invite\}/, invite_link) } %>
+						<% form_field_tag :participant_name do %>
+							<% div_tag do %>
+								<%= probono_text_field_with_auto_complete(
+									"participant",
+									:name,
+									{
+										:autocomplete => 'off',
+										:style => 'width:100%;',
+										:index => index,
+										:value => (@following && @following.person) ? @following.person.name : ''
+#										:disabled => (@following && @following.person) ? true : false
+									},
+									{
+										:select => "listBoxHeadlineShort",
+										:skip_style => false,
+										:value_id => (@following && @following.person) ? @following.person.id : ''
+									}
+								) %>
+								<%= probono_clear_class %>
+							<% end %>
+							<%= probono_clear_class %>
+						<% end %>
+					<% end %>
+				<% end %>
+				<% form_table_delimiter do %>
+					<% form_element do %>
+						<%= form_label_tag :participant_role, :position => :top, :text => "Role", :req => true, :lock => true, :help => true %>
+						<% form_field_tag :role do %>
+							<%= text_field(
+								"participant",
+								:role,
+								:style => 'width:100%',
+								:index => index,
+								:id => "participant_#{@index}_role_search",
+								:value => @following ? @following.tag_list : ''
+							) %>
+						<% end %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+		<%= delete_btn_link %>
+	<% end %>
+	<% div_tag :id => "participant#{@index}_enter", :style => show_participant_search ? 'display:none' : '' do %>
+		<% form_table_fields_for :participant do |t| %>
+			<% form_table_row do %>
+				<%= t.text_field :firstname, :label => { :position => :top, :lock => true }, :style => 'width:100%', :index => index, :value => (@following && @following.person) ? @following.person.firstname : '' %>
+				<%= t.text_field :lastname, :label => { :position => :top, :lock => true, :req => true }, :style => 'width:100%', :index => index, :value => (@following && @following.person) ? @following.person.lastname : '' %>
+			<% end %>
+			<% form_table_row do %>
+				<%= t.text_field :email, :label => { :position => :top, :lock => true, :req => true }, :style => 'width:100%', :index => index, :value => (@following && @following.person) ? @following.person.email : '' %>
+				<%= t.text_field :role, :label => { :position => :top, :lock => true, :req => true, :help => true }, :style => 'width:100%', :index => index, :value => @following ? @following.tag_list : '' %>
+			<% end %>
+		<% end %>
+		<%= delete_btn_link %>
+	<% end %>
+	<%= help_text :participant, :role, role_help_text, :display => false %>
+<% end %>

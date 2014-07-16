@@ -1,0 +1,131 @@
+<%	# setup
+  object ||= order_invoice
+	label_width_style = "width:100px;"
+	download ||= true
+%>
+<% form_element do %>
+  <small>
+	<% unless object.new_record? %>
+
+	    <%#--- number %>
+    	<% div_tag :clear => true do %>
+    		<%= span_tag "Number".t, :style => "font-weight: bold;float:left;#{label_width_style}" -%>
+    		<%= span_tag "#{object.short_number}", :style => "float:left;" -%>
+    	<% end %>
+
+			<%#--- date %>
+  		<% div_tag_if true, :clear => true do %>
+  			<%= span_tag "Date".t, :style => "font-weight: bold;float:left;#{label_width_style}" -%>
+  			<%= span_tag "#{object.created_at.to_date.to_s(:long)}", :style => "float:left;" -%>
+  		<% end %>
+
+			<%#--- status %>
+  		<% div_tag :clear => true do %>
+  			<%= span_tag "Status".t,
+  			  :style => "font-weight: bold;float:left;#{label_width_style}"  -%>
+  			<%= span_tag object.current_state_t.titleize, :style => "float:left;" %>
+  		<% end %>
+
+			<%#--- payment %>
+  		<% div_tag_if object.is_a?(Invoice), :clear => true do %>
+  			<%= span_tag "Payment".t,
+  			  :style => "font-weight: bold;float:left;#{label_width_style}"  -%>
+  			<%= span_tag object.payment_type_t.titleize, :style => "float:left;" %>
+  		<% end %>
+
+			<%#--- addresses %>
+  		<% div_tag_if object.billing_address, :style => "padding-top:12px;", :clear => true do %>
+  			<% div_tag_if object.billing_address, :style => "float:left;width:50%;" do %>
+  				<strong><%= "Billed to".t %></strong>
+  				<%= address_display(object.billing_address) -%>
+  			<% end %>
+  			<% div_tag_if object.origin_address, :style => "float:left;width:50%;" do %>
+  				<strong><%= "Billed by".t %></strong>
+  				<%= address_display(object.origin_address) -%>
+  			<% end %>
+	    <% end %>
+	<% end %>
+	<br/>
+	<br/>
+  <strong><%= "%{order} Items".t % {:order => object.class.human_name}%></strong>
+	<br/>
+	<br/>
+	<% probono_table :width => "100%", :class => "listing" do %>
+		<col width="80%" />
+		<%#--- line items %>
+		<% object.line_items.each_with_index do |item, index| %>
+			<% probono_table_row do %>
+	    	<% probono_table_field(
+ 				  :class => cycle_class = cycle('oddcell', 'evencell', :name => 'orders'),
+ 				  :style => 0 == index ? "border-top: 1px solid #e0e6e8;" : ""
+ 			  ) do %>
+
+  				<%= div_tag(
+				    span_tag_if(item.sellable.quantity > 1, "#{item.sellable.quantity}&nbsp;&times;&nbsp;").to_s +
+				    span_tag(h(item.sellable.name)) +
+				    span_tag_if(item.sellable.taxable?, ' *', :class => 'req').to_s,
+				    :style => "font-weight: bold;"
+  				) -%>
+  				<%= div_tag '<small>' + h(item.sellable.description) + '</small>'-%>
+					
+				<% end %>
+    		<% probono_table_field :class => cycle_class, :style => 0 == index ? "border-top: 1px solid #e0e6e8;" : "" do %>
+				  <p style="text-align: right"><%= item.amount.format %></p>
+			  <% end %>
+			<% end %>
+		<% end %>
+
+		<%#--- net %>
+		<% probono_table_row do %>
+			<% probono_table_field(:class => cycle_class = cycle('oddcell', 'evencell', :name => 'orders')) do %>
+				<strong><%= "Subtotal".t %></strong>
+			<% end %>
+			<% probono_table_field(:class => cycle_class) do %>
+        <p style="font-weight:bold;text-align:right"><%= object.net_total.format %></p>
+			<% end %>
+		<% end %>
+
+		<%#--- tax %>
+		<% probono_table_row do %>
+			<% probono_table_field( :class => cycle_class = cycle( 'oddcell', 'evencell', :name => 'orders' ) ) do %>
+				<% span_tag :style => "align:left" do %>
+					<%= "Tax".t -%>
+				<% end %>
+				<%= help_button_tag 'vat-info', :style => 'display:inline; float:right;' %>
+			<% end %>
+			<% probono_table_field( :class => cycle_class ) do %>
+        <p style="text-align: right"><%= object.tax_total.format -%></p>
+			<% end %>
+		<% end %>
+
+		<%#--- gross %>
+		<% probono_table_row do %>
+			<% probono_table_field(:class => cycle_class = cycle('oddcell', 'evencell', :name => 'orders')) do %>
+			  <%= span_tag("Total".t, :style => 'font-weight:bold;') %>
+			<% end %>
+			<% probono_table_field(:class => cycle_class) do %>
+				<p style="text-align: right"><strong><%= object.total.format %></strong></p>
+			<% end %>
+		<% end %>
+	<% end %>
+	<%
+	  caption = [
+  	  "Tax or Value Added Tax (VAT) applies to items marked with %{star}.".t % {
+  	    :star => span_tag('*', :class => 'req')
+  	  },
+  	  object.tax_rate > 0 ? "The tax rate applied is %{tax_rate}%.".t % {
+	      :tax_rate => object.line_items.first.tax_rate.loc
+	    } : nil
+	  ].compact.to_sentences
+	%>
+	<%= help_text_tag 'vat-info', caption, :display => false, :escape => false %>
+
+	<%#--- download %>
+	<% div_tag_if download, :style => "padding-top:12px;" do %>
+		<%= link_to(file_icon_image_tag('invoice.pdf', :size => '16x16'),
+		  formatted_account_invoice_path(object.is_a?(Order) ? object.invoice : object, :pdf),
+		  :popup => true) if object.is_a?(Order) ? object.invoice : true %>
+		<strong><%= link_to "Invoice".t.titleize, account_invoice_path(object.is_a?(Order) ? object.invoice : object) %></strong>
+	<% end %>
+	</small>	
+<% end %>

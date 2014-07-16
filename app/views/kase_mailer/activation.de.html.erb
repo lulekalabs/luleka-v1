@@ -1,0 +1,13 @@
+Sie haben den folgenden Fall erstellt:
+
+<%= h(@kase.title) %>
+
+---
+<%= h(@kase.description) %>
+---
+
+Um jetzt Ihren Fall zu veröffentlichen, können sie dem Link folgen oder kopieren sie den Link direkt in ihren Webbrowser:
+
+<%= activate_kase_url(@kase.activation_code) %>
+
+<%= render :partial => "notifier/signature" %>

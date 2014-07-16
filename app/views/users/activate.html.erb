@@ -1,0 +1,49 @@
+<%= wizard_chevron :activate %>
+
+<% content_left do %>
+  <% wizard_form_for :user, @user, :url => users_path(:id => @user.activation_code), :html => {:method => :put} do |f| %>
+
+    <% bracket_container do %>
+    	<%= form_flash_messages %>
+    	<%= form_error_messages_for(:user, :unique => true, :attr_names => {
+    	  :base => '',
+    	  :password => User.human_attribute_name(:password), 
+    	  :currency => User.human_attribute_name(:currency)
+    	}) %>
+    	<% steplet :step => :auto, :title => "Activate Account".t, :description => "Welcome back! You are almost done. Please choose a password and activate your free account.".t do %>
+
+          <%= render :partial => "password_confirmation_fields", :locals => {:f => f} %>
+
+          <% switcher_link_to("Change international settings".t, {:open => false, :sticky => true}, 
+            {:title => switcher_i18n_label_title, :alt => switcher_i18n_label_title}) do %>
+
+            <%= f.select :locale, collect_supported_locales_for_select(false), 
+        	    {:label => {:position => :top, :text => "Desired Language and Country".t, :req => true}}, {} %>
+        	  
+            <% form_table_fields_for :user do |t| %>
+            	<% form_table_row do %>
+            	
+                <%= t.select :currency, collect_currencies_for_select(false), 
+            	    {:label => {:position => :top, :text => "Desired Currency".t, :req => true}}, 
+            	      {:style => "width:100%;"} %>
+            	    
+                <%= render :partial => "shared/form_select_time_zone", :locals => {:f => t} %>
+
+              <% end %>
+            <% end %>
+          <% end %>
+
+    	<% end %>
+    <% end %>
+
+    <%= render :partial => "personal_information", :locals => {:f => f} %>
+
+    <% form_button_container do %>
+			<%= probono_button :label => "Cancel".t, :url => :back, :type => :passive %>
+			<%= form_submit_button "Activate".t, :position => :right %>
+		<% end %>
+  <% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'faq' %>
+<% end %>

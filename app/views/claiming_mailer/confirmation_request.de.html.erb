@@ -1,0 +1,10 @@
+Danke für ihr Interesse <%= h(@organization.name) %> zu unterstützen.
+
+Um ihre Anforderung zu bestätigen, müssen sie folgenden
+Link anklicken oder kopieren sie ihn direkt in ihren Webbrowser:
+
+<%= confirm_organization_claiming_url(@organization, @activation_code) -%>
+
+Sie können dann fortfahren, um das Konto zu aktivieren.
+
+<%= render :partial => 'notifier/signature', :object => @person %>

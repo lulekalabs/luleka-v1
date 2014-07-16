@@ -1,0 +1,73 @@
+<%= wizard_chevron :complete %>
+<% content_left do %>
+
+  <% bracket_container do %>
+  	<%= form_flash_messages %>
+  	<% steplet :step => :auto, :title => "Complete".t, 
+  	    :description => "Your registration is now complete and your account is active.".t do %>
+  	    
+  	  <div class="inbracket">
+  	    <h3><%= "Thank you for confirming and activating your account!".t %></h3>
+  	    
+        <p>
+    	    <%= "As a sign up bonus we give you a starting credit of %{money} on your #{SERVICE_PIGGYBANK_NAME} account.".t % {
+    	      :money => content_tag(:b, Money.new(Person::SIGNUP_CREDIT_CENTS, @user.currency).format)
+    	    } %>&nbsp;
+    	    <%= "This credit can be used freely on #{SERVICE_NAME}.".t %><span class="req">*&nbsp;</span>&nbsp;
+    	  </p>
+
+  	    <h3><%= "Have fun using #{SERVICE_NAME}!".t %></h3>
+  	    <p><%= "If you have further questions, please find our %{faq}, %{ask_us} here or send your email to %{email_address}.".t % {:faq => link_to("FAQ".t, faq_path), :ask_us => link_to("ask us".t, new_question_path), :email_address => mail_to(Notifier.unprettify(Notifier.support_email), Notifier.unprettify(Notifier.support_email), {:encode => "hex"})}%></p>
+        <div id="details" class="yellow" style="text-align:center;margin-bottom:15px;">
+          <p>
+            <span class="req">*&nbsp;</span>
+            <%= "A transfer to third parties or redemption of the starting balance is not possible.".t %>	
+          </p>
+        </div>
+      
+      </div>
+
+  	<% end %>
+  <% end %>
+  <% form_button_container :style => "margin-bottom:15px;" do %>
+		<%= probono_button :label => "Edit Profile".t, 
+		  :url => me_people_path, :position => :right %>
+		<%= probono_button :label => "My Account".t, 
+		  :url => account_path, :position => :right %>
+		<%= probono_button :label => "Start %{case}".t % {:case => Kase.human_name}, 
+		  :url => new_kase_path, :position => :right %>
+	<% end %>
+	
+  
+  <%#--- upgrade? %>
+	<% wizard_form_for :person, @user.person, :url => user_partner_path, :html => {:method => :post} do |f| %>
+		<% bracket_container do %>
+			<% steplet :step => :auto, :title => "Partner Program".t,
+			  :description => "Join our Partner Program and start earning today.".t do %>
+
+        <%= render :partial => 'partners/why_to_buy' %>
+
+        <div id="details" class="turquoise" style="text-align:center;margin-top:15px;">
+          <p>
+            <%= "Learn more about our %{benefits} and different {membership_plans}." % {:membership_plans => link_to("Membership Plans".t, plans_user_partner_path), :benefits => link_to("Partner Program".t, benefits_user_partner_path)} %>	
+          </p>
+        </div>
+
+			  <%= render :partial => 'partners/select_membership', :object => @partner_memberships,
+          :locals => {:selected => @selected, :lock => false} %>
+
+        <%= render :partial => 'partners/select_membership_with_voucher', :locals => {
+          :with_separator => true, :selected => @selected, :lock => false} %>
+
+			  <%= help_text :partner, :reasons, "You can decide to upgrade to a #{SERVICE_PARTNER_NAME} account at any point in time.", :type => :notice, :display => true %>
+
+			<% end %>
+		<% end %>
+		<% form_button_container do %>
+			<%= form_submit_button "Upgrade".t, :position => :right %>
+		<% end %>
+	<% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'faq' %>
+<% end %>

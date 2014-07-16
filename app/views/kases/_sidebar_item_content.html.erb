@@ -1,0 +1,13 @@
+<%
+  kase ||= sidebar_item_content
+  time ||= true
+  function ||= :link_to
+  url ||= kase_path(kase)
+%>
+<% div_tag :class => "listBoxPicture" do %>
+  <%= url ? link_to(image_avatar_tag(kase.person), person_path(kase.person)) : image_avatar_tag(kase.person) %>
+<% end %>
+<% div_tag :class => "listBoxNarrowTextContent" do %>
+  <%= div_tag url ? send(function, h(kase.title), url) : h(kase.title), :class => 'listBoxHeadlineShort' %>
+  <%= div_tag_if_content added_time_ago_display(kase) if time %>
+<% end %>

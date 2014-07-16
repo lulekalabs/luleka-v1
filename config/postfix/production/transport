@@ -1,0 +1,6 @@
+# Contents of /etc/postfix/transport
+#
+#   sudo postmap sasl_passwd
+#
+gmail.com smtp:[smtp.gmail.com]:587
+#

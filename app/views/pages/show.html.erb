@@ -1,0 +1,5 @@
+<% cache page_fragment_cache_key(page_permalink) do %>
+  <% div_tag page_div_tag_options(@page) do %>
+    <%= parse_page_html %>
+  <% end %>
+<% end %>

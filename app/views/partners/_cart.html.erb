@@ -1,0 +1,20 @@
+<div class="cart">
+  <% if @cart %>
+  <h4>
+    <%= "You selected (%{change})".t % {
+      :change => link_to("Change?".t, new_user_partner_path)
+    } %>
+  </h4>
+  <% @cart.line_items.each do |line_item| %>
+  <div class="item oddcell">
+    <div class="name">
+      <%= line_item.name %>
+    </div>
+    <div class="description">
+      <%= line_item.description %>
+    </div>
+  </div>
+  <% end %>
+  <div class="total evencell"><%= "Total %{total}".t % {:total => @cart.total.format} %></div>
+  <% end %>
+</div>

@@ -1,0 +1,32 @@
+about:
+  id: 1
+  permalink: about
+  title: About
+  content: "<html>About Us</html>"
+  permalink_de: ueber
+  title_de: Ueber
+  content_de: "<html>Über uns</html>"
+jobs:
+  id: 2
+  permalink: jobs
+  title: Jobs
+  content: "<html>Our Jobs</html>"
+  permalink_de: stellen
+  title_de: Stellen
+  content_de: "<html>Unsere Stellen</html>"
+terms_of_service:
+  id: 3
+  permalink: terms-of-service
+  title: Terms of Service
+  content: "<html>Terms of Service</html>"
+  permalink_de: nutzungsbestimmungen
+  title_de: Nutzungsbestimmungen
+  content_de: "<html>Nutzungsbestimmungen</html>"
+privacy_policy:
+  id: 4
+  permalink: privacy_policy
+  title: Privacy Policy
+  content: "<html>Privacy Policy</html>"
+  permalink_de: datenschutzbestimmungen
+  title_de: Datenschutzbestimmungen
+  content_de: "<html>Datenschutzbestimmungen</html>"

@@ -1,0 +1,12 @@
+<%	# Setup
+	if defined?( disabled ).nil? || disabled.nil?
+		disabled = false
+	end
+	if defined?( label ).nil? || label.nil?
+		label = { :text => "Confirm Email".t }
+	end
+	if defined?( help ).nil? || help.nil?
+		help = { :text => "Please confirm the email address you have provided.".t }
+	end
+%>
+<%= f.text_field :email_confirmation, :size => 24, :maxlength => 45, :disabled => disabled, :label => label, :help => help -%>

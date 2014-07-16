@@ -1,0 +1,33 @@
+<% # setup
+  f ||= nil
+	edit ||= begin edit.nil? ? true : edit; rescue; true; end
+	object_name ||= :person
+	method_name ||= :twitter_name
+  object ||= form_twitter_name
+%>
+<% if f %>
+  <% form_element do %>
+  	<%= form_label_tag("#{object_name}_#{method_name}", :position => :top, :req => false, :lock => true,
+  	  :text => "Twitter name".t, :help => true
+  	) %>
+  	<% form_field(object_name, method_name) do %>
+  	  <%= table_cells_tag(
+  	    span_tag("@ "),
+  	    f.text_field(method_name, :size => 25)
+  	  ) %>
+  	<% end %>
+  	<%= help_text object_name, method_name, "%{sign_up} for a Twitter account".t % {
+  	  :sign_up => link_to("Sign up".t, "http://twitter.com")
+  	}, :display => false, :type => :notice, :escape => false %>
+  <% end %>
+<% else %>
+  <% if edit %>
+    <% fields_for "#{object_name}", object do |f| %>
+      <%= render :partial => 'shared/form_twitter_name', :object => object,
+        :locals => {:f => f, :edit => edit, :object_name => object_name, :method_name => method_name} %>
+    <% end %>
+  <% else %>
+    <% value = object.send(:twitter_name)  %>
+    <%= value.blank? ? "---" : "@" + link_to("#{object.send(:twitter_name)}", object.send(:twitter_url), :popup => true) %>
+  <% end %>
+<% end %>

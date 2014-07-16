@@ -1,0 +1,31 @@
+<% 
+  max ||= 6 
+%>
+<% unless @topics.blank? %>
+  <div id="<%= dom_class(Kase, :topics_row) %>" class="fieldRow">
+    <%= f.label(:topics, "Which %{tier} topic is it about?".t % {:tier => h(@tier.name)}) %>
+
+    <ul class="topicsList">
+      <% @topics.from(0).to(max - 1).each do |topic| %>
+        <li>
+          <%= topic_check_box_and_label(topic, @kase.topic_ids.include?(topic.id)) %>
+        </li>
+      <% end %>
+    </ul>
+    <div class="clearer"></div>
+
+    <% if @topics && @topics.size >= max %>
+      <% switcher_link_to("more".t, {:open => false, :sticky => false, :icon => false}, 
+          {:style => "padding:0;margin:0;"}) do %>
+        <ul class="topicsList">
+          <% @topics.from(6).each do |topic| %>
+            <li>
+              <%= topic_check_box_and_label(topic, @kase.topic_ids.include?(topic.id)) %>
+            </li>
+          <% end %>
+        </ul>
+        <div class="clearer"></div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

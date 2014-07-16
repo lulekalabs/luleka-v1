@@ -1,0 +1,239 @@
+#--- luleka English US products
+three_month_partner_membership_en: 
+  id: 1
+  tier_id: 3 
+  sku_id: "1"
+  sku_variant_id: "1"
+  country_code: US
+  name: Three-Month Partner Membership
+  name_de: "Viertelj\xC3\xA4hrliche Partner Mitgliedschaft" 
+  permalink: three-month-partner-membership
+  language_code: en
+  unit: month
+  taxable: "1"
+  internal: "1"
+  pieces: "3"
+  sku_type: SU
+  description: "%{unit} partner membership for %{price}"
+  description_de: "%{unit} Mitgliedschaft f\xC3\xBCr %{price}"
+  status: "active"
+  activated_at: 2007-07-12 17:35:24
+  type: Service
+  created_by_id: 2
+  # sku SU00101EN-US
+one_year_partner_membership_en: 
+  id: 2
+  tier_id: 3 
+  sku_id: "1"
+  sku_variant_id: "3"
+  country_code: US
+  name: One-Year Partner Membership
+  name_de: "Einj\xC3\xA4hrige Partner Mitgliedschaft"
+  permalink: one-year-partner-membership
+  language_code: en
+  unit: month
+  taxable: "1"
+  internal: "1"
+  pieces: "12"
+  sku_type: SU
+  description: "%{unit} partner membership for %{price}"
+  description_de: "%{unit} Mitgliedschaft f\xC3\xBCr %{price}"
+  status: "active"
+  activated_at: 2007-07-12 17:35:24
+  type: Service
+  created_by_id: 2
+  # sku SU00103EN-US
+five_purchasing_credit_en: 
+  id: 3
+  tier_id: 3 
+  sku_id: '6'
+  sku_variant_id: "1"
+  country_code: US
+  name: "'Five' Purchasing Credit"
+  name_de: Kaufguthaben 'Five'
+  permalink: five-purchasing-credit
+  language_code: en
+  unit: piece
+  taxable: "0"
+  internal: "1"
+  pieces: "1"
+  sku_type: PC
+  description: "%{unit_price} purchasing credit"
+  description_de: "Kaufguthaben \xC3\xBCber %{unit_price}"
+  status: "active"
+  activated_at: 2007-07-12 17:35:24
+  type: Service
+  created_by_id: 2
+service_fee_en: 
+  id: 4
+  tier_id: 3 
+  sku_id: "3"
+  sku_variant_id: "0"
+  country_code: US
+  name: "Service fee"
+  name_de: "Bearbeitungsgeb\xC3\xBChr"
+  permalink: service-fee
+  language_code: en
+  unit: piece
+  taxable: "1"
+  internal: "1"
+  pieces: "1"
+  sku_type: SF
+  description: "%{percentage}% service fee on %{dependent_price} of '%{dependent_name}'"
+  description_de: "%{percentage}% Bearbeitungsgeb\xC3\xBChr auf den Betrag von %{dependent_price} von '%{dependent_name}'"
+  status: "active"
+  activated_at: 2007-07-12 17:35:24
+  type: Service
+  created_by_id: 2
+
+#--- german DE products
+three_month_partner_membership_de: 
+  id: 21
+  tier_id: 4
+  sku_id: "1"
+  sku_variant_id: "1"
+  country_code: DE
+  name: Three-Month Partner Membership
+  name_de: "Viertelj\xC3\xA4hrliche Partner Mitgliedschaft" 
+  permalink: vierteljahrliche-partner-mitgliedschaft
+  language_code: de
+  unit: month
+  taxable: "1"
+  internal: "1"
+  pieces: "3"
+  sku_type: SU
+  description: "%{unit} partner membership for %{price}"
+  description_de: "%{unit} Mitgliedschaft f\xC3\xBCr %{price}"
+  status: "active"
+  activated_at: 2007-07-12 17:35:24
+  type: Service
+  created_by_id: 2
+one_year_partner_membership_de: 
+  id: 22
+  tier_id: 4
+  sku_id: "1"
+  sku_variant_id: "3"
+  country_code: DE
+  name: One-Year Partner Membership
+  name_de: "Einj\xC3\xA4hrige Partner Mitgliedschaft"
+  permalink: einjahrige-partner-mitgliedschaft
+  language_code: de
+  unit: month
+  taxable: "1"
+  internal: "1"
+  pieces: "12"
+  sku_type: SU
+  description: "%{unit} partner membership for %{price}"
+  description_de: "%{unit} Mitgliedschaft f\xC3\xBCr %{price}"
+  status: "active"
+  activated_at: 2007-07-12 17:35:24
+  type: Service
+  created_by_id: 2
+five_purchasing_credit_de: 
+  id: 23
+  tier_id: 4
+  sku_id: "4"
+  sku_variant_id: "1"
+  country_code: DE
+  name: "'Five' Purchasing Credit"
+  name_de: Kaufguthaben 'Five'
+  permalink: kaufguthaben-five
+  language_code: de
+  unit: piece
+  taxable: "0"
+  internal: "1"
+  pieces: "1"
+  sku_type: PC
+  description: "%{unit_price} purchasing credit"
+  description_de: "Kaufguthaben \xC3\xBCber %{unit_price}"
+  status: "active"
+  activated_at: 2007-07-12 17:35:24
+  type: Service
+  created_by_id: 2
+service_fee_de: 
+  id: 24
+  tier_id: 4
+  sku_id: "3"
+  sku_variant_id: "0"
+  country_code: DE
+  name: "Service fee"
+  name_de: "Bearbeitungsgeb\xC3\xBChr"
+  permalink: bearbeitungsgebuhr
+  language_code: de
+  unit: piece
+  taxable: "1"
+  internal: "1"
+  pieces: "1"
+  sku_type: SF
+  description: "%{percentage}% service fee on %{dependent_price} of '%{dependent_name}'"
+  description_de: "%{percentage}% Bearbeitungsgeb\xC3\xBChr auf den Betrag von %{dependent_price} von '%{dependent_name}'"
+  status: "active"
+  activated_at: 2007-07-12 17:35:24
+  type: Service
+  created_by_id: 2
+
+
+#--- powerplant products
+nut:
+  id: 31
+  tier_id: 1
+  sku_id:
+  sku_variant_id:
+  country_code: US
+  name: "Nut"
+  name_de: "Gewindemutter"
+  permalink: nut
+  language_code: en
+  unit: piece
+  taxable: "1"
+  internal: "0"
+  pieces: "1"
+  sku_type: 
+  description: "This is a nut."
+  description: "Das ist eine Gewindemutter."
+  status: "active"
+  activated_at: 2007-07-12 17:35:24
+  type: Product
+  created_by_id: 1
+bolt: 
+  id: 32
+  tier_id: 1
+  sku_id:
+  sku_variant_id:
+  country_code: US
+  name: "Bolt"
+  name_de: "Bolzen"
+  permalink: bolt
+  language_code: en
+  unit: piece
+  taxable: "1"
+  internal: "0"
+  pieces: "1"
+  sku_type: 
+  description: "This is a bolt."
+  description_de: "Das ist ein Bolzen."
+  status: "active"
+  activated_at: 2007-07-12 17:35:24
+  type: Product
+  created_by_id: 2
+electricity: 
+  id: 33
+  tier_id: 1
+  sku_id:
+  sku_variant_id:
+  country_code: US
+  name: "Electricity"
+  name_de: "Elektrizität"
+  permalink: electricity
+  language_code: en
+  unit: kwh
+  taxable: "1"
+  internal: "0"
+  pieces: "1"
+  sku_type: 
+  description: "Let the juices flow baby."
+  description_de: "Lass die Säfte sprudeln."
+  status: "active"
+  activated_at: 2007-07-12 17:35:24
+  type: Service
+  created_by_id: 3

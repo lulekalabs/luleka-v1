@@ -1,0 +1,52 @@
+<% bracket_container do %>
+	<%= form_flash_messages %>
+	<% steplet :title => "Account Registered".t, 
+	    :description => "Thank you for registering with #{SERVICE_NAME}!".t do %>
+    
+	  <div class="inbracket">
+    
+	    <h3><%= "You will receive an activation email from us shortly to confirm your account.".t %></h3>
+
+	    <p>
+  	    <%= "Inside the activation email we have placed an activation link.".t %>&nbsp;
+  	    <%= "Please click on the link or copy the entire link into your browser address field to confirm your free account.".t %>&nbsp;
+  	    <%= "Your free account cannot be activated without this step.".t %>
+  	  </p>
+
+      <% if false%>
+	    <p>
+  	    <%= "As a sign up bonus we give you a starting credit of %{money} on your #{SERVICE_PIGGYBANK_NAME} account.".t % {:money => content_tag(:b, Money.new(Person::SIGNUP_CREDIT_CENTS, @user.currency).format)} %>&nbsp;
+  	    <%= "This credit can be used freely on #{SERVICE_NAME}.".t %>&nbsp;
+        <%= "A transfer to third parties or redemption of the starting balance is not possible.".t %>	
+  	  </p>
+      <% end %>
+
+      <h3><%= "You cannot find the activation email?".t %></h3>
+      <p>
+        <%= "Please first double check your junk mail or spam folder.".t %><span class="req">*&nbsp;</span>&nbsp;
+        <%= "We can resend the activation email to you again, so that you can confirm your registration.".t %>&nbsp;
+        <%= "Please click on %{resend_link}.".t % {
+          :resend_link => if uses_modal?
+            link_to("resend activation email".t, 
+            resend_user_path(:id => @user.activation_code))
+          else
+            link_to_remote("resend activation email".t, 
+            :url => resend_user_path(:id => @user.activation_code, :uses_opened_modal => uses_modal?), :method => :get)
+          end
+        } %>
+      </p>
+
+      <div id="details" class="yellow" style="text-align:left;">
+        <p>
+          <span class="req">*&nbsp;</span>
+          <%= "If your email provider uses a spam or junk mail filter, you can try to add %{email} or the domain %{domain} to the list of known senders or domains.".t % {
+            :email => content_tag(:b, Notifier.unprettify(Notifier.service_email)),
+            :domain => content_tag(:b, "luleka.com")
+          } %>
+        </p>
+      </div>
+  
+    </div>
+
+	<% end %>
+<% end %>

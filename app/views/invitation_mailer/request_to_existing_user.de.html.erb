@@ -1,0 +1,25 @@
+<%= @invitor.name %> will sich als neuer Kontakt verbinden.
+
+<% unless @invitation.message.blank? %>
+---
+<%= h(@invitation.message) %>
+---
+
+<%-end-%>
+
+<% if @invitation.with_voucher? %>
+Ein Geschenkgutschein für eine gratis <%= @invitation.voucher.class.human_name %> liegt bei. Der Gutschein-Kode lautet:
+
+<%= @invitation.voucher.code %>
+
+Der Gutschein kann eingelöst werden indem man die Kontaktanfrage bestätigt oder dem Link folgt:
+
+<%= voucher_url %>
+
+<%-end-%>
+
+Um jetzt die Kontaktanfrage von <%= @invitation.invitor.casualize_name %> zu bestätigen, ist es notwendig dem folgenden Link zu folgen:
+
+<%= confirm_invitation_url(:id => @invitation.uuid) %>
+
+<%= render :partial => 'notifier/signature', :object => @invitee %>

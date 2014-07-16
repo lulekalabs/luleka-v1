@@ -1,0 +1,16 @@
+<%  # setup
+  html_message_id ||= 'account_message_id'
+  message ||= form_flash_messages
+%>
+<% content_left do %>
+  <% messages_container_without_bracket_if message, :id => html_message_id do %>
+  	<%= message -%>
+  <% end %>
+	<%= render :partial => 'financials' %>
+	<%#= render :partial => 'credit', :locals => { :user => @user, :html_message_id => html_message_id } %>
+	<%= render :partial => 'settings', :locals => { :user => @user, :html_message_id => html_message_id } %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'actions' %>
+	<%= render :partial => 'sidebar_info', :locals => {:user => @user, :html_message_id => html_message_id} -%>
+<% end %>

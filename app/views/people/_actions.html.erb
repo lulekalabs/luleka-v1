@@ -1,0 +1,20 @@
+<% sidebar_actions_container do %>
+
+  <% if current_user_me?(@profile) %>
+
+    <% if action_name == "edit" %>
+      <%= sidebar_action_link_to("Public Profile".t, person_path(@profile),
+        {:icon => :action}) %>
+    <% else %>
+      <%= sidebar_action_link_to("Edit Profile".t, edit_person_path(@profile),
+        {:icon => :action}) %>
+    <% end %>
+  <% end %>
+
+  <%= render :partial => 'action_send_message' %>
+  <%= render :partial => 'action_add_contact' %>
+  <%= render :partial => 'action_destroy_contact' %>
+  <%= render :partial => 'action_follow_stop_following' %>
+  <%= render :partial => 'action_invite_friends' %>
+<% end %>
+

@@ -1,0 +1,12 @@
+
+<% top_bracket_content({:title => title}) do %>
+	<% assets.each do |a| %>
+		<% if a.send asset_filter %>
+  		    <% top_bracket_items(:href =>asset_url_for(a),:delete_href=>"#",:icon => image_asset_tag(a,:size => "32x32")) do%>
+    		    <%= a.name %>
+  		    <% end %>
+  		<% end %>
+  	<% end %>
+<% end %>
+
+

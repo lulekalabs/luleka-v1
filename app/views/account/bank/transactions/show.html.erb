@@ -1,0 +1,8 @@
+<% content_left do %>
+  <% div_tag :style => "width:440px;" do %>
+    <% div_tag :class => cycle('oddcell', 'evencell', :name => 'bank_transactions') do %>
+      <%= render :partial => 'account/bank/transactions/list_item_content', :object => @transaction,
+        :locals => {:width => 400} -%>
+    <% end %>
+  <% end %>
+<% end %>

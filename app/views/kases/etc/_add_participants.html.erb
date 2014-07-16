@@ -1,0 +1,15 @@
+<%= javascript_tag "var participants_index = 0" %>
+<%
+	checked = @issue.followings.empty? ? false : true
+	notify_via_email_checked = false
+	notify_via_sms_checked = false
+%>
+<%= render :partial => 'participants_radio_label', :locals => { :checked => checked, :issue_id => @issue.id } %>
+<% div_tag :id => 'edit_participants', :style => 'display:none' do %>
+		<%= form_radio_element_tag 'notify_via_email_checkbox',
+								   :label => "Notify #{SERVICE_FOLLOWERS_NAME} via email?".t,
+								   :button => check_box_tag('participant[notify_via_email]', '1', notify_via_email_checked) %>
+		<%= form_radio_element_tag 'notify_via_sms_checkbox',
+								   :label => "Notify #{SERVICE_FOLLOWERS_NAME} via text message (SMS)?".t,
+								   :button => check_box_tag('participant[notify_via_sms]', '1', notify_via_sms_checked, :disabled => true) %>
+<% end %>

@@ -1,0 +1,48 @@
+<% # responses/new
+  response ||= new || @response
+  disabled ||= false
+  omit_authentication_success ||= false
+%>
+<%#--- new response %>
+<% switch_theme :type => :form do %>
+
+  <div class="primaryContentContainer">
+  	<%= content_tag(:label, "Reply to %{name}'s %{type}".t % {
+  	    :type => response.kase.class.human_name,
+  	    :name => link_to(response.kase.person.username_or_name, person_path(response.kase.person))
+  	  },
+  	 	:for => dom_id(response, :description)) %>
+  	<div class="primaryContentColumnLeft">
+
+  		<% form_element do %>
+  		<div class="subContentPictureGreen">
+    		<%= profile_link_to(image_avatar_tag(response.person), response.person) %>
+    	</div>
+  		<% end %>
+
+  	</div>
+  	<div class="primaryContentColumnRight">
+
+  		<%= render :partial => 'responses/form', :object => response, 
+  		  :locals => {:display => true, :disabled => disabled, :omit_authentication_success => omit_authentication_success} %>
+
+  	</div>
+  	<div class="clearClass"></div>
+  </div>
+  <div class="clearClass"></div>
+
+<% end %>
+<script type="text/javascript">
+//<![CDATA[
+
+  <% unless omit_authentication_success %>
+  Event.observe(document, 'authentication:success', function() {
+    <%= remote_function(
+      :url => collection_url([@tier, response.kase, :response], :new),
+      :method => :get
+    ) %>
+  });
+  <% end %>
+  
+//]]>
+</script>

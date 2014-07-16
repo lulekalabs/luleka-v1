@@ -1,0 +1,50 @@
+<%
+  form_id ||= session_form_dom_id(rand(10000))
+  form_name ||= form_id
+  form_url ||= if @tier || params[:tier_id]
+    form_url = collection_url([:tier, :users], nil, {:tier_id => @tier || params[:tier_id]})
+  else
+    form_url = users_path
+  end
+%>
+<% unless uses_modal? %>
+  <%= wizard_chevron :new %>
+  <% content_left do %>
+  	<% wizard_form_for :user, @user, :url => form_url, :remote => false,
+  	    :html => {:id => form_id, :name => form_name} do |f| %>
+  	
+  	  <%= render :partial => "form", :locals => {:f => f} %>
+  	  
+      <% form_button_container do %>
+      	<%= probono_button :label => "Cancel".t, :url => :back, :type => :passive %>
+      	<%= form_submit_button "Create Account".t, :position => :right %>
+      <% end %>
+
+  	<% end %>
+  <% end %>
+  <% content_right do %>
+    <h4><%= "Got Facebook?".t %></h4>
+    <%= link_to_fb_connect %>
+    <br/>
+    <br/>
+    
+    <%= render :partial => 'faq' %>
+  <% end %>
+<% else %>  
+  <% content_modal do %>
+    <%= wizard_chevron :new %>
+    <% wizard_form_for :user, @user, :url => form_url, :remote => true,
+        :html => {:id => form_id, :name => form_name} do |f| %>
+	
+  	  <%= render :partial => "form", :locals => {:f => f} %>
+	  
+	    <% form_button_container do %>
+	      <%= probono_button :label => "Cancel".t, :position => :left, :type => :passive, 
+	        :function => close_modal_javascript %>
+	      <%= form_submit_button "Create Account".t, :position => :right %>
+	    <% end %>
+	  
+  	<% end %>
+  <% end %>
+<% end %>  
+

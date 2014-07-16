@@ -1,0 +1,37 @@
+<% cache faq_page_fragment_cache_key(@tier) do %>
+<h2 id="headline">
+  <strong><%= "Help".tn(:faq) %></strong>
+  <br/>
+	<p class="subheading">
+    <%= "with your frequently asked questions".tn(:faq) %>
+	</p>
+</h2>
+<div id="questions" class="clearfix">
+  <div class="left">
+    <%= render :partial => "users/faq" %>
+    <%= render :partial => "sessions/faq", :locals => {:unique => true} %>
+    <%= render :partial => "partners/faq" %>
+    <%= render :partial => "tiers/faqs" %>
+    <%= render :partial => "claimings/faq" %>
+    <%= render :partial => "invitations/faqs" %>
+    <%= render :partial => "vouchers/faq" %>
+    <%= render :partial => "flags/faqs" %>
+    <%= render :partial => "partners/edit_faq" %>
+    <%= render :partial => "account/vanities/faq" %>
+
+  </div>
+  <div class="right">
+    <%= render :partial => "kases/faq" %>
+    <%= render :partial => "rewards/faq", :locals => {:unique => true} %>
+
+    <%= render :partial => "account/bank/faq" %>
+    <%= render :partial => "account/addresses/faq" %>
+    <%= render :partial => "account/orders/faq" %>
+    <%= render :partial => "account/closes/faq" %>
+    <%= render :partial => "account/bank/deposits/faq", :locals => {:unique => true}  %>
+    <%= render :partial => "account/bank/transfers/faq", :locals => {:unique => true} %>
+    
+    <p class="question"><%= link_to("More...".t, luleka_root_path) %></p>
+  </div>
+</div>
+<% end %>

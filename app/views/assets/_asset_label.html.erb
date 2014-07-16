@@ -1,0 +1,56 @@
+<%
+	if defined?( issue_id ).nil? || issue_id.nil?
+		issue_id = nil 
+	end
+	edit_link = link_to_function(
+		"edit".t,
+		probono_visual_effect( :toggle_blind, 'asset_edit' )
+	) 
+	add_link = link_to_remote(
+		"Add".t,
+		:url => { :action => :update_file_select },
+		:loading => update_page do |page|
+			page['asset_spinner'].show
+		end,
+		:complete => update_page do |page|
+			page['asset_spinner'].hide
+		end,
+		:before => 'index++;',
+		:with => "'index='+encodeURIComponent(index)"
+	)
+	text_edit     = content_tag( :span, "Add files to this case?".t, :style => 'font-weight: bold;' )
+    text_add_edit = "{add_link} files to this case or {edit_link} settings?".t.gsub(/\{add_link\}/, add_link ).gsub(/\{edit_link\}/, edit_link )
+	text_add_edit = content_tag( :span, text_add_edit, :style => 'font-weight: bold;' )
+%>
+
+<% form_field_tag 'asset_label_field' do %>
+	<% div_tag :id => 'asset_label' do %>
+		<%= form_radio_element_tag( :asset_label,
+		                            :label => { :id => 'asset_label_text', :text => checked ? text_add_edit : text_edit },
+		                            :help => { :text => "Check this field to add files to this case. You can add multiple files.".t },
+		                            :button => check_box_tag( 'upload', "1", checked ) ) %>
+		<%= observe_field( "upload",
+					:url => { :action => :update_file_select, :issue_id => issue_id },
+					:loading => update_page do |page|
+						page['asset_spinner'].show
+					end,
+					:before => 'index++;',
+					:with => "'checked='+encodeURIComponent(value)",
+					:after => update_page do |page|
+			        	page[:asset_label_text].replace_html text_add_edit
+					end,
+					:complete => update_page do |page|
+						page['asset_spinner'].hide
+					end,
+				    :on => :change )
+		%>
+		<% if checked %>
+			<% @issue.assets.each_with_index do |asset, index| %>
+				<% @index=index + 1 %>
+				<%= javascript_tag "index++" %>
+				<%= render :partial => 'file_select', :locals => { :index => @index, :issue_id => issue_id, :delete => true } %>
+			<% end %>
+		<% end %>
+	<% end %>
+	<%= progress_spinner :id => 'asset_spinner', :display => false %>
+<% end %>

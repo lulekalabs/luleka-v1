@@ -1,0 +1,57 @@
+<%	# setup
+  f ||= nil
+  object ||= f ? f.object : (form_salutation_and_name || @address || Address.new)
+  object_name ||= :person
+  method_name ||= nil
+	edit = true
+	locks ||= {} 
+	reqs ||= {} 
+	auto ||= false 
+	gender ||= false
+%>
+<% if f %>
+  <% form_table_row do %>
+  	<%= f.select :gender, collect_salutation_genders_for_select, {:edit => edit, :label => {:position => :top, :text => "Salutation".t, :auto => false, :lock => false, :req => reqs[:gender]}}, {:style => 'width: 100%' } if gender %>
+  	<%= f.select :academic_title_id, collect_academic_titles_for_select, {:edit => edit, :label => { :position => :top, :text => "Title".t, :lock => locks[:academic_title], :req => reqs[:academic_title], :auto => auto}}, {:style => 'width: 100%'} %>
+  <% end %>
+  <% form_table_row do %>
+
+  	<% form_table_element do %>
+  	  <%= form_label object_name, :first_name, "First Name".t, 
+  	    {:position => :top, :lock => locks[:first_name], :req => reqs[:first_name]} %>
+  	  <% form_field object_name, :first_name do %>
+  	    <%= text_field object_name, :first_name, :style => 'width: 100%' %>
+  	    <% unless object.respond_to?(:middle_name) && !object.send(:middle_name).blank? ? true : false %>
+  	    <small>
+    	    <%= link_to_function("More names...".t, nil, :id => dom_id(object, :middle_name_link)) do |page| 
+            page[dom_id(object, :middle_name_link)].hide
+            page[dom_id(object, :middle_name)].show
+          end %>
+        </small>
+        <% end %>
+  	  <% end %>
+  	<% end %>
+  	
+  	<%= f.text_field :last_name, :edit => edit, :label => {:position => :top, :text => "Last Name".t, :lock => locks[:last_name], :req => reqs[:last_name], :auto => auto}, :style => 'width: 100%' %>
+  	
+  	
+  	
+  <% end %>
+<% else %>
+  <% form_table_fields_for method_name ? "#{object_name}[#{method_name}]" : object_name, object do |f| %>
+    <%= render :partial => 'shared/form_salutation_and_name',
+      :locals => {:f => f, :edit => edit, :locks => locks, :reqs => reqs, :auto => auto,
+        :object_name => object_name, :method_name => method_name, :gender => gender} %>
+  <% end %>
+  
+    <% form_table_fields_for method_name ? "#{object_name}[#{method_name}]" : object_name, object do |t| %>
+      <% form_table_row(:id => dom_id(object, :middle_name),
+          :style => "display:#{object.respond_to?(:middle_name) && !object.send(:middle_name).blank? ? '' : 'none'};") do %>
+        <%= t.text_field :middle_name, :edit => edit, :label => {:position => :top, :text => "Middle Name".t, :lock => locks[:middle_name], :req => reqs[:middle_name], :auto => auto}, :style => 'width: 100%' %>
+        <% form_table_delimiter do %>
+          &nbsp;
+        <% end %>
+      <% end %>
+    <% end %>
+    
+<% end %>

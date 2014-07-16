@@ -1,0 +1,74 @@
+#!/bin/bash
+#
+# Init file for unicorn instances
+#
+# description: unicorn instances
+#
+
+# pull in sysconfig settings
+[ -f /etc/sysconfig/unicorn ] && . /etc/sysconfig/unicorn
+
+RETVAL=0
+PROG=unicorn_rails
+DEAMON=/opt/ruby-enterprise/bin/unicorn_rails
+USER=deploy
+RAILS_ENV=staging
+OPTIONS="-c config/unicorn.rb -E $RAILS_ENV -D -d -w"
+CMD="$DEAMON $OPTIONS"
+prog="unicorn"
+lockfile=/var/lock/$PROG
+
+# Some functions to make the below more readable
+
+start()
+{
+  echo $"Starting $prog:"
+  for d in /etc/unicorn/sites/*; do
+    echo -n $d;
+    echo
+    cd $d;
+    [ -f tmp/pids/unicorn.pid ] && echo ": already started!" && break
+    [ ! -f tmp/pids/unicorn.pid ] && $CMD && echo ": OK";
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile && chown $USER:$USER $lockfile && chmod 755 $l$
+  done
+  echo "done"
+}
+
+stop()
+{                                        
+echo $"Stopping $prog:"
+for f in /etc/unicorn/sites/*; do
+  echo -n $f;
+  kill -QUIT `cat $f/tmp/pids/*.pid` && echo ": OK" || echo ": failed";
+done
+echo "done"
+}
+
+restart()
+{
+  echo $"Reloading $prog:"
+  for f in /etc/unicorn/sites/*; do
+    echo -n $f;
+    kill -USR2 `cat $f/tmp/pids/*.pid` && echo ": OK" || echo ": failed";
+  done
+  echo "done"
+}
+
+case "$1" in
+  start)
+  start
+  ;;
+  stop)
+  stop
+  ;;
+  restart)
+  restart
+  ;;
+  *)
+  echo $"Usage: $0 {start|stop|restart}"
+  RETVAL=1
+esac
+exit $RETVAL
+

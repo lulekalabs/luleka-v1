@@ -1,0 +1,17 @@
+root:
+  service:
+    name: "Luleka"
+    domain: "luleka.com"
+    url: "http://www.luleka.com"
+    tagline: "Trusted Recommendations"
+    # tagline: "Trusted Advice"
+    # tagline: "Reputable Recommendations"
+    # tagline: "Authentic Recommendations"
+  
+  paper:
+    sizes:
+      standard: "Letter"
+
+  number:
+    currency:
+      code: "USD"

@@ -1,0 +1,7 @@
+<% # comments/list
+  commentable ||= list
+  comments ||= commentable.comments.active
+%>
+<% div_tag :id => dom_id(commentable, :comments), :class => 'commentListContainer' do %>
+  <%= render :partial => 'comments/show', :collection => comments %>
+<% end %>

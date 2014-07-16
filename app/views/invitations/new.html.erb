@@ -1,0 +1,51 @@
+<%  # invitations/new
+  form_options = if @invitation.has_registered_invitee?
+    {:url => person_invitations_path(:person_id => @invitation.invitee), :method => :post}
+  else
+    {:url => invitations_path, :method => :post}
+  end
+%>
+<% unless request.xhr? %>
+
+  <%#--- regular form %>
+  <%= wizard_chevron :new %>
+  <% content_left do %>
+    <% wizard_form_for :invitation, @invitation, form_options do |f| %>
+      <% if @invitation.has_no_registered_invitee? %>
+        <%= render :partial => 'fields_for_new_user', :locals => {:f => f} %>
+      <% else %>
+        <%= render :partial => 'fields_for_existing_user', :locals => {:f => f} %>
+      <% end %>
+      <% form_button_container do %>
+        <%#= probono_button :label => "Cancel".t, :position => :left, :type => :passive, :url => :back %>
+        <%= form_submit_button "Send".t, :position => :right %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% content_right do %>
+    <%= render :partial => 'people/sidebar_profile', :object => @invitee %>
+    <%= render :partial => 'invitations/faqs' %>
+  <% end %>
+
+<% else %>
+  
+  <%#--- facebox modal  %>
+  <% div_tag :id => dom_class(Invitation) do %>
+
+		<% content_modal do %>
+      <% wizard_form_for :invitation, @invitation, form_options.merge({:remote => true}) do |f| %>
+        <% if @invitation.has_no_registered_invitee? %>
+          <%= render :partial => 'fields_for_new_user', :locals => {:f => f} %>
+        <% else %>
+          <%= render :partial => 'fields_for_existing_user', :locals => {:f => f} %>
+        <% end %>
+        <% form_button_container do %>
+	        <%= probono_button :label => "Cancel".t, :position => :left, :type => :passive, :function => close_modal_javascript %>
+          <%= form_submit_button "Send".t, :position => :right %>
+        <% end %>
+      <% end %>
+		<% end %>
+
+	<% end %>
+
+<% end %>

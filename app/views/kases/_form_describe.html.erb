@@ -1,0 +1,67 @@
+<%
+  active_type ||= @kase.kind || :question
+  # "Try to describe your case as concise as necessary and elaborate as possible.".t
+%>
+<% bracket_container do %>
+	<%= form_error_messages_for :kase, :unique => true, :attr_names => {
+	  :base => '', :title => "Title".t, :permalink => "Title".t,
+	  :description => "Description".t, :language_code => "Language".t, :sender_email => "Email".t
+	} %>
+	
+  <% tab_header :style => "width:99%;" do %>
+    <% Kase.ordered_subclasses.each_with_index do |klass, index| %>
+
+      <%= header_tab_link_to_function klass.human_name, "Tabs.select('#{klass.kind}')", 
+        {:first => index == 0, :last => index == Kase.ordered_subclasses.size - 1,
+          :active => active_type == klass.kind, :icon => klass.kind, :id => "tab-#{klass.kind}"} %>
+
+    <% end %>  
+  <% end %>
+	
+	<div class="formBoxColumnLeft">
+	    <% Kase.ordered_subclasses.each_with_index do |klass, index| %>
+        <%= div_tag '', :id => "step-#{klass.kind}", :class => "step #{steplet_icon_css_selector(klass.kind)}", 
+          :display => klass.kind == active_type %>
+      <% end %>
+	</div>
+	<div class="formBoxColumnRight">
+	  <%= render :partial => 'kases/form_description', :locals => {:f => f} %>
+		<%= f.text_field :title, :label => {:req => true, :text => "Add a short title".t, :position => :top, 
+		    :help => {:text => "Give your case a short, meaningful and interesting title.".t }},
+		    :style => 'font-size:2em;width: 100%' %>
+
+    <% unless logged_in? %>
+      <%= render :partial => 'shared/form_sender_email', :locals => {:f => f}%>
+    <% end %>
+
+		<%= render :partial => 'shared/form_select_language_with_flipper', :object => @kase, 
+		  :locals => {:object_name => :kase} %>
+
+		<% switcher_link_to("Change if it did not happen %{time} ago".t % {
+		    :time => "<b>#{time_ago_in_words(@kase.happened_at || Time.now.utc)}</b>"
+		  }, {:open => false, :sticky => false}, {}) do %>
+    
+			<% form_element do %>
+			  <%= form_label :kase, :happened_at, {:text => "It happened at".t, :position => :top, :help => true} %>
+				<% form_field :kase, :happened_at do %>
+					<%= f.datetime_select :happened_at, {
+			      :start_year => 1969,
+			      :end_year => (Time.now).year, 
+			      :use_month_names => collect_abbreviated_month_names_for_select,
+			      :order => Date.format_array,
+			      :disabled => false,
+			      :include_blank => false,
+						:default => @kase.happened_at || Time.now.utc
+				  } %>
+				<% end %>
+				<%= help_text(:kase, :happened_at,
+				  "Select the date and time when the incident occurred according to %{time_zone} time.".t % {
+						:time_zone => "<b>#{@kase.person && @kase.person.user ? @kase.person.user.time_zone : ''}</b>"
+					}, :display => false, :escape => false
+				) %>
+				
+			<% end %>
+		<% end %>
+	</div>
+	<div class="clearClass"></div>
+<% end %>

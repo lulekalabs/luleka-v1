@@ -1,0 +1,8 @@
+<%= f.text_area(
+  :message,
+  :label => { :position => :top, :text => "Add a personal note".t },
+  :value => @invitation.default_message(:language => current_language_code),
+  :id => dom_class(Invitation, :text),
+  :rows => 5,
+  :style => "width: 100%;" 
+) %>

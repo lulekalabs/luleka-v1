@@ -1,0 +1,27 @@
+<% unless @invitation.message.blank? %>
+---
+<%= h(@invitation.message) %>
+---
+
+<%-end-%>
+
+<% if @invitation.with_voucher? %>
+Le envía un cupón para una <%= @invitation.voucher.class.human_name %> gratuita. El código del cupón es:
+
+<%= @invitation.voucher.code %>
+
+Al confirmar la invitación usted canjea automaticamente su cupón
+
+<%= voucher_url %>
+
+<%-end-%>
+
+Para confirmar <%= @invitation.invitor.casualize_name %> como un nuevo contacto, siga el siguiente vínculo:
+
+<%= confirm_invitation_url(:id => @invitation.uuid) %>
+
+Usted puede afiliarse a Luleka de forma gratuita y sólo toma un minuto registrarse.
+
+<%= SERVICE_NAME %> es útil para encontrar rápidamente los servicios de profesionales calificados. Póngase en contacto con los expertos del area y las personas que se interesan por usted. Encuentre soluciones a sus casos rápidamente.
+
+<%= render :partial => 'notifier/signature' %>

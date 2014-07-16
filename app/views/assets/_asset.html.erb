@@ -1,0 +1,9 @@
+<% top_bracket_items(
+	:id => "asset#{asset.id}",
+	:icon_img => image_asset_tag( asset, :size => "32x32", :preview => true ),
+	:href => asset_url_for(asset)
+#	:delete_href => '#'
+   ) do %>
+	<div style="text-align:center; font-size: 11px"><%= excerpt( asset.file_name, '.', 9) %></div>
+<% end %>
+

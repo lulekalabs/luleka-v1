@@ -1,0 +1,30 @@
+<%  # setup
+  bands = sidebar_contacts_bands(@profile)
+%>
+<% unless bands.blank? %>
+  <% content_container :theme => :sidebar do %>
+    <% headline do %>
+      <%= bands.first[:title] %>
+    <% end %>
+
+    <% bands.each_with_index do |band, index| %>
+
+      <% if 0 == index %>
+        <% primary_content :last => bands.size == 1 do %>
+          <%= render :partial => 'shared/sidebar_profile_list', :object => band[:records],
+            :locals => {:link => true} %>
+        <% end %>
+      <% else %>
+        <% secondary_content(:index => index + 10, :open => false,
+          :last => index == bands.size - 1, :style => "padding-bottom:0;") do %>
+        <% end %>
+      	<% slider_control(:index => index + 10,
+      	  :last => index == bands.size - 1, :open => false, :url => band[:url]) do %>
+      	  <%= slider_control_label band[:short_title] %>
+      	<% end %>
+      <% end %>
+    
+    <% end %>
+
+  <% end %>
+<% end %>

@@ -1,0 +1,4 @@
+if @friendship
+  page.replace_html dom_class(Person, :message), form_flash_messages
+  page.replace dom_class(Person, :action_destroy_contact), :partial => 'action_add_contact', :object => @person
+end

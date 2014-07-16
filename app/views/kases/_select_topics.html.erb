@@ -1,0 +1,26 @@
+<%
+  open ||= false
+  auto_hide ||= true
+  auto_search_limit = 4
+%>
+<% unless @topic %>
+  <% switcher_link_to("Which topic is it about?".t,
+      {:open => open, :sticky => true}, {:id => dom_class(Tier, :switcher)}) do %>
+  
+  	<% if @tier %>
+  	  <%#--- only topics e.g. products can be selected %>
+    
+  	    <%= render :partial => 'topics/select_field', :object => @tier.topics.active.current_region.most_popular,
+  	      :locals => {:object_name => :kase, :method_name => :topic_ids, :selected => []} %>
+
+  	<% else %>
+  	  <%#--- select tier, then topics %>
+    
+  	    <% tiers = @tiers || @kase.tier ? [@kase.tier] : [] %>
+  	    
+  	    <%= render :partial => 'tiers/select_field', :object => tiers,
+  	      :locals => {:object_name => :kase, :method_name => :tier_id} %>
+
+  	<% end %>
+	<% end %>
+<% end %>

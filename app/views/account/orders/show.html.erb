@@ -1,0 +1,13 @@
+<% content_left do %>
+	<% bracket_container do %>
+		<% steplet :step => :auto, :title => @order.class.human_name do %>
+			<%= render :partial => 'shared/order_invoice', :object => @order %>
+		<% end %>
+		<br/>
+	<% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'account/orders/actions' %>
+  <br/>
+  <%= render :partial => 'account/orders/faq' %>
+<% end %>

@@ -1,0 +1,53 @@
+<%
+  title_length ||= 40
+  description_length ||= 40
+  
+  show_name ||= true
+  show_description ||= true
+  show_image ||= true
+  image_size ||= :normal
+  show_type ||= false
+  show_status ||= true
+  show_pcard ||= false
+%>
+<% ul_tag_unless simple_list.blank?, :class => "simpleList clearfix" do %>
+  <% simple_list.each do |kase| %>
+  <li>
+    <%#--- gutter and image %>
+    <% if show_image %>
+    <div class="gutter <%= "#{image_size}" %>">
+      <div class="image <%= "#{image_size}" %>">
+        <%= avatar_link_to(kase.person, {:size => image_size == :small ? '20x20' : '35x35',
+          :anonymous => kase.anonymous?, :class => "#{show_pcard ? 'pcard' : nil}"}, {}) %>
+      </div>  
+    </div>
+    <% end %>
+    
+    <div class="content <%= show_image ? "#{image_size}" : '' %>">
+      <%#--- username or name %>
+      <% if show_name && kase.person && !kase.anonymous? %>
+        <%= link_to h(kase.person.username_or_name), person_path(kase.person), :class => "name #{show_pcard ? 'pcard' : nil}", 
+          :rel => pcard_person_path(kase.person) %>
+      <% end %>
+      <%#--- title %>
+      <%= link_to(h(truncate(kase.title, :length => title_length)), member_path([@tier, @topic, kase]), 
+        :class => "title", :title => h(kase.title)) %>
+      <%#--- description %>
+      <% if show_description && !kase.description.blank? %>
+      <div class="description">
+        <%= truncate_html(markdown(kase.description), :length => 80) %>
+      </div>
+      <% end %>
+      
+      <% if show_status %>
+      <div class="status <%= show_type ? 'icon' : ''%>">
+        <% if show_type %>
+          <%= kase_type_icon(kase) %>&nbsp;
+        <% end %>
+        <%= kase_type_posted_time_ago_in_words(kase) %>
+      </div>
+      <% end %>
+    </div>
+  </li>
+  <% end %>
+<% end %>

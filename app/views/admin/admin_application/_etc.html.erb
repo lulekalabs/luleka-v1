@@ -1,0 +1,17 @@
+<% if current_user && (current_user.has_role?(:moderator) || current_user.has_role?(:copywriter)) %>
+  <% content_for :content_sub_nav do %>
+  <div id="shellSub">
+    <ul class="sub_tabs">
+      <%= admin_tab_list_link_to 'Spoken Languages', '/admin/spoken_languages' %>
+      <%= admin_tab_list_link_to 'Academic Titles', '/admin/academic_titles' %>
+      <%= admin_tab_list_link_to 'Personal Statuses', '/admin/personal_statuses' %>
+      <%= admin_tab_list_link_to 'Severities', '/admin/severities' %>
+      <%= admin_tab_list_link_to 'Tier Categories', '/admin/tier_categories' %>
+      <%= admin_tab_list_link_to_if current_user && current_user.has_role?(:admin), 'Scheduled Jobs', '/admin/delayed_jobs' %>
+    </ul>
+  </div>
+  <div class='clearing'><br clear="both" /></div>
+  <% end %>
+
+  <%= render :active_scaffold => "admin/#{controller.controller_name}" %>	
+<% end %>

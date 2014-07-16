@@ -1,0 +1,7 @@
+Your <%= @person.current_state_t %> membership will expire soon.
+
+You can extend your subscription now by following the link below:
+
+<%= new_user_partner_url %>
+
+<%= render :partial => 'notifier/signature', :object => @person %>

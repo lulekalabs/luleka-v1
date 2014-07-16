@@ -1,0 +1,42 @@
+<%
+  title ||= nil
+  body ||= nil
+%>
+<% content_container :theme => :sidebar do %>
+  <% if title %>
+  	<% headline do %>
+  		<%= title -%>
+  	<% end %>
+  <% else %>
+    <%= div_tag :class => "sideBarBoxGrayTopSimple" %>
+	<% end %>
+	
+	<% unless context.blank? %>
+	
+    <%#--- context with or without actions %>
+  	<% primary_content :last => body.blank? do %>
+  	  <%= div_tag context, :style => "margin:0 -5px 0 -5px;" %>
+  	<% end %>
+    <% unless body.blank? %>
+
+    	<% secondary_content :open => true, :last => true, :style => "padding-bottom:0;" do %>
+    		<% ul_tag :class => "sideBarActionElements" do %>
+    		  <%= body -%>
+    		<% end %>
+    	<% end %>
+    	<div class="sideBarBoxGrayBottomSub"></div>
+
+    <% end %>
+
+	<% else %>
+
+    <%#--- actions only %>
+  	<% primary_content :style => "padding-bottom:0;" do %>
+  		<% ul_tag :class => "sideBarActionElements" do %>
+  		  <%= body -%>
+  		<% end %>
+  	<% end %>
+  	<div class="sideBarBoxGrayBottom"></div>
+
+	<% end %>
+<% end %>

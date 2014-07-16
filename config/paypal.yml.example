@@ -1,0 +1,23 @@
+development:
+  api_username: seller_1264428768_biz_api1.luleka.net
+  api_password: DMLVFFVAU5VR7ZNX
+  signature: AiPC9BjkCyDFQXbSkoZcgqH3hpacAX3IenGpzd35.eEnXJKR3nfHmJWu
+  mode: test
+
+test:
+  api_username: seller_1264428768_biz_api1.luleka.net
+  api_password: DMLVFFVAU5VR7ZNX
+  signature: AiPC9BjkCyDFQXbSkoZcgqH3hpacAX3IenGpzd35.eEnXJKR3nfHmJWu
+  mode: test
+
+staging:
+  api_username: seller_1264428768_biz_api1.luleka.net
+  api_password: DMLVFFVAU5VR7ZNX
+  signature: AiPC9BjkCyDFQXbSkoZcgqH3hpacAX3IenGpzd35.eEnXJKR3nfHmJWu
+  mode: test
+
+production:
+  api_username: seller_1264428768_biz_api1.luleka.net
+  api_password: DMLVFFVAU5VR7ZNX
+  signature: AiPC9BjkCyDFQXbSkoZcgqH3hpacAX3IenGpzd35.eEnXJKR3nfHmJWu
+  mode: test

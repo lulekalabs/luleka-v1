@@ -1,0 +1,253 @@
+powerplant: 
+  id: 1
+  parent_id: 
+  site_name: powerplant
+  name: Springfield Nuclear Powerplant Inc.
+  permalink: powerplant
+  description: The Springfield Nuclear Powerplant Inc. is a nuclear powerplant.
+  summary: The Springfield Nuclear Powerplant Inc.
+  site_url: http://powerplant.net
+  tax_code: 23-4527456
+  tagline: Your Power
+  status: active
+  country_code: US
+  language_code: en
+  lng: 
+  lat: 
+  activated_at: 2007-07-12 17:35:24
+  updated_at: 2007-07-12 17:35:24
+  created_at: 2007-07-12 17:35:24
+  type: Organization
+  tier_category_id: 1
+  created_by_id: 1
+  owner_email: homer@simpson.tt
+  accept_person_total_reputation_points: 0
+  accept_default_reputation_threshold: 0
+  accept_default_reputation_points: 0
+  access_type: open
+  allow_display_in_directory: 1
+  allow_display_logo_in_profile: 1
+  allow_member_invites: 0
+powerplant_de: 
+  id: 2
+  parent_id: 1 
+  site_name: powerplant
+  name: Springfield Nuclear Powerplant GmbH
+  permalink: powerplant
+  name_de: Springfield Nuclear Powerplant GmbH
+  description: The Springfield Nuclear Powerplant Inc. is a nuclear powerplant.
+  description_de: Die Springfield Nuclear Powerplant GmbH ist ein Atomkraftwerk.
+  summary: The Springfield Nuclear Powerplant Inc. is a nuclear powerplant.
+  summary_de: Die Springfield Nuclear Powerplant GmbH ist ein Atomkraftwerk.
+  site_url: http://powerplant.de
+  tax_code: DE176893842
+  tagline: Deine Kraft
+  status: active
+  country_code: DE
+  language_code: de
+  lng: 
+  lat: 
+  activated_at: 2007-07-12 17:35:24
+  updated_at: 2007-07-12 17:35:24
+  created_at: 2007-07-12 17:35:24
+  type: Organization
+  tier_category_id: 1
+  created_by_id: 1
+  owner_email: homer@simpson.tt
+  accept_person_total_reputation_points: 0
+  accept_default_reputation_threshold: 0
+  accept_default_reputation_points: 0
+  allow_display_in_directory: 1
+  allow_display_logo_in_profile: 1
+  allow_member_invites: 0
+luleka: 
+  id: 3
+  parent_id: 
+  site_name: luleka
+  name: Luleka
+  permalink: luleka
+  description: Luleka Worldwide
+  description_de: Luleka Weltweit
+  summary: Luleka Worldwide
+  summary_de: Luleka Weltweit
+  site_url: http://luleka.net
+  tax_code: 13-4527456
+  tagline: In any case
+  status: active
+  country_code:
+  language_code: en
+  lat: 37.234394
+  lng: -93.250966
+  activated_at: 2007-07-12 17:35:24
+  updated_at: 2007-07-12 17:35:24
+  created_at: 2007-07-12 17:35:24
+  type: Organization
+  tier_category_id: 1
+  created_by_id: 6
+  owner_email: quentin@terantino.tt
+  accept_person_total_reputation_points: 1
+  accept_default_reputation_threshold: 0
+  accept_default_reputation_points: 0
+  allow_display_in_directory: 1
+  allow_display_logo_in_profile: 1
+  allow_member_invites: 0
+luleka_de: 
+  id: 4
+  parent_id: 3 
+  site_name: luleka
+  name: Luleka GmbH
+  permalink: luleka
+  name_de: Luleka Germany
+  description: Most beautiful company.
+  description_de: Die schoenste Firma der Welt.
+  summary: Most beautiful company.
+  summary_de: Die schoenste Firma der Welt.
+  site_url: http://luleka.de
+  tax_code: DE176893542
+  tagline: Auf jeden Fall
+  status: active
+  country_code: DE
+  language_code: de
+  lat: 48.76545
+  lng: 11.45546
+  activated_at: 2007-07-12 17:35:24
+  updated_at: 2007-07-12 17:35:24
+  created_at: 2007-07-12 17:35:24
+  type: Organization
+  tier_category_id: 1
+  created_by_id: 6
+  owner_email: quentin@terantino.tt
+  accept_person_total_reputation_points: 1
+  accept_default_reputation_threshold: 0
+  accept_default_reputation_points: 0
+  allow_display_in_directory: 1
+  allow_display_logo_in_profile: 1
+  allow_member_invites: 0
+luleka_us: 
+  id: 5
+  parent_id: 3 
+  site_name: luleka
+  name: Luleka Inc.
+  permalink: luleka
+  name_de: Luleka Inc.
+  description: Luleka United States
+  description_de: Luleka Vereinigte Staaten
+  summary: Luleka United States
+  summary_de: Luleka Vereinigte Staaten
+  site_url: http://luleka.com
+  tax_code: 576-33-3234
+  tagline: In any case
+  status: active
+  country_code: US
+  language_code: en
+  lat: 37.234394
+  lng: -93.250966
+  activated_at: 2007-07-12 17:35:24
+  updated_at: 2007-07-12 17:35:24
+  created_at: 2007-07-12 17:35:24
+  type: Organization
+  tier_category_id: 1
+  created_by_id: 6
+  owner_email: quentin@terantino.tt
+  accept_person_total_reputation_points: 1
+  accept_default_reputation_threshold: 0
+  accept_default_reputation_points: 0
+  allow_display_in_directory: 1
+  allow_display_logo_in_profile: 1
+  allow_member_invites: 0
+persil_de: 
+  id: 6
+  parent_id: 
+  site_name: persil
+  name: Persil GmbH
+  permalink: persil
+  name_de: Persil
+  description: Da weiss man was man hat.
+  description_de: Da weiss man was man hat.
+  summary: Da weiss man was man hat.
+  summary_de: Da weiss man was man hat.
+  site_url: http://persil.de
+  tax_code: DE176293544
+  tagline: Das weiss man was man hat.
+  status: active
+  country_code: DE
+  language_code: de
+  lat: 48.76545
+  lng: 11.45546
+  activated_at: 2007-07-12 17:35:24
+  updated_at: 2007-07-12 17:35:24
+  created_at: 2007-07-12 17:35:24
+  type: Organization
+  tier_category_id: 1
+  created_by_id: 7
+  owner_email: aaron@weiz.tt
+  accept_person_total_reputation_points: 1
+  accept_default_reputation_threshold: 0
+  accept_default_reputation_points: 0
+  allow_display_in_directory: 1
+  allow_display_logo_in_profile: 1
+  allow_member_invites: 0
+persil_uk: 
+  id: 7
+  parent_id: 
+  site_name: persil
+  name: Persil Ltd.
+  permalink: persil
+  name_de: Persil Ltd.
+  description: There you have it.
+  description_de: There you have it.
+  summary: There you have it.
+  summary_de: There you have it.
+  site_url: 'http://www.persil.co.uk'
+  tax_code: 526-33-3234
+  tagline: There you have it.
+  status: active
+  country_code: UK
+  language_code: en
+  lat: 37.234394
+  lng: -93.250966
+  activated_at: 2007-07-12 17:35:24
+  updated_at: 2007-07-12 17:35:24
+  created_at: 2007-07-12 17:35:24
+  type: Organization
+  tier_category_id: 1
+  created_by_id: 7
+  owner_email: aaron@weiz.tt
+  accept_person_total_reputation_points: 1
+  accept_default_reputation_threshold: 0
+  accept_default_reputation_points: 0
+  allow_display_in_directory: 1
+  allow_display_logo_in_profile: 1
+  allow_member_invites: 0
+persil_us: 
+  id: 8
+  parent_id: 
+  site_name: persil
+  name: Persil Inc
+  permalink: persil
+  name_de: Persil Inc
+  description: What have you there.
+  description_de: What have you there
+  summary: What have you there.
+  summary_de: What have you there
+  site_url: 'http://www.persil.com'
+  tax_code: 126-33-3234
+  tagline: What have you there.
+  status: active
+  country_code: US
+  language_code: en
+  lat: 47.234394
+  lng: -23.250966
+  activated_at: 2007-07-12 17:35:24
+  updated_at: 2007-07-12 17:35:24
+  created_at: 2007-07-12 17:35:24
+  type: Organization
+  tier_category_id: 1
+  created_by_id: 7
+  owner_email: aaron@weiz.tt
+  accept_person_total_reputation_points: 1
+  accept_default_reputation_threshold: 0
+  accept_default_reputation_points: 0
+  allow_display_in_directory: 1
+  allow_display_logo_in_profile: 1
+  allow_member_invites: 0

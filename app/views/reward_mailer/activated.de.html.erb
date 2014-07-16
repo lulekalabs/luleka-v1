@@ -1,0 +1,7 @@
+Die Belohnung über <%= @reward.price.format %> wurde hinzugefügt.
+
+Um jetzt alle Details einzusehen, können sie dem Link folgen oder kopieren sie den Link direkt in ihren Webbrowser:
+
+<%= kase_url(@reward.kase) %>
+
+<%= render :partial => 'notifier/signature' %>

@@ -1,0 +1,45 @@
+<% # responses/description
+  response ||= description || @response
+  f ||= nil
+  edit ||= defined?(:edit) && edit.nil? ? true : !!edit
+	label ||= defined?(:label) && label == false ? false : {:position => :top, :help => false,
+	  :text => "Add your %{type}".t % {:type => response.class.human_name}}
+	disabled ||= false
+	description_dom_id ||= dom_id(response, "description_#{rand(10000)}")
+  description_preview_dom_id ||= dom_id(response, "description_preview_#{rand(10000)}")
+  flipper_description_preview_dom_id ||= dom_id(response, "flipper_description_preview_#{rand(10000)}")
+%>
+<% if edit %>
+  <% if f %>
+    <%#--- description %>
+  	<% f.text_area(:description, :position => :top, :label => label, :id => description_dom_id, 
+  	  :size => "80x2", :class => "responseDescriptionTextArea markdown_editor autogrow", :disabled => disabled) do %>
+
+      <% flipper_link_to flipper_description_preview_dom_id, :display => false,
+  				:open_text => "<small>#{ "Preview".t }</small>",
+  				:close_text => "<small>#{ "Close Preview".t }</small>" do %>	
+  			<%= div_tag '', :id => description_preview_dom_id, 
+  			  :class => 'markdown markdownEditorPreview' %>
+  			<%= probono_clear_class %>
+  		<% end %>
+
+    <% end %>
+    
+    <%#--- language %>
+  	<%= render :partial => 'shared/form_select_language_with_flipper', :object => response,
+  		:locals => {:object_name => :response} %>
+  	
+    <%= markdown_editor_javascript_tag :response, :description, :id => description_dom_id,
+  	  :preview_id => description_preview_dom_id %>
+  <% else %>
+    <% form_fields_for :response, response do |f| %>
+      <%= render :partial => 'responses/description', :object => response,
+        :locals => {:f => f, :edit => edit, :label => label, :disabled => disabled,
+          :description_dom_id => description_dom_id,
+            :description_preview_dom_id => description_preview_dom_id} %>
+    <% end %>
+  <% end %>
+	
+<% else %>
+  <%= div_tag auto_link_with_nofollow(markdown(response.description)), :class => "primaryContentText markdown" %>
+<% end %>

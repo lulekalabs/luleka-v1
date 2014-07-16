@@ -1,0 +1,33 @@
+<%
+  kase ||= comments || @kase
+	display ||= true
+	html_id ||= "comments"
+	message ||= nil
+	if defined?(add_open).nil? || add_open.nil?
+		add_open = true
+	end
+%>
+<% div_tag :id => html_id, :display => display do %>
+	<% content_container :type => :comment do %>
+		<%= div_tag message, :id => dom_class(Comment, :message) %>
+		<% headline do %>
+			<%= "Comments".t -%>
+		<% end %>
+		<% primary_content(:id => 'primary_content_comments') do %>
+			<%= render :partial => 'comment', :collection => kase.comments -%>
+		<% end %> 
+
+		<% secondary_content(
+			:id => 'add_comment',
+			:index => 1,
+			:open => add_open,
+			:last => true
+		) do %>
+			<%= render :partial => 'comment_form', :locals => {:issue => kase, :person => current_user.person} %>
+		<% end %>
+		<% slider_control(:control_id => 'add_comment', :index => 1, :last => true, :open => add_open) do %>
+			<%= content_tag( :div, image_tag( 'icons/bubble.png', :size => "18x18", :alt => 'bubble' ), :style => "float:left; padding-right: 5px;" ) -%>
+			<%= content_tag(:div, "Add Comment".t, :style => "float:left; padding-right: 5px;") -%>
+		<% end %>
+	<% end %>
+<% end %>

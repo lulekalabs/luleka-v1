@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #fff;
+  text-align: center;
+	font-family:'Lucida Grande',Verdana,Arial,Sans-Serif;
+}
+
+h1 {
+  margin: 1em 0 1em 0;
+}
+
+h1 a {
+  
+}
+
+h1 a img {
+  border: none;
+}
+
+#container {
+  width: 50%;
+  margin: 1em auto;
+  background: #eee;
+  border: 0.25em solid #ccc;
+  -moz-border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+	padding:10px;
+	line-height:1.3em;
+}
+#container.single {
+  margin: 7em auto;
+}
+
+h2 {
+  font-size: 150%;
+  padding: 0.5em;
+}
+
+p {
+  padding: 1em;
+}

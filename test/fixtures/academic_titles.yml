@@ -1,0 +1,12 @@
+dr:
+  id: 1
+  name: Dr.
+  name_de: Dr.
+prof:
+  id: 2
+  name: Prof.
+  name_de: Prof.
+prof_dr:
+  id: 3
+  name: Prof. Dr.
+  name_de: Prof. Dr.

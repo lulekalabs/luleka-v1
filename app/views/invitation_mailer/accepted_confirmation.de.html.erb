@@ -1,0 +1,9 @@
+<%= @invitee.casualize_name %> hat Ihre Kontaktanfrage bei <%= SERVICE_NAME %> akzeptiert.
+
+<% if @invitee.permalink %>
+Um jetzt <%= @invitee.is_male? ? 'sein' : 'ihr' %> Profil aufzurufen, folgen sie bitte dem Link:
+
+<%= person_url(@invitee)%>
+<%- end -%>
+
+<%= render :partial => 'notifier/signature' %>

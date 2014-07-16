@@ -1,0 +1,28 @@
+<%# users/_form %>
+<% bracket_container do %>
+  <%= form_flash_messages %>
+	<%= form_error_messages_for(:user, :unique => true, :attr_names => {
+	  :base => '',
+	  :login => "Username".t,
+	  :email => "Email".t
+	}) %>
+	<% steplet(
+	  :step => :auto,
+    :title => "Username and Email".t
+  ) do %>
+  
+		<%= render :partial => 'login_field', :locals => {:f => f} %>
+
+    <%= render :partial => 'email_and_email_confirmation_field' %>
+	
+	  <%#--- set browser time zone %>
+		<%= f.hidden_field :tz_offset_from_javascript, :id => dom_id(@user, :tz_offset) %>
+		<%= javascript_tag("$('#{dom_id(@user, :tz_offset)}').value = (new Date().getTimezoneOffset());") %>
+    
+    <%#--- facebook %>
+    <%= f.hidden_field :fb_user_id %>
+    
+	<% end %>
+<% end%>
+
+<%#= render :partial => "personal_information", :locals => {:f => f} %>

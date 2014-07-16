@@ -1,0 +1,55 @@
+<% # kases/_show
+	message ||= form_flash_messages
+	omit_authentication_success ||= false
+%>
+<% div_tag :id => page_dom_id do %>
+  <% content_left do %>
+
+  	<% content_container :type => :case do %>
+  		<% div_tag :id => dom_class(Kase, :message) do %>
+  			<%= message -%>
+  		<% end %>
+	
+  	  <%= render :partial => "kases/show_kase" %>
+		
+  		<br/>
+	
+  	  <%= render :partial => "responses/show" %>
+		
+  	<% end %>
+
+  <% end %>
+
+  <% content_right do %>
+
+  	<%#--- actions %>
+  	<%= render :partial => 'kases/sidebar_actions' %>
+	
+  	<%#--- stats %>
+  	<%= render :partial => 'kases/sidebar_stats' %>
+
+  	<%#--- participants, people, etc. %>
+    <%= render :partial => 'kases/sidebar_participants' %>
+  
+  	<%#--- matching related kases %>
+    <% unless @matching_kases.blank? %>
+      <h3><%= "Related".t %></h3>
+      <%= render :partial => "kases/sidebar_simple_list", :object => @matching_kases %>
+    <% end %>
+  <% end %>
+<% end %>
+<script type="text/javascript">
+//<![CDATA[
+
+  <% unless omit_authentication_success %>
+  Event.observe(document, 'authentication:success', function() {
+    <%= remote_function(
+      :url => member_url([@tier, @kase]),
+      :method => :get,
+      :complete => "document.fire('dom:updated')"
+    ) %>
+  });
+  <% end %>
+  
+//]]>
+</script>

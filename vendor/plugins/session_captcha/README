@@ -1,0 +1,47 @@
+SessionCaptcha
+
+Author: Eric Northam
+
+Date: Jul 1, 2007
+==============
+
+Provides a simple session based captcha code to prevent automated form submissions.
+
+In your controller add the following at the top of your class:
+
+	extend SessionCaptcha::ActionControllerHelpers
+	create_captcha_image_action
+
+This will create an action called verification_code that when called returns an image and stores
+the captcha_code in the session under :verification_code. You then modify your model class with:
+
+	extend SessionCaptcha::ActiveRecordHelpers
+	add_captcha_verfication :verification_code, :on => :create
+
+This creates two non-persistent attributes that call verification_code and verification_code_session.
+If both the attributes are equal and non null the validation passes. Another method called 
+clear_verification_codes which sets both attributes to null. 
+
+Here is example code in a form
+
+	<p>  
+	  <img src="/account/verification_code">
+	</p>    
+	<p>
+	  <label for="verification_code">Enter the verification code shown</label>
+	  <%= text_field 'user', 'verification_code' %>
+	</p>
+
+And here is an example action to process the form results
+
+	def signup
+	  return unless request.post?		
+	  @user = User.new(params[:user])        
+	  @user.verification_code_session = get_and_clear_captcha_code
+	  if @user.save
+		  redirect_to :action => 'activate'
+		  flash[:notice] = "Thanks for registering!"
+	  end
+	  @user.clear_verification_codes
+	end
+

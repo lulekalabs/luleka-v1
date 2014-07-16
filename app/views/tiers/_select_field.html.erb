@@ -1,0 +1,94 @@
+<% # tiers/select_field
+  object_name ||= :kase
+  method_name ||= :tier_id
+  topic_method_name ||= :topic_ids
+  label ||= false
+  tiers ||= select_field || @tiers
+  selected ||= !instance_variable_get("@#{object_name}").blank? ?
+    instance_variable_get("@#{object_name}").send(method_name) :
+      nil
+  selected_topics ||= nil
+  size ||= 8
+  display ||= defined?(:display) && display.nil? ? true : !!display
+  search ||= nil
+%>
+<% div_tag :id => tier_dom_class(:select), :class => "tierSelect", :display => display do %>
+  <% if tiers && !tiers.blank? %>
+  
+    <% form_element do %>
+      <%= form_label_tag(:select_tier, label) if label %>
+  		<% form_field_tag :select_tier do %>
+
+  		  <% div_tag :class => "tierSelectGroup", :clear => true do %>
+        	<% tiers.from(0).to(size - 1).each do |tier| %>
+            <%= render :partial => 'tiers/select_item', :object => tier,
+              :locals => {:selected => selected, :object_name => object_name, 
+                :method_name => method_name, :search => search} %>
+        	<% end %>
+
+          <%#--- more content %>
+        	<% if tiers.size > size %>
+
+          	<% div_tag :id => 'tier_select_more', :display => !selected.blank? do %>
+            	<% tiers.from(size).each do |tier| %>
+                <%= render :partial => 'tiers/select_item', :object => tier,
+                  :locals => {:selected => selected, :object_name => object_name, 
+                    :method_name => method_name, :search => search} %>
+            	<% end %>
+            <% end %>
+
+          <% end %>
+
+
+        <% end %>
+
+        <%#--- more link %>
+        <% if tiers.size > size && selected.blank? %>
+          <%= link_to_function "More...".t, nil, :id => 'tier_select_more_toggle' do |page|
+            page['tier_select_more_toggle'].hide
+            page.visual_effect :blind_down, 'tier_select_more', :duration => 0.5
+          end %>
+        <% end %>
+
+      <% end %>
+    <% end %>
+
+    <%#--- topics related to all tiers %>
+    <% div_tag :id => dom_class(Topic, :select), :class => "topicSelect" do %>
+      <% tiers.each do |tier| %>
+        <%= render :partial => "topics/select_field", :object => tier.select_topics, 
+          :locals => {:object_name => object_name, :selected => selected_topics,
+            :display => selected_tier_equal?(selected, tier)} %>
+      <% end %>
+    <% end %>
+  
+  <% else %>
+
+    <%#--- help text %>
+    <%= render :partial => 'tiers/select_empty', :tag_list => @tag_list, :tag_name => @tag_name %>
+    
+  <% end %>
+<% end %>
+<script type="text/javascript">
+//<![CDATA[
+
+  // e.g. 'topics_select_tier_1'
+  Luleka.Form.Tier = {}
+  Luleka.Form.Tier.dom_id = function(id, prefix) {
+    var result = "";
+    if (prefix) result += prefix + "_";
+    result += "tier_" + id;
+    return result;
+  }
+  Luleka.Form.Tier.show = function(id) {
+    $$('.tierTopicsSelect').each(function(element) {
+      element.hide();
+      element.select("input[type='checkbox']").each(function(input) {
+        input.checked = false;
+      });
+    });
+    $(this.dom_id(id, 'topics_select')).show();
+  } 
+
+//]]>
+</script>

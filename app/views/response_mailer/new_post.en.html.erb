@@ -1,0 +1,13 @@
+<%= "There is a new answer on %{type} for \"%{title}\"" % {
+  :type => @response.kase.class.human_name,
+  :title => h(@response.kase.title)
+} %>
+---
+<%= "#{h(@response.description)}" %>
+---
+
+To see more details on the case, please click on the following link or copy the entire link into your browser:
+
+<%= kase_url(@response.kase) %>
+
+<%= render :partial => 'notifier/signature' %>

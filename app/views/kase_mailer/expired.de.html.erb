@@ -1,0 +1,11 @@
+<% if @issue.owner==@person %>
+Ihr Fall ist gerade abgelaufen, '<%= @issue.subject -%>'.
+<% else %>
+Ein Fall an dem sie arbeiten ist gerade abgelaufen, '<%= @issue.subject -%>'.
+<% end %>
+
+Um in die Detailansicht des Falls zu gelangen, müssen sie folgenden Link anklicken oder kopieren sie ihn direkt in ihren Webbrowser:
+
+   <%= issue_url(@issue.id) -%>
+
+Ihr <%= SERVICE_NAME %> Team

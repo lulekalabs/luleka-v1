@@ -1,0 +1,52 @@
+<% 
+	slider_index = 0
+%>
+<% content_container :theme => :info do %>
+	<% headline do %>
+		<%= "Account Financials".t %>
+	<% end %>
+	<% primary_content :last => false do %>
+		<% account_settings_container do %>
+			<% account_setting :title => "Add Credit".t do %>
+				<%= "%{balance} is your current account balance.".t % {
+  			  :balance => content_tag(:span, @person.piggy_bank.balance.format, :style => "font-weight:bold;")
+  	    } %>
+				<br/>
+				<br/>
+				<% account_setting_button_container do %>
+					<%= probono_button :label=>"Add".t, :url => new_account_bank_deposit_path %>
+				<% end %>
+			<% end %>
+			<% account_setting :title => "Transfer Credit".t do %>
+				<%= "%{amount} of your account balance can be transferred.".t % {
+				  :amount => span_tag(@person.piggy_bank.available_balance.format, :style => "font-weight:bold;")
+				} -%>
+				<br/>
+				<br/>
+				<% account_setting_button_container do %>
+					<%= probono_button :label=>"Transfer".t, :url => new_account_bank_transfer_path %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+	<%#--- piggy bank %>
+	<% secondary_content(:index => slider_index += 1, :open => false, :style => "padding-bottom:0px;") do %>
+	<% end %>
+	<% slider_control(:index => slider_index, :last => false, :open => false, :url => hash_for_account_bank_transactions_path) do %>
+	  <%= slider_control_label("Ledger".t) -%>
+	<% end %>
+	<%#--- sales history %>
+	<% if @user.person.partner? %>
+		<% secondary_content(:index => slider_index += 1, :open => false, :style => "padding-bottom:0px;") do %>
+		<% end %>
+		<% slider_control(:index => slider_index, :last => false, :open => false, :url => hash_for_account_sales_orders_path) do %>
+		  <%= slider_control_label("Sales History".t) %>
+		<% end %>
+	<% end %>
+	<%#--- purchase history %>
+	<% secondary_content(:index => slider_index += 1, :open => false, :style => "padding-bottom:0px;") do %>
+	<% end %>
+	<% slider_control(:index => slider_index, :last => true, :open => false, :url => hash_for_account_purchase_orders_path) do %>
+	  <%= slider_control_label("Purchase History".t) %>
+	<% end %>
+<% end %>

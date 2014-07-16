@@ -1,0 +1,25 @@
+<%= @invitor.name %> wants you to become a new contact.
+
+<% unless @invitation.message.blank? %>
+---
+<%= h(@invitation.message) %>
+---
+
+<%-end-%>
+
+<% if @invitation.with_voucher? %>
+A voucher for a free <%= @invitation.voucher.class.human_name %> is included. The voucher code is:
+
+<%= @invitation.voucher.code %>
+
+Redeem the voucher by confirming the invitation or by following the link to
+
+<%= voucher_url %>
+
+<%-end-%>
+
+To confirm <%= @invitation.invitor.casualize_name %> as a new contact, follow the link below:
+
+<%= confirm_invitation_url(:id => @invitation.uuid) %>
+
+<%= render :partial => 'notifier/signature', :object => @invitee %>

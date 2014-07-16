@@ -1,0 +1,44 @@
+<%
+	object_name ||= :person
+	edit ||= true
+%>
+<% if f %>
+  <% bracket_container do %>
+    <%= form_flash_messages %>
+  	<%= form_error_messages_for :person, :attr_names => {
+  	  :have_expertise => "Expertise".t,
+  	  :personal_status_id => "Personal Status".t,
+  	  :personal_status => "Personal Status".t
+  	} %>
+  	<% steplet :step => :auto, :title => "Professional Profile".t, :description => "Enhance your profile with the professional expertise and business background you have. Some of the information below is required to become a #{SERVICE_PARTNER_NAME}.".t do %>
+  	
+    	<%= f.text_area :have_expertise, :edit => edit, 
+    	  :label => {:position => :top, :text => "Your Expertise?".t, :req => true, :help => true}, 
+    	  :class => "autogrow", :style => 'width: 100%', :size => '100x2' %>
+    	<%= help_text object_name, :have_expertise,
+    	  "Your profile will be matched against cases based on the expertise you are providing here, e.g. _employment law, taxes, accountant_".t, 
+    	    :display => false, :escape => false %>
+
+
+      <%= render :partial => 'shared/form_work', 
+        :locals => {:f => f, :object_name => object_name, :edit => edit} %>
+
+
+      <%= render :partial => 'shared/form_education', 
+        :locals => {:f => f, :object_name => object_name, :edit => edit} %>
+
+
+    	<%= f.text_area :summary,
+    	  :label => {:position => :top, :text => "Write a few words about yourself".t, :help => true},
+    	  :edit => edit, :size => '100x2', :class => "autogrow", :style => 'width: 100%' %>
+    	<%= help_text object_name, :summary,
+    	  "This will be published as a summary about you on your profile.".t,
+    	  :display => false %>		
+  	
+  	<% end %>
+  <% end %>
+<% else %>
+  <% wizard_form_fields_for object_name do |f| %>
+    <%= render :partial => 'edit_profile', :locals => {:f => f, :object_name => object_name, :edit => edit} %>
+  <% end %>
+<% end %>

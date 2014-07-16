@@ -1,0 +1,29 @@
+<%
+  purchasing_credits ||= select_purchasing_credit
+  times ||= @times || {}
+  credits ||= @credits || []
+%>
+<% form_element do %>
+	<%= form_label_tag(:select_amount, :position => :top, :edit => :false, :req => true, :help => true,
+		:text => "Select an amount".t
+	) %>
+	<% form_field_tag :select_amount do %>
+		<% radio_group do %>
+			<% purchasing_credits.each_with_index do |item, index| %>
+				<%= form_radio_element_tag(item.name,
+					:label => {
+					  :text => table_cells_tag(
+					    times_select_tag(item, index, 5),
+					    '&nbsp;<strong>&times;</strong>&nbsp;' + item.price.format(:force_cents => false))
+					},
+					:button => check_box_tag(
+						'credits[]',
+						item.item_number,
+						credits.include?(item.item_number)
+					), :vertical_align => :middle
+				) %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
+<%= help_text_tag :select_amount, "Select an amount.".t, :display => false %>

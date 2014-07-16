@@ -1,0 +1,50 @@
+<% with_select ||= false %>
+<% if defined?(f) %>
+	<%
+		object ||= f.object
+		object_name ||= f.object_name
+		select = select(object_name, :severity_id, collect_for_severity_feeling_select(with_select), 
+			{:selected => with_select && !object.severity_id ? nil : (object.severity_id || Severity.median_id)},
+			{:class => "nofontweight"})
+	%>
+	
+	<% form_element do %>
+	  <%= form_label :kase, :emotion, {:text => "I am %{select} and feel".t % {
+	    :select => select}, :position => :top, :help => true}%>
+	  <% form_field :kase, :emotion do %>
+	    <%= text_field(object_name, :emotion, :style => "width:240px;float:none;",
+	      :id => dom_id(object, :emotion)) %>
+  	<% end %>
+  	<%= help_text(:kase, :emotion, 
+  	  "Select the base tone and add more adjectives on how it makes you feel, e.g. %{example}".t % {
+  			:example => tag_list_link_to(["confident".t, "amused".t, "unsure".t, "undecided".t, "anxious".t])
+  		}, :display => false, :escape => false) %>
+	<% end %>
+	
+<script type="text/javascript">
+//<![CDATA[
+
+  function lookupEmotionTags(searchString, suggest) {
+    new Ajax.Request('<%= collection_path([@tier, @kase, :tags], :autocomplete) %>', {parameters: {name: searchString, rand: (new Date()).getTime(), authenticity_token: '<%= form_authenticity_token %>', context: 'emotions'},
+      onSuccess: function(response) {
+        suggest(response.responseJSON);
+      }});
+  }
+  var cachedBackendEmotionTags = new Autocompleter.Cache(lookupEmotionTags, {choices: 10});
+  var cachedLookupEmotionTags = cachedBackendEmotionTags.lookup.bind(cachedBackendEmotionTags);
+
+  var mvListCached = new Autocompleter.MultiValue('<%= dom_id(object, :emotion)%>', cachedLookupEmotionTags, 
+    <%= @kase.tag_list_on(:emotion, nil, :format => :tags).map {|t| [t.name, t.id]}.to_json %>, 
+    {frequency: 0.4, acceptNewValues: true});
+
+//]]>
+</script>
+<% else %>
+	<%
+		object ||= form_select_severity_and_emotion
+		object_name ||= :kase
+	%>
+	<% form_fields_for object_name, object do |f| %>
+		<%= render :partial => 'shared/form_select_severity_and_emotion', :locals => {:f => f, :with_select => with_select} %>
+	<% end %>
+<% end %>

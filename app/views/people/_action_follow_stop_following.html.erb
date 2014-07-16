@@ -1,0 +1,27 @@
+<% # people/action_follow_stop_following
+%>
+<% if !current_user_me?(@profile) %>
+
+	<% if current_user_following?(@profile) %>
+
+		<%#--- stop following link %>
+		<%= sidebar_action_link_to_remote(
+		  "Unfollow".t, {
+		    :url => stop_following_person_path(@profile),
+		    :method => :put
+		  }, {:id => dom_class(Person, :action_follow), :icon => :minus}
+		) %>
+
+	<% else %>
+
+		<%#--- follow link %>
+		<%= sidebar_action_link_to_remote(
+		  "Follow".t, {
+		    :url => follow_person_path(@profile),
+		    :method => :put
+		  }, {:id => dom_class(Person, :action_follow), :icon => :plus}
+		) %>
+		
+	<% end %>
+
+<% end %>

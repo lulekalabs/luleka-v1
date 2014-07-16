@@ -1,0 +1,13 @@
+<%# people/sidebar_stats %>
+<% sidebar_stats do %>
+
+	<%= sidebar_stats_pair(@profile.friends.count,
+	 	"%{contacts} joined".t % {:contacts => pluralize_word(@profile.friends.count, 'contact')}) %>
+
+	<%= sidebar_stats_pair(@profile.followers_count,
+	 	"%{followers} watching".t % {:followers => pluralize_word(@profile.followers_count, 'follower')}) %>
+
+	<%= sidebar_stats_pair(@profile.visits_count,
+	 	"%{visitors} seen".t % {:visitors => pluralize_word(@profile.visits_count, 'visitor')}) %>
+
+<% end %>

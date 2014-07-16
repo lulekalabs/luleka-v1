@@ -1,0 +1,13 @@
+<%= "Es gibt eine Antwort über %{type} für \"%{title}\"" % {
+  :type => @response.kase.class.human_name,
+  :title => h(@response.kase.title)
+} %>
+---
+<%= "#{h(@response.description)}" %>
+---
+
+Um jetzt alle Details einzusehen, können sie dem Link folgen oder kopieren sie den Link direkt in ihren Webbrowser:
+
+<%= kase_url(@response.kase) %>
+
+<%= render :partial => 'notifier/signature' %>

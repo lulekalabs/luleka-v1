@@ -1,0 +1,25 @@
+<%= @invitor.name %> quiere que usted se una a sus contactos.
+
+<% unless @invitation.message.blank? %>
+---
+<%= h(@invitation.message) %>
+---
+
+<%-end-%>
+
+<% if @invitation.with_voucher? %>
+Le envía un cupón para una <%= @invitation.voucher.class.human_name %> gratuita. El código del cupón es:
+
+<%= @invitation.voucher.code %>
+
+Al confirmar la invitación usted canjea automaticamente su cupón
+
+<%= voucher_url %>
+
+<%-end-%>
+
+Para confirmar <%= @invitation.invitor.casualize_name %> como un nuevo contacto, siga el siguiente vínculo:
+
+<%= confirm_invitation_url(:id => @invitation.uuid) %>
+
+<%= render :partial => 'notifier/signature', :object => @invitee %>

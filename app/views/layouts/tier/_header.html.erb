@@ -1,0 +1,55 @@
+<!--[if lt IE 7]>
+<style>
+#topHeaderTierName h1 span {
+  background: none;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/css/gradient_white.png', sizingMethod='scale');
+}
+</style>
+<![endif]-->
+<div id="topHeaderTier">
+	<div id="topHeaderContent">
+
+    <%#--- top navi %>
+    <div id="topHeaderLeftCol">
+    	<div id="topHeaderSlogan"><%= I18n.t('service.tagline') %></div>
+    </div>
+    <div id="topHeaderRightCol">
+    	<%= render :partial => 'layouts/front/status_navigation' %>
+    </div>
+
+    <%#--- tier %>
+    <div id="topHeaderTierLeftCol">
+      <div id="topHeaderTierName">
+        <h1><span></span>
+          <%= link_to(h(truncate(@tier.name, 24)), tier_url(@tier), :title => "#{h(@tier.name) } " + "powered by Luleka".t) %>
+        </h1>
+      </div>
+    </div>
+    <div id="topHeaderTierRightCol">
+      <div id="topHeaderTierSide">
+        
+        <div class="right">
+          <% if @tier.is_a?(Organization) %>
+            <%= probono_button(:label => "Claim %{tier}".t % {:tier => @tier.class.human_name}, :theme => :form, 
+              :url => tier_claim_url(@tier), 
+              :anchor_options => {:style => "margin-right:0;"}) %>
+              <span><%= "If you are an employee".t %></span>
+          <% end %>  
+        </div>
+          
+      </div>
+    </div>
+
+    <%#--- navi %>
+    <div id="topHeaderTierNavLeftCol">
+    <%= render :partial => 'layouts/tier/primary_navigation' %>
+    </div>
+    <div id="topHeaderTierNavRightCol">
+      <%= link_to '<span class="logo"></span>', root_url, :title => "#{h(@tier.name)} " + "powered by Luleka".t %>
+    </div>
+
+	</div>
+</div>
+<div id="topHeaderShadow">
+<%#= render :partial => 'layouts/front/search' %>
+</div>

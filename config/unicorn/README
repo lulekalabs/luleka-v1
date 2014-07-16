@@ -1,0 +1,18 @@
+development
+-----------
+
+1. Add the following lines in your ~.bash_login file
+
+    alias uc-start="unicorn_rails -c config/unicorn.rb -E development"
+    alias uc-restart="kill -USR2 \`cat /var/tmp/unicorn.pid\`"
+
+2. Source the file in the shell with
+
+    source .bash_login
+
+
+3. To start unicode in development mode, go to the development folder and start unicorn
+
+    cd /work/luleka
+    uc-start
+    

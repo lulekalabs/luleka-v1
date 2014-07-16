@@ -1,0 +1,11 @@
+<% content_container :theme => :broken_content do %>
+  <% div_tag :style => 'min-height:100px;' do %>
+    <% steplet(:step => :auto, :title => "Add Credit".t,
+        :description => "%{balance} is your current account balance.".t % {
+  			  :balance => content_tag(:span, @person.piggy_bank.balance.format, :style => "font-weight:bold;")
+  	    }
+  	) do %>
+  		<%= probono_button :label=>"Add".t, :url => new_account_bank_deposit_path %>
+  	<% end %>
+	<% end %>
+<% end %>

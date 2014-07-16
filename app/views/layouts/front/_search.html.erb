@@ -1,0 +1,15 @@
+<div class="topHeaderShadowContent">
+	<div class="searchBar">
+  <% form_for :search, @search, :url => "/search", :html => {:method => :get} do |f| %>
+    <%= table_cells_with_options_tag({:style => "padding:0 3px;vertical-align:middle;"},
+      button_start_kase,
+      select_tag("type", search_options_for_select, {}) +
+        (@tier ? hidden_field_tag("#{@tier.class.self_param_id}", @tier.to_param) : '') +
+        (@topic ? hidden_field_tag("#{@topic.class.self_param_id}", @topic.to_param) : ''),
+      '<input name="search" class="search" value="Search" autosave="typo-search"/>',
+      submit_tag("search", :class => "lens", :value => '', :title => "Go".t, :alt => "Go".t)
+    ) %>
+  <% end %>
+
+ 	</div>
+</div>

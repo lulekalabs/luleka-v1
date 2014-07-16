@@ -1,0 +1,26 @@
+<%= observe_field(:kase_kind,
+  :function => update_page do |page|
+    page << "if ($('signout')) {"
+      page << "if (#{Kase.klasses.map {|k| k.kind if k.allows_reward?}.compact.to_json}.indexOf(value) != -1) {"
+        page.show dom_id(@kase, :reward)
+      page << "} else {"
+        page.hide dom_id(@kase, :reward)
+      page << "}"
+    page << "}"
+  end
+) %>
+<% div_tag :id => dom_id(@kase, :reward), :display => @kase.allows_reward? do %>
+  <% bracket_container do %>
+  	<%= form_error_messages_for [:kase, :payment_object], :unique => true, :attr_names => {
+  	  :fixed_price => "Fixed Price".t, :max_price => "Maximum Price".t, :expires_at => "Offer Expiration".t,
+  	  :number => "Credit Card Number".t, :verification_value => "Verification Code".t, :month => "Expiration Date".t,
+  	  :year => "Expiration Date".t, :type => "Credit Card Type".t, :offer_type => "Offer Type".t
+  	} %>
+  	<% steplet(:step => :auto,
+  	  :title => "Reward".t, 
+      :description => "You can offer a reward for solving this case. Select from one of the following options.".t
+  	) do %>
+  		<%= render :partial => 'rewards/offer' %>
+  	<% end %>
+  <% end %>
+<% end %>

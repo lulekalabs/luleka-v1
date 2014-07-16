@@ -1,0 +1,19 @@
+<% # claimings/new
+  form_url ||= collection_url([@tier, @claiming])
+%>
+<% content_left do %>
+  <% wizard_form_for :claiming, @claiming, :url => form_url, :method => :post do |f| %>
+    <%= render :partial => 'form', :object => @claiming, :locals => {:f => f} %>
+    <% form_button_container do %>
+      <%= form_submit_button "Add me as employee".t, :position => :right %>
+    <% end %>
+  <% end %>
+<% end %>
+<% content_right do %>
+  <% sidebar_context_actions_container(:partial => 'tiers/sidebar_profile_content',
+    :locals => {:tier => @tier}
+  ) do %>
+  <% end %>
+  <br/>
+  <%= render :partial => 'faq' %>
+<% end %>

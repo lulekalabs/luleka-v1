@@ -1,0 +1,24 @@
+<%  # setup
+  max_horizontal ||= 5
+  max_vertical ||= 5
+  width ||= 14
+%>
+<% cache(footer_navigation_fragment_cache_key) do %>
+  <div id="bottomFooterCategories">
+  <% Group.find_all_popular_orderd_by_topics(:limit => max_horizontal).each_with_index do |tier, tier_index| %>
+    <ul class="bottomFooterColumn">
+      <li>
+        <%= link_to(truncate(h(tier.name), :length => width), tier_path(tier),
+          {:id => dom_id(tier, :category), :class => "bottomFooterRoot", :title => h("#{tier.name} #{tier.class.human_name}".titleize)}) %>
+      </li>
+      <% tier.recent_topics.each_with_index do |topic, topic_index| %>
+        <% break if topic_index >= max_vertical || topic.permalink.blank? %>
+        <li>
+          <%= link_to(truncate(h(topic.name), :length => width), member_path([tier, topic]), 
+            {:id => dom_id(topic, :category), :title => h("#{topic.name}")}) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  </div>
+<% end %>

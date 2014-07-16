@@ -1,0 +1,20 @@
+<% AdminRole.all.each do |role| %>
+<li class="form-element">
+  <dl>
+    <dt>
+      <label for="<%= "role_#{role.id}" %>"><%= h role.name %></label>
+    </dt>
+    <dd>
+      <%= check_box_tag(
+        "record[role_ids][]",
+        role.id,
+        @record.role_ids.include?(role.id),
+        :id => "role_#{role.id}",
+        :disabled => @record.login == "admin" && @record.has_role?(:admin) && role.kind == "admin"
+      ) %>
+      <span class="description"><%= role.description %></span>
+    </dd>
+  </dl>
+</li>
+<% end %>
+<%= hidden_field_tag("record[role_ids][]", '', :id => "role_default_empty" ) %>

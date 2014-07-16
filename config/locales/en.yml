@@ -1,0 +1,129 @@
+# http://github.com/svenfuchs/rails-i18n/tree/master/rails/locale
+en:
+  service:
+    # tagline: Trusted Recommendations
+    language_question: "Would you rather see this site in %{language}?"
+    locale_question: "Country setting %{country} and view site in %{language}?"
+    "Yes": "Yes"
+    "No": "No"
+    
+  salutation:
+    "Mr": "Mr"
+    "Ms": "Ms"
+  
+  gender:
+    "male": "male"
+    "female": "female"
+
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+      full: "%A, %B %d, %Y"
+      numeric: "%m/%d/%y"
+      
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+      
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    # Used in date_select and datime_select.
+    order: [ :year, :month, :day ]
+
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      short: "%d %b %H:%M"
+      long: "%B %d, %Y %H:%M"
+    am: "am"
+    pm: "pm"
+      
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " and "
+      last_word_connector: ", and "
+      two_words_connector_with_or: " or "
+      last_word_connector_with_or: ", or "
+
+  activerecord:
+    errors:
+      messages:
+        price_range: "must be between {{min}} and {{max}}"
+        price_too_high: "cannot be higher than {{max}}" 
+        days_range: "must be within {{min}} and {{max}} days from now"
+        image_types: "{{extensions}} files only"
+        image_size: "exceeds {{size}} image size"
+        address_invalid: "appears to be invalid"
+        change_once: "can only be updated once"
+        email_format: "format appears to be invalid"
+        tax_format: "format appears to be invalid, example: {{example}}"
+        claim_exclusion: "has already been notified"
+        match_activation: "activation ({{sender_email}}) does not match your email ({{registration_email}})"
+        greater_than_zero: "must be positive"
+        greater_than_balance_of: "{{count}} exceeds your available account balance of {{balance}}"
+        invitation_message: "{{invitee}},<br/><br/>I would like to invite you to join my network on Luleka.<br/><br/>-{{invitor}}"
+        invitation_self_exclusion: "Cannot invite yourself"
+        invitation_exclusion: "Already a contact"
+        invitation_taken: "has already been invited"
+        invitation_vouchers_used: "No more vouchers left to send"
+        invitation_partner_exclusion: "cannot be redeemed by existing or previous Partner"
+        invitation_partner_only: "can only be sent by a Partner"
+        insufficient_funds: "appears to be insufficient"
+        transfer_greater_or_equal_to: "smallest amount to be transferred is {{count}}"
+        transfer_less_or_equal_to: "largest amount to be transferred is {{count}}"
+        transfer_destination_invalid: "Destination account type not supported"
+        transfer_self_exclusion: "Transfers to same account not permitted"
+        expired: "has already expired"
+        redeemed: "has already been redeemed"
+        invalid_credit_card: "credit card type is not supported"
+        reward_sender: "has already added a reward"
+        self_invalid: "is not allowed on your own post"
+        reward_kase_state: "cannot add new rewards"
+        
+      models:
+        user: 
+          attributes:
+            currency: 
+              cannot_change: "cannot be changed"
+        reputation/threshold:
+          attributes:
+            base:
+              invalid: "{{action}} requires {{required}} {{points}}, you currently have {{current}}. For more information, please visit our {{faq}}."
+        
+    attributes:
+      reputation:
+        points: "Reputation Points"
+      user:
+        login: "Username"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        email: "Email"
+        email_confirmation: "Email confirmation"
+        fb_user_id: "Facebook User"
+      reward:
+        price: "Offer"
+        sender: "Sender"
+      reward_rate:
+        action_accept_response: "Accept as solution"
+        action_vote_down: "Vote down"
+        action_vote_up: "Vote up"
+        action_edit_post: "Edit post"
+        action_flag_offensive: "Flag offensive"
+        action_leave_comment: "Leave comments"
+        action_moderate: "Moderate"
+        action_newtag_kase: "Create new tags"
+        action_offer_reward: "Offer monetary reward"
+        action_retag_kase: "Retag concern"
+        beneficiary_receiver: "Receiver"
+        beneficiary_sender: "Sender"
+      bonus_reward:
+        action_accept_response: "was accepted as a solution"
+        action_vote_down: "was voted down"
+        action_vote_up: "was voted up"
+        

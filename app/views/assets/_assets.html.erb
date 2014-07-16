@@ -1,0 +1,17 @@
+<%
+  kase ||= assets || @kase
+%>
+<%= render :partial=> "kases/assets_list", 
+  :locals => {:assets => kase.assets, :title => "Public".t, :asset_filter => :accepts_everyone? } %>
+
+<%= render :partial=> "kases/assets_list", 
+  :locals => {:assets => kase.assets, :title => "For all participants".t, :asset_filter => :accepts_respondents? } %>
+
+<%= render :partial=> "kases/assets_list", 
+  :locals => {:assets => kase.assets, :title => "For all my contacts".t, :asset_filter => :accepts_friends? } %>
+
+<%= render :partial=> "kases/assets_list", 
+  :locals => {:assets => kase.assets, :title => "For all followers".t, :asset_filter => :accepts_followers? } %>
+
+<%= render :partial=> "kases/assets_list", 
+  :locals => {:assets => kase.assets, :title => "Private".t, :asset_filter => :accepts_none? } %>

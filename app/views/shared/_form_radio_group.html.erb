@@ -1,0 +1,50 @@
+<%
+	# title => "This is a radiogroup"
+	# name  => 'select_radio'
+	# data  => [ { :checked => true, :value => USER_CITIZEN, :label => "Expert", :description }, { ... } ]
+	# req => true
+	if defined?( req ).nil? || req.nil?
+		req = false
+	end
+%>
+<% form_element do %>
+	<% unless defined?( title ).nil? %>
+	<strong><%= form_label_tag title, :position => :top, :req => req %></strong>
+	<% end %>
+	<div class="radioGroup">
+	<% data.each do |item| %>
+		<%
+		item = item.dup
+		value = item.delete( :value )
+		checked = item.delete( :checked )
+		label = item.delete( :label )
+		description = item.delete( :description )
+		help_text = ""
+		help = item.delete( :help ) || ''
+		unless help.empty?
+			help_text = help[:text].to_s
+		end
+		html_options = item
+		%>
+		<div class="radioElement">
+			<div class="radioButton">
+				<%= radio_button_tag name, value, (checked || false), html_options %>
+			</div>
+			<div class="radioLabel">
+				<div style="float:left"><label for"membership_<%= label.to_s.underscore %>"><strong><%= label %></strong></label></div>
+				<% unless description.nil? %>
+				<div style="float:left"><p><%= description %> </p></div>
+				<% end %>
+				<% unless help_text.empty? %>
+				<%= help_tag value %>
+				<% end %>
+				<div class="clearClass"></div>
+				<% unless help_text.empty? %>
+				<%= help_text_tag( value, help_text, :display => false ) unless help_text.empty? %>
+				<% end %>
+			</div>
+		</div>
+		<div class="clearClass"></div>
+	<% end %>
+	</div>
+<% end %>

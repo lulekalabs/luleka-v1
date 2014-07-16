@@ -1,0 +1,20 @@
+<div id="feedbackContentContainer" class="feedbackContentContainer">
+  <div id="feedbackContent" class="feedbackContent">
+    <div id="messages">
+      <div class="successExplanation">
+        <h2><%= "Complete".t %></h2>
+        <p><%= (CREATE_SUCCESS.t % {:object => @kase ? @kase.class.human_name : Kase.human_name}).firstcase %></p>
+      </div>
+    </div>
+    <h3 class="newHeader" style="display:block;">
+      <%= "What do you want to do next?".t %>
+    </h3>
+    <p class="more">
+      <%= link_to_start_kase %>
+    </p>
+    <p class="more">
+      <%= link_to_community %>
+    </p>
+  </div>
+</div>
+<div class="clearer"></div>

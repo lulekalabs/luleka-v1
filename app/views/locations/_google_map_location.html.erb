@@ -1,0 +1,161 @@
+<% # setup
+  objects ||= google_map_location
+  origin ||= @origin || @location
+  gmap_key ||= @gmap_key
+  default_address ||= 'DE'
+  map_controls ||= begin map_controls.nil? ? true : map_controls rescue true; end
+  open ||= false
+  language_code ||= Utility.language_code
+  load_script ||= false
+%>
+<% if load_script %>
+  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%= gmap_key %>&amp;hl=<%= language_code %>" type="text/javascript"></script>
+<% end %>  
+
+<script type="text/javascript">
+//<![CDATA[
+
+  <% if open %>
+  document.observe('dom:loaded', function() {
+  	window.loadScript();
+  });
+  <% end %>
+
+  window.loadScript = function() {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "http://maps.google.com/maps?file=api&v=2&key=<%= gmap_key %>&async=2&callback=loadmap";
+    document.body.appendChild(script);
+  }
+
+  window.setup = function() {
+    window.mapsetup = 1;
+    window.map = null;
+    window.geocoder = null;
+    window.markers = null;
+    window.bounds = null;
+    window.objects = <%= json_for_map(objects) %>;
+    window.maploaded = 0;
+    window.overlayscleared = 1;
+    window.origin = <%= origin ? "new GLatLng(#{origin.lat}, #{origin.lng})" : "null" %>;
+
+    window.DEFAULT_MARKER_POINT = new GLatLng(37.4228, -122.085);
+    window.DEFAULT_MARKER_ADDRESS = '<%= default_address %>';
+    window.DEFAULT_BIG_ZOOM = 2;
+    window.DEFAULT_SMALL_ZOOM = 8;
+    window.WITH_MAP_CONTROLS = <%= map_controls ? 1 : 0 %>;
+  }
+
+  window.loadmap = function() {
+    setup();
+    if (!maploaded) {
+      if (GBrowserIsCompatible()) {
+        setupMap(origin)
+        addMarkers(objects);
+        map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds));
+      }
+      maploaded = 1;
+    }
+  }
+
+  window.addMarkers = function(objects) {
+    for(var i = 0; i < objects.length; i++) {
+      markers[objects[i]['id']] = objectToMarker(objects[i]);
+      if (bounds) {
+        bounds.extend(markers[objects[i]['id']].getPoint());
+      } else {
+        bounds = new GLatLngBounds(markers[objects[i]['id']].getPoint());
+      }
+    }
+  }
+
+  window.setupMap = function(point) {
+    map = new GMap2(document.getElementById("themap"));
+    if (WITH_MAP_CONTROLS) {
+      map.addControl(new GMapTypeControl());
+      map.addControl(new GSmallMapControl()); 
+      map.enableScrollWheelZoom();
+    }
+    markers = new Object(); 
+    geocoder = new GClientGeocoder();
+
+    if (point) {
+      bounds = new GLatLngBounds(point);
+    } else {
+      if (geocoder) {
+        geocoder.getLatLng(DEFAULT_MARKER_ADDRESS,
+          function(point) {
+            if (!point) {
+              bounds = new GLatLngBounds(DEFAULT_MARKER_POINT);
+            } else {
+              bounds = new GLatLngBounds(point);
+            }
+          }
+        );
+      } else {
+        bounds = new GLatLngBounds(DEFAULT_MARKER_POINT);
+      }
+    }
+    map.clearOverlays();
+    overlayscleared = 1;
+  }
+
+  window.setMapCenter = function(point) {
+    if (point) {
+      map.setCenter(point, DEFAULT_BIG_ZOOM)
+    } else {
+      if (geocoder) {
+        geocoder.getLatLng(DEFAULT_MARKER_ADDRESS,
+          function(point) {
+            if (!point) {
+              map.setCenter(DEFAULT_MARKER_POINT, DEFAULT_BIG_ZOOM); 
+              bounds = new GLatLngBounds(DEFAULT_MARKER_POINT);
+            } else {
+              map.setCenter(point, DEFAULT_BIG_ZOOM);
+              bounds = new GLatLngBounds(point);
+            }
+          }
+        );
+      } else {
+        map.setCenter(DEFAULT_MARKER_POINT, DEFAULT_BIG_ZOOM); 
+        bounds = new GLatLngBounds(DEFAULT_MARKER_POINT);
+      }
+    }
+    map.clearOverlays();
+    overlayscleared = 1;
+  }
+
+  window.objectToMarker = function(object) {
+    var point = new GLatLng(object['attributes']['lat'], object['attributes']['lng']);
+    var icon = new GIcon(G_DEFAULT_ICON);
+    icon.title = object['attributes']['name']
+    icon.image = object['icon']['url'];
+    icon.shadow = object['shadow']['url'];
+    icon.iconSize = new GSize(object['icon']['size'][0], object['icon']['size'][1]);
+    icon.shadowSize = new GSize(object['shadow']['size'][0], object['shadow']['size'][1]);
+    icon.iconAnchor = new GPoint(object['icon']['anchor'][0], object['icon']['anchor'][1]);
+    icon.infoWindowAnchor = new GPoint(object['info_window']['anchor'][0], object['info_window']['anchor'][1]);
+    var marker = new GMarker(point, {icon: icon});
+  
+    map.addOverlay(marker);
+
+    GEvent.addListener(marker, "click", function() {
+      marker.openInfoWindowHtml(object['info_window']['html']);
+    });
+
+    return(marker);
+  }
+
+  window.triggerMarker = function(marker) {
+    map.panTo(marker.getPoint());
+    GEvent.trigger(marker, 'click');
+  }
+
+  window.triggerMarkerByObjectId = function(object_id) {
+    if (markers[object_id]) {
+      triggerMarker(markers[object_id]);
+    }
+  }
+
+//]]>
+</script>

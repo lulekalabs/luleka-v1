@@ -1,0 +1,87 @@
+<%	# setup
+  edit ||= defined?(:edit) && edit.nil? ? true : !!edit
+  charge ||= defined?(:charge) && charge.nil? ? false : !!charge
+  first_name ||= nil
+  last_name ||= nil
+	html_label_options = {:style => 'width:220px;'}
+%>
+<% if edit %>
+
+	<% wizard_form_fields_for type do |c| %>
+    <%# first and last name %>
+  	<% form_table_fields_for type do |t| %>
+    	<% form_table_row do %>
+    		<%= t.text_field :first_name, :edit => edit,
+    		  :label => {:position => :top, :text => "First Name".t, :req => true, :help => true},
+    		  :maxlength => 30, :value => first_name, :style => 'width:100%'
+    		%>
+    		<%= t.text_field :last_name, :edit => edit,
+    		  :label => {:position => :top, :text => "Last Name".t, :req => true, :help => true},
+    		  :maxlength => 30, :value => last_name, :style => 'width:100%'
+    		%>
+    	<% end %>
+    <% end %>
+    <%= help_text type, :first_name, "Enter your first name as it appears on your credit card.".t, :display => false %>
+    <%= help_text type, :last_name, "Enter your last name as it appears on your credit card.".t, :display => false %>
+  
+		<% form_fields_for type do |t| %>
+	    <%= t.text_field :number, :edit => edit, :label => {
+	        :text => "Credit Card Number".t,
+	        :help => {:text => "Enter your credit card number here, e.g. %{example}".t % {
+  		        :example => PaymentMethod.help_example(type)
+  		      }, :escape => false
+  		    },
+	        :req => true,
+	        :position => :left,
+	        :html_options => html_label_options
+	    }, :size => 20, :maxlength => 20 -%>
+			<% form_element do %>
+				<%= form_label_tag "Expiration Date".t, :position => :left, :req => true, :html_options => html_label_options %> 
+    			<% form_field_tag :expiration_date do %>
+    				<% obj = instance_for(type) %>
+    				<% exp_date = Date.parse("#{obj && obj.year ? obj.year : Date.today.year}-#{obj && obj.month ? obj.month : Date.today.month}-1") %>
+    				<%= select_month(exp_date, :use_month_names => %w(01 02 03 04 05 06 07 08 09 10 11 12), :prefix => type.to_s, :field_name => 'month')%>
+    				<%= select_year(exp_date, :start_year => Date.today.year, :end_year => Date.today.year+15, :prefix => type.to_s, :field_name => 'year') %>
+    			<% end %>
+			<% end %>
+			<%= t.password_field :verification_value, :label => {
+			    :position => :left,
+			    :text => "Verification Code".t, :req => true,
+			    :html_options => html_label_options,
+			    :help => true
+			}, :size => 5, :maxlength => 5 %>
+    	<%= help_text type, :verification_value, content_tag(
+    	  :div,
+    	  "Enter the Credit Card Verification (CVV) number as it appears on your credit card. The figure below may help you to locate the CVV code.".t) +
+    	  div_tag(image_tag(PaymentMethod.help_image(type))), :display => false, :escape => false %>
+		<% end %>
+	<% end %>
+<% else %>
+	<!-- Type -->
+	<div class="row">
+		<span class="label-left" style="width: 15em"> <%= "Paying with".t %></span>
+		<span class="input"><%= form_payment_deposit_tag( :payment, merchant_to_payment_type(object.type), { :image => true }) %></span>
+	</div>
+	<!-- Number -->
+	<div class="row">
+		<span class="label-left" style="width: 15em"> <%= "Credit Card Number".t %></span>
+		<span class="input"><%= h object.display_number %></span>
+	</div>
+	<!-- Expiration Date -->
+	<div class="row">
+		<span class="label-left" style="width: 15em"> <%= "Expiration Date (MM/YYYY)".t %></span>
+		<span class="input"><%= h ( object.month.to_s.size==1 ? object.month.to_s.insert(0, '0') : object.month.to_s ) + " / " + object.year.to_s %></span>
+	</div>
+	<!-- Cardholder's Name -->
+	<div class="row">
+		<span class="label-left" style="width: 15em"> <%= "Cardholder's Name".t %></span>
+		<span class="input"><%= h object.name.upcase %></span>
+	</div>
+	<!-- Charge -->
+	<% if charge %>
+	<div class="row">
+		<span class="label-left" style="width: 15em"> <%= "Amount to be charged".t %></span>
+		<span class="input"><%= charge.format %></span>
+	</div>
+	<% end %>
+<% end %>

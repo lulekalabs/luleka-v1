@@ -1,0 +1,77 @@
+<% cache partner_benefits_fragment_cache_key do %>
+<h2 id="headline" class="blue">
+  <%= "Two ways to make money".t %>
+  <br/>
+	<strong>
+    <%= "one great Partner Program".t %>
+	</strong>
+</h2>
+<table id="sections" cellspacing="20">
+  <tbody>
+    <tr>
+      <td class="subsection left">
+  			<h3 class="turquoise"><%= "Bonus Program".t %></h3>
+  			<p class="subheading turquoise"><%= "where everybody benefits".t %></p>
+  			<p class="excerpt">
+  				<%= "When you invite your friends we return portions of their generated earnings back to you.".t %>
+  			</p>
+  			<dl>
+  			  <dt><div class="step1"></div></dt>
+  			  <dd><span><%= "Invite friends.".t %></span>&nbsp;<%= ["You receive a 5% share on all generated earnings of your contacts.".t].to_sentences %></dd>
+	
+  			  <dt><div class="step2"></div></dt>
+  			  <dd><span><%= "Be invited.".t %></span>&nbsp;<%= ["You have the same deal if you accept the invitation.".t].to_sentences %></dd>
+	
+  			  <dt><div class="step3"></div></dt>
+  			  <dd><span><%= "Everybody wins.".t %></span>&nbsp;<%= ["Be connected to the best in their field and receive better recommendations.".t].to_sentences %></dd>
+  			  <div class="clearer"></div>
+  			</dl>
+  		</td>
+  		<td class="subsection right">
+  			<h3 class="green"><%= "Facilitate Solutions".t %></h3>
+  			<p class="subheading green"><%= "that have an impact".t %></p>
+  			<p class="excerpt">
+  				<%= "Anyone can earn money, but only Partners can receive real cash.".t %>
+  			</p>
+  			<dl>
+  			  <dt><div class="step1"></div></dt>
+  			  <dd><span><%= "Find interesting work.".t %></span>&nbsp;<%= "Select from thousands of topics you qualify for and help whenever it is convenient.".t %></dd>
+
+  			  <dt><div class="step2"></div></dt>
+  			  <dd><span><%= "Market your skills.".t %></span>&nbsp;<%= "Enhance your profile with your track record of quality work giving recommendations.".t %></dd>
+
+  			  <dt><div class="step3"></div></dt>
+  			  <dd><span><%= "Real gains.".t %></span>&nbsp;<%= ["Generate new leads through your contribution.".t, "You are compensated for your quality work.".t].to_sentences %></dd>
+  			  <div class="clearClass"></div>
+  			</dl>
+  		</td>
+		</tr>
+  </tbody>
+</table>
+<div id="signupAction">
+	<%= probono_button :label => "Sign Up".t, :url => new_user_partner_path %>
+	<%= "as Luleka Partner or %{link}".t % {:link => link_to("learn more".t, plans_user_partner_path)} %>
+</div>
+<div id="details" class="yellow">
+  <p>
+  <%= ["You need to be %{registered} with us before you can enroll as a Luleka Partner.".t,
+    "%{signing_up} as Luleka Partner is not free, please see our %{membership_plans} for more information.".t].to_sentences % {
+      :registered => link_to("registered".t, new_user_path),
+      :signing_up => link_to("signing up".firstcase, new_user_partner_path),
+      :membership_plans => link_to("membership plans", plans_user_partner_path)
+    } %>
+  </p>
+</div>
+
+<div id="questions" class="clearfix">
+  <div class="left">
+    <%= render :partial => "users/faq" %>
+  </div>
+  <div class="right">
+    <%= render :partial => "partners/faq"%>
+    <p class="question"><%= link_to("More...".t, 
+      @tier ? tier_faq_url(:tier_id => @tier.to_param) : faq_path) %></p>
+  </div>
+</div>
+
+<% end %>

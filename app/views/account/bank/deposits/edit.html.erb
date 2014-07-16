@@ -1,0 +1,60 @@
+<%= wizard_chevron :edit %>
+<% content_left do %>
+	<% wizard_form_for :person, @person, :url => account_bank_deposit_path, :html => {:method => :put} do |f| %>
+		<% bracket_container do %>
+		  <%= form_flash_messages %>
+    	<%= form_error_messages_on_payment_object %>
+			<% steplet(:step => :auto, :title => "Pay Purchasing Credit".t, 
+			  :description => "Review your order for the correct amount of credit you would like to purchase and select a payment method.".t
+			) do %>
+			  <%= render(:partial => 'shared/transaction_methods', :locals => {
+            :name => :payment_method, :mode => :payment, :except => [:piggy_bank, :discover],
+            :amount => @cart.total,
+            :first_name => @user.person.first_name, :last_name => @user.person.last_name,
+            :title => {
+              :req => true, :position => :top,
+              :text => "Select from one of the following".t,
+              :help => true
+            }
+        }) %>
+        <%= help_text_tag :payment_method, "The amount will be charged to the selected payment method.".t, :display => false %>
+			<% end %>
+		<% end %>
+		<% div_tag :id => dom_class(BillingAddress), :display => false do %>
+  		<% bracket_container do %>
+      	<%= form_error_messages_for :person, :unique => true, :attr_names => {
+      	  :business_name => "Business Name".t,
+      	  :first_name => "First Name".t,
+      	  :last_name => "Last Name".t,
+      	  :billing_address => "Billing Address".t,
+      	  :country => "Country".t,
+      	  :country_code => "Country".t,
+      	  :state => "State".t,
+      	  :city => "City".t,
+      	  :zip => "Zip Code".t,
+      	  :street => "Street Address".t,
+      	  :phone => "Phone".t,
+      	  :mobile => "Mobile".t,
+      	  :fax => "Fax".t
+      	} %>
+      	<% steplet :step => :auto, :title => "Billing Address".t do %>
+      		<%= render :partial => 'shared/address', :object => @user.person.billing_address || BillingAddress.new %>
+      	<% end %>
+      <% end %>
+    <% end %>
+		<% form_button_container do %>
+			<%= probono_button :label => "Back".t, :url => new_account_bank_deposit_path, :type => :passive %>
+			<%= form_submit_button "Pay and Continue".t, :position => :right %>
+		<% end %>
+	<% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'shared/sidebar_cart', :locals => {:change_url => new_account_bank_deposit_path} %>
+  <br/>
+  <%= render :partial => 'shared/sidebar_address', :object => @person.billing_address, :locals => {
+    :change_js => visual_effect(:toggle_blind, dom_class(BillingAddress), :duration => 0.5)
+  } %>
+  <br/>
+  <br/>
+  <%= render :partial => 'faq' %>
+<% end %>

@@ -1,0 +1,14 @@
+<% content_left do %>
+	<% wizard_form_for :person, @person, :url => user_partner_path, :html => {:method => :put} do |f| %>
+    <%= render :partial => 'edit_profile', :locals => {:f => f} %>
+    <%= render :partial => 'edit_tax', :locals => {:f => f} %>
+    <%= render :partial => 'edit_contact', :object => @user.person.business_address %>
+		<% form_button_container do %>
+		  <%= hidden_field_tag "_property", "amend" %>
+			<%= form_submit_button "Update".t, :position => :right %>
+		<% end %>
+	<% end %>
+<% end %>
+<% content_right do %>
+  <%= render :partial => 'edit_faq' %>
+<% end %>

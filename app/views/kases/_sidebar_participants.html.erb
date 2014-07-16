@@ -1,0 +1,36 @@
+<% # kases/sidebar_participants
+	title ||= "Participants".t
+	last ||= false
+%>
+<% content_container :theme => :sidebar do %>
+
+  <% headline do %>
+    <%= title %>
+  <% end %>
+
+  <% primary_content :last => false do %>
+    <%= render :partial => 'shared/sidebar_profile_list', :object => @participants, :locals => {:max => 5} %>
+  <% end %>
+
+	<%#--- matching people %>
+  <% secondary_content :style => "padding-bottom:0px" do %>
+  <% end %>
+	<% slider_control(:last => false, :url => member_path([@tier, @topic, @kase], :matching_people, {:sidebar => 'true'})) do %>
+	  <%= slider_control_label "Matches".t %>
+	<% end %>
+
+	<%#--- followers %>
+  <% secondary_content :style => "padding-bottom:0px" do %>
+  <% end %>
+	<% slider_control(:last => false, :url => member_path([@tier, @topic, @kase], :followers, {:sidebar => 'true'})) do %>
+	  <%= slider_control_label "Followers".t %>
+	<% end %>
+
+	<%#--- visitors %>
+  <% secondary_content :style => "padding-bottom:0px" do %>
+  <% end %>
+	<% slider_control(:last => true, :url => member_path([@tier, @topic, @kase], :visitors, {:sidebar => 'true'})) do %>
+	  <%= slider_control_label "Visitors".t %>
+	<% end %>
+
+<% end %>

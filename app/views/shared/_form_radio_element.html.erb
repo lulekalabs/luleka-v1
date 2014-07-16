@@ -1,0 +1,17 @@
+<%
+  description ||= nil
+%>
+<% div_tag :class => "radioElement" do %>
+	<table cellpadding=0 cellspacing=0>
+		<tr>
+			<td style="vertical-align: middle;">
+			  <%= div_tag button, :class => "radioButton"%>
+			</td>
+			<td style="vertical-align: middle;">
+		    <%= span_tag label, :class => "radioLabel" unless label.blank? %>
+				<%= span_tag description, :class => "radioDescription" if description %>
+			</td>
+		</tr>
+	</table>
+<% end %>
+<div class="clearClass"></div>

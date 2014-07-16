@@ -1,0 +1,39 @@
+<%
+  form_url ||= if @tier || params[:tier_id]
+    form_url = collection_url([:tier, @kase, :rewards], nil, {:tier_id => @tier || params[:tier_id]})
+  else
+    form_url = kase_rewards_path(@kase)
+  end
+%>
+<% unless uses_modal? %>
+  <% content_left do %>
+  	<% wizard_form_for :reward, @reward, :url => form_url do |f| %>
+  	
+  	  <%= render :partial => "form", :locals => {:f => f} %>
+  	  
+      <% form_button_container do %>
+      	<%= probono_button :label => "Cancel".t, :url => :back, :type => :passive %>
+      	<%= form_submit_button "Continue".t, :position => :right %>
+      <% end %>
+
+  	<% end %>
+  <% end %>
+  <% content_right do %>
+    <%= render :partial => 'faq' %>
+  <% end %>
+<% else %>  
+  <% content_modal do %>
+    <% wizard_form_for :reward, @reward, :url => form_url, :remote => true do |f| %>
+	
+  	  <%= render :partial => "form", :locals => {:f => f} %>
+	  
+	    <% form_button_container do %>
+	      <%= probono_button :label => "Cancel".t, :position => :left, :type => :passive, 
+	        :function => close_modal_javascript %>
+      	<%= form_submit_button "Continue".t, :position => :right %>
+	    <% end %>
+	  
+  	<% end %>
+  <% end %>
+<% end %>  
+

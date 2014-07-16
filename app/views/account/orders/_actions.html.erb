@@ -1,0 +1,8 @@
+<% sidebar_actions_container do %>
+	<%= sidebar_action_link_to "Add Credit".t, new_account_bank_deposit_path %>
+  <%= sidebar_action_link_to "Transfer Credit".t, new_account_bank_transfer_path %>
+	<%= sidebar_action_separator -%>
+  <%= sidebar_action_link_to "Ledger".t, account_bank_transactions_path %>
+  <%= sidebar_action_link_to_if @person.partner?, "Sales Invoices".t, account_sales_invoices_path %>
+  <%= sidebar_action_link_to "Purchase Invoices".t, account_purchase_invoices_path %>
+<% end %>

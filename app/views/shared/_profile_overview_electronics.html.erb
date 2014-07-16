@@ -1,0 +1,14 @@
+<% # Setup
+	if defined?( home_page_url ).nil? || home_page_url.nil?
+		home_page_url = true
+	end	
+	if defined?( blog_url ).nil? || blog_url.nil?
+		blog_url = true
+	end	
+%>
+<% div_tag_if home_page_url && person.home_page_url? do -%>
+	<%= link_through_to h(person.home_page_url), person.home_page_url, :popup => true %>
+<%- end -%>
+<% div_tag_if blog_url && person.blog_url? do -%>
+	<%= link_through_to h(person.blog_url), person.blog_url, :popup => true %>
+<%- end -%>

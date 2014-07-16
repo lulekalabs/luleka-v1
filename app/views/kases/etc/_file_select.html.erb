@@ -1,0 +1,47 @@
+<%= javascript_tag "var file#{@index}" %>
+<%
+	if defined?( delete ).nil? || delete.nil?
+		delete = true 
+	end
+	if defined?( issue_id ).nil? || issue_id.nil?
+		issue_id = nil 
+	end
+%>
+<% form_field_tag "file#{@index}", :id => "file#{@index}" do %>
+	<% if asset=instance_for( "asset#{@index}" ) %>
+		<%
+			remote_delete_link = link_to_remote(
+				'',
+				:url => { :action => :remove_file_select, :index => @index, :issue_id => issue_id, :asset_id => asset.id },
+#				:update => "file#{@index}",
+				:loading => update_page do |page|
+					page['asset_spinner'].show
+				end,
+				:complete => update_page do |page|
+					page << 'try {'
+					page["file#{@index}"].replace_html ''
+					page << 'index--;'
+					page << '} catch(e) {}'
+					page['asset_spinner'].hide
+				end
+			)
+			delete_link = link_to_function('', nil ) do |page|
+				page["file#{@index}"].replace_html ''
+				page << 'index--;'
+			end
+		%>
+		<% delete_btn_link = delete ? button_link_tag( asset.file.nil? ? delete_link : remote_delete_link, :type => :minus, :color => 'turquoise', :style => 'float:left; padding: 5px 0 0 5px', :alt => "Delete".t ) : '' %>
+
+		<% if asset.file.nil? %>
+			<%= file_column_field "asset#{@index}", :file, :style => 'width:300px' %>
+			<%= delete_btn_link %>
+		<% else %>
+			<%= table_cells_tag(
+				image_asset_tag( asset, :size => "16x16", :preview => false ), { :style => 'padding-right: 5px;' },
+				content_tag(:span, asset.file_name, :style => "font-size: 11px"), { :style => 'width:300px'},
+				delete_btn_link
+			) %>
+			<% file_column_field "asset#{@index}", :file, :style => "display:none;"%>
+		<% end %>
+	<% end %>
+<% end %>

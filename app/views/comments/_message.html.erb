@@ -1,0 +1,29 @@
+<% # comments/message
+  comment ||= message || @comment
+  f ||= nil
+  edit ||= defined?(:edit) && edit.nil? ? true : !!edit
+	label ||= defined?(:label) && label == false ? false : {:position => :top, :help => false,
+	  :text => "Add your %{type}".t % {:type => comment.class.human_name}}
+	message_dom_id ||= dom_id(comment, "message_#{rand(10000)}")
+%>
+<% if edit %>
+  <% if f %>
+  
+    <%#--- message %>
+  	<%= f.text_area(:message, :position => :top, :label => label, :id => message_dom_id,
+  	  :class => "commentMessageTextArea autogrow", :size => "80x2"
+    ) %>
+    
+    <%#--- language %>
+  	<%= render :partial => 'shared/form_select_language_with_flipper', :object => comment,
+  		:locals => {:object_name => :comment} %>
+  		
+  <% else %>
+    <% form_fields_for :comment, comment do |f| %>
+      <%= render :partial => 'comments/message', :object => comment,
+        :locals => {:f => f, :edit => edit, :label => label, :message_dom_id => message_dom_id} %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= div_tag markdown(comment.message), :class => "primaryContentText" %>
+<% end %>

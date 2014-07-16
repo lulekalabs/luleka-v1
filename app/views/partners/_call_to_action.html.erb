@@ -1,0 +1,11 @@
+<div class="reasons">
+  <h4><%= link_to "Become a #{SERVICE_NAME} #{SERVICE_PARTNER_NAME} Today".t, new_user_partner_path %></h4>
+  <p>
+    <%= "Only #{SERVICE_NAME} #{SERVICE_PARTNER_NAME} can work on cases with rewards.".t %>
+  </p>
+  <%= render :partial => 'partners/why_to_buy_list' %>
+  <% content_button_container do %>
+    <%= probono_button :label => "Upgrade".t, :url => new_user_partner_path, :position => :right %>
+  <% end %>
+  <br/>
+</div>

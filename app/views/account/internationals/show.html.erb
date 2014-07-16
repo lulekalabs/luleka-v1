@@ -1,0 +1,7 @@
+<%= render :partial => 'account/form', :locals => {
+	:url => account_international_path,
+	:title => "International Settings".t, 
+	:description => "Update your preferred language and time zone information here.".t,
+	:object => @user,
+	:object_name => :user
+} %>

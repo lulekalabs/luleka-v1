@@ -1,0 +1,69 @@
+
+# english words    
+what: 
+  id: 1
+  good: 
+  bad: \bwhat\b
+  good_de: 
+  bad_de: 
+is: 
+  id: 2
+  good: 
+  bad: \bis\b
+  bad_de: 
+  good_de: 
+the: 
+  id: 3
+  good: 
+  bad: \bthe\b
+  good_de: 
+  bad_de: 
+fuck: 
+  id: 4
+  good: paint
+  bad: f[u]{1,}[c]{0,}[k]{1,}|f[u]{1,}[c]{1,}[k]{0,}
+  good_de: 
+  bad_de: 
+
+
+
+# german words
+
+bumsen: 
+  id: 100
+  good: 
+  bad: 
+  bad_de: bumse[r,n]
+  good_de: staubsaugen
+scheisse: 
+  id: 101
+  good: 
+  bad: 
+  bad_de: "schei[s]{1,}e|schei[\xC3\x9F]{1,}e"
+  good_de: schokolade
+
+diese:
+  id: 102
+  good: 
+  bad: 
+  good_de: 
+  bad_de: \bdiese\b
+ist:
+  id: 103
+  good: 
+  bad: 
+  good_de: 
+  bad_de: \bist\b
+das:
+  id: 104
+  good: 
+  bad: 
+  good_de: 
+  bad_de: \bdas\b
+vieles: 
+  id: 105
+  good: 
+  bad: 
+  bad_de: \bvieles\b
+  good_de: 
+    

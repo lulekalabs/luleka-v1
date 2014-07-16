@@ -1,0 +1,28 @@
+<%
+  person ||= sidebar_profile
+  function ||= :link_to
+  url ||= if !defined?(link)
+    person_path(person) if person
+  elsif link.is_a?(FalseClass)
+    false
+  elsif link.is_a?(TrueClass)
+    person_path(person)
+  elsif link.is_a?(String)
+    link
+  elsif link.is_a?(Hash)
+    url_for(link)
+  end
+%>
+<% if person %>
+<div class="bracketBoxSmallTop"></div>
+  <div class="bracketBoxSmallMiddle">
+    <div class="tagCloudBoxTop"></div>
+      <div class="tagCloudBoxMiddle">
+        <%= render :partial => 'people/sidebar_item_content', :object => person,
+          :locals => {:function => function, :url => url} %>
+        <%= probono_clear_class %>
+      </div>
+    <div class="tagCloudBoxBottom"></div>
+  </div>
+<div class="bracketBoxSmallBottom"></div>
+<% end %>

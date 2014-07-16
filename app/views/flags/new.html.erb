@@ -1,0 +1,32 @@
+<% unless request.xhr? %>
+  <% content_left do %>
+    <% wizard_form_for :flag, @flag, {:url => flag_path(@flag), :method => :post} do |f| %>
+
+      <%= render :partial => 'flags/form', :locals => {:f => f} %>
+
+      <% form_button_container do %>
+        <%= probono_button :label => "Cancel".t, :position => :left, :type => :passive, :url => :back %>
+        <%= form_submit_button "Send Details".t, :position => :right %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% content_right do %>
+    <%= render :partial => 'flags/faqs' %>
+  <% end %>
+<% else %>
+  <% div_tag :id => dom_id(@flag) do %>
+    <% content_modal do %>
+      <% wizard_form_for :flag, @flag, :url => flag_path(@flag), :remote => true do |f| %>
+
+        <%= render :partial => 'flags/form', :locals => {:f => f} %>
+
+        <% form_button_container do %>
+  	      <%= probono_button :label => "Cancel".t, :position => :left, :type => :passive, 
+  	        :function => close_modal_javascript %>
+        	<%= form_submit_button "Continue".t, :position => :right %>
+  	    <% end %>
+
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

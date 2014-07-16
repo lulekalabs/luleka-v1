@@ -1,0 +1,30 @@
+<%
+  flag ||= flag || @flag
+%>
+<% bracket_container do %>
+  <%= form_error_messages_for :flag %>
+  <% steplet(
+    :id => dom_id(flag, :form),
+    :step => :auto,
+    :title => "Flag Content".t,
+    :description => "What is the issue with this %{content}?".t % {:content => flag.flaggable.class.human_name}
+  ) do %>
+
+    <% form_element do %>
+  		<%= form_label(:flag, :reason, :position => :top, :auto => false, :req => true,
+  		  :text => "Chose from one of the categories below".t) %>
+    	<% form_field :flag, :reason do %>
+    		<% radio_group do %>
+    		  <% @flaggable.reasons.each do |reason| %>
+    				<%= form_radio_element_tag("flag_reason_#{reason}", :label => {:text => "#{reason}".humanize},
+    					:button => radio_button(:flag, :reason, reason, :object => @flag)
+    				) %>
+        	<% end %>
+  			<% end %>
+    	<% end %>
+    <% end %>
+
+    <%= f.text_area :description, :label => {:text => "Let us know why you are flagging this content?".t, :position => :top, :auto => false, :req => true, :help => {:text => "We will examine the details of your flag. We'll work to be as responsive and speedy as possible, but be aware that it could take up to four business days to resolve a flagged topic or reply. Regardless of the outcome, we will always be open to additional feedback.".t, :display => true}}, :size => '50x2', :style => 'width: 100%' %>
+  
+  <% end %>
+<% end %>

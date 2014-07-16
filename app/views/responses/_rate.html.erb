@@ -1,0 +1,64 @@
+<% # setup
+	if defined?( form_id ).nil? || form_id.nil?
+		form_id = 'response_rate_form'
+	end
+	if defined?( html_id ).nil? || html_id.nil?
+		html_id = "#{form_id}_id"
+	end
+	if defined?( html_response_id ).nil? || html_response_id.nil?
+		html_response_id = 'response_id'
+	end
+	if defined?( html_response_message_id ).nil? || html_response_message_id.nil?
+		html_response_message_id = 'response_message_id'
+	end
+%>
+<% div_tag( :class => 'commentsRating' ) do %>
+	<% form_tag( 
+		{},
+		{ :id => form_id }
+	) do %>
+		<% stars_rate_field_tag(
+			'response_rating',
+			0,
+			:class => 'greenBoxStarBox',
+			:star_img_inactive => 'star_green_rate.png',
+			:star_img_active => 'star_green_rate_highlight.png'
+		) do %>
+			<% div_tag( :style => 'float: left; margin: 0px 0px 10px 0px; width: 367px;color: #878889;font-size: 10px;' ) do %>
+				<%= "Rate the response and make your selection based on the usefulness of the solution, from 'Very Useful', 'Useful', 'Alright', 'Not Useful', or 'I think the response is wrong'. You can also leave a short comment.".t %>
+			<% end %>
+			<%= probono_clear_class %>
+		<% end %>
+		<%= text_area_tag "rating_body", '', :style => "border:1px solid #878889; width:477px; padding:0px", :rows => 3 %>
+		<%= hidden_field_tag :person_id, person.id %>
+		<%= hidden_field_tag :issue_id, issue.id %>
+	<% end %>
+	<% content_button_container do %>
+		<%= probono_button(
+			:label => "Rate".t,
+			:type => :active,
+			:position => :right,
+			:function => remote_function(
+				:url => { :method => :post, :action => 'respond', :kind => 'rate' },
+				:loading => update_page do |page|
+					page['response_rate_spinner_id'].show
+				end,
+				:complete => update_page do |page|
+#					page['response_rate_spinner_id'].hide
+				end,
+				:submit => form_id,
+				:update => { :success => html_response_id, :failure => html_response_message_id },
+				:success => update_page do |page|
+					page << "new Effect.ScrollTo(#{html_response_message_id}, {offset:-6});"
+				end,
+				:failure => update_page do |page|
+					page['response_rate_spinner_id'].hide
+					page << "new Effect.ScrollTo(#{html_response_message_id}, {offset:-6});"
+				end
+			)
+		) -%>
+		<% div_tag :style => 'float:right' do %>
+			<%= progress_spinner :id => 'response_rate_spinner_id' %>
+		<% end %>
+	<% end %>
+<% end %>

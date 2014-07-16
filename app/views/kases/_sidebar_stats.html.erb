@@ -1,0 +1,28 @@
+<%# kases/sidebar_stats %>
+<%
+  kase ||= sidebar_stats || @kase
+%>
+<% sidebar_stats do %>
+
+  <%= sidebar_stats_pair(kase.responses_count, 
+  	"%{replies} made".t % {:replies => pluralize_word(kase.responses_count, 'reply')}) %>
+
+  <%= sidebar_stats_pair(kase.rewards_count, 
+  	pluralize_word(kase.rewards_count, 'reward offer')) %>
+
+	<%= sidebar_stats_pair(kase.votes_count, 
+		"%{votes} made".t % {:votes => pluralize_word(kase.votes_count, 'vote')}) %>
+	
+	<%= sidebar_stats_pair(kase.followers_count,
+	 	"%{followers} watching".t % {:followers => pluralize_word(kase.followers_count, 'follower')}) %>
+
+	<%= sidebar_stats_pair(kase.participants_count,
+	 	"%{people} participating".t % {:people => pluralize_word(kase.participants_count, 'person')}) %>
+
+	<%= sidebar_stats_pair(kase.employees_count,
+	 	"%{employees} helping".t % {:employees => pluralize_word(kase.employees_count, 'employee')}) %>
+
+	<%= sidebar_stats_pair(kase.visits_count,
+	 	"%{visitors} seen".t % {:visitors => pluralize_word(kase.visits_count, 'visitor')}, :last => true) %>
+
+<% end %>

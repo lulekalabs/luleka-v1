@@ -1,0 +1,38 @@
+<%  # emails/new
+  form_url ||= if @tier || params[:tier_id]
+    collection_url([:tier, @kase, :emails], nil, {:tier_id => @tier || params[:tier_id]})
+  else
+    kase_emails_path(:kase_id => @kase.to_param)
+  end
+%>
+<% unless request.xhr? %>
+	<% content_left do %>
+	  <% wizard_form_for :email, @email, {:url => form_url} do |f| %>
+	
+			<%= render :partial => 'form', :locals => {:f => f} %>
+
+	    <% form_button_container do %>
+	      <%= probono_button :label => "Cancel".t, :position => :left, :type => :passive, :url => :back %>
+	      <%= form_submit_button "Send".t, :position => :right %>
+	    <% end %>
+	  <% end %>
+	<% end %>
+	<% content_right do %>
+	<% end %>
+<% else %>
+	<% div_tag :id => dom_class(EmailKase) do %>
+
+		<% content_modal do %>
+		  <% wizard_form_for :email, @email, {:url => form_url, :method => :post, :remote => true} do |f| %>
+
+				<%= render :partial => 'form', :locals => {:f => f} %>
+
+		    <% form_button_container do %>
+		      <%= probono_button :label => "Cancel".t, :position => :left, :type => :passive, :function => close_modal_javascript %>
+		      <%= form_submit_button "Send".t, :position => :right %>
+		    <% end %>
+		  <% end %>
+		<% end %>
+
+	<% end %>
+<% end %>

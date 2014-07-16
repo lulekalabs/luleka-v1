@@ -1,0 +1,33 @@
+<%
+  person ||= form_select_spoken_languages || @person
+  object_name ||= :person
+  method_name ||= :spoken_language_ids
+	edit ||= begin edit.nil? ? true : edit; rescue; true; end
+%>
+<% if edit %>
+  <% form_element do %>
+  	<%= form_label :person, :spoken_languages,
+  	  :text => "Which languages do you speak?".t, :position => :top, :auto => false %>
+  	<% div_tag :class => "radiogroup" do %>
+  		<% SpokenLanguage.find(:all, :order => "#{SpokenLanguage.localized_facet(:name)} ASC").each do |spoken_language| %>
+    		<% div_tag :class => "radiofield", :style => "float: left; width: 30%" do %>
+    			<%= check_box_tag("#{object_name}[#{method_name}][]", spoken_language.id,
+    			  person.default_language_code == spoken_language.code ? true : person.spoken_language_ids.include?(spoken_language.id), {
+    			  :id => dom_class(SpokenLanguage, spoken_language.code),
+    			  :disabled => person.default_language_code == spoken_language.code
+    			}) %>
+    			<%= hidden_field_tag("#{object_name}[#{method_name}][]",
+    			  spoken_language.id) if person.default_language_code == spoken_language.code %>
+    			<small>
+    			<%= content_tag(:label,
+    			  spoken_language.name ? spoken_language.name.humanize : spoken_language.native_name.humanize,
+    			  :for => dom_class(SpokenLanguage, spoken_language.code)) %>
+    			</small>
+    		<% end %>
+  		<% end %>
+  	<% end %>
+    <%= probono_clear_class %>
+  <% end %>
+<% else %>
+  <%= property_spoken_languages person || object_name %>
+<% end %>

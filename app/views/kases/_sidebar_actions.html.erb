@@ -1,0 +1,69 @@
+<%#--- kases/actions %>
+<% content_container :id => "sidebarActions", :theme => :sidebar do %>
+	<%= div_tag :class => "sideBarBoxGrayTopSimple" %>
+
+	<% if (context = render(:partial => 'kases/sidebar_topic_and_tiers')) && !context.blank? %>
+		<% primary_content :last => false do %>
+  	  <%= context %>
+  	<% end %>
+	
+		<% if (body = render(:partial => 'kases/show_actions')) && !body.blank? %>
+
+			<% secondary_content :open => true, :last => true, :style => "border-bottom:1px solid #CBCBCB;" do %>
+    		<% ul_tag :class => "sideBarActionElements" do %>
+    		  <%= body %>
+    		<% end %>
+    	<% end %>
+  	
+		<% end %>
+
+	<% else %>
+
+  	<% primary_content :style => "padding-bottom:0px;" do %>
+			<% sidebar_actions_elements do %>
+  		  <%= render :partial => 'kases/show_actions' %>
+  		<% end %>
+  	<% end %>
+
+	<% end %>
+	
+	<%#--- share %>
+  <% secondary_content :style => "padding-bottom:0px" do %>
+		<% sidebar_actions_elements do %>
+		  <% 
+		    email_url ||= if @tier || params[:tier_id]
+          collection_url([:tier, @kase, :email], :new, {:tier_id => @tier || params[:tier_id]})
+        else
+          new_kase_email_url(:kase_id => @kase.to_param)
+        end
+		  %>
+			<%= sidebar_action_remote_facebox_link_to("Email to a friend".t,
+				email_url, {:icon => :action}) %>
+				
+			<%= sidebar_action_link_to("Twitter this".t ,
+				share_on_twitter_url(@kase), {:icon => :action, :popup => true}) %>
+
+			<%= sidebar_action_link_to("Share on Facebook".t ,
+				share_on_facebook_url(@kase), {:icon => :action, :popup => true}) %>
+
+		<% end %>
+
+  <% end %>
+	<% slider_control(:last => false) do %>
+	  <%= slider_control_label "Share".t %>
+	<% end %>
+
+	<%#--- follow %>
+  <% secondary_content :style => "padding-bottom:0px" do %>
+		<% sidebar_actions_elements do %>
+
+			<%= render :partial => 'kases/action_toggle_follow' %>
+		
+		<% end %>
+  <% end %>
+	<% slider_control(:last => true) do %>
+	  <%= slider_control_label "Subscribe".t %>
+	<% end %>
+	
+
+<% end %>

@@ -1,0 +1,73 @@
+<%# kases/faq %>
+<%
+  concise ||= false
+%>
+<div class="faq">
+  <h4 class="question">
+    <%= "How do I seek advice?".t %>
+  </h4>
+  <div class="answer">
+    <%= ["You seek advice by posting a concern on Luleka.".t, 
+      "A concern can be any Question, Idea, Problem or Praise.".t].to_sentences %>
+  </div>
+
+  <h4 class="question">
+    <%= "What is a recommendation?".t %>
+  </h4>
+  <div class="answer">
+    <%= "A recommendation is one or multiple responses to a concern.".t %>
+  </div>
+
+  <h4 class="question">
+    <%= "What is a solution?".t %>
+  </h4>
+  <div class="answer">
+    <%= "The recommendation that answers a question, solves the problem, etc. is marked as solved.".t %>
+  </div>
+
+  <% unless concise %>
+    <h4 class="question">
+      <%= "What kinds of incentives do you offer?".t %>
+    </h4>
+    <div class="answer">
+      <%= "Depending on each community or concern, there is a number of opportunities to receive rewards, such as reputation, monetary bonuses or monetary rewards.".t %>
+    </div>
+    <h4 class="question">
+      <%= "What is reputation?".t %>
+    </h4>
+    <div class="answer">
+      <%= ["Reputation is a rough measure of how much the community trusts you.".t, "Reputation is never given, it is earned by convincing other users that you know what you're talking about.".t, "The more reputation points you collect the higher your reputation is.".t].to_sentences %>
+    </div>
+    <h4 class="question">
+      <%= "Why do I need reputation?".t %>
+    </h4>
+    <div class="answer">
+      <%= "Reputation is completely optional and normal use does not require any reputation whatsoever.".t %>
+      <%= "If you do go beyond simply starting and replying to conversations, your accumulated reputation points help you to gain more influence in the community.".t %>
+    </div>
+
+    <h4 class="question">
+      <%= "How do I earn a monetary bonus?".t %>
+    </h4>
+    <div class="answer">
+      <%= ["Some communities offer monetary bonuses in a similar way reputation is earned, i.e. based on a user's action.".t,
+        "For example, if your recommendation solves a problem, you earn a bonus of %{money}.".t % {
+          :money => Money.new(50, Utility.country_to_currency_code(I18n.locale_country)).format}].to_sentences %>
+    </div>
+
+    <h4 class="question">
+      <%= "What is a monetary reward?".t %>
+    </h4>
+    <div class="answer">
+      <%= ["A monetary reward can be offered by any user seeking advice.".t, "Likewise, users can add monetary rewards to increase quality and turnaround time on their own or on others' concerns.".t, "The rewarded amount is transferred to the user offering the best solution.".t, "For example, a paralegal is giving excellent input on a pressing contractual issue and receives a reward of %{money}.".t].to_sentences % {
+        :money => Money.new(5000, Utility.country_to_currency_code(I18n.locale_country)).format} %>
+    </div>
+
+    <h4 class="question">
+      <%= "What is the revenue split on monetary rewards?".t %>
+    </h4>
+    <div class="answer">
+      <%= ["70/30", "70% goes to the user earning the reward, #{SERVICE_NAME} stays with the remaining 30%.".t].to_sentences %>
+    </div>
+  <% end %>  
+</div>

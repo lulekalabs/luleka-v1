@@ -1,0 +1,10 @@
+<%
+	disabled ||= false
+	help ||= defined?(:help) && help == false ? false : {
+	  :text => "By providing your birthdate, you confirm that you are 18 years or older, the eligible age for using #{SERVICE_NAME}.".t
+	}
+	label ||= {:text => "Birthdate".t, :position => :left, :auto => false, :req => true, :lock => true, :help => help}
+%>
+<%= f.date_select :birthdate, :start_year => (Time.now.utc - 17.years).year,
+  :order => Date.format_array, :end_year => 1910, :include_blank => true,
+  :label => label, :width => '100%' %>
